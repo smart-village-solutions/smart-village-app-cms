@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Getting started with JSON Form</title>
+  <link rel="stylesheet" style="text/css" href="deps/opt/bootstrap.css" />
+  <link rel="stylesheet" style="text/css" href="deps/opt/custom.css" />
+  <link rel="stylesheet" style="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.10/css/AdminLTE.css" />
+  <link rel="stylesheet" style="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.10/css/skins/skin-blue.css" />
+  <link rel="stylesheet" style="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+  <script type="text/javascript" src="deps/jquery.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.10/js/adminlte.min.js"></script>
+  <script type="text/javascript" src="deps/underscore.js"></script>
+  <script type="text/javascript" src="deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="lib/jsonform.js"></script>
+</head>
+
+<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+  <div class="wrapper" style="height: auto; min-height: 100%;">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+      <!-- Logo -->
+      <a href="index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>S</b>V</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>SmartVillage</b>CMS</span>
+      </a>
+
+      <!-- Header Navbar -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+          </ul>
+        </div>
+      </nav>
+
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <ul class="sidebar-menu tree" data-widget="tree">
+          <li class="header">HEADER</li>
+          <!-- Optionally, you can add icons to the links -->
+          <li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Übersicht</span></a></li>
+          <li><a href="news.html"><i class="fa fa-tachometer"></i> <span>News</span></a></li>
+          <li><a href="poi.html"><i class="fa fa-tachometer"></i> <span>Points of Interest</span></a></li>
+          <li class="active"><a href="event.html"><i class="fa fa-tachometer"></i> <span>Event</span></a></li>
+          <li><a href="category.html"><i class="fa fa-tachometer"></i> <span>Categories</span></a></li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 298px;">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Create Event
+          <small>Based on event schema</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+          <li class="active">Here</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content container-fluid">
+
+
+        <div id="res" class="alert alert-warning alert-dismissible" role="alert"></div>
+
+        <!--------------------------
+              | Your Page Content Here |
+              -------------------------->
+        <form></form>
+
+        <script type="text/javascript">
+          $.getJSON("src/event_schema.json", function (dataSchema) {
+            console.log(dataSchema);
+          }).done(function (dataSchema) {
+            $.getJSON("src/event_form_schema.json", function (formSchema) { }).done(function (formSchema) {
+              console.log(formSchema);
+              $('form').jsonForm({
+                "schema": dataSchema,
+                "form": formSchema,
+                onSubmit: function (errors, values) {
+                  if (errors) {
+                    $('#res').html('<p>I beg your pardon?</p>');
+                  }
+                  else {
+                    $('#res').html('<p>Data Submitted To Server</p>');
+                  }
+                }
+              });
+            });
+
+
+          });
+        </script>
+
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="pull-right hidden-xs">
+        powered by ikusei GmbH
+      </div>
+      <!-- Default to the left -->
+      <strong>Copyright © 2019 <a href="#">Smart Village</a>.</strong> All rights reserved.
+    </footer>
+
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <%= render partial: "/layouts/control_sidebar" %>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+        immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+  </div>
+</body>
+
+</html>

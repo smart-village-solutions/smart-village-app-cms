@@ -1,0 +1,79 @@
+[
+  {
+    "type": "fieldset",
+    "title": "Data Provider Options",
+    "expandable": true,
+    "items": ["data_provider"]
+  },
+  "parent_id",
+  {
+    "type": "fieldset",
+    "items": ["content"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Event Days",
+    "expandable": true,
+    "items": [
+      "event_days",
+      {
+        "key": "repeat",
+        "notitle": true,
+        "inlinetitle": "Repeatable"
+      },
+      "repeat_duration.start_date",
+      "repeat_duration.end_date",
+      {
+        "key": "repeat_duration.every_year",
+        "notitle": true,
+        "inlinetitle": "Every Year"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Event URLs",
+    "expandable": true,
+    "items": ["urls"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Address Options",
+    "expandable": true,
+    "items": ["address"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Contact Options",
+    "expandable": true,
+    "items": ["contact"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Operating Company Options",
+    "expandable": true,
+    "items": ["operating_company"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Location Options",
+    "expandable": true,
+    "items": ["location"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Image Gallery Options",
+    "expandable": true,
+    "items": ["image_gallery"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Barrierefreiheit Options",
+    "expandable": true,
+    "items": ["barrierefrei"]
+  },
+  {
+    "type": "submit",
+    "title": "Send Data to Server"
+  }
+]

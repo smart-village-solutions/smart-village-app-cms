@@ -1,0 +1,375 @@
+{
+  "data_provider": {
+    "type": "object",
+    "title": "Data Provider",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name"
+      },
+      "logo": {
+        "type": "string",
+        "title": "Logo URL"
+      },
+      "description": {
+        "type": "textarea",
+        "title": "Description"
+      },
+      "address": {
+        "type": "object",
+        "title": "Address",
+        "properties": {
+          "street": {
+            "type": "string",
+            "title": "Street"
+          },
+          "zip": {
+            "type": "string",
+            "title": "ZIP"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "coordinates": {
+            "type": "object",
+            "title": "Coordinates",
+            "properties": {
+              "lat": {
+                "type": "number",
+                "title": "Latitude"
+              },
+              "lng": {
+                "type": "number",
+                "title": "Longitude"
+              }
+            }
+          }
+        }
+      },
+      "contact": {
+        "type": "object",
+        "title": "Contact",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "title": "Phone"
+          },
+          "fax": {
+            "type": "string",
+            "title": "Fax"
+          },
+          "email": {
+            "type": "string",
+            "title": "email"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL"
+          }
+        }
+      }
+    }
+  },
+  "parent_id": {
+    "type": "string",
+    "title": "Parent Event",
+    "enum": ["Master Event", "Subevent"]
+  },
+  "content": {
+    "type": "object",
+    "title": "Content",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Title"
+      },
+      "description": {
+        "type": "textarea",
+        "title": "Description"
+      },
+      "ticket_url": {
+        "type": "string",
+        "title": "Ticket URL"
+      }
+    }
+  },
+  "event_days": {
+    "type": "array",
+    "title": "Event Days",
+    "items": {
+      "type": "object",
+      "title": "Event Day",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "title": "Start Date (2007-12-24T18:21Z)"
+        },
+        "end_date": {
+          "type": "string",
+          "title": "Start Date (2007-12-24T18:21Z)"
+        },
+        "description": {
+          "type": "textarea",
+          "title": "Start Date (2007-12-24T18:21Z)"
+        }
+      }
+    }
+  },
+  "repeat": {
+    "type": "boolean",
+    "title": "Repeatable"
+  },
+  "repeat_duration": {
+    "type": "object",
+    "title": "Repeat Duration",
+    "properties": {
+      "start_date": {
+        "type": "string",
+        "title": "Start Date (2007-12-24T18:21Z)"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date (2007-12-24T18:21Z)"
+      },
+      "every_year": {
+        "type": "boolean",
+        "title": "Every Year"
+      }
+    }
+  },
+  "urls": {
+    "type": "array",
+    "title": "URLs",
+    "items": {
+      "type": "object",
+      "title": "URL",
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "Absolute URL path"
+        },
+        "description": {
+          "type": "string",
+          "title": "Link Description"
+        }
+      }
+    }
+  },
+  "address": {
+    "type": "object",
+    "title": "Address",
+    "properties": {
+      "street": {
+        "type": "string",
+        "title": "Street"
+      },
+      "zip": {
+        "type": "string",
+        "title": "ZIP"
+      },
+      "city": {
+        "type": "string",
+        "title": "City"
+      },
+      "coordinates": {
+        "type": "object",
+        "title": "Coordinates",
+        "properties": {
+          "lat": {
+            "type": "string",
+            "title": "Latitude"
+          },
+          "lng": {
+            "type": "string",
+            "title": "Longitude"
+          }
+        }
+      }
+    }
+  },
+  "contact": {
+    "type": "object",
+    "title": "Contact",
+    "properties": {
+      "phone": {
+        "type": "string",
+        "title": "Phone"
+      },
+      "fax": {
+        "type": "string",
+        "title": "Fax"
+      },
+      "email": {
+        "type": "string",
+        "title": "email"
+      },
+      "url": {
+        "type": "string",
+        "title": "URL"
+      }
+    }
+  },
+  "operating_company": {
+    "type": "object",
+    "title": "Operating Company",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name"
+      },
+      "address": {
+        "type": "object",
+        "title": "Address",
+        "properties": {
+          "street": {
+            "type": "string",
+            "title": "Street"
+          },
+          "zip": {
+            "type": "string",
+            "title": "ZIP"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "coordinates": {
+            "type": "object",
+            "title": "Coordinates",
+            "properties": {
+              "lat": {
+                "type": "string",
+                "title": "Latitude"
+              },
+              "lng": {
+                "type": "string",
+                "title": "Longitude"
+              }
+            }
+          }
+        }
+      },
+      "contact": {
+        "type": "object",
+        "title": "Contact",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "title": "Phone"
+          },
+          "fax": {
+            "type": "string",
+            "title": "Fax"
+          },
+          "email": {
+            "type": "string",
+            "title": "email"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL"
+          }
+        }
+      }
+    }
+  },
+  "location": {
+    "type": "object",
+    "title": "Location",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name"
+      },
+      "department": {
+        "type": "string",
+        "title": "Department"
+      },
+      "district": {
+        "type": "string",
+        "title": "District"
+      },
+      "region": {
+        "type": "string",
+        "title": "Region"
+      },
+      "state": {
+        "type": "string",
+        "title": "State"
+      },
+      "country": {
+        "type": "string",
+        "title": "Country"
+      },
+      "coordinates": {
+        "type": "object",
+        "title": "Coordinates",
+        "properties": {
+          "lat": {
+            "type": "string",
+            "title": "Latitude"
+          },
+          "lng": {
+            "type": "string",
+            "title": "Longitude"
+          }
+        }
+      }
+    }
+  },
+  "image_gallery": {
+    "type": "array",
+    "title": "Images",
+    "items": {
+      "type": "object",
+      "title": "Image",
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "Image url"
+        },
+        "copyright": {
+          "type": "string",
+          "title": "Image copyright"
+        },
+        "caption": {
+          "type": "string",
+          "title": "Image caption"
+        }
+      }
+    }
+  },
+  "barrierefrei": {
+    "type": "object",
+    "title": "Barrierefreiheit",
+    "properties": {
+      "type": {
+        "type": "string",
+        "title": "Type"
+      },
+      "description": {
+        "type": "string",
+        "title": "Description"
+      },
+      "urls": {
+        "type": "array",
+        "title": "URLs",
+        "items": {
+          "type": "object",
+          "title": "URL",
+          "properties": {
+            "url": {
+              "type": "string",
+              "title": "Absolute URL path"
+            },
+            "description": {
+              "type": "string",
+              "title": "Link Description"
+            }
+          }
+        }
+      }
+    }
+  }
+}
