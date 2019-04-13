@@ -57,9 +57,10 @@
         <ul class="sidebar-menu tree" data-widget="tree">
           <li class="header">HEADER</li>
           <!-- Optionally, you can add icons to the links -->
-          <li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Übersicht</span></a></li>
-          <li><a href="news.html"><i class="fa fa-tachometer"></i> <span>News</span></a></li>
-          <li class="active"><a href="event.html"><i class="fa fa-tachometer"></i> <span>Event</span></a></li>
+          <li class="active"><a href="index.html"><i class="fa fa-tachometer"></i> <span>Übersicht</span></a></li>
+          <li><a href="news.html" class="active"><i class="fa fa-tachometer"></i> <span>News</span></a>
+          </li>
+          <li><a href="event.html"><i class="fa fa-tachometer"></i> <span>Event</span></a></li>
           <li><a href="poi.html"><i class="fa fa-tachometer"></i> <span>Points of Interest</span></a></li>
           <li><a href="category.html"><i class="fa fa-tachometer"></i> <span>Categories</span></a></li>
         </ul>
@@ -72,8 +73,8 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Create Event
-          <small>Based on event schema</small>
+          Übersicht
+          <small></small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -90,31 +91,7 @@
         <!--------------------------
               | Your Page Content Here |
               -------------------------->
-        <form></form>
 
-        <script type="text/javascript">
-          $.getJSON("src/event_schema.json", function (dataSchema) {
-            console.log(dataSchema);
-          }).done(function (dataSchema) {
-            $.getJSON("src/event_form_schema.json", function (formSchema) { }).done(function (formSchema) {
-              console.log(formSchema);
-              $('form').jsonForm({
-                "schema": dataSchema,
-                "form": formSchema,
-                onSubmit: function (errors, values) {
-                  if (errors) {
-                    $('#res').html('<p>I beg your pardon?</p>');
-                  }
-                  else {
-                    $('#res').html('<p>Data Submitted To Server</p>');
-                  }
-                }
-              });
-            });
-
-
-          });
-        </script>
 
       </section>
       <!-- /.content -->
