@@ -1,0 +1,190 @@
+{
+  "author": {
+    "type": "string",
+    "title": "Author",
+    "required": true
+  },
+  "canonical_url": {
+    "type": "string",
+    "title": "Canonical Url"
+  },
+  "type": {
+    "type": "string",
+    "title": "Type",
+    "enum": [ "news", "article"]
+  },
+  "published_at": {
+    "type": "string",
+    "title": "published_at"
+  },
+  "publication_date": {
+    "type": "string",
+    "title": "published_at"
+  },
+  "data_provider": {
+    "type": "object",
+    "title": "Data Provider",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name"
+      },
+      "logo": {
+        "type": "string",
+        "title": "Logo URL"
+      },
+      "description": {
+        "type": "textarea",
+        "title": "Description"
+      },
+      "address": {
+        "type": "object",
+        "title": "Address",
+        "properties": {
+          "street": {
+            "type": "string",
+            "title": "Street"
+          },
+          "zip": {
+            "type": "string",
+            "title": "ZIP"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "coordinates": {
+            "type": "object",
+            "title": "Coordinates",
+            "properties": {
+              "lat": {
+                "type": "number",
+                "title": "Latitude"
+              },
+              "lng": {
+                "type": "number",
+                "title": "Longitude"
+              }
+            }
+          }
+        }
+      },
+      "contact": {
+        "type": "object",
+        "title": "Contact",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "title": "Phone"
+          },
+          "fax": {
+            "type": "string",
+            "title": "Fax"
+          },
+          "email": {
+            "type": "string",
+            "title": "email"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL"
+          }
+        }
+      }
+    }
+  },
+  "address": {
+    "type": "object",
+    "title": "Address",
+    "properties": {
+      "street": {
+        "type": "string",
+        "title": "Street"
+      },
+      "zip": {
+        "type": "string",
+        "title": "ZIP"
+      },
+      "city": {
+        "type": "string",
+        "title": "City"
+      },
+      "coordinates": {
+        "type": "object",
+        "title": "Coordinates",
+        "properties": {
+          "lat": {
+            "type": "string",
+            "title": "Latitude"
+          },
+          "lng": {
+            "type": "string",
+            "title": "Longitude"
+          }
+        }
+      }
+    }
+  },
+  "content_blocks": {
+    "type": "array",
+    "title": "Content Blocks",
+    "items": {
+      "type": "object",
+      "title": "Content Block",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "intro": {
+          "type": "textarea",
+          "title": "Intro"
+        },
+        "body": {
+          "type": "textarea",
+          "title": "Body"
+        },
+        "media_contents": {
+          "type": "array",
+          "title": "Images",
+          "items": {
+            "type": "object",
+            "title": "Image",
+            "properties": {
+              "type": {
+                "type": "string",
+                "title": "Imagetype",
+                "enum": [
+                  "image",
+                  "youtube_video",
+                  "soundcloud_audio"
+                ]
+              },
+              "width": {
+                "type": "string",
+                "title": "Image Width"
+              },
+              "height": {
+                "type": "string",
+                "title": "Image height"
+              },
+              "url": {
+                "type": "string",
+                "title": "Image url"
+              },
+              "copyright": {
+                "type": "string",
+                "title": "Image copyright"
+              },
+              "caption": {
+                "type": "string",
+                "title": "Image caption"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,42 @@
+h2 { font-weight: 200; margin-top: 0;}
+
+.tagline {
+  padding: 10px;
+  font-weight: 200;
+  margin-top: -1em;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 10px 0.5em;
+  border-top: 1px solid #E5E5E5;
+}
+
+#form .add-on {
+  border: none;
+  background-color: inherit;
+}
+
+.expandable > legend:before {
+  content: '\25B8';
+  padding-right: 5px;
+}
+.expanded > legend:before {
+  content: '\25BE';
+}
+
+._jsonform-array-buttons {
+  margin-left: 25px;
+}
+
+.jsonform-required > label:after {
+  content: ' *';
+  color: red;
+}
+
+form.jsonform-hasrequired:after {
+  content: '* Required field';
+  display: block;
+  color: red;
+  padding-top: 1em;
+}

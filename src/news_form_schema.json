@@ -1,0 +1,29 @@
+[
+  "author",
+  "canonical_url",
+  "type",
+  "published_at",
+  "publication_date",
+  {
+    "type": "fieldset",
+    "title": "Data Provider Options",
+    "expandable": true,
+    "items": ["data_provider"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Address Options",
+    "expandable": true,
+    "items": ["address"]
+  },
+  {
+    "type": "fieldset",
+    "title": "Content block options",
+    "expandable": true,
+    "items": ["content_blocks"]
+  },
+  {
+    "type": "submit",
+    "title": "Send Data to Server"
+  }
+]
