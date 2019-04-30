@@ -1,3 +1,5 @@
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9290fe5d4ddb83fff2bd/test_coverage)](https://codeclimate.com/github/ikuseiGmbH/smart-village-app-cms/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/9290fe5d4ddb83fff2bd/maintainability)](https://codeclimate.com/github/ikuseiGmbH/smart-village-app-cms/maintainability)
+
 # smart-village-api-cms
 
 An CMS based on JSON schema of smart-village api
