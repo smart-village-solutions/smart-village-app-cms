@@ -1,0 +1,12 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Log In</h1>
+</div>
+
+
+<%= form_tag( log_in_path , method: :post) do |f| %>
+  E-Mail: <%= text_field_tag (:email) %>
+
+  Password: <%= password_field_tag (:password) %>
+
+  <%= submit_tag "sign in" %>
+<% end %>
