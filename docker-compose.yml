@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   app:
-    image: registry.communicatio.com/ikusei/smart-village-app-rss-importer
+    image: registry.communicatio.com/ikusei/smart-village-app-cms
     environment:
       RAILS_ENV: production
       RAILS_LOG_TO_STDOUT: 1
     configs:
-      - source: smart-village-app-rss-importer-unicorn-rb
+      - source: smart-village-app-cms-unicorn-rb
         target: /app/config/unicorn.rb
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -37,9 +37,9 @@ volumes:
   settings:
 
 configs:
-  smart-village-app-rss-importer-nginx-conf:
+  smart-village-app-cms-nginx-conf:
     external: true
-  smart-village-app-rss-importer-unicorn-rb:
+  smart-village-app-cms-unicorn-rb:
     external: true
 
 networks:
