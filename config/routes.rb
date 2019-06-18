@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
-  get 'events/index'
-  get 'events/show'
-  get 'events/new'
-  get 'events/edit'
-  get 'events/create'
-  get 'events/update'
-  get 'events/destroy'
+  resources :events
   match "/login", to: 'session#create', as: :log_in, via: [:get, :post]
   get '/logout', to: 'session#destroy'
   get 'dashboard/index'

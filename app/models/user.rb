@@ -1,10 +1,11 @@
 class User
-  attr_accessor :name, :email, :token
+  attr_accessor :name, :email, :data_provider, :applications
 
-  def initialize(email:, token: nil, password: nil)
+  def initialize(email:, password: nil, data_provider: nil, applications: nil)
     @email = email
-    @name = "Marco Metz"
-    @token = token
+    @password = password
+    @data_provider = data_provider
+    @applications = applications
   end
 
   def gravatar_url
@@ -13,8 +14,39 @@ class User
   end
 
   def valid?
-    # TODO: Implementierung fehlt
-    true
+    @applications.present?
+  end
+
+  def name
+    return "" if @data_provider.blank?
+    @data_provider.fetch("name", "")
+  end
+
+  def get_access_token
+    app = @applications.first
+    client_id = app["uid"]
+    client_secret = app["secret"]
+    access_token = Authentication.new(client_id: client_id, client_secret: client_secret ).access_token
+  end
+
+  def sign_in
+    uri = Addressable::URI.parse("#{auth_server_url}/users/sign_in.json")
+    user_credentials = { user: { email: @email, password: @password } }
+    result = ApiRequestService.new(uri.to_s, nil, nil, user_credentials).post_request
+    if result.code == "200" && result.body.present?
+      data = JSON.parse(result.body)
+      @applications = data["applications"]
+      @data_provider = data["data_provider"]
+      data
+    else
+      result.body
+    end
+  end
+
+  def auth_server_url
+    return Rails.application.credentials.auth_server[:url] if Rails.env.production?
+
+    "http://localhost:3000"
   end
 
 end
