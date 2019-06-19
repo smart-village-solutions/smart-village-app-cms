@@ -22,6 +22,7 @@ class User
     @data_provider.fetch("name", "")
   end
 
+  # sign_in first to load access_token
   def get_access_token
     app = @applications.first
     client_id = app["uid"]
@@ -30,7 +31,7 @@ class User
   end
 
   def sign_in
-    uri = Addressable::URI.parse("#{auth_server_url}/users/sign_in.json")
+    uri = Addressable::URI.parse("#{SmartVillageApi.auth_server_url}/users/sign_in.json")
     user_credentials = { user: { email: @email, password: @password } }
     result = ApiRequestService.new(uri.to_s, nil, nil, user_credentials).post_request
     if result.code == "200" && result.body.present?
@@ -42,11 +43,4 @@ class User
       result.body
     end
   end
-
-  def auth_server_url
-    return Rails.application.credentials.auth_server[:url] if Rails.env.production?
-
-    "http://localhost:3000"
-  end
-
 end

@@ -8,7 +8,7 @@ class Authentication
   end
 
   def load_access_tokens
-    auth_server = Rails.application.credentials.auth_server[:url]
+    auth_server = SmartVillageApi.auth_server_url
     uri = Addressable::URI.parse("#{auth_server}/oauth/token")
     uri.query_values = {
       client_id: client_id,

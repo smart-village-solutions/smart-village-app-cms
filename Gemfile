@@ -26,8 +26,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "addressable"
 gem "bootsnap", ">= 1.4.2", require: false
+
+gem "addressable"
+gem "graphlient"
 gem "jquery-rails"
 
 group :development, :test do

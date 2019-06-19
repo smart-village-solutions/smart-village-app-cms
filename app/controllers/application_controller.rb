@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
     @current_user = User.new(user_data)
   end
 
+  def init_graphql_client
+    @smart_village = SmartVillageApi.new(user: @current_user).client
+  end
+
 end

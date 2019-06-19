@@ -1,2 +1,26 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<h1>Veranstaltungen</h1>
+<p>Übersicht aller Veranstaltungen</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">updated at</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <th scope="row"><%= event.id %></th>
+        <td><%= event.title %></td>
+        <td><%= event.updated_at %></td>
+        <td>
+          <%= link_to "Anzeigen", event_path(event.id) %>
+          <%= link_to "Bearbeiten", edit_event_path(event.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
