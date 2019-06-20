@@ -1,12 +1,13 @@
 <h1>Nachrichten</h1>
 <p>Übersicht aller Nachrichten</p>
 
-<table class="table">
+<table class="table data_table">
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Title</th>
       <th scope="col">updated at</th>
+      <th scope="col">created at</th>
       <th scope="col">Options</th>
     </tr>
   </thead>
@@ -16,8 +17,8 @@
         <th scope="row"><%= news_item.id %></th>
         <td><%= news_item.content_blocks.first.try(:title) %></td>
         <td><%= news_item.updated_at %></td>
+        <td><%= news_item.created_at %></td>
         <td>
-          <%= link_to "Anzeigen", news_item_path(news_item.id) %>
           <%= link_to "Bearbeiten", edit_news_item_path(news_item.id) %>
         </td>
       </tr>

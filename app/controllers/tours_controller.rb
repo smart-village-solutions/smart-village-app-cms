@@ -3,6 +3,18 @@ class ToursController < ApplicationController
   before_action :init_graphql_client
 
   def index
+    results = @smart_village.query <<~GRAPHQL
+    query {
+      tours {
+        id
+        name
+        updatedAt
+        createdAt
+      }
+    }
+    GRAPHQL
+
+    @tours = results.data.tours
   end
 
   def show

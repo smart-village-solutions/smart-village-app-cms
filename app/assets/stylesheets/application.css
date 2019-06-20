@@ -14,5 +14,6 @@
  *= require bootstrap/dist/css/bootstrap
  *= require startbootstrap-sb-admin-2/css/sb-admin-2
  *= require @fortawesome/fontawesome-free/css/all.css
+ *= require startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.css
  *= require_self
  */

@@ -9,6 +9,7 @@ class EventsController < ApplicationController
         id
         title
         updatedAt
+        createdAt
       }
     }
     GRAPHQL

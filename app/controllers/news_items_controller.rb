@@ -5,12 +5,13 @@ class NewsItemsController < ApplicationController
   def index
     results = @smart_village.query <<~GRAPHQL
     query {
-      newsItems {
+      newsItems() {
         id
         contentBlocks{
           title
         }
         updatedAt
+        createdAt
       }
     }
     GRAPHQL

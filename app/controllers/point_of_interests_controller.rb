@@ -9,6 +9,7 @@ class PointOfInterestsController < ApplicationController
         id
         name
         updatedAt
+        createdAt
       }
     }
     GRAPHQL

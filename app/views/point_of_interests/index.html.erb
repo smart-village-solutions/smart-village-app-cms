@@ -1,11 +1,12 @@
 <h1>Point of Interests</h1>
 <p>Übersicht aller POIs</p>
 
-<table class="table">
+<table class="table data_table">
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Title</th>
+      <th scope="col">updated at</th>
       <th scope="col">updated at</th>
       <th scope="col">Options</th>
     </tr>
@@ -16,8 +17,8 @@
         <th scope="row"><%= poi.id %></th>
         <td><%= poi.name %></td>
         <td><%= poi.updated_at %></td>
+        <td><%= poi.created_at %></td>
         <td>
-          <%= link_to "Anzeigen", point_of_interest_path(poi.id) %>
           <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id) %>
         </td>
       </tr>

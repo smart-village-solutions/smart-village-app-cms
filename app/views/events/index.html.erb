@@ -1,12 +1,13 @@
 <h1>Veranstaltungen</h1>
 <p>Übersicht aller Veranstaltungen</p>
 
-<table class="table">
+<table class="table data_table">
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Title</th>
       <th scope="col">updated at</th>
+      <th scope="col">created at</th>
       <th scope="col">Options</th>
     </tr>
   </thead>
@@ -16,8 +17,8 @@
         <th scope="row"><%= event.id %></th>
         <td><%= event.title %></td>
         <td><%= event.updated_at %></td>
+        <td><%= event.created_at %></td>
         <td>
-          <%= link_to "Anzeigen", event_path(event.id) %>
           <%= link_to "Bearbeiten", edit_event_path(event.id) %>
         </td>
       </tr>
