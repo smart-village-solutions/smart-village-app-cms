@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between mb-4">
+      Eventzeitraum
+      <input type="button" value="Datum hinzufügen" id="nested-add-event-dates" class="btn btn-sm btn-secondary"/>
+    </h3>
+  </div>
+</div>
+
+
+<% event.dates.each do |date| %>
+  <div id="nested-event-dates">
+  <%= fields_for :dates, date do |fd|  %>
+    <div id="nested-event-date-form">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="description">Wochentag</label>
+            <%= fd.text_field :weekday, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Startdatum</label>
+            <%= fd.text_field :date_start, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Enddatum</label>
+            <%= fd.text_field :date_end, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Startzeit</label>
+            <%= fd.text_field :time_start, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Endzeit</label>
+            <%= fd.text_field :time_end, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-8">
+          <div class="form-group">
+            <label for="description">Beschreibung zum Eventdatum</label>
+            <%= fd.text_area :time_description, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="description">Soll nur diese Beschreibung anzeigen?</label>
+            <%= fd.check_box :use_only_time_description, class: "form-control" %>
+            <small id="emailHelp" class="form-text text-muted"></small>
+          </div>
+        </div>
+      </div>
+      <input type="button" value="Datum entfernen" class="remove btn btn-sm btn-danger">
+      <hr />
+    </div>
+  <% end %>
+  </div>
+<% end %>

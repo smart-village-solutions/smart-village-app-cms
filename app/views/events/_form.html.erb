@@ -1,0 +1,49 @@
+<%= fields_for :event, event do |f|  %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Titel</label>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Verschlagwortung</label>
+        <%= f.text_field :tag_list, class: "form-control" %>
+
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Region</label>
+        <%= f.text_field "region_id", class: "form-control" %>
+        <small id="emailHelp" class="form-text text-muted">Name der Region soll hier rein # TODO</small>
+      </div>
+    </div>
+  </div>
+
+  <%= render partial: "events/form_partials/event_dates", locals: { event: event } %>
+
+  <%= render partial: "events/form_partials/event_prices", locals: { event: event } %>
+
+  <%= render partial: "events/form_partials/event_contacts", locals: { event: event } %>
+
+  <div class="row">
+    <div class="col">
+      <%= f.submit "speichern", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

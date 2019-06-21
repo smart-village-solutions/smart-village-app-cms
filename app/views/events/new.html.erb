@@ -1,2 +1,12 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<h1>Neue Veranstaltung anlegen</h1>
+
+<div class="row">
+  <div class="col-8">
+    <%= form_with( url: events_path, method: :post) do %>
+      <%= render partial: "events/form", locals: {event: @event } %>
+    <% end %>
+  </div>
+  <div class="col-4">
+    <%= render partial: "form_hints" %>
+  </div>
+</div>

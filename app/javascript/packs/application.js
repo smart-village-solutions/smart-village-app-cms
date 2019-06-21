@@ -13,6 +13,7 @@ require('@fortawesome/fontawesome-free/js/all.js')
 var DataTable = require('datatables.net/js/jquery.dataTables.js')
 require('datatables.net-bs4/js/dataTables.bootstrap4.js')
 require("channels")
+require("@kanety/jquery-nested-form")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -21,8 +22,28 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-
 $(function () {
+
+  $("#nested-event-dates").nestedForm({
+    forms: '#nested-event-date-form',
+    adder: '#nested-add-event-dates',
+    remover: '.remove'
+  });
+
+  $("#nested-event-contacts").nestedForm({
+    forms: '#nested-event-contact-form',
+    adder: '#nested-add-event-contacts',
+    remover: '.remove'
+  });
+
+  $("#nested-event-prices").nestedForm({
+    forms: '#nested-event-price-form',
+    adder: '#nested-add-event-prices',
+    remover: '.remove'
+  });
+
+
+
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
   $.fn.dataTableSettings = DataTable.settings;

@@ -33,7 +33,11 @@ gem "graphlient"
 gem "jquery-rails"
 gem "kaminari"
 
+# https://github.com/kanety/jquery-nested-form
+gem "nested_form_fields"
+
 gem "unicorn"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
