@@ -9,75 +9,9 @@
 
 <% event.contacts.each do |contact| %>
   <div id="nested-event-contacts">
-    <%= fields_for :contact, contact do |fc|  %>
+    <%= form.fields_for :contact, contact do |fc|  %>
       <div id="nested-event-contact-form">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Vorname</label>
-              <%= fc.text_field :first_name, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Nachname</label>
-              <%= fc.text_field :last_name, class: "form-control" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="description">E-Mail</label>
-              <%= fc.text_field :email, class: "form-control" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Telefon</label>
-              <%= fc.text_field :phone, class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Fax</label>
-              <%= fc.text_field :fax, class: "form-control" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <h5>Web link</h5>
-          </div>
-        </div>
-
-        <% contact.web_urls.each do |web_url| %>
-          <%= fields_for :web_url, web_url do |fu|  %>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="description">Url</label>
-                  <%= fu.text_field :url, class: "form-control" %>
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="description">Beschreibung</label>
-                  <%= fu.text_field :description, class: "form-control" %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-
+        <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
         <input type="button" value="Kontakt entfernen" class="remove btn btn-sm btn-danger">
       </div>
     <% end %>

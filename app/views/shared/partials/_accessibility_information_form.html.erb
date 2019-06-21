@@ -1,0 +1,38 @@
+<%= form.fields_for :accessibility_information, record.accessibility_information do |fai|  %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <%= fai.text_field :description, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Art</label>
+        <%= fai.text_field :types, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <% record.urls.each do |url| %>
+    <%= fields_for :urls, url do |furl|  %>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Url</label>
+            <%= furl.text_field :url, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Beschreibung</label>
+            <%= furl.text_field :description, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <hr />
+    <% end %>
+  <% end %>
+<% end %>

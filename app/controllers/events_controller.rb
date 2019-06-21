@@ -29,6 +29,27 @@ class EventsController < ApplicationController
         parentId
         regionId
         description
+        mediaContents {
+          captionText
+          contentType
+          copyright
+          height
+          width
+          sourceUrl {
+            url
+            description
+          }
+        }
+        addresses {
+          addition
+          street
+          zip
+          city
+          geoLocation {
+            latitude
+            longitude
+          }
+        }
         contacts {
           email
           fax
@@ -86,6 +107,16 @@ class EventsController < ApplicationController
             }
           }
         }
+        repeat
+        repeatDuration {
+          everyYear
+          startDate
+          endDate
+        }
+        urls {
+          url
+          description
+        }
         dataProvider {
           name
           contact {
@@ -115,6 +146,14 @@ class EventsController < ApplicationController
           }
         }
         tagList
+        accessibilityInformation {
+          description
+          types
+          urls {
+            url
+            description
+          }
+        }
       }
     }
     GRAPHQL
@@ -124,9 +163,18 @@ class EventsController < ApplicationController
 
   def new
     @event = OpenStruct.new(
+      addresses: [OpenStruct.new],
       dates: [OpenStruct.new],
       contacts: [OpenStruct.new(web_urls: [OpenStruct.new])],
-      price_informations: [OpenStruct.new]
+      price_informations: [OpenStruct.new],
+      repeat_duration: OpenStruct.new,
+      urls: [OpenStruct.new],
+      organizer: OpenStruct.new(
+        web_urls: [OpenStruct.new],
+        contact: OpenStruct.new(web_urls: [OpenStruct.new]),
+        address: OpenStruct.new()
+      ),
+      media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
     )
   end
 

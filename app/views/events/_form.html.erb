@@ -35,11 +35,97 @@
     </div>
   </div>
 
-  <%= render partial: "events/form_partials/event_dates", locals: { event: event } %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Kategorie</label>
+        <%= f.text_field :category, class: "form-control" %>
+      </div>
+    </div>
+  </div>
 
-  <%= render partial: "events/form_partials/event_prices", locals: { event: event } %>
+  <%= render partial: "shared/partials/url_form", locals: { record: event, form: f } %>
 
-  <%= render partial: "events/form_partials/event_contacts", locals: { event: event } %>
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between mb-4">
+        Adresse
+      </h3>
+    </div>
+  </div>
+
+  <% event.addresses.each do |address| %>
+    <%= f.fields_for :address, address do |fadd|  %>
+      <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: address } %>
+    <% end %>
+  <% end %>
+
+  <%= render partial: "events/form_partials/event_contacts", locals: { event: event, form: f } %>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Wiederholung </h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: 'events/form_partials/repeat_form', locals: { event: event, form: f } %>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Organisator</h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: "shared/partials/organizer_form", locals: { record: event, form: f } %>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
+        Eventzeitraum
+        <input type="button" value="Datum hinzufügen" id="nested-add-event-dates" class="btn btn-sm btn-secondary"/>
+      </h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: "events/form_partials/event_dates", locals: { event: event, form: f } %>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
+        Preis Information
+        <input type="button" value="Preis hinzufügen" id="nested-add-event-prices" class="btn btn-sm btn-secondary"/>
+      </h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: "events/form_partials/event_prices", locals: { event: event, form: f } %>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
+        Media
+        <input type="button" value="Medium hinzufügen" id="nested-add-medium" class="btn btn-sm btn-secondary"/>
+      </h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: "shared/partials/media_contents_form", locals: { record: event, form: f } %>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
+        Accessibility Information
+      </h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: "shared/partials/accessibility_information_form", locals: { record: event, form: f } %>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col">

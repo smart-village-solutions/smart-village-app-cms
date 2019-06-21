@@ -1,15 +1,6 @@
-<div class="row">
-  <div class="col">
-    <h3 class="d-sm-flex align-items-center justify-content-between mb-4">
-      Preis Information
-      <input type="button" value="Preis hinzufügen" id="nested-add-event-prices" class="btn btn-sm btn-secondary"/>
-    </h3>
-  </div>
-</div>
-
 <% event.price_informations.each do |price| %>
   <div id="nested-event-prices">
-  <%= fields_for :price_information, price do |fp|  %>
+  <%= form.fields_for :price_information, price do |fp|  %>
     <div id="nested-event-price-form">
       <div class="row">
         <div class="col">

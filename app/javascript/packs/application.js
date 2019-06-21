@@ -42,6 +42,18 @@ $(function () {
     remover: '.remove'
   });
 
+  $("#nested-web-urls").nestedForm({
+    forms: '#nested-web-url-form',
+    adder: '#nested-add-web-urls',
+    remover: '.remove'
+  });
+
+  $("#nested-media").nestedForm({
+    forms: '#nested-medium-form',
+    adder: '#nested-add-medium',
+    remover: '.remove'
+  });
+
 
 
   // Init DataTables for all tables with css-class 'data_table'

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <label for="description">wiederkehrende Veranstaltung?</label>
+      <%= form.check_box :repeat, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= form.fields_for :repeat_duration, event.repeat_duration do |fr|  %>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">jährliche Wiederholung?</label>
+        <%= fr.check_box :every_year, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= form.fields_for :repeat_duration, event.repeat_duration do |fr|  %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Start Datum</label>
+        <%= fr.text_field :start_date, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">End Datum</label>
+        <%= fr.text_field :end_date, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,75 @@
+<% record.media_contents.each do |media_content| %>
+  <div id="nested-media">
+    <%= form.fields_for :media_content, media_content do |fmc, index| %>
+      <div id="nested-medium-form">
+        <h4>Medium</h4>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Beschreibung / Untertitel</label>
+              <%= fmc.text_field :caption_text, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Art</label>
+              <%= fmc.text_field :content_type, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="description">Copyright</label>
+              <%= fmc.text_field :copyright, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Höhe</label>
+              <%= fmc.text_field :height, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Breite</label>
+              <%= fmc.text_field :width, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <h5>Web link</h5>
+          </div>
+        </div>
+
+        <%= fmc.fields_for :source_url, media_content.source_url do |fu|  %>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="description">Url</label>
+                <%= fu.text_field :url, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="description">Beschreibung</label>
+                <%= fu.text_field :description, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <hr />
+      </div>
+    <% end %>
+  </div>
+<% end %>

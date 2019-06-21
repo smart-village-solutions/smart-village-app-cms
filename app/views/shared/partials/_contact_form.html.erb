@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <label for="description">Vorname</label>
+      <%= form.text_field :first_name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="form-group">
+      <label for="description">Nachname</label>
+      <%= form.text_field :last_name, class: "form-control" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="description">E-Mail</label>
+      <%= form.text_field :email, class: "form-control" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <label for="description">Telefon</label>
+      <%= form.text_field :phone, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="form-group">
+      <label for="description">Fax</label>
+      <%= form.text_field :fax, class: "form-control" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h5>Web link</h5>
+  </div>
+</div>
+
+<% contact.web_urls.each do |web_url| %>
+  <%= fields_for :web_url, web_url do |fu|  %>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Url</label>
+          <%= fu.text_field :url, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Beschreibung</label>
+          <%= fu.text_field :description, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
