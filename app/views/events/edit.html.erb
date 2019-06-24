@@ -5,7 +5,7 @@
 
 <div class="row">
   <div class="col-8">
-    <%= form_with( url: event_path(@event.id), method: :patch) do %>
+    <%= form_with( url: event_path(@event.id), method: :patch, local: true) do %>
       <%= render partial: "events/form", locals: { event: @event } %>
     <% end %>
   </div>

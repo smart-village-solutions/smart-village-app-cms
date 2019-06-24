@@ -301,10 +301,11 @@ class EventsController < ApplicationController
   end
 
   def update
-    params[:id]
+    old_id = params[:id]
     results = @smart_village.query <<~GRAPHQL
       mutation {
         createEventRecord(
+          forceCreate: true
           title: "Test"
           parentId: 1
           categoryName: "Test"
@@ -416,6 +417,17 @@ class EventsController < ApplicationController
       }
     GRAPHQL
     new_id = results.data.create_event_record.id
+
+    # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
+    destroy_results = @smart_village.query <<~GRAPHQL
+      mutation {
+        destroyRecord(id: #{old_id}, recordType: "EventRecord") {
+          id
+          status
+          statusCode
+        }
+      }
+    GRAPHQL
     redirect_to edit_event_path(new_id)
   end
 
