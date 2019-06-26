@@ -1,6 +1,7 @@
-<% event.dates.each do |date| %>
+<% list_of_dates = event.dates.presence || [OpenStruct.new] %>
+<% list_of_dates.each_with_index do |date, index| %>
   <div id="nested-event-dates">
-  <%= form.fields_for :dates, date do |fd|  %>
+  <%= fields_for "event[dates][#{index}]", date do |fd|  %>
     <div id="nested-event-date-form">
       <div class="row">
         <div class="col">
@@ -53,7 +54,7 @@
         <div class="col-4">
           <div class="form-group">
             <label for="description">Soll nur diese Beschreibung anzeigen?</label>
-            <%= fd.check_box :use_only_time_description, class: "form-control" %>
+            <%= fd.check_box :use_only_time_description, { class: "form-control" }, true, false %>
             <small id="emailHelp" class="form-text text-muted"></small>
           </div>
         </div>

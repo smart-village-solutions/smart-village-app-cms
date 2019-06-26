@@ -27,31 +27,37 @@ $(function () {
   $("#nested-event-dates").nestedForm({
     forms: '#nested-event-date-form',
     adder: '#nested-add-event-dates',
-    remover: '.remove'
+    remover: '.remove',
+    postfixes: ''
   });
 
   $("#nested-event-contacts").nestedForm({
     forms: '#nested-event-contact-form',
     adder: '#nested-add-event-contacts',
-    remover: '.remove'
+    remover: '.remove',
+    postfixes: ''
   });
 
   $("#nested-event-prices").nestedForm({
     forms: '#nested-event-price-form',
     adder: '#nested-add-event-prices',
-    remover: '.remove'
+    remover: '.remove',
+    postfixes: ''
   });
 
   $("#nested-web-urls").nestedForm({
     forms: '#nested-web-url-form',
     adder: '#nested-add-web-urls',
-    remover: '.remove'
+    remover: '.remove',
+    associations: 'urls',
+    postfixes: ''
   });
 
   $("#nested-media").nestedForm({
     forms: '#nested-medium-form',
     adder: '#nested-add-medium',
-    remover: '.remove'
+    remover: '.remove',
+    postfixes: ''
   });
 
 

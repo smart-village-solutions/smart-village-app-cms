@@ -21,15 +21,14 @@
     <div class="col-lg-6">
       <div class="form-group">
         <label for="description">Verschlagwortung</label>
-        <%= f.text_field :tag_list, class: "form-control" %>
-
+        <%= f.text_field :tag_list, { class: "form-control", name: "event[tags]"} %>
       </div>
     </div>
 
     <div class="col-lg-6">
       <div class="form-group">
         <label for="description">Region</label>
-        <%= f.text_field "region_id", class: "form-control" %>
+        <%= f.text_field "region[name]", { class: "form-control", name: "event[region_name]", value: f.object.try(:region).try(:name) } %>
         <small id="emailHelp" class="form-text text-muted">Name der Region soll hier rein # TODO</small>
       </div>
     </div>
@@ -39,7 +38,7 @@
     <div class="col-lg-6">
       <div class="form-group">
         <label for="description">Kategorie</label>
-        <%= f.text_field :category, class: "form-control" %>
+        <%= f.text_field :category, { class: "form-control", name: "event[category_name]", value: f.object.try(:category).try(:name) }  %>
       </div>
     </div>
   </div>
@@ -55,7 +54,7 @@
   </div>
 
   <% event.addresses.each do |address| %>
-    <%= f.fields_for :address, address do |fadd|  %>
+    <%= f.fields_for :addresses, address do |fadd|  %>
       <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: address } %>
     <% end %>
   <% end %>

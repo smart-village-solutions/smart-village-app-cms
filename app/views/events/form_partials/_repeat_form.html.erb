@@ -2,7 +2,7 @@
   <div class="col-lg-6">
     <div class="form-group">
       <label for="description">wiederkehrende Veranstaltung?</label>
-      <%= form.check_box :repeat, class: "form-control" %>
+      <%= form.check_box :repeat, { class: "form-control" }, true, false %>
     </div>
   </div>
 
@@ -10,7 +10,7 @@
     <div class="col-lg-6">
       <div class="form-group">
         <label for="description">jährliche Wiederholung?</label>
-        <%= fr.check_box :every_year, class: "form-control" %>
+        <%= fr.check_box :every_year, { class: "form-control" }, true, false %>
       </div>
     </div>
   <% end %>

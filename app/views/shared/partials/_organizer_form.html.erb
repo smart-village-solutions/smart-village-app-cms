@@ -8,11 +8,11 @@
     </div>
   </div>
 
-  <%= fo.fields_for :contact, record.organizer.contact do |fc|  %>
-    <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: record.organizer.contact } %>
+  <%= fo.fields_for :contact, record.try(:organizer).try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) do |fc|  %>
+    <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: fc.object } %>
   <% end %>
 
-  <%= fo.fields_for :address, record.organizer.address do |fa|  %>
-    <%= render partial: "shared/partials/address_form", locals: { form: fa, address: record.organizer.address } %>
+  <%= fo.fields_for :address, record.try(:organizer).try(:address) || OpenStruct.new(geo_location: nil) do |fa|  %>
+    <%= render partial: "shared/partials/address_form", locals: { form: fa, address: fo.object } %>
   <% end %>
 <% end %>

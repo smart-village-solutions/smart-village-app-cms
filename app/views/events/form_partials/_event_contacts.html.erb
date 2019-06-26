@@ -7,9 +7,10 @@
   </div>
 </div>
 
-<% event.contacts.each do |contact| %>
+<% list_of_contacts = event.contacts.presence || [OpenStruct.new(web_urls: [OpenStruct.new])] %>
+<% list_of_contacts.each_with_index do |contact, index| %>
   <div id="nested-event-contacts">
-    <%= form.fields_for :contact, contact do |fc|  %>
+    <%= form.fields_for "contacts[#{index}]", contact do |fc|  %>
       <div id="nested-event-contact-form">
         <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
         <input type="button" value="Kontakt entfernen" class="remove btn btn-sm btn-danger">

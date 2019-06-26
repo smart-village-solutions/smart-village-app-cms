@@ -27,9 +27,12 @@ class EventsController < ApplicationController
           name
         }
         parentId
-        regionId
+        region {
+          name
+        }
         description
         mediaContents {
+          id
           captionText
           contentType
           copyright
@@ -45,12 +48,14 @@ class EventsController < ApplicationController
           street
           zip
           city
+          kind
           geoLocation {
             latitude
             longitude
           }
         }
         contacts {
+          id
           email
           fax
           lastName
@@ -62,6 +67,7 @@ class EventsController < ApplicationController
           }
         }
         dates {
+          id
           weekday
           dateStart
           dateEnd
@@ -71,6 +77,7 @@ class EventsController < ApplicationController
           useOnlyTimeDescription
         }
         priceInformations {
+          id
           name
           amount
           groupPrice
@@ -101,6 +108,7 @@ class EventsController < ApplicationController
             street
             zip
             city
+            kind
             geoLocation {
               latitude
               longitude
@@ -114,6 +122,7 @@ class EventsController < ApplicationController
           endDate
         }
         urls {
+          id
           url
           description
         }
@@ -183,254 +192,107 @@ class EventsController < ApplicationController
   end
 
   def create
-    results = @smart_village.query <<~GRAPHQL
-      mutation {
-        createEventRecord(
-          title: "Test"
-          parentId: 1
-          categoryName: "Test"
-          regionName: "Regin"
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing"
-          dates: [
-            {
-              weekday: "Monday"
-              timeStart: "16:00"
-              timeEnd: "18:00"
-              timeDescription: "das Training findet jeden zweiten Montag im Monat statt"
-              useOnlyTimeDescription: false
-            }
-          ]
-          priceInformations: [
-            { name: "Standardkarte", amount: 5.89, groupPrice: false, description: "Tarif gilt nicht in den Ferien" }
-            {
-              name: "Familienkarte"
-              amount: 18
-              groupPrice: true
-              ageFrom: 2
-              ageTo: 17
-              minAdultCount: 10
-              maxAdultCount: 17
-              minChildrenCount: 3
-              maxChildrenCount: 9
-              description: "Tarif gilt nur in den Ferien."
-            }
-          ]
-          accessibilityInformation: {
-            description: "bla"
-            types: "Tops"
-            urls: [{ url: "http://www.hoher-flaeming-naturpark.de", description: "eewrgr" }]
-          }
-          repeat: true
-          repeatDuration: { startDate: "0001-12-18", endDate: "0021-07-19", everyYear: true }
-          urls: [
-            { url: "http://www.hoher-flaeming-naturpark.de", description: "Naturpark Hoher Fläming" }
-            { url: "http://www.naturwacht.de", description: "Naturwacht Brandenburg" }
-          ]
-          mediaContents: [
-            {
-              captionText: "Qui dolore fugit rem."
-              copyright: "Zane Marquardt"
-              contentType: "image"
-              height: 342
-              width: 215
-              sourceUrl: { url: "https://www.image.file", description: "main image" }
-            }
-            {
-              captionText: "Id molestias omnis repellat."
-              copyright: "Dr. Willard Klocko"
-              contentType: "video"
-              height: 315
-              width: 607
-            }
-            {
-              captionText: "Provident quidem sed velit."
-              copyright: "Verona Lowe"
-              contentType: "soundcloud-audio"
-              height: 348
-              width: 766
-            }
-          ]
-          addresses: [
-            {
-              street: "Musterstraße"
-              addition: "Bahnhof"
-              zip: "10100"
-              city: "Berlin"
-              kind: "start"
-              geoLocation: { latitude: 64.37264, longitude: 47.9347 }
-            }
-            { street: "Musterstraße2", addition: "Bahnhof 2", zip: "10100", city: "Berlin2", kind: "end" }
-          ]
-          contacts: [
-            {
-              firstName: "Tim"
-              lastName: "Test"
-              phone: "012345678"
-              email: "test@test.de"
-              fax: "09843729047"
-              webUrls: [
-                { url: "http://www.test1.de", description: "url 1" }
-                { url: "http://www.test2.de", description: "url 2" }
-              ]
-            }
-          ]
-          organizer: {
-            name: "McClure, Kemmer and Brown"
-            address: {
-              zip: "25083"
-              city: "Mialand"
-              street: "Abbie Manors"
-              kind: "default"
-              geoLocation: { latitude: 7.45018, longitude: 102.279 }
-            }
-            contact: {
-              firstName: "Alonzo"
-              lastName: "Von"
-              phone: "+235 782-754-0007 x80976"
-              webUrls: { url: "http://ebert.biz/teri.beahan", description: "Temporibus autem qui at." }
-            }
-          }
-          tags: ["megaparty", "technoclassix", "underground"]
-        ) {
-          id
-        }
-      }
-    GRAPHQL
+    results = @smart_village.query create_params
     new_id = results.data.create_event_record.id
     redirect_to edit_event_path(new_id)
   end
 
   def update
     old_id = params[:id]
-    results = @smart_village.query <<~GRAPHQL
-      mutation {
-        createEventRecord(
-          forceCreate: true
-          title: "Test"
-          parentId: 1
-          categoryName: "Test"
-          regionName: "Regin"
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing"
-          dates: [
-            {
-              weekday: "Monday"
-              timeStart: "16:00"
-              timeEnd: "18:00"
-              timeDescription: "das Training findet jeden zweiten Montag im Monat statt"
-              useOnlyTimeDescription: false
-            }
-          ]
-          priceInformations: [
-            { name: "Standardkarte", amount: 5.89, groupPrice: false, description: "Tarif gilt nicht in den Ferien" }
-            {
-              name: "Familienkarte"
-              amount: 18
-              groupPrice: true
-              ageFrom: 2
-              ageTo: 17
-              minAdultCount: 10
-              maxAdultCount: 17
-              minChildrenCount: 3
-              maxChildrenCount: 9
-              description: "Tarif gilt nur in den Ferien."
-            }
-          ]
-          accessibilityInformation: {
-            description: "bla"
-            types: "Tops"
-            urls: [{ url: "http://www.hoher-flaeming-naturpark.de", description: "eewrgr" }]
-          }
-          repeat: true
-          repeatDuration: { startDate: "0001-12-18", endDate: "0021-07-19", everyYear: true }
-          urls: [
-            { url: "http://www.hoher-flaeming-naturpark.de", description: "Naturpark Hoher Fläming" }
-            { url: "http://www.naturwacht.de", description: "Naturwacht Brandenburg" }
-          ]
-          mediaContents: [
-            {
-              captionText: "Qui dolore fugit rem."
-              copyright: "Zane Marquardt"
-              contentType: "image"
-              height: 342
-              width: 215
-              sourceUrl: { url: "https://www.image.file", description: "main image" }
-            }
-            {
-              captionText: "Id molestias omnis repellat."
-              copyright: "Dr. Willard Klocko"
-              contentType: "video"
-              height: 315
-              width: 607
-            }
-            {
-              captionText: "Provident quidem sed velit."
-              copyright: "Verona Lowe"
-              contentType: "soundcloud-audio"
-              height: 348
-              width: 766
-            }
-          ]
-          addresses: [
-            {
-              street: "Musterstraße"
-              addition: "Bahnhof"
-              zip: "10100"
-              city: "Berlin"
-              kind: "start"
-              geoLocation: { latitude: 64.37264, longitude: 47.9347 }
-            }
-            { street: "Musterstraße2", addition: "Bahnhof 2", zip: "10100", city: "Berlin2", kind: "end" }
-          ]
-          contacts: [
-            {
-              firstName: "Tim"
-              lastName: "Test"
-              phone: "012345678"
-              email: "test@test.de"
-              fax: "09843729047"
-              webUrls: [
-                { url: "http://www.test1.de", description: "url 1" }
-                { url: "http://www.test2.de", description: "url 2" }
-              ]
-            }
-          ]
-          organizer: {
-            name: "McClure, Kemmer and Brown"
-            address: {
-              zip: "25083"
-              city: "Mialand"
-              street: "Abbie Manors"
-              kind: "default"
-              geoLocation: { latitude: 7.45018, longitude: 102.279 }
-            }
-            contact: {
-              firstName: "Alonzo"
-              lastName: "Von"
-              phone: "+235 782-754-0007 x80976"
-              webUrls: { url: "http://ebert.biz/teri.beahan", description: "Temporibus autem qui at." }
-            }
-          }
-          tags: ["megaparty", "technoclassix", "underground"]
-        ) {
-          id
-        }
-      }
-    GRAPHQL
+    logger.warn("*"*100)
+    logger.warn(create_params)
+    results = @smart_village.query create_params
+
     new_id = results.data.create_event_record.id
 
-    # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
-    destroy_results = @smart_village.query <<~GRAPHQL
-      mutation {
-        destroyRecord(id: #{old_id}, recordType: "EventRecord") {
-          id
-          status
-          statusCode
+    if new_id.present? && new_id != old_id
+      # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
+      destroy_results = @smart_village.query <<~GRAPHQL
+        mutation {
+          destroyRecord(id: #{old_id}, recordType: "EventRecord") {
+            id
+            status
+            statusCode
+          }
         }
-      }
-    GRAPHQL
-    redirect_to edit_event_path(new_id)
+      GRAPHQL
+      redirect_to edit_event_path(new_id)
+    else
+      flash[:error] = "Fehler: #{results.errors.inspect}"
+      redirect_to edit_event_path(old_id)
+    end
   end
 
   def destroy
+  end
+
+  private
+
+  def init_defaults
+    @event
+  end
+
+  def create_params
+    @event_params = params.require(:event).permit!
+    convert_params_for_graphql
+    Converter::Base.new.build_mutation('createEventRecord', @event_params)
+  end
+
+  def convert_params_for_graphql
+
+    # Convert has_many price_informations
+    if @event_params["price_informations"].present?
+      price_informations = []
+      @event_params["price_informations"].each do |key, price_information|
+        next if price_information.blank?
+        price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
+        price_information["age_from"] = price_information["age_from"].present? ? price_information["age_from"].to_f : nil
+        price_information["age_to"] = price_information["age_to"].present? ? price_information["age_to"].to_f : nil
+        price_informations << price_information
+      end
+      @event_params["price_informations"] = price_informations
+    end
+
+    # Convert has_many contacts
+    if @event_params["contacts"].present?
+      contacts = []
+      @event_params["contacts"].each do |key, contact|
+        next if contact.blank?
+        contacts << contact
+      end
+      @event_params["contacts"] = contacts
+    end
+
+    # Convert has_many media_contents
+    if @event_params["media_contents"].present?
+      media_contents = []
+      @event_params["media_contents"].each do |key, media_content|
+        next if media_content.blank?
+        media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
+        media_contents << media_content
+      end
+      @event_params["media_contents"] = media_contents
+    end
+
+    # Convert has_many dates
+    if @event_params["dates"].present?
+      dates = []
+      @event_params["dates"].each do |key, date|
+        next if date.blank?
+        dates << date
+      end
+      @event_params["dates"] = dates
+    end
+
+    # Convert has_many urls
+    if @event_params["urls"].present?
+      urls = []
+      @event_params["urls"].each do |key, url|
+        next if url.blank?
+        urls << url
+      end
+      @event_params["urls"] = urls
+    end
+
   end
 end

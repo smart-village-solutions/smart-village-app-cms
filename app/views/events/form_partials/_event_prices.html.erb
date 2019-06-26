@@ -1,6 +1,7 @@
-<% event.price_informations.each do |price| %>
+<% list_of_price_informations = event.price_informations.presence || [OpenStruct.new] %>
+<% list_of_price_informations.each_with_index do |price, index| %>
   <div id="nested-event-prices">
-  <%= form.fields_for :price_information, price do |fp|  %>
+  <%= fields_for "event[price_informations][#{index}]", price do |fp|  %>
     <div id="nested-event-price-form">
       <div class="row">
         <div class="col">
@@ -22,7 +23,7 @@
         <div class="col-lg-6">
           <div class="form-group">
             <label for="description">Gruppenpreis</label>
-            <%= fp.check_box :group_price, class: "form-control" %>
+            <%= fp.check_box :group_price, { class: "form-control" }, true, false %>
           </div>
         </div>
       </div>

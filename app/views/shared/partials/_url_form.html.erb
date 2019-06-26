@@ -7,9 +7,10 @@
   </div>
 </div>
 
-<% record.urls.each do |url| %>
+<% list_of_urls = record.urls.presence || [OpenStruct.new] %>
+<% list_of_urls.each_with_index do |url, index| %>
   <div id="nested-web-urls">
-    <%= form.fields_for :urls, url do |furl|  %>
+    <%= fields_for "event[urls][#{index}]", url do |furl|  %>
       <div id="nested-web-url-form">
         <div class="row">
           <div class="col-lg-6">

@@ -1,6 +1,7 @@
-<% record.media_contents.each do |media_content| %>
+<% list_of_media_contents = record.media_contents.presence || [OpenStruct.new] %>
+<% list_of_media_contents.each_with_index do |media_content, index| %>
   <div id="nested-media">
-    <%= form.fields_for :media_content, media_content do |fmc, index| %>
+    <%= form.fields_for "media_contents[#{index}]", media_content do |fmc, index| %>
       <div id="nested-medium-form">
         <h4>Medium</h4>
 
