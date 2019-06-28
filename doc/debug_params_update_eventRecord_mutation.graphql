@@ -1,0 +1,75 @@
+
+mutation {
+	createEventRecord(
+		forceCreate: true
+		title: "TEST TEST TEST TEST"
+		description: "Lorem ipsum dolor sit amet consectetur adipiscing"
+		tags: "lorem ipsum dolor"
+		regionName: "Flaeming"
+		categoryName: "Test"
+		urls: [{ url: "www.lorem.de", description: "Lorem ipsum dolor sit amet consectetur adipiscing" }]
+		addresses: {
+			addition: "Lorem ipsum dolor sit amet consectetur adipiscing"
+			street: "loremstr. 1"
+			zip: "12345"
+			city: "Berlin"
+			kind: "default"
+			geoLocation: { latitude: "987655.0", longitude: "987655.0" }
+		}
+		contacts: [
+			{
+				firstName: "Sebastian"
+				lastName: "Peter"
+				email: "Sebastian_peter@web.de"
+				phone: "123456789"
+				fax: "9987654"
+			}
+		]
+		repeatDuration: { startDate: "", endDate: "" }
+		organizer: {
+			name: "Lorem ipsum dolor sit"
+			contact: {
+				firstName: "Loremp"
+				lastName: "Ipsum"
+				email: "loram@lorax.de"
+				phone: "12345678"
+				fax: "8838478"
+			}
+			address: {
+				addition: "Lorem ipsum dolor sit amet consectetur adipiscing"
+				street: "Teststr. 7"
+				zip: "12051"
+				city: "Berlin"
+				kind: "default"
+				geoLocation: { latitude: "", longitude: "" }
+			}
+		}
+		dates: [
+			{
+				weekday: ""
+				dateStart: "2020-12-12"
+				dateEnd: "2020-12-12"
+				timeStart: "12:00"
+				timeEnd: "16:00"
+				timeDescription: "Lorem ipsum dolor sit amet consectetur adipiscing"
+			}
+		]
+		priceInformations: [{ name: "preis 2", amount: "", ageFrom: 10.0, ageTo: 100.0 }]
+		mediaContents: [
+			{
+				captionText: "Tetstiwiuew"
+				contentType: "image"
+				copyright: "Sebasti P"
+				height: "300"
+				width: "300"
+				sourceUrl: { url: "www.test.de", description: "Lorem ipsum dolor sit amet consectetur adipiscing" }
+			}
+		]
+		accessibilityInformation: {
+			description: "Lorem ipsum dolor sit amet consectetur adipiscing"
+			types: "Lorem ipsum dolor sit amet consectetur adipiscing"
+		}
+	) {
+		id
+	}
+}
