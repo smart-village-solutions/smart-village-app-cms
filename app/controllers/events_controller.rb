@@ -193,8 +193,9 @@ class EventsController < ApplicationController
 
   def create
     logger.warn("*"*100)
-    logger.warn(create_params)
-    results = @smart_village.query create_params
+    query = create_params
+    logger.warn(query)
+    results = @smart_village.query query
     new_id = results.data.create_event_record.id
     redirect_to edit_event_path(new_id)
   end
@@ -202,8 +203,9 @@ class EventsController < ApplicationController
   def update
     old_id = params[:id]
     logger.warn("*"*100)
-    logger.warn(create_params)
-    results = @smart_village.query create_params
+    query = create_params
+    logger.warn(query)
+    results = @smart_village.query query
     new_id = results.data.create_event_record.id
 
     if new_id.present? && new_id != old_id
