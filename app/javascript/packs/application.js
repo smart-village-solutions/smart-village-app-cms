@@ -60,6 +60,13 @@ $(function () {
     postfixes: ''
   });
 
+  $("#nested-content-blocks").nestedForm({
+    forms: '#nested-content-block-form',
+    adder: '#nested-add-content-block',
+    remover: '.removeContent',
+    postfixes: ''
+  });
+
 
 
   // Init DataTables for all tables with css-class 'data_table'
