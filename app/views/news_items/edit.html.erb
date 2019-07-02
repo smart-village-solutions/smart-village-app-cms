@@ -1,2 +1,12 @@
-<h1>NewsItems#edit</h1>
-<p>Find me in app/views/news_items/edit.html.erb</p>
+<h1>News item "<%= @news_item.content_blocks.first.try(:title) %>" bearbeiten</h1>
+
+<div class="row">
+  <div class="col-8">
+    <%= form_with( url: news_item_path(@news_item.id), method: :patch, local: true) do %>
+      <%= render partial: "news_items/form", locals: { news_item: @news_item } %>
+    <% end %>
+  </div>
+  <div class="col-4">
+    <%= render partial: "form_hints" %>
+  </div>
+</div>

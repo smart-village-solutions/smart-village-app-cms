@@ -1,0 +1,67 @@
+<%= fields_for :news_item, news_item do |f|  %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Titel</label>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Autor</label>
+        <%= f.text_field :author, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">gewünschtes Veröffentlichungsdatum</label>
+        <%= f.text_field :publication_date %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="description">Veröffentlichungsdatum</label>
+        <%= f.text_field :published_at %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between mb-4">
+        Adresse
+      </h3>
+    </div>
+  </div>
+
+
+  <%= f.fields_for :address do |fadd|  %>
+    <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: @news_item.address } %>
+  <% end %>
+
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
+        Kapitel
+        <input type="button" value="Kapitel hinzufügen" id="nested-add-medium" class="btn btn-sm btn-secondary"/>
+      </h6>
+    </div>
+    <div class="card-body">
+      <%= render partial: "news_items/form_partials/content_blocks_form", locals: { news_item: news_item, form: f } %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col">
+      <%= f.submit "speichern", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
