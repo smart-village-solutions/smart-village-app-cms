@@ -168,7 +168,6 @@ class EventsController < ApplicationController
     GRAPHQL
 
     @event = results.data.event_record
-    byebug
   end
 
   def new
