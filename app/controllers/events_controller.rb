@@ -168,6 +168,7 @@ class EventsController < ApplicationController
     GRAPHQL
 
     @event = results.data.event_record
+    byebug
   end
 
   def new
@@ -230,10 +231,6 @@ class EventsController < ApplicationController
   end
 
   private
-
-  def init_defaults
-    @event
-  end
 
   def create_params
     @event_params = params.require(:event).permit!
