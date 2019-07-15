@@ -24,6 +24,9 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-recommended": "^4.0.0",
+    "eslint-plugin-react": "^7.14.2",
     "webpack-dev-server": "^3.7.1"
   }
 }
