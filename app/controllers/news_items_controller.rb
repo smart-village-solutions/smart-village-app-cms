@@ -113,13 +113,11 @@ class NewsItemsController < ApplicationController
 
   def update
     old_id = params[:id]
-    logger.warn("*"*100)
     query = create_params
     logger.warn(query)
 
     begin
       results = @smart_village.query query
-      byebug
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
       redirect_to edit_news_item_path(old_id)
