@@ -7,7 +7,7 @@ module Converter
       data = remove_quotes_from_boolean_values(data)
 
       # remove leading and tailing curly braces
-      data = data.gsub(/^\"\{/, '').gsub(/\}\"$/, '').gsub(/\\/,'')
+      data = data.gsub(/^\{/, '').gsub(/\}$/, '')
 
       "mutation { #{name} (forceCreate: true, #{data}) {id} }"
     end
@@ -32,10 +32,9 @@ module Converter
     end
 
     def remove_quotes_from_boolean_values(data)
-      json_string = data.to_json
-      json_string.gsub!("\\\"true\\\"", "true")
+      data.gsub!("\\\"true\\\"", "true")
 
-      json_string
+      data
     end
 
 

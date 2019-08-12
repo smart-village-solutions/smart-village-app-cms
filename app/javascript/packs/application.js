@@ -14,6 +14,8 @@ var DataTable = require('datatables.net/js/jquery.dataTables.js')
 require('datatables.net-bs4/js/dataTables.bootstrap4.js')
 require("channels")
 require("@kanety/jquery-nested-form")
+// require('@ckeditor/ckeditor5-build-classic')
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -23,6 +25,15 @@ require("@kanety/jquery-nested-form")
 // const imagePath = (name) => images(name, true)
 
 $(function () {
+
+  ClassicEditor
+    .create(document.querySelector('.html-editor'))
+    .then(editor => {
+      console.log(editor);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 
   $("#nested-event-dates").nestedForm({
     forms: '#nested-event-date-form',

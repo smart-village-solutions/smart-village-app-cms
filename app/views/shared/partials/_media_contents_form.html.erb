@@ -16,7 +16,7 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Art</label>
-              <%= fmc.text_field :content_type, class: "form-control" %>
+              <%= fmc.select :content_type, options_for_select(["Image", "BackgroundImage", "Video", "Audio"]) ,class: "form-control" %>
             </div>
           </div>
         </div>
