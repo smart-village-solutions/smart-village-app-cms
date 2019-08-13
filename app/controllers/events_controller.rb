@@ -171,20 +171,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = OpenStruct.new(
-      addresses: [OpenStruct.new],
-      dates: [OpenStruct.new],
-      contacts: [OpenStruct.new(web_urls: [OpenStruct.new])],
-      price_informations: [OpenStruct.new],
-      repeat_duration: OpenStruct.new,
-      urls: [OpenStruct.new],
-      organizer: OpenStruct.new(
-        web_urls: [OpenStruct.new],
-        contact: OpenStruct.new(web_urls: [OpenStruct.new]),
-        address: OpenStruct.new()
-      ),
-      media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
-    )
+    @event = new_event_record
   end
 
   def show
@@ -192,20 +179,35 @@ class EventsController < ApplicationController
   end
 
   def create
-    logger.warn("*"*100)
     query = create_params
-    logger.warn(query)
-    results = @smart_village.query query
+    begin
+      results = @smart_village.query query
+    rescue Graphlient::Errors::GraphQLError => e
+      flash[:error] = e.errors.messages["data"].to_s
+      @event = new_event_record
+      render :new
+      return
+    end
     new_id = results.data.create_event_record.id
+    flash[:notice] = "Veranstaltung wurde erstellt"
     redirect_to edit_event_path(new_id)
   end
 
   def update
     old_id = params[:id]
-    logger.warn("*"*100)
     query = create_params
-    logger.warn(query)
-    results = @smart_village.query query
+    begin
+      results = @smart_village.query query
+    rescue Graphlient::Errors::GraphQLError => e
+      flash[:error] = e.errors.messages["data"].to_s
+      redirect_to edit_event_path(old_id)
+      return
+    rescue Graphlient::Errors::ClientError => e
+      flash[:error] = e.inspect
+      redirect_to edit_event_path(old_id)
+      return
+    end
+
     new_id = results.data.create_event_record.id
 
     if new_id.present? && new_id != old_id
@@ -230,6 +232,23 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def new_event_record
+    OpenStruct.new(
+      addresses: [OpenStruct.new],
+      dates: [OpenStruct.new],
+      contacts: [OpenStruct.new(web_urls: [OpenStruct.new])],
+      price_informations: [OpenStruct.new],
+      repeat_duration: OpenStruct.new,
+      urls: [OpenStruct.new],
+      organizer: OpenStruct.new(
+        web_urls: [OpenStruct.new],
+        contact: OpenStruct.new(web_urls: [OpenStruct.new]),
+        address: OpenStruct.new()
+      ),
+      media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+    )
+  end
 
   def create_params
     @event_params = params.require(:event).permit!

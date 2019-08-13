@@ -7,6 +7,7 @@ class NewsItemsController < ApplicationController
     query {
       newsItems() {
         id
+        title
         contentBlocks{
           title
         }
@@ -23,11 +24,7 @@ class NewsItemsController < ApplicationController
   end
 
   def new
-    @news_item = OpenStruct.new(
-      address: OpenStruct.new(),
-      source_url: OpenStruct.new,
-      media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
-    )
+    @news_item = new_news_item
   end
 
   def edit
@@ -109,6 +106,18 @@ class NewsItemsController < ApplicationController
   end
 
   def create
+    query = create_params
+    begin
+      results = @smart_village.query query
+    rescue Graphlient::Errors::GraphQLError => e
+      flash[:error] = e.errors.messages["data"].to_s
+      @news_item = new_news_item
+      render :new
+      return
+    end
+    new_id = results.data.create_news_item.id
+    flash[:notice] = "Nachricht wurde erstellt"
+    redirect_to edit_news_item_path(new_id)
   end
 
   def update
@@ -150,6 +159,14 @@ class NewsItemsController < ApplicationController
   end
 
   private
+
+  def new_news_item
+    OpenStruct.new(
+      address: OpenStruct.new(),
+      source_url: OpenStruct.new,
+      media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+    )
+  end
 
   def create_params
     @news_item_params = params.require(:news_item).permit!

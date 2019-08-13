@@ -1,2 +1,12 @@
-<h1>NewsItems#new</h1>
-<p>Find me in app/views/news_items/new.html.erb</p>
+<h1>Neue Nachricht anlegen</h1>
+
+<div class="row">
+  <div class="col-8">
+    <%= form_with( url: news_items_path, method: :post, local: true) do %>
+      <%= render partial: "news_items/form", locals: { news_item: @news_item } %>
+    <% end %>
+  </div>
+  <div class="col-4">
+    <%= render partial: "form_hints" %>
+  </div>
+</div>

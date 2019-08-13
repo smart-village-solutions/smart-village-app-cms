@@ -2,8 +2,8 @@
 
 <div class="row">
   <div class="col-8">
-    <%= form_with( url: events_path, method: :post) do %>
-      <%= render partial: "events/form", locals: {event: @event } %>
+    <%= form_with( url: events_path, method: :post, local: true) do %>
+      <%= render partial: "events/form", locals: { event: @event } %>
     <% end %>
   </div>
   <div class="col-4">
