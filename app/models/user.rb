@@ -1,9 +1,10 @@
 class User
-  attr_accessor :name, :email, :data_provider, :applications
+  attr_accessor :name, :email, :data_provider, :applications, :authentication_token
 
-  def initialize(email:, password: nil, data_provider: nil, applications: nil)
+  def initialize(email:, password: nil, data_provider: nil, applications: nil, authentication_token: nil)
     @email = email
     @password = password
+    @authentication_token = authentication_token
     @data_provider = data_provider
     @applications = applications
   end
@@ -32,15 +33,19 @@ class User
 
   def sign_in
     uri = Addressable::URI.parse("#{SmartVillageApi.auth_server_url}/users/sign_in.json")
-    user_credentials = { user: { email: @email, password: @password } }
     result = ApiRequestService.new(uri.to_s, nil, nil, user_credentials).post_request
     if result.code == "200" && result.body.present?
       data = JSON.parse(result.body)
+      @authentication_token = data["user"]["authentication_token"]
       @applications = data["applications"]
       @data_provider = data["data_provider"]
       data
     else
       result.body
     end
+  end
+
+  def user_credentials
+    { user: { email: @email, password: @password } }
   end
 end

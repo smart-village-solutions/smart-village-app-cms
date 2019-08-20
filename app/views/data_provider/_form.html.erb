@@ -17,7 +17,8 @@
     </div>
   </div>
 
-  <%= f.fields_for :logo, OpenStruct.new(data_provider["logo"]) do |fadd|  %>
+  <%= f.fields_for :logo_attributes, OpenStruct.new(data_provider["logo"]) do |fadd|  %>
+    <%= fadd.hidden_field :id %>
     <div class="row">
       <div class="col">
         <h5>Logo</h5>
@@ -43,7 +44,8 @@
     </div>
   <% end %>
 
-  <%= f.fields_for :address, OpenStruct.new(data_provider["address"]) do |fadd|  %>
+  <%= f.fields_for :address_attributes, OpenStruct.new(data_provider["address"]) do |fadd|  %>
+  <%= fadd.hidden_field :id %>
     <div class="row">
       <div class="col">
         <h5>Adresse</h5>
@@ -84,7 +86,8 @@
     </div>
   <% end %>
 
-<%= f.fields_for :contact, OpenStruct.new(data_provider["contact"]) do |fadd|  %>
+<%= f.fields_for :contact_attributes, OpenStruct.new(data_provider["contact"]) do |fadd|  %>
+  <%= fadd.hidden_field :id %>
     <div class="row">
       <div class="col">
         <h5>Kontakt</h5>

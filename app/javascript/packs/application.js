@@ -5,7 +5,6 @@
 
 require('@rails/ujs').start()
 require('@rails/activestorage').start()
-require('bootstrap')
 require("jquery")
 require('jquery.easing')
 require('bootstrap/dist/js/bootstrap.bundle.min.js')
@@ -14,8 +13,6 @@ var DataTable = require('datatables.net/js/jquery.dataTables.js')
 require('datatables.net-bs4/js/dataTables.bootstrap4.js')
 require("channels")
 require("@kanety/jquery-nested-form")
-// require('@ckeditor/ckeditor5-build-classic')
-
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

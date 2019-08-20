@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     return redirect_to log_in_path if session["current_user"].blank?
     user_data = {
       email: session["current_user"]["email"],
-      data_provider: session["current_user"]["data_provider"],
+      authentication_token: session["current_user"]["authentication_token"],
       applications: session["current_user"]["applications"]
     }
 
