@@ -25,6 +25,7 @@
         <td><%= news_item.created_at %></td>
         <td>
           <%= link_to "Bearbeiten", edit_news_item_path(news_item.id) %>
+          <%= link_to "Löschen", news_item_path(news_item.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?" %>
         </td>
       </tr>
     <% end %>

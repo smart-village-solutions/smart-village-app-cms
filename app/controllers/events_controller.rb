@@ -229,6 +229,21 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    results = @smart_village.query <<~GRAPHQL
+      mutation {
+        destroyRecord(id: #{params["id"]}, recordType: "EventRecord") {
+          id
+          status
+          statusCode
+        }
+      }
+    GRAPHQL
+    if results.try(:data).try(:destroy_record).try(:status_code) == 200
+      flash["notice"] = "Eintrag wurde gelöscht"
+    else
+      flash["notice"] = "Fehler: #{results.errors.inspect}"
+    end
+    redirect_to events_path
   end
 
   private

@@ -25,6 +25,7 @@
         <td><%= event.created_at %></td>
         <td>
           <%= link_to "Bearbeiten", edit_event_path(event.id) %>
+          <%= link_to "Löschen", event_path(event.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?" %>
         </td>
       </tr>
     <% end %>

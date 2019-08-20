@@ -156,6 +156,21 @@ class NewsItemsController < ApplicationController
   end
 
   def destroy
+    results = @smart_village.query <<~GRAPHQL
+      mutation {
+        destroyRecord(id: #{params["id"]}, recordType: "NewsItem") {
+          id
+          status
+          statusCode
+        }
+      }
+    GRAPHQL
+    if results.try(:data).try(:destroy_record).try(:status_code) == 200
+      flash["notice"] = "Eintrag wurde gelöscht"
+    else
+      flash["notice"] = "Fehler: #{results.errors.inspect}"
+    end
+    redirect_to news_items_path
   end
 
   private
