@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between mb-4">
+      Webseiten
+      <input type="button" value="Webseite hinzufügen" id="nested-add-web-urls" class="btn btn-sm btn-secondary"/>
+    </h3>
+  </div>
+</div>
+
+<% list_of_urls = record.urls.presence || [OpenStruct.new] %>
+<% list_of_urls.each_with_index do |url, index| %>
+  <div id="nested-web-urls">
+    <%= fields_for "event[urls][#{index}]", url do |furl|  %>
+      <div id="nested-web-url-form">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Url</label>
+              <%= furl.text_field :url, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Beschreibung</label>
+              <%= furl.text_field :description, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <input type="button" value="Webseite entfernen" class="remove btn btn-sm btn-danger">
+        <hr />
+      </div>
+    <% end %>
+  </div>
+<% end %>

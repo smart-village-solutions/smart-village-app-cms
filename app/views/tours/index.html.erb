@@ -1,0 +1,27 @@
+<h1>Touren</h1>
+<p>Übersicht aller Touren</p>
+
+<table class="table data_table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">updated at</th>
+      <th scope="col">created at</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tours.each do |tour| %>
+      <tr>
+        <th scope="row"><%= tour.id %></th>
+        <td><%= tour.name %></td>
+        <td><%= tour.updated_at %></td>
+        <td><%= tour.created_at %></td>
+        <td>
+          <%= link_to "Bearbeiten", edit_tour_path(tour.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

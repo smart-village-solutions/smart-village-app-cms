@@ -1,0 +1,131 @@
+
+<h1>Veranstaltung "<%= @event.title %>"</h1>
+<% if @event.category.present? %>
+  <p>in der Kategorie <%= @event.category.name %></p>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-6">
+    <!-- Default Card Example -->
+    <div class="card mb-4">
+      <div class="card-header">
+        Beschreibung
+      </div>
+      <div class="card-body">
+        <%= @event.description %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <!-- Default Card Example -->
+    <div class="card mb-4">
+      <div class="card-header">
+        Region
+      </div>
+      <div class="card-body">
+        <%= @event.region_id %> <br>
+        Github Issue: https://github.com/ikuseiGmbH/smart-village-app-mainserver/issues/88
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <!-- Default Card Example -->
+    <div class="card mb-4">
+      <div class="card-header">
+        Verschlagwortung
+      </div>
+      <div class="card-body">
+        <%= @event.tag_list.join(", ") %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h2>Dates</h2>
+  </div>
+</div>
+
+<div class="row">
+  <% @event.dates.each do |date|  %>
+    <div class="col-lg-6">
+      <div class="card mb-4">
+
+        <div class="card-header">
+          <%= date.weekday %>
+        </div>
+
+        <div class="card-body">
+          <dl class="dl-horizontal">
+            <dt>Start</dt>
+            <dd><%= date.date_start %> </dd>
+
+            <dt>Ende:</dt>
+            <dd><%= date.date_end %></dd>
+
+            <dt>Uhrzeit Begin:</dt>
+            <dd><%= date.time_start %></dd>
+
+            <dt>Uhrzeit Ende:</dt>
+            <dd><%= date.time_end %></dd>
+
+            <dt>Beschreibung Uhrzeit:</dt>
+            <dd><%= date.time_description %></dd>
+
+            <dt>Nur die Beschreibung anzeigen?</dt>
+            <dd><%= date.use_only_time_description %></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<div class="row">
+  <div class="col">
+    <h2>Kontakte</h2>
+  </div>
+</div>
+
+<div class="row">
+  <% @event.contacts.each do |contact|  %>
+    <div class="col-lg-6">
+        <!-- Default Card Example -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <%= contact.first_name %> <%= contact.last_name %>
+        </div>
+        <div class="card-body">
+          <dl class="dl-horizontal">
+            <dt>E-Mail:</dt>
+            <dd><%= contact.email %> </dd>
+
+            <dt>Telefon:</dt>
+            <dd><%= contact.phone %></dd>
+
+            <dt>Fax:</dt>
+            <dd><%= contact.fax %></dd>
+
+            <hr>
+            <h4>Web links</h4>
+
+            <% contact.web_urls.each do |web_url| %>
+              <dt>Url:</dt>
+              <dd><%= web_url.url %></dd>
+
+              <dt>Beschreibung:</dt>
+              <dd><%= web_url.description %></dd>
+            <% end %>
+          </dl>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

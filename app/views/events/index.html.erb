@@ -1,0 +1,36 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Veranstaltungen</h1>
+  <%= link_to new_event_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neue Veranstaltung
+  <% end %>
+</div>
+
+<table class="table data_table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">updated at</th>
+      <th scope="col">created at</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <th scope="row"><%= event.id %></th>
+        <td><%= event.title %></td>
+        <td><%= event.updated_at %></td>
+        <td><%= event.created_at %></td>
+        <td>
+          <%= link_to "Bearbeiten", edit_event_path(event.id), class: "btn btn-sm btn-secondary" %>
+          <%= link_to event_path(event.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger" do %>
+            <i class="fas fa-trash"></i>
+            Löschen
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

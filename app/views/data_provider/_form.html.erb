@@ -1,0 +1,147 @@
+<%= fields_for :data_provider, data_provider do |f|  %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Titel</label>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <%= f.text_field :description, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <%= f.fields_for :logo_attributes, OpenStruct.new(data_provider["logo"]) do |fadd|  %>
+    <%= fadd.hidden_field :id %>
+    <div class="row">
+      <div class="col">
+        <h5>Logo</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="description">URL</label>
+          <%= fadd.text_field :url, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="description">Beschreibung</label>
+          <%= fadd.text_field :description, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :address_attributes, OpenStruct.new(data_provider["address"]) do |fadd|  %>
+  <%= fadd.hidden_field :id %>
+    <div class="row">
+      <div class="col">
+        <h5>Adresse</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Straße</label>
+          <%= fadd.text_field :street, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Adresszusatz</label>
+          <%= fadd.text_field :addition, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">PLZ</label>
+          <%= fadd.text_field :zip, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Stadt</label>
+          <%= fadd.text_field :city, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<%= f.fields_for :contact_attributes, OpenStruct.new(data_provider["contact"]) do |fadd|  %>
+  <%= fadd.hidden_field :id %>
+    <div class="row">
+      <div class="col">
+        <h5>Kontakt</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Vorname</label>
+          <%= fadd.text_field :first_name, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Nachname</label>
+          <%= fadd.text_field :last_name, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Telefon</label>
+          <%= fadd.text_field :phone, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Fax</label>
+          <%= fadd.text_field :fax, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="description">E-Mail</label>
+          <%= fadd.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
+  <div class="row">
+    <div class="col">
+      <%= f.submit "speichern", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+

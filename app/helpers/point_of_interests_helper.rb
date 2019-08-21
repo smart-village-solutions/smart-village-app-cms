@@ -1,0 +1,2 @@
+module PointOfInterestsHelper
+end

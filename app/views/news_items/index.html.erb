@@ -1,0 +1,36 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Nachrichten</h1>
+  <%= link_to new_news_item_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neue Nachricht
+  <% end %>
+</div>
+
+<table class="table data_table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">updated at</th>
+      <th scope="col">created at</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @news_items.each do |news_item| %>
+      <tr>
+        <th scope="row"><%= news_item.id %></th>
+        <td><%= news_item.title.presence || news_item.content_blocks.first.try(:title) %></td>
+        <td><%= news_item.updated_at %></td>
+        <td><%= news_item.created_at %></td>
+        <td>
+          <%= link_to "Bearbeiten", edit_news_item_path(news_item.id), class: "btn btn-sm btn-secondary" %>
+          <%= link_to news_item_path(news_item.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger" do %>
+            <i class="fas fa-trash"></i>
+            Löschen
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,15 @@
+<h1>Veranstaltung "<%= @event.title %>" bearbeiten</h1>
+<% if @event.category.present? %>
+  <p>in der Kategorie <%= @event.category.name %></p>
+<% end %>
+
+<div class="row">
+  <div class="col-8">
+    <%= form_with( url: event_path(@event.id), method: :patch, local: true) do %>
+      <%= render partial: "events/form", locals: { event: @event } %>
+    <% end %>
+  </div>
+  <div class="col-4">
+    <%= render partial: "form_hints" %>
+  </div>
+</div>

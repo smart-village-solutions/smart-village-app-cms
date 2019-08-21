@@ -1,0 +1,28 @@
+<h1>Point of Interests</h1>
+<p>Übersicht aller POIs</p>
+
+<table class="table data_table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">updated at</th>
+      <th scope="col">updated at</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @points_of_interest.each do |poi| %>
+      <tr>
+        <th scope="row"><%= poi.id %></th>
+        <td><%= poi.name %></td>
+        <td><%= poi.updated_at %></td>
+        <td><%= poi.created_at %></td>
+        <td>
+          <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
+          <%= link_to "Löschen", point_of_interest_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

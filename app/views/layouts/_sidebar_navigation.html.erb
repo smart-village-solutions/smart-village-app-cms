@@ -1,0 +1,61 @@
+<!-- Nav Item - Dashboard -->
+<li class="nav-item active">
+  <a class="nav-link" href="/">
+    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <span>Dashboard</span>
+  </a>
+</li>
+
+<li class="nav-item active">
+  <a class="nav-link" href="/data_provider">
+    <i class="fas fa-fw fa-university"></i>
+    <span>Data Provider</span>
+  </a>
+</li>
+
+<!-- Divider -->
+<hr class="sidebar-divider" />
+
+<!-- Heading -->
+<div class="sidebar-heading">
+  Resources
+</div>
+
+<!-- Nav Item - News -->
+<% if visible_in_role?("role_news_item") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/news_items">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Nachrichten</span>
+    </a>
+  </li>
+<% end %>
+
+<!-- Nav Item - Events -->
+<% if visible_in_role?("role_event_record") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/events">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Veranstaltungen</span></a>
+  </li>
+<% end %>
+
+<!-- Nav Item - POIs -->
+<% if visible_in_role?("role_point_of_interest") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/point_of_interests">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Point Of Interest</span>
+    </a>
+  </li>
+<% end %>
+
+<!-- Nav Item - Tours -->
+<% if visible_in_role?("role_tour") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/tours">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Touren</span>
+    </a>
+  </li>
+<% end %>

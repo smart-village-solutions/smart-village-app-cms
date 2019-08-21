@@ -1,0 +1,52 @@
+<% list_of_price_informations = event.price_informations.presence || [OpenStruct.new] %>
+<% list_of_price_informations.each_with_index do |price, index| %>
+  <div id="nested-event-prices">
+  <%= fields_for "event[price_informations][#{index}]", price do |fp|  %>
+    <div id="nested-event-price-form">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="description">Name</label>
+            <%= fp.text_field :name, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Preis</label>
+            <%= fp.text_field :amount, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Gruppenpreis</label>
+            <%= fp.check_box :group_price, { class: "form-control" }, true, false %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Mindestalter</label>
+            <%= fp.text_field :age_from, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="description">Höchstalter</label>
+            <%= fp.text_field :age_to, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <input type="button" value="Preis entfernen" class="remove btn btn-sm btn-danger">
+      <hr />
+    </div>
+  <% end %>
+  </div>
+<% end %>
