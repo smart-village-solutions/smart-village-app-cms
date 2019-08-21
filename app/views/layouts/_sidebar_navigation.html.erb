@@ -8,8 +8,8 @@
 
 <li class="nav-item active">
   <a class="nav-link" href="/data_provider">
-    <i class="fas fa-fw fa-university"></i>
-    <span>Data Provider</span>
+    <i class="fas fa-fw fa-user-circle"></i>
+    <span>Account</span>
   </a>
 </li>
 
@@ -25,7 +25,7 @@
 <% if visible_in_role?("role_news_item") %>
   <li class="nav-item">
     <a class="nav-link" href="/news_items">
-      <i class="fas fa-fw fa-chart-area"></i>
+      <i class="fas fa-fw fa-newspaper"></i>
       <span>Nachrichten</span>
     </a>
   </li>
@@ -35,7 +35,7 @@
 <% if visible_in_role?("role_event_record") %>
   <li class="nav-item">
     <a class="nav-link" href="/events">
-      <i class="fas fa-fw fa-chart-area"></i>
+      <i class="fas fa-fw fa-calendar-alt"></i>
       <span>Veranstaltungen</span></a>
   </li>
 <% end %>
@@ -44,7 +44,7 @@
 <% if visible_in_role?("role_point_of_interest") %>
   <li class="nav-item">
     <a class="nav-link" href="/point_of_interests">
-      <i class="fas fa-fw fa-chart-area"></i>
+      <i class="fas fa-fw fa-map-pin"></i>
       <span>Point Of Interest</span>
     </a>
   </li>
@@ -54,7 +54,7 @@
 <% if visible_in_role?("role_tour") %>
   <li class="nav-item">
     <a class="nav-link" href="/tours">
-      <i class="fas fa-fw fa-chart-area"></i>
+      <i class="fas fa-fw fa-walking"></i>
       <span>Touren</span>
     </a>
   </li>

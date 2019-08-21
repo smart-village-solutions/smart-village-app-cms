@@ -39,25 +39,19 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col">
-    <h5>Web link</h5>
-  </div>
-</div>
-
 <% contact.web_urls.each do |web_url| %>
   <%= fields_for :web_url, web_url do |fu|  %>
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label for="description">Url</label>
+          <label for="description">URL</label>
           <%= fu.text_field :url, class: "form-control" %>
         </div>
       </div>
 
       <div class="col-lg-6">
         <div class="form-group">
-          <label for="description">Beschreibung</label>
+          <label for="description">Linktext (wird ggf. statt der URL angezeigt)</label>
           <%= fu.text_field :description, class: "form-control" %>
         </div>
       </div>

@@ -1,48 +1,51 @@
 <% list_of_content_blocks = news_item.content_blocks.presence || [OpenStruct.new] %>
 <% list_of_content_blocks.each_with_index do |content_block, index| %>
-  <div id="nested-content-blocks">
-    <%= form.fields_for "content_blocks[#{index}]", content_block do |fmc, index| %>
-      <div id="nested-content-block-form">
-        <h4>Kapitel</h4>
 
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Titel</label>
-              <%= fmc.text_field :title, class: "form-control" %>
+    <div id="nested-content-blocks">
+      <%= form.fields_for "content_blocks[#{index}]", content_block do |fmc, index| %>
+        <div id="nested-content-block-form">
+
+<div class="card mb-4">
+  <div class="card-header py-3  bg-dark text-white">
+      <h3 class="m-0 font-weight-bold d-sm-flex align-items-center justify-content-between float-left">
+        Bereich
+      </h3  >
+      <input type="button" value="diesen Bereich entfernen" class="removeContent btn btn-sm btn-danger float-right ">
+
+    </div>
+    <div class="card-body">
+
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="description">Überschrift</label>
+                <%= fmc.text_field :title, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <label for="description">Einleitung</label>
+                <%= fmc.text_area :intro, class: "form-control" %>
+                <p class="hint">Dieser Text wird hervorgehoben dargestellt.</p>
+              </div>
+              <div class="form-group">
+                <label for="description">Text</label>
+                <%= fmc.text_area :body, class: "form-control html-editor" %>
+                <!-- HTML Editor muss auch bei hinzugefügten Bereichen funktionieren. Außerdem müssen die Buttons für Bilder, Tabellen und Media raus! -->
+              </div>
             </div>
           </div>
+          <hr />
+          <h3 class="mb-3 font-weight-bold d-sm-flex align-items-center justify-content-between">
+            Dateien
+          </h3>
+          <p>Sie können jedem Bereich eine oder mehrere Dateien hinzufügen. Mehrere Dateien an einer Stelle werden als Slider dargestellt.</p>
+          <%= render partial: "shared/partials/media_contents_form", locals: { record: content_block, form: fmc } %>
+          <input type="button" value="weitere Datei hinzufügen" id="nested-add-medium" class="btn btn-sm btn-secondary"/>
 
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Teaser</label>
-              <%= fmc.text_area :intro, class: "form-control" %>
-            </div>
-          </div>
         </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="description">Main Content</label>
-              <%= fmc.text_area :body, class: "form-control html-editor" %>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
-              Media
-              <input type="button" value="Medium hinzufügen" id="nested-add-medium" class="btn btn-sm btn-secondary"/>
-            </h6>
-          </div>
-          <div class="card-body">
-            <%= render partial: "shared/partials/media_contents_form", locals: { record: content_block, form: fmc } %>
-          </div>
-        </div>
-        <input type="button" value="Kapitel entfernen" class="removeContent btn btn-sm btn-danger">
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
+</div>
+
 <% end %>

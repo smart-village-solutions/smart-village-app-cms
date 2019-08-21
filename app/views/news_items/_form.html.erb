@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="description">Titel</label>
+        <label for="description">Hauptüberschrift *</label>
         <%= f.text_field :title, class: "form-control" %>
       </div>
     </div>
@@ -11,11 +11,12 @@
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="description">Autor</label>
+        <label for="description">Autor*in</label>
         <%= f.text_field :author, class: "form-control" %>
       </div>
     </div>
   </div>
+<!-- ToDo: Format klären!!
 
   <div class="row">
     <div class="col-lg-6">
@@ -32,31 +33,38 @@
       </div>
     </div>
   </div>
+-->
 
+  <div class="row mb-5">
+    <div class="col">
+      <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
+        Bereiche
+      </h2>
+      <p>Jede Nachricht kann aus einem oder mehreren Breichen bestehen - so wie ein Buch aus verschiedenen Kapiteln besteht. 
+      Jeder Bereich kann eine Überschrift, einen Text und Bilder oder Videos haben. Dabei sind all diese 
+      Elemente optional und müssen nicht in jedem Bereich enthalten sein. So könenn Sie aus den Zusammenspiel von mehreren Bereichen 
+      mit unterschiedlichen Inhaltsarten interessante und abwechslungreichen Texte erstellen. <p>
+      <p>Hinweis: Sie müssen die Hauptüberschrift im ersten Bereich nicht wiederholen. Sonst erscheint diese auch doppelt in der App.</p>
+
+      <%= render partial: "news_items/form_partials/content_blocks_form", locals: { news_item: news_item, form: f } %>
+
+      <input type="button" value="weiteren Bereich hinzufügen" id="nested-add-content-block" class="btn btn-sm btn-secondary"/>
+    </div>
+  </div>
+
+<!-- ToDo: Wo könnte man das hier benötigen?
   <div class="row">
     <div class="col">
-      <h3 class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
         Adresse
-      </h3>
+      </h2>
     </div>
   </div>
+-->
 
-
-  <%= f.fields_for :address do |fadd|  %>
-    <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: @news_item.address } %>
-  <% end %>
-
-    <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary d-sm-flex align-items-center justify-content-between">
-        Kapitel
-        <input type="button" value="Kapitel hinzufügen" id="nested-add-content-block" class="btn btn-sm btn-secondary"/>
-      </h6>
-    </div>
-    <div class="card-body">
-      <%= render partial: "news_items/form_partials/content_blocks_form", locals: { news_item: news_item, form: f } %>
-    </div>
-  </div>
+  <%#= f.fields_for :address do |fadd|  %>
+    <%#= render partial: "shared/partials/address_form", locals: { form: fadd, address: @news_item.address } %>
+  <%# end %>
 
 
   <div class="row">

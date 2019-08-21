@@ -1,8 +1,8 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between">
   <h1 class="h3 mb-0 text-gray-800">Veranstaltungen</h1>
   <%= link_to new_event_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
-    Neue Veranstaltung
+    Neue Veranstaltung erstellen
   <% end %>
 </div>
 
@@ -10,10 +10,10 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Title</th>
-      <th scope="col">updated at</th>
-      <th scope="col">created at</th>
-      <th scope="col">Options</th>
+      <th scope="col">Überschrift</th>
+      <th scope="col">Änderungsdatum</th>
+      <th scope="col">Erstellungsdatum</th>
+      <th scope="col">Aktionen</th>
     </tr>
   </thead>
   <tbody>

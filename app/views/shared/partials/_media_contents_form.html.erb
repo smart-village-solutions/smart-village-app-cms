@@ -3,33 +3,64 @@
   <div id="nested-media">
     <%= form.fields_for "media_contents[#{index}]", media_content do |fmc, index| %>
       <div id="nested-medium-form">
-        <h4>Medium</h4>
 
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Beschreibung / Untertitel</label>
-              <%= fmc.text_field :caption_text, class: "form-control" %>
+          <div class="card mb-4">
+            <div class="card-header py-3  bg-dark text-white">
+              <h4 class="float-left">Datei</h4>
+        <input type="button" value="diese Datei entfernen" class="float-right remove btn btn-sm btn-danger">
+
+        <!-- Dateien entfernen und ergänzen geht nur im ersten Bereich -->
+
+            </div>
+            <div class="card-body">
+        <%= fmc.fields_for :source_url, media_content.source_url do |fu|  %>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="description">Link zur Datei (Bild, Youtube-Video, SoundCloud-Aufnahme) *</label>
+                <%= fu.text_field :url, class: "form-control" %>
             </div>
           </div>
-
-          <div class="col-lg-6">
+          </div>
+<!-- ToDo: Brauchen wir das?
+          <div class="row">
+          <div class="col">
             <div class="form-group">
-              <label for="description">Art</label>
-              <%= fmc.select :content_type, options_for_select(["Image", "BackgroundImage", "Video", "Audio"]) ,class: "form-control" %>
+                <label for="description">Beschreibung</label>
+                <%= fu.text_field :description, class: "form-control" %>
+              </div>
             </div>
           </div>
-        </div>
+          -->
+        <% end %>
+          
+  
 
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="description">Copyright</label>
+              <label for="description">Bildunterschrift</label>
+              <%= fmc.text_field :caption_text, class: "form-control" %>
+            </div>
+          </div>
+          </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Art</label><br>  
+              <%= fmc.select :content_type, options_for_select(["Image", "Video", "Audio"]), {}, {class: "form-control"}  %>
+            </div>
+          </div>
+        
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="description">Rechteinhaber</label>
               <%= fmc.text_field :copyright, class: "form-control" %>
             </div>
           </div>
         </div>
-
+<!-- Sind die Angaben zu Höhe und Breite tatsächlich notwendig? -->
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
@@ -46,32 +77,9 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col">
-            <h5>Web link</h5>
-          </div>
-        </div>
-
-        <%= fmc.fields_for :source_url, media_content.source_url do |fu|  %>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="description">Url</label>
-                <%= fu.text_field :url, class: "form-control" %>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="description">Beschreibung</label>
-                <%= fu.text_field :description, class: "form-control" %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <input type="button" value="Medium entfernen" class="remove btn btn-sm btn-danger">
-        <hr />
       </div>
     <% end %>
   </div>
+  </div>
+</div>
 <% end %>
