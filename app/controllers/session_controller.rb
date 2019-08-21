@@ -10,6 +10,7 @@ class SessionController < ApplicationController
         session["current_user"]["email"] = @current_user.email
         session["current_user"]["authentication_token"] = @current_user.authentication_token
         session["current_user"]["applications"] = @current_user.applications
+        session["current_user"]["roles"] = @current_user.roles
         redirect_to root_path()
       else
         flash[:error] = "E-Mail oder Passwort ist falsch"

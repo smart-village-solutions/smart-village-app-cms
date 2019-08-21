@@ -1,11 +1,12 @@
 class User
-  attr_accessor :name, :email, :data_provider, :applications, :authentication_token
+  attr_accessor :name, :email, :data_provider, :applications, :authentication_token, :roles
 
-  def initialize(email:, password: nil, data_provider: nil, applications: nil, authentication_token: nil)
+  def initialize(email:, password: nil, data_provider: nil, applications: nil, authentication_token: nil, roles: nil)
     @email = email
     @password = password
     @authentication_token = authentication_token
     @data_provider = data_provider
+    @roles = roles
     @applications = applications
   end
 
@@ -39,6 +40,7 @@ class User
       @authentication_token = data["user"]["authentication_token"]
       @applications = data["applications"]
       @data_provider = data["data_provider"]
+      @roles = data["roles"]
       data
     else
       result.body

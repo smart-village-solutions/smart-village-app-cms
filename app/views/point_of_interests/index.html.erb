@@ -19,7 +19,7 @@
         <td><%= poi.updated_at %></td>
         <td><%= poi.created_at %></td>
         <td>
-          <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id) %>
+          <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
           <%= link_to "Löschen", point_of_interest_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?" %>
         </td>
       </tr>

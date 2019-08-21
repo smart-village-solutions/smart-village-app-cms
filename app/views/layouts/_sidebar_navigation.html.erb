@@ -22,32 +22,40 @@
 </div>
 
 <!-- Nav Item - News -->
-<li class="nav-item">
-  <a class="nav-link" href="/news_items">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Nachrichten</span>
-  </a>
-</li>
+<% if visible_in_role?("role_news_item") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/news_items">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Nachrichten</span>
+    </a>
+  </li>
+<% end %>
 
 <!-- Nav Item - Events -->
-<li class="nav-item">
-  <a class="nav-link" href="/events">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Veranstaltungen</span></a>
-</li>
+<% if visible_in_role?("role_event_record") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/events">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Veranstaltungen</span></a>
+  </li>
+<% end %>
 
 <!-- Nav Item - POIs -->
-<li class="nav-item">
-  <a class="nav-link" href="/point_of_interests">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Point Of Interest</span>
-  </a>
-</li>
+<% if visible_in_role?("role_point_of_interest") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/point_of_interests">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Point Of Interest</span>
+    </a>
+  </li>
+<% end %>
 
 <!-- Nav Item - Tours -->
-<li class="nav-item">
-  <a class="nav-link" href="/tours">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Touren</span>
-  </a>
-</li>
+<% if visible_in_role?("role_tour") %>
+  <li class="nav-item">
+    <a class="nav-link" href="/tours">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Touren</span>
+    </a>
+  </li>
+<% end %>
