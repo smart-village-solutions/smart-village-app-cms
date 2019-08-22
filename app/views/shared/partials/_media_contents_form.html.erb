@@ -22,10 +22,11 @@
             </div>
           </div>
           </div>
-<!-- ToDo: Brauchen wir das?
+
+         <!-- TODO: Wird erstmal nicht benötigt
           <div class="row">
-          <div class="col">
-            <div class="form-group">
+            <div class="col">
+              <div class="form-group">
                 <label for="description">Beschreibung</label>
                 <%= fu.text_field :description, class: "form-control" %>
               </div>
@@ -33,8 +34,8 @@
           </div>
           -->
         <% end %>
-          
-  
+
+
 
         <div class="row">
           <div class="col">
@@ -48,11 +49,11 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="description">Art</label><br>  
+              <label for="description">Art</label><br>
               <%= fmc.select :content_type, options_for_select(["Image", "Video", "Audio"]), {}, {class: "form-control"}  %>
             </div>
           </div>
-        
+
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Rechteinhaber</label>
@@ -60,22 +61,23 @@
             </div>
           </div>
         </div>
-<!-- ToDo: Sind die Angaben zu Höhe und Breite tatsächlich notwendig? -->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Höhe</label>
-              <%= fmc.text_field :height, class: "form-control" %>
+        <!-- TODO: Wird erstmal nicht benötigt
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="description">Höhe</label>
+                <%= fmc.text_field :height, class: "form-control" %>
+              </div>
             </div>
-          </div>
 
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Breite</label>
-              <%= fmc.text_field :width, class: "form-control" %>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="description">Breite</label>
+                <%= fmc.text_field :width, class: "form-control" %>
+              </div>
             </div>
           </div>
-        </div>
+        -->
 
       </div>
     <% end %>
