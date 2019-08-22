@@ -10,7 +10,7 @@ class DataProviderController < ApplicationController
     if result.code == "200"
       @data_provider = OpenStruct.new(JSON.parse(result.body))
     else
-      flash[:error] = "Achtung! Verbindungsproblem zum Server, bitte versuchen sie es später noch einmal"
+      flash[:error] = "Achtung! Verbindungsproblem zum Server, bitte versuchen sie es später noch einmal (#{result.body})"
     end
   end
 

@@ -5,7 +5,9 @@
 <div class="row">
   <div class="col-8">
     <%= form_with( url: data_provider_path, method: :patch, local: true) do %>
-      <%= render partial: "data_provider/form", locals: { data_provider: @data_provider } %>
+      <% if @data_provider.present? %>
+        <%= render partial: "data_provider/form", locals: { data_provider: @data_provider } %>
+      <% end %>
     <% end %>
   </div>
   <div class="col-4">
