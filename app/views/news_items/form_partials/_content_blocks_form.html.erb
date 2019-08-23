@@ -1,8 +1,9 @@
 <% list_of_content_blocks = news_item.content_blocks.presence || [OpenStruct.new] %>
-<% list_of_content_blocks.each_with_index do |content_block, index| %>
-  <div id="nested-content-blocks">
-    <%= form.fields_for "content_blocks[#{index}]", content_block do |fmc, index| %>
-      <div id="nested-content-block-form">
+
+<div id="nested-content-blocks">
+  <% list_of_content_blocks.each_with_index do |content_block, index| %>
+    <%= form.fields_for "content_blocks[#{index}]", content_block do |fcb| %>
+      <div class="nested-content-block-form">
         <div class="card mb-4">
           <div class="card-header py-3  bg-dark text-white">
             <h3 class="m-0 font-weight-bold d-sm-flex align-items-center justify-content-between float-left">
@@ -19,16 +20,16 @@
               <div class="col">
                 <div class="form-group">
                   <label for="description">Überschrift</label>
-                  <%= fmc.text_field :title, class: "form-control" %>
+                  <%= fcb.text_field :title, class: "form-control" %>
                 </div>
                 <div class="form-group">
                   <label for="description">Einleitung</label>
-                  <%= fmc.text_area :intro, class: "form-control" %>
+                  <%= fcb.text_area :intro, class: "form-control" %>
                   <p class="hint">Dieser Text wird hervorgehoben dargestellt.</p>
                 </div>
                 <div class="form-group">
                   <label for="description">Text</label>
-                  <%= fmc.text_area :body, class: "form-control html-editor" %>
+                  <%= fcb.text_area :body, class: "form-control html-editor" %>
                   <!-- ToDo: HTML Editor muss auch bei hinzugefügten Bereichen funktionieren.-->
                   <!-- ToDo: Außerdem müssen die Buttons im Editor für Bilder, Tabellen und Media raus! -->
                 </div>
@@ -45,17 +46,10 @@
               einer Stelle werden als Slider dargestellt.
             </p>
 
-            <%= render partial: "shared/partials/media_contents_form", locals: { record: content_block, form: fmc } %>
-
-            <input
-              type="button"
-              value="weitere Datei hinzufügen"
-              id="nested-add-medium"
-              class="btn btn-sm btn-secondary"
-            />
+            <%= render partial: "shared/partials/media_contents_form", locals: { record: content_block, form: fcb } %>
           </div>
         </div>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>

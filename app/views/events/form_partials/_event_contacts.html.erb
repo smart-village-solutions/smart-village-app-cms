@@ -7,10 +7,11 @@
 </div>
 
 <% list_of_contacts = event.contacts.presence || [OpenStruct.new(web_urls: [OpenStruct.new])] %>
-<% list_of_contacts.each_with_index do |contact, index| %>
-  <div id="nested-event-contacts">
+
+<div id="nested-event-contacts">
+  <% list_of_contacts.each_with_index do |contact, index| %>
     <%= form.fields_for "contacts[#{index}]", contact do |fc|  %>
-      <div id="nested-event-contact-form">
+      <div class="nested-event-contact-form">
         <div class="card mb-4">
           <div class="card-header py-3  bg-dark text-white">
             <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
@@ -28,8 +29,8 @@
         </div>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
 <input
   type="button"

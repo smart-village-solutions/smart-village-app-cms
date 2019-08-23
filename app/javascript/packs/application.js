@@ -32,43 +32,44 @@ $(function() {
     });
 
   $('#nested-event-dates').nestedForm({
-    forms: '#nested-event-date-form',
+    forms: '.nested-event-date-form',
     adder: '#nested-add-event-dates',
     remover: '.remove',
     postfixes: ''
   });
 
   $('#nested-event-contacts').nestedForm({
-    forms: '#nested-event-contact-form',
+    forms: '.nested-event-contact-form',
     adder: '#nested-add-event-contacts',
     remover: '.remove',
     postfixes: ''
   });
 
   $('#nested-event-prices').nestedForm({
-    forms: '#nested-event-price-form',
+    forms: '.nested-event-price-form',
     adder: '#nested-add-event-prices',
     remover: '.remove',
     postfixes: ''
   });
 
   $('#nested-web-urls').nestedForm({
-    forms: '#nested-web-url-form',
+    forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
     remover: '.remove',
-    associations: 'urls',
+    associations: 'urls', // TODO: is this needed here? i can not feel a difference if it is deleted
     postfixes: ''
   });
 
-  $('#nested-media').nestedForm({
-    forms: '#nested-medium-form',
-    adder: '#nested-add-medium',
+  // everything with classes here, because in content blocks nested-media will appear multiple times
+  $('.nested-media').nestedForm({
+    forms: '.nested-medium-form',
+    adder: '.nested-add-medium',
     remover: '.remove',
     postfixes: ''
   });
 
   $('#nested-content-blocks').nestedForm({
-    forms: '#nested-content-block-form',
+    forms: '.nested-content-block-form',
     adder: '#nested-add-content-block',
     remover: '.removeContent',
     postfixes: ''

@@ -7,10 +7,11 @@
 </div>
 
 <% list_of_urls = record.urls.presence || [OpenStruct.new] %>
-<% list_of_urls.each_with_index do |url, index| %>
-  <div id="nested-web-urls">
+
+<div id="nested-web-urls">
+  <% list_of_urls.each_with_index do |url, index| %>
     <%= fields_for "event[urls][#{index}]", url do |furl|  %>
-      <div id="nested-web-url-form">
+      <div class="nested-web-url-form">
         <div class="card mb-4">
           <div class="card-header py-3 bg-dark text-white">
             <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
@@ -41,8 +42,8 @@
         </div>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
 <input
   type="button"

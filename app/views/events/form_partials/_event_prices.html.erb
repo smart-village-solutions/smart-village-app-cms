@@ -1,8 +1,9 @@
 <% list_of_price_informations = event.price_informations.presence || [OpenStruct.new] %>
-<% list_of_price_informations.each_with_index do |price, index| %>
-  <div id="nested-event-prices">
+
+<div id="nested-event-prices">
+  <% list_of_price_informations.each_with_index do |price, index| %>
     <%= fields_for "event[price_informations][#{index}]", price do |fp|  %>
-      <div id="nested-event-price-form">
+      <div class="nested-event-price-form">
         <div class="card mb-4">
           <div class="card-header py-3 bg-dark text-white">
             <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
@@ -33,5 +34,5 @@
         </div>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
