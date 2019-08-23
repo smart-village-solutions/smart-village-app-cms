@@ -11,20 +11,31 @@
   <div id="nested-event-contacts">
     <%= form.fields_for "contacts[#{index}]", contact do |fc|  %>
       <div id="nested-event-contact-form">
-      <div class="card mb-4">
-        <div class="card-header py-3  bg-dark text-white">
-          <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
-            Kontakt 
-          </h4  >
-          <input type="button" value="diesen Kontakt entfernen" class="removeContent btn btn-sm btn-danger float-right ">
-        </div>
-        <div class="card-body">
-          <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
+        <div class="card mb-4">
+          <div class="card-header py-3  bg-dark text-white">
+            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+              Kontakt
+            </h4>
+            <input
+              type="button"
+              value="diesen Kontakt entfernen"
+              class="float-right remove btn btn-sm btn-danger"
+            />
+          </div>
+          <div class="card-body">
+            <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
 <% end %>
 
-<input type="button" value="Kontakt hinzufügen" id="nested-add-event-contacts" class="btn btn-sm btn-secondary"/>
+<input
+  type="button"
+  value="Kontakt hinzufügen"
+  id="nested-add-event-contacts"
+  class="btn btn-sm btn-secondary"
+/>
+
 <hr />

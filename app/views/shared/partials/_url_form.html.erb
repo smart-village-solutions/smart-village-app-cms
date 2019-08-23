@@ -11,41 +11,44 @@
   <div id="nested-web-urls">
     <%= fields_for "event[urls][#{index}]", url do |furl|  %>
       <div id="nested-web-url-form">
-
-
-<div class="card mb-4">
-  <div class="card-header py-3  bg-dark text-white">
-      <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
-      Link
-      </h4  >
-      <input type="button" value="diesen Link entfernen" class="removeContent btn btn-sm btn-danger float-right ">
-
-    </div>
-    <div class="card-body">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">URL</label>
-              <%= furl.text_field :url, class: "form-control" %>
-            </div>
+        <div class="card mb-4">
+          <div class="card-header py-3 bg-dark text-white">
+            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+              Link
+            </h4>
+            <input
+              type="button"
+              value="diesen Link entfernen"
+              class="float-right remove btn btn-sm btn-danger"
+            />
           </div>
-
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Linktext</label>
-              <%= furl.text_field :description, class: "form-control" %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="description">URL</label>
+                  <%= furl.text_field :url, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="description">Linktext</label>
+                  <%= furl.text_field :description, class: "form-control" %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-      
-      </div></div>
+      </div>
     <% end %>
   </div>
 <% end %>
 
-<input type="button" value="weiteren Link hinzufügen" id="nested-add-web-urls" class="btn btn-sm btn-secondary"/>
+<input
+  type="button"
+  value="weiteren Link hinzufügen"
+  id="nested-add-web-urls"
+  class="btn btn-sm btn-secondary"
+/>
+
 <hr />
-
-
-

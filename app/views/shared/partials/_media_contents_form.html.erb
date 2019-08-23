@@ -1,10 +1,10 @@
 <% list_of_media_contents = record.media_contents.presence || [OpenStruct.new] %>
 <% list_of_media_contents.each_with_index do |media_content, index| %>
   <div id="nested-media">
-    <%= form.fields_for "media_contents[#{index}]", media_content do |fmc, index| %>
+    <%= form.fields_for "media_contents[#{index}]", media_content do |fmc| %>
       <div id="nested-medium-form">
         <div class="card mb-4">
-          <div class="card-header py-3  bg-dark text-white">
+          <div class="card-header py-3 bg-dark text-white">
             <h4 class="float-left">Datei</h4>
             <input
               type="button"
