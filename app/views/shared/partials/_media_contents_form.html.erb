@@ -3,85 +3,93 @@
   <div id="nested-media">
     <%= form.fields_for "media_contents[#{index}]", media_content do |fmc, index| %>
       <div id="nested-medium-form">
-
-          <div class="card mb-4">
-            <div class="card-header py-3  bg-dark text-white">
-              <h4 class="float-left">Datei</h4>
-        <input type="button" value="diese Datei entfernen" class="float-right remove btn btn-sm btn-danger">
-
-        <!-- ToDo: Dateien entfernen und ergänzen geht nur im ersten Bereich -->
-
-            </div>
-            <div class="card-body">
-        <%= fmc.fields_for :source_url, media_content.source_url do |fu|  %>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="description">Link zur Datei (Bild, Youtube-Video, SoundCloud-Aufnahme) *</label>
-                <%= fu.text_field :url, class: "form-control" %>
-            </div>
+        <div class="card mb-4">
+          <div class="card-header py-3  bg-dark text-white">
+            <h4 class="float-left">Datei</h4>
+            <input
+              type="button"
+              value="diese Datei entfernen"
+              class="float-right remove btn btn-sm btn-danger"
+            />
+            <!-- ToDo: Dateien entfernen und ergänzen geht nur im ersten Bereich -->
           </div>
-          </div>
+          <div class="card-body">
+            <%= fmc.fields_for :source_url, media_content.source_url do |fu|  %>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="description">
+                      Link zur Datei (Bild, Youtube-Video, SoundCloud-Aufnahme) *
+                    </label>
+                    <%= fu.text_field :url, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
 
-         <!-- TODO: Wird erstmal nicht benötigt
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="description">Beschreibung</label>
-                <%= fu.text_field :description, class: "form-control" %>
+              <!-- TODO: Wird erstmal nicht benötigt
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="description">Beschreibung</label>
+                      <%= fu.text_field :description, class: "form-control" %>
+                    </div>
+                  </div>
+                </div>
+              -->
+            <% end %>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="description">Bildunterschrift</label>
+                  <%= fmc.text_field :caption_text, class: "form-control" %>
+                </div>
               </div>
             </div>
-          </div>
-          -->
-        <% end %>
 
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="description">Art</label><br>
+                  <%= fmc.select(
+                        :content_type,
+                        options_for_select([
+                          ["Image", "image"], ["Video", "video"], ["Audio", "audio"]
+                        ]),
+                        {},
+                        { class: "form-control" }
+                      ) %>
+                </div>
+              </div>
 
-
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="description">Bildunterschrift</label>
-              <%= fmc.text_field :caption_text, class: "form-control" %>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="description">Rechteinhaber</label>
+                  <%= fmc.text_field :copyright, class: "form-control" %>
+                </div>
+              </div>
             </div>
-          </div>
-          </div>
 
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Art</label><br>
-              <%= fmc.select :content_type, options_for_select(["Image", "Video", "Audio"]), {}, {class: "form-control"}  %>
-            </div>
-          </div>
+            <!-- TODO: Wird erstmal nicht benötigt
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="description">Höhe</label>
+                    <%= fmc.text_field :height, class: "form-control" %>
+                  </div>
+                </div>
 
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="description">Rechteinhaber</label>
-              <%= fmc.text_field :copyright, class: "form-control" %>
-            </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="description">Breite</label>
+                    <%= fmc.text_field :width, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+            -->
           </div>
         </div>
-        <!-- TODO: Wird erstmal nicht benötigt
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="description">Höhe</label>
-                <%= fmc.text_field :height, class: "form-control" %>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="description">Breite</label>
-                <%= fmc.text_field :width, class: "form-control" %>
-              </div>
-            </div>
-          </div>
-        -->
-
       </div>
     <% end %>
   </div>
-  </div>
-</div>
 <% end %>
