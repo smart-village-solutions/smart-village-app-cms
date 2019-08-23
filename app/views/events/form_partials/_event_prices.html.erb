@@ -1,37 +1,37 @@
 <% list_of_price_informations = event.price_informations.presence || [OpenStruct.new] %>
 <% list_of_price_informations.each_with_index do |price, index| %>
   <div id="nested-event-prices">
-  <%= fields_for "event[price_informations][#{index}]", price do |fp|  %>
-    <div id="nested-event-price-form">
-
-
-      <div class="card mb-4">
-        <div class="card-header py-3 bg-dark text-white">
-          <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
-            Preiskategorie 
-          </h4  >
-          <input type="button" value="diese Preiskategorie entfernen" class="remove btn btn-sm btn-danger float-right">
-        </div>
-        <div class="card-body">
-
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="description">Name</label>
-            <%= fp.text_field :name, class: "form-control" %>
+    <%= fields_for "event[price_informations][#{index}]", price do |fp|  %>
+      <div id="nested-event-price-form">
+        <div class="card mb-4">
+          <div class="card-header py-3 bg-dark text-white">
+            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+              Preiskategorie
+            </h4>
+            <input
+              type="button"
+              value="diese Preiskategorie entfernen"
+              class="remove btn btn-sm btn-danger float-right"
+            />
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="description">Preis</label>
-            <%= fp.text_field :amount, class: "form-control" %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="description">Beschreibung</label>
+                  <%= fp.text_field :description, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="description">Preis</label>
+                  <%= fp.text_field :amount, class: "form-control" %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-        </div>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
   </div>
 <% end %>
