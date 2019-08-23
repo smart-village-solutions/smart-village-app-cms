@@ -79,6 +79,7 @@ $(function() {
     associations: 'urls' // needed to correctly increment ids of added sections
   });
 
+  // media not nested in a content block, for example in events
   // everything with classes here, because in content blocks nested-media will appear multiple times
   $('.nested-media').nestedForm({
     forms: '.nested-medium-form',
@@ -86,11 +87,48 @@ $(function() {
     ...defaultNestedFormsOptions
   });
 
+  // initial rendered media nested in a content block, for example in news
+  // this is commented out to make the afterAddForm logic work in content blocks for additionally
+  // added sections
+  // $('.nested-media-content-block').nestedForm({
+  //   forms: '.nested-medium-form',
+  //   adder: '.nested-add-medium',
+  //   remover: '.remove',
+  //   postfixes: ''
+  // });
+
   $('#nested-content-blocks').nestedForm({
     forms: '.nested-content-block-form',
     adder: '#nested-add-content-block',
     remover: '.removeContent',
-    postfixes: ''
+    postfixes: '',
+    afterAddForm: function($container, $form) {
+      console.log('afterAddForm: .nested-content-block-form', $container, $form);
+
+      const timestamp = Date.now();
+
+      // this only works, if $('.nested-media-content-block').nestedForm({... is commented out
+      // but then initially rendered content blocks are not working
+      $form
+        .find('.nested-media-content-block')
+        .addClass('nested-media-content-block-' + timestamp)
+        .removeClass('nested-media-content-block');
+      $form
+        .find('.nested-add-medium')
+        .addClass('nested-add-medium-' + timestamp)
+        .removeClass('nested-add-medium');
+      $form
+        .find('.nested-medium-form')
+        .addClass('nested-medium-form-' + timestamp)
+        .removeClass('nested-medium-form');
+
+      $form.find('.nested-media-content-block-' + timestamp).nestedForm({
+        forms: '.nested-medium-form-' + timestamp,
+        adder: '.nested-add-medium-' + timestamp,
+        remover: '.remove',
+        postfixes: ''
+      });
+    }
   });
 
   // Init DataTables for all tables with css-class 'data_table'
