@@ -25,7 +25,10 @@
           <%= f.text_field :publication_date %>
         </div>
       </div>
+  -->
+  <%= hidden_field_tag "news_item[publication_date]", Time.now %>
 
+  <!--
       !-- ToDo: Datepicker --
       <div class="col-lg-6">
         <div class="form-group">

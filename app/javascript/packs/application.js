@@ -23,9 +23,12 @@ require('@kanety/jquery-nested-form');
 
 /* eslint-disable func-names */
 $(function() {
-  ClassicEditor.create(document.querySelector('.html-editor'))
-    .then((editor) => {
-      console.log(editor);
+  ClassicEditor.create(document.querySelector('.html-editor'), {
+    toolbar: [
+      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|', 'mediaEmbed', '|','undo', 'redo'
+    ]
+  }).then((editor) => {
+      console.log(Array.from(editor.ui.componentFactory.names()));
     })
     .catch((error) => {
       console.error(error);
