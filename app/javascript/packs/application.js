@@ -25,7 +25,7 @@ require('@kanety/jquery-nested-form');
 $(function() {
   ClassicEditor.create(document.querySelector('.html-editor'), {
     toolbar: [
-      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|', 'mediaEmbed', '|','undo', 'redo'
+      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|','undo', 'redo'
     ]
   }).then((editor) => {
       console.log(Array.from(editor.ui.componentFactory.names()));
