@@ -2,28 +2,32 @@
   <h1 class="h3 mb-0 text-gray-800">Orte</h1>
 </div>
 
-<table class="table data_table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Title</th>
-      <th scope="col">updated at</th>
-      <th scope="col">updated at</th>
-      <th scope="col">Options</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @points_of_interest.each do |poi| %>
+<div class="pb-4">
+  <table class="table data_table bg-white">
+    <thead>
       <tr>
-        <th scope="row"><%= poi.id %></th>
-        <td><%= poi.name %></td>
-        <td><%= poi.updated_at %></td>
-        <td><%= poi.created_at %></td>
-        <td>
-          <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
-          <%= link_to "Löschen", point_of_interest_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?" %>
-        </td>
+        <th scope="col">ID</th>
+        <th scope="col">Überschrift</th>
+        <th scope="col">Änderungsdatum</th>
+        <th scope="col">Erstellungsdatum</th>
+        <th scope="col">Aktionen</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @points_of_interest.each do |poi| %>
+        <tr>
+          <th scope="row"><%= poi.id %></th>
+          <td><%= poi.name %></td>
+          <td><%= toLocalDateTime(poi.updated_at) %></td>
+          <td><%= toLocalDateTime(poi.created_at) %></td>
+          <td align="right">
+            <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
+            <%= link_to point_of_interest_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

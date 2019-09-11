@@ -1,5 +1,6 @@
 <% list_of_media_contents = record.media_contents.presence || [OpenStruct.new] %>
 
+<!-- TODO: Dateien entfernen und ergänzen geht nur im ersten Bereich!!! -->
 <div class="nested-media">
   <% list_of_media_contents.each_with_index do |media_content, index| %>
     <%= form.fields_for "media_contents[#{index}]", media_content do |fmc| %>
@@ -12,7 +13,6 @@
               value="diese Datei entfernen"
               class="float-right remove btn btn-sm btn-danger"
             />
-            <!-- ToDo: Dateien entfernen und ergänzen geht nur im ersten Bereich -->
           </div>
           <div class="card-body">
             <%= fmc.fields_for :source_url, media_content.source_url do |fu|  %>
@@ -20,7 +20,7 @@
                 <div class="col">
                   <div class="form-group">
                     <label for="description">
-                      Link zur Datei (Bild, Youtube-Video, SoundCloud-Aufnahme) *
+                      Link (Bild, YouTube-Video, SoundCloud-Aufnahme)
                     </label>
                     <%= fu.text_field :url, class: "form-control" %>
                   </div>

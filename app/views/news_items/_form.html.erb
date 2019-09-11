@@ -17,28 +17,29 @@
     </div>
   </div>
 
-  <!-- Wird erstmal nicht benötigt
+  <!-- TODO: Wird erstmal nicht benötigt
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label for="description">gewünschtes Veröffentlichungsdatum</label>
-          <%= f.text_field :publication_date %>
+          <%= f.date_field :publication_date, class: "form-control", value: f.object.publication_date %>
         </div>
       </div>
   -->
-  <%= hidden_field_tag "news_item[publication_date]", Time.now %>
-  <%= hidden_field_tag "news_item[published_at]", Time.now %>
 
-  <!--
-      !-- ToDo: Datepicker --
+  <%= hidden_field_tag "news_item[publication_date]", Time.now %>
+
+  <!-- TODO: Wird erstmal nicht benötigt
       <div class="col-lg-6">
         <div class="form-group">
           <label for="description">Veröffentlichungsdatum</label>
-          <%= f.text_field :published_at %>
+          <%= f.date_field :published_at, class: "form-control", value: f.object.published_at %>
         </div>
       </div>
     </div>
   -->
+
+  <%= hidden_field_tag "news_item[published_at]", Time.now %>
 
   <div class="row mb-5">
     <div class="col">
@@ -48,12 +49,11 @@
       <p>
         Jede Nachricht kann aus einem oder mehreren Breichen bestehen - so wie ein Buch aus verschiedenen Kapiteln besteht.
         Jeder Bereich kann eine Überschrift, einen Text und Bilder oder Videos haben. Dabei sind all diese
-        Elemente optional und müssen nicht in jedem Bereich enthalten sein. So könenn Sie aus den Zusammenspiel von mehreren Bereichen
+        Elemente optional und müssen nicht in jedem Bereich enthalten sein. So können Sie aus den Zusammenspiel von mehreren Bereichen
         mit unterschiedlichen Inhaltsarten interessante und abwechslungreichen Texte erstellen.
       <p>
       <p>
-        Hinweis: Sie müssen die Hauptüberschrift im ersten Bereich nicht wiederholen.
-        Sonst erscheint diese auch doppelt in der App.
+        Hinweis: Sie müssen die Hauptüberschrift im ersten Bereich nicht wiederholen, da sie sonst auch doppelt in der App erscheint.
       </p>
 
       <%= render partial: "news_items/form_partials/content_blocks_form", locals: { news_item: news_item, form: f } %>
@@ -82,8 +82,8 @@
   <%# end %>
 
   <div class="row">
-    <div class="col">
-      <%= f.submit "speichern", class: "btn btn-primary" %>
+    <div class="col pb-4">
+      <%= f.submit "Speichern", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

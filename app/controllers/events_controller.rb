@@ -8,6 +8,10 @@ class EventsController < ApplicationController
       eventRecords {
         id
         title
+        dates {
+          dateStart
+          dateEnd
+        }
         updatedAt
         createdAt
       }

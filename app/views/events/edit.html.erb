@@ -1,9 +1,11 @@
 <div class="d-sm-flex align-items-center justify-content-between">
-  <h1 class="h3 mb-0 text-gray-800">Veranstaltung bearbeiten</h1>
+  <h1 class="h3 mb-0 text-gray-800">
+    Veranstaltung bearbeiten
+  </h1>
 </div>
 
 <% if @event.category.present? %>
-  <p>in der Kategorie <%= @event.category.name %></p>
+  <p class="lead">in der Kategorie <%= @event.category.name %></p>
 <% end %>
 
 <div class="row">

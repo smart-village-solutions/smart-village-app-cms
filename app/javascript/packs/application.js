@@ -25,14 +25,13 @@ require('@kanety/jquery-nested-form');
 $(function() {
   ClassicEditor.create(document.querySelector('.html-editor'), {
     toolbar: [
-      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|','undo', 'redo'
+      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|', 'undo', 'redo'
     ]
   }).then((editor) => {
-      console.log(Array.from(editor.ui.componentFactory.names()));
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    // console.log(Array.from(editor.ui.componentFactory.names()));
+  }).catch((error) => {
+    console.error(error);
+  });
 
   $('#nested-event-dates').nestedForm({
     forms: '.nested-event-date-form',
@@ -90,7 +89,10 @@ $(function() {
   };
 
   $('.data_table').DataTable({
-    searching: true
+    searching: true,
+    language: {
+      url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
+    }
   });
 
   // Toggle the side navigation
