@@ -21,7 +21,7 @@
           <td><%= toLocalDateTime(tour.updated_at) %></td>
           <td><%= toLocalDateTime(tour.created_at) %></td>
           <td align="right">
-            <%= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
+            <%#= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to tour_path(tour.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
               <i class="fas fa-trash"></i>
             <% end %>
