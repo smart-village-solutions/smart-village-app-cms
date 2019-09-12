@@ -47,13 +47,19 @@
         Bereiche
       </h2>
       <p>
-        Jede Nachricht kann aus einem oder mehreren Breichen bestehen - so wie ein Buch aus verschiedenen Kapiteln besteht.
-        Jeder Bereich kann eine Überschrift, einen Text und Bilder oder Videos haben. Dabei sind all diese
+        Jede Nachricht kann aus einem oder mehreren Bereichen bestehen - so wie ein Buch aus verschiedenen Kapiteln besteht.
+        Jeder Bereich kann eine Überschrift, einen Text und Bilder oder Video-/Audio-Elemente haben. Dabei sind all diese
         Elemente optional und müssen nicht in jedem Bereich enthalten sein. So können Sie aus den Zusammenspiel von mehreren Bereichen
-        mit unterschiedlichen Inhaltsarten interessante und abwechslungreichen Texte erstellen.
+        mit unterschiedlichen Inhaltsarten interessante und abwechslungreiche Texte erstellen.
       <p>
       <p>
-        Hinweis: Sie müssen die Hauptüberschrift im ersten Bereich nicht wiederholen, da sie sonst auch doppelt in der App erscheint.
+        In der mobilen App wird aus einem Bereich erst der Titel mit eventueller Einleitung,
+        dann die Bilder und dann der Text ausgespielt. Video- und Audio-Elemente werden als
+        letztes nach dem Text erscheinen.
+      </p>
+      <p>
+        Hinweis: Sie müssen die Hauptüberschrift im ersten Bereich nicht wiederholen, da sie sonst
+        auch doppelt in der App erscheint.
       </p>
 
       <%= render partial: "news_items/form_partials/content_blocks_form", locals: { news_item: news_item, form: f } %>

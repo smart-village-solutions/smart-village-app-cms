@@ -24,7 +24,8 @@
                 </div>
                 <div class="form-group">
                   <label for="description">Einleitung</label>
-                  <%= fcb.text_area :intro, class: "form-control" %>
+                  <%= fcb.text_area :intro, class: "form-control html-editor", rows: 5 %>
+                  <!-- TODO: HTML Editor muss auch bei hinzugefügten Bereichen funktionieren. -->
                   <p class="hint">Dieser Text wird hervorgehoben dargestellt.</p>
                 </div>
                 <div class="form-group">
@@ -41,8 +42,8 @@
               Dateien
             </h3>
             <p>
-              Sie können jedem Bereich eine oder mehrere Dateien hinzufügen. Mehrere Dateien an
-              einer Stelle werden als Slider dargestellt.
+              Sie können jedem Bereich eine oder mehrere Dateien hinzufügen. Mehrere Bilder in einem
+              Bereich werden als Slider/Karussell dargestellt.
             </p>
 
             <%= render partial: "shared/partials/media_contents_form", locals: { record: content_block, form: fcb } %>

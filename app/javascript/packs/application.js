@@ -23,15 +23,17 @@ require('@kanety/jquery-nested-form');
 
 /* eslint-disable func-names */
 $(function() {
-  ClassicEditor.create(document.querySelector('.html-editor'), {
-    toolbar: [
-      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|', 'undo', 'redo'
-    ]
-  }).then((editor) => {
-    // console.log(Array.from(editor.ui.componentFactory.names()));
-  }).catch((error) => {
-    console.error(error);
-  });
+  document.querySelectorAll('.html-editor').forEach((htmlEditor) =>
+    ClassicEditor.create(htmlEditor, {
+      toolbar: [
+        'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|', 'undo', 'redo'
+      ]
+    }).then((editor) => {
+      // console.log(Array.from(editor.ui.componentFactory.names()));
+    }).catch((error) => {
+      console.error(error);
+    })
+  );
 
   $('#nested-event-dates').nestedForm({
     forms: '.nested-event-date-form',
