@@ -1,23 +1,27 @@
 <%= fields_for :news_item, news_item do |f|  %>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="description">Hauptüberschrift *</label>
-        <%= f.text_field :title, class: "form-control" %>
+  <!-- NOTE: Wird erstmal nicht benötigt
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="description">Hauptüberschrift *</label>
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
       </div>
     </div>
-  </div>
+  -->
 
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="description">Autor*in</label>
-        <%= f.text_field :author, class: "form-control" %>
+  <!-- NOTE: Wird erstmal nicht benötigt
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="description">Autor*in</label>
+          <%= f.text_field :author, class: "form-control" %>
+        </div>
       </div>
     </div>
-  </div>
+  -->
 
-  <!-- TODO: Wird erstmal nicht benötigt
+  <!-- NOTE: Wird erstmal nicht benötigt
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
@@ -29,7 +33,7 @@
 
   <%= hidden_field_tag "news_item[publication_date]", Time.now %>
 
-  <!-- TODO: Wird erstmal nicht benötigt
+  <!-- NOTE: Wird erstmal nicht benötigt
       <div class="col-lg-6">
         <div class="form-group">
           <label for="description">Veröffentlichungsdatum</label>
@@ -56,10 +60,6 @@
         In der mobilen App wird aus einem Bereich erst der Titel mit eventueller Einleitung,
         dann die Bilder und dann der Text ausgespielt. Video- und Audio-Elemente werden als
         letztes nach dem Text erscheinen.
-      </p>
-      <p>
-        Hinweis: Sie müssen die Hauptüberschrift im ersten Bereich nicht wiederholen, da sie sonst
-        auch doppelt in der App erscheint.
       </p>
 
       <%= render partial: "news_items/form_partials/content_blocks_form", locals: { news_item: news_item, form: f } %>
