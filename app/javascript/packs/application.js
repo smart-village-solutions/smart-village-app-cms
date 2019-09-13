@@ -46,41 +46,44 @@ $(function() {
       })
   );
 
+  const defaultNestedFormsOptions = {
+    remover: '.remove',
+    postfixes: '',
+    afterRemoveForm: ($form) => {
+      $form.remove();
+    }
+  };
+
   $('#nested-event-dates').nestedForm({
     forms: '.nested-event-date-form',
     adder: '#nested-add-event-dates',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-event-contacts').nestedForm({
     forms: '.nested-event-contact-form',
     adder: '#nested-add-event-contacts',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-event-prices').nestedForm({
     forms: '.nested-event-price-form',
     adder: '#nested-add-event-prices',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
-    remover: '.remove',
-    associations: 'urls', // needed to correctly increment ids of added sections
-    postfixes: ''
+    ...defaultNestedFormsOptions,
+    associations: 'urls' // needed to correctly increment ids of added sections
   });
 
   // everything with classes here, because in content blocks nested-media will appear multiple times
   $('.nested-media').nestedForm({
     forms: '.nested-medium-form',
     adder: '.nested-add-medium',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-content-blocks').nestedForm({
