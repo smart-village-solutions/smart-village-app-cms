@@ -43,9 +43,12 @@
                   <label for="description">Art</label><br>
                   <%= fmc.select(
                         :content_type,
-                        options_for_select([
-                          ["Image", "image"], ["Video", "video"], ["Audio", "audio"]
-                        ]),
+                        options_for_select(
+                          [
+                            ["Image", "image"], ["Video", "video"], ["Audio", "audio"]
+                          ],
+                          fmc.object.content_type
+                        ),
                         {},
                         { class: "form-control" }
                       ) %>
