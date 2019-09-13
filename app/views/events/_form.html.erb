@@ -1,4 +1,6 @@
 <%= fields_for :event, event do |f|  %>
+  <%= hidden_field_tag "event[category_name]", @event.category.name %>
+
   <div class="row">
     <div class="col">
       <div class="form-group">
