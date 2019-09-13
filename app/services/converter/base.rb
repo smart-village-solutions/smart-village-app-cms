@@ -37,8 +37,6 @@ module Converter
       data
     end
 
-
-
     def send_mutation(mutation, token)
       url = Rails.application.credentials.target_server[:url]
       response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request

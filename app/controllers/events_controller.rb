@@ -179,7 +179,6 @@ class EventsController < ApplicationController
   end
 
   def show
-
   end
 
   def create
@@ -276,7 +275,6 @@ class EventsController < ApplicationController
   end
 
   def convert_params_for_graphql
-
     # Convert has_many price_informations
     if @event_params["price_informations"].present?
       price_informations = []
@@ -330,6 +328,5 @@ class EventsController < ApplicationController
       end
       @event_params["urls"] = urls
     end
-
   end
 end

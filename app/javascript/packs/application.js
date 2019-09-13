@@ -26,13 +26,24 @@ $(function() {
   document.querySelectorAll('.html-editor').forEach((htmlEditor) =>
     ClassicEditor.create(htmlEditor, {
       toolbar: [
-        'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|', 'undo', 'redo'
+        'heading',
+        '|',
+        'bulletedList',
+        'numberedList',
+        'link',
+        'bold',
+        'italic',
+        '|',
+        'undo',
+        'redo'
       ]
-    }).then((editor) => {
-      // console.log(Array.from(editor.ui.componentFactory.names()));
-    }).catch((error) => {
-      console.error(error);
     })
+      .then((editor) => {
+        // console.log(Array.from(editor.ui.componentFactory.names()));
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   );
 
   $('#nested-event-dates').nestedForm({
@@ -60,7 +71,7 @@ $(function() {
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
     remover: '.remove',
-    associations: 'urls', // TODO: is this needed here? i can not feel a difference if it is deleted
+    associations: 'urls', // needed to correctly increment ids of added sections
     postfixes: ''
   });
 
