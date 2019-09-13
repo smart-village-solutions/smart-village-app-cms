@@ -3,12 +3,12 @@
 </div>
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-lg-8">
     <%= form_with( url: news_items_path, method: :post, local: true) do %>
       <%= render partial: "news_items/form", locals: { news_item: @news_item } %>
     <% end %>
   </div>
-  <div class="col-4">
+  <div class="col-lg-4">
     <%= render partial: "form_hints" %>
   </div>
 </div>

@@ -20,7 +20,7 @@
           <td><%= poi.name %></td>
           <td><%= toLocalDateTime(poi.updated_at) %></td>
           <td><%= toLocalDateTime(poi.created_at) %></td>
-          <td align="right">
+          <td align="right" class="text-nowrap">
             <%#= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to point_of_interest_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
               <i class="fas fa-trash"></i>
