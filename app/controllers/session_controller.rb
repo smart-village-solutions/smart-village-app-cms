@@ -11,17 +11,17 @@ class SessionController < ApplicationController
         session["current_user"]["authentication_token"] = @current_user.authentication_token
         session["current_user"]["applications"] = @current_user.applications
         session["current_user"]["roles"] = @current_user.roles
-        redirect_to root_path()
+        redirect_to root_path
       else
         flash[:error] = "E-Mail oder Passwort ist falsch"
-        redirect_to log_in_path()
+        redirect_to log_in_path
       end
     end
   end
 
   def destroy
     session.destroy
-    flash[:notice] = "You have been successfully logged off"
-    redirect_to root_path()
+    flash[:notice] = "Sie haben sich erfolgreich abgemeldet."
+    redirect_to root_path
   end
 end
