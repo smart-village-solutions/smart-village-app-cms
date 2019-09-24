@@ -1,4 +1,6 @@
 <%= fields_for :event, event do |f|  %>
+  <%= hidden_field_tag "event[category_name]", @event.category.name if @event.category.present? %>
+
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -17,7 +19,7 @@
     </div>
   </div>
 
-  <!-- Wird erstmal nicht benötigt
+  <!-- NOTE: Wird erstmal nicht benötigt
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
@@ -30,7 +32,6 @@
         <div class="form-group">
           <label for="description">Region</label>
           <%= f.text_field "region[name]", { class: "form-control", name: "event[region_name]", value: f.object.try(:region).try(:name) } %>
-          <small id="emailHelp" class="form-text text-muted">Name der Region soll hier rein # TODO</small>
         </div>
       </div>
     </div>
@@ -125,8 +126,8 @@
   <hr />
 
   <div class="row">
-    <div class="col">
-      <%= f.submit "speichern", class: "btn btn-primary" %>
+    <div class="col pb-4">
+      <%= f.submit "Speichern", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

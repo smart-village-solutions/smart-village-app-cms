@@ -134,7 +134,7 @@ class NewsItemsController < ApplicationController
     end
 
     new_id = results.data.create_news_item.id
-    # ToDo Check if destroy_record was succesfull
+
     if new_id.present? && new_id != old_id
       # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
 

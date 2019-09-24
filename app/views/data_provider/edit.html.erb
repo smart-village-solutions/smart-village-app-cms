@@ -3,14 +3,14 @@
 </div>
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-lg-8">
     <%= form_with( url: data_provider_path, method: :patch, local: true) do %>
       <% if @data_provider.present? %>
         <%= render partial: "data_provider/form", locals: { data_provider: @data_provider } %>
       <% end %>
     <% end %>
   </div>
-  <div class="col-4">
+  <div class="col-lg-4">
     <%= render partial: "form_hints" %>
   </div>
 </div>

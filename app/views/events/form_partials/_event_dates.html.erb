@@ -8,13 +8,13 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Startdatum *</label>
-              <%= fd.text_field :date_start, class: "form-control" %>
+              <%= fd.date_field :date_start, class: "form-control", value: fd.object.date_start %>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Enddatum</label>
-              <%= fd.text_field :date_end, class: "form-control" %>
+              <%= fd.date_field :date_end, class: "form-control", value: fd.object.date_end %>
             </div>
           </div>
         </div>
@@ -23,13 +23,13 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Startzeit *</label>
-              <%= fd.text_field :time_start, class: "form-control" %>
+              <%= fd.time_field :time_start, class: "form-control", value: fd.object.time_start %>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Endzeit</label>
-              <%= fd.text_field :time_end, class: "form-control" %>
+              <%= fd.time_field :time_end, class: "form-control", value: fd.object.time_end %>
             </div>
           </div>
         </div>

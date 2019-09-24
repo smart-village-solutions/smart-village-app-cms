@@ -23,52 +23,67 @@ require('@kanety/jquery-nested-form');
 
 /* eslint-disable func-names */
 $(function() {
-  ClassicEditor.create(document.querySelector('.html-editor'), {
-    toolbar: [
-      'heading', '|', 'bulletedList', 'numberedList', 'link', 'bold', 'italic', '|','undo', 'redo'
-    ]
-  }).then((editor) => {
-      console.log(Array.from(editor.ui.componentFactory.names()));
+  document.querySelectorAll('.html-editor').forEach((htmlEditor) =>
+    ClassicEditor.create(htmlEditor, {
+      toolbar: [
+        'heading',
+        '|',
+        'bulletedList',
+        'numberedList',
+        'link',
+        'bold',
+        'italic',
+        '|',
+        'undo',
+        'redo'
+      ]
     })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((editor) => {
+        // console.log(Array.from(editor.ui.componentFactory.names()));
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  );
+
+  const defaultNestedFormsOptions = {
+    remover: '.remove',
+    postfixes: '',
+    afterRemoveForm: ($form) => {
+      $form.remove();
+    }
+  };
 
   $('#nested-event-dates').nestedForm({
     forms: '.nested-event-date-form',
     adder: '#nested-add-event-dates',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-event-contacts').nestedForm({
     forms: '.nested-event-contact-form',
     adder: '#nested-add-event-contacts',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-event-prices').nestedForm({
     forms: '.nested-event-price-form',
     adder: '#nested-add-event-prices',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
-    remover: '.remove',
-    associations: 'urls', // TODO: is this needed here? i can not feel a difference if it is deleted
-    postfixes: ''
+    ...defaultNestedFormsOptions,
+    associations: 'urls' // needed to correctly increment ids of added sections
   });
 
   // everything with classes here, because in content blocks nested-media will appear multiple times
   $('.nested-media').nestedForm({
     forms: '.nested-medium-form',
     adder: '.nested-add-medium',
-    remover: '.remove',
-    postfixes: ''
+    ...defaultNestedFormsOptions
   });
 
   $('#nested-content-blocks').nestedForm({
@@ -90,7 +105,10 @@ $(function() {
   };
 
   $('.data_table').DataTable({
-    searching: true
+    searching: true,
+    language: {
+      url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
+    }
   });
 
   // Toggle the side navigation
