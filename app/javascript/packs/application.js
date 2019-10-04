@@ -21,30 +21,32 @@ require('@kanety/jquery-nested-form');
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+const initClassicEditor = (htmlEditor) => {
+  ClassicEditor.create(htmlEditor, {
+    toolbar: [
+      'heading',
+      '|',
+      'bulletedList',
+      'numberedList',
+      'link',
+      'bold',
+      'italic',
+      '|',
+      'undo',
+      'redo'
+    ]
+  })
+    .then((editor) => {
+      // console.log(Array.from(editor.ui.componentFactory.names()));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 /* eslint-disable func-names */
 $(function() {
-  document.querySelectorAll('.html-editor').forEach((htmlEditor) =>
-    ClassicEditor.create(htmlEditor, {
-      toolbar: [
-        'heading',
-        '|',
-        'bulletedList',
-        'numberedList',
-        'link',
-        'bold',
-        'italic',
-        '|',
-        'undo',
-        'redo'
-      ]
-    })
-      .then((editor) => {
-        // console.log(Array.from(editor.ui.componentFactory.names()));
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-  );
+  document.querySelectorAll('.html-editor').forEach((htmlEditor) => initClassicEditor(htmlEditor));
 
   const defaultNestedFormsOptions = {
     remover: '.remove',
@@ -125,6 +127,12 @@ $(function() {
       },
       afterAddForm: function($container, $form) {
         initNestedMediaContents($form);
+
+        // init html editors for content block fields body and intro
+        $form
+          .get('0')
+          .querySelectorAll('.html-editor')
+          .forEach((htmlEditor) => initClassicEditor(htmlEditor));
       }
     });
   }
