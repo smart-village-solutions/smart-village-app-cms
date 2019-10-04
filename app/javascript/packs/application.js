@@ -79,7 +79,7 @@ $(function() {
     associations: 'urls' // needed to correctly increment ids of added sections
   });
 
-  // media not nested in a content block, for example in events
+  // media not nested in a content block, for example in events.
   // everything with classes here, because in content blocks nested-media will appear multiple times
   $('.nested-media').nestedForm({
     forms: '.nested-medium-form',
@@ -87,49 +87,47 @@ $(function() {
     ...defaultNestedFormsOptions
   });
 
-  // initial rendered media nested in a content block, for example in news
-  // this is commented out to make the afterAddForm logic work in content blocks for additionally
-  // added sections
-  // $('.nested-media-content-block').nestedForm({
-  //   forms: '.nested-medium-form',
-  //   adder: '.nested-add-medium',
-  //   remover: '.remove',
-  //   postfixes: ''
-  // });
-
-  $('#nested-content-blocks').nestedForm({
-    forms: '.nested-content-block-form',
-    adder: '#nested-add-content-block',
-    remover: '.removeContent',
-    postfixes: '',
-    afterAddForm: function($container, $form) {
-      console.log('afterAddForm: .nested-content-block-form', $container, $form);
-
+  if ($('#nested-content-blocks').length) {
+    const initNestedMediaContents = ($form) => {
       const timestamp = Date.now();
 
-      // this only works, if $('.nested-media-content-block').nestedForm({... is commented out
-      // but then initially rendered content blocks are not working
-      $form
-        .find('.nested-media-content-block')
-        .addClass('nested-media-content-block-' + timestamp)
-        .removeClass('nested-media-content-block');
-      $form
-        .find('.nested-add-medium')
-        .addClass('nested-add-medium-' + timestamp)
-        .removeClass('nested-add-medium');
-      $form
-        .find('.nested-medium-form')
-        .addClass('nested-medium-form-' + timestamp)
-        .removeClass('nested-medium-form');
+      $form.find('.nested-media-content-block').addClass(`nested-media-content-block-${timestamp}`);
+      $form.find('.nested-medium-form').addClass(`nested-medium-form-${timestamp}`);
+      $form.find('.nested-add-medium').addClass(`nested-add-medium-${timestamp}`);
 
-      $form.find('.nested-media-content-block-' + timestamp).nestedForm({
-        forms: '.nested-medium-form-' + timestamp,
-        adder: '.nested-add-medium-' + timestamp,
-        remover: '.remove',
-        postfixes: ''
+      $form.find(`.nested-media-content-block-${timestamp}`).nestedForm({
+        forms: `.nested-medium-form-${timestamp}`,
+        adder: `.nested-add-medium-${timestamp}`,
+        ...defaultNestedFormsOptions,
+        associations: 'media_contents' // needed to correctly increment ids of added sections
       });
-    }
-  });
+    };
+
+    $('#nested-content-blocks').nestedForm({
+      forms: '.nested-content-block-form',
+      adder: '#nested-add-content-block',
+      remover: '.removeContent',
+      postfixes: '',
+      afterInitialize: function() {
+        const $initialForms = $('.nested-content-block-form');
+
+        $initialForms.each((index, form) => {
+          initNestedMediaContents($(form));
+        });
+      },
+      beforeAddForm: function($container, $form) {
+        // we only want one initialized media content, so remove eventually created others
+        $form.find('.nested-medium-form').each((index, form) => {
+          if (index > 0) {
+            $(form).remove();
+          }
+        });
+      },
+      afterAddForm: function($container, $form) {
+        initNestedMediaContents($form);
+      }
+    });
+  }
 
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
