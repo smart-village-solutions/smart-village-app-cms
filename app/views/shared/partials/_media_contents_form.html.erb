@@ -22,6 +22,20 @@
                   <div class="form-group">
                     <label for="description">
                       Link (Bild, YouTube-Video, SoundCloud-Aufnahme)
+                      <br />
+                      Für YouTube und SoundCloud müssen die iframe-Embed-Codes eingebunden werden,
+                      die von den Plattformen jeweils über die "Teilen"-Funktion bereitgestelt
+                      werden.
+                      <br />
+                      Dabei ist es wichtig, bei "width" für die Breite des Elements statt des
+                      vorgegebenen Wertes eine "100%" einzutragen. Nur so wird gewährleistet,
+                      dass die Darstellung in der mobilen App passend ist.
+                      <br />
+                      Beim Wert "height" für die Höhe des Elements muss eine fixe Pixelangabe
+                      eingestellt werden. Hier kann je nach Einbindung variiert werden.
+                      <br />
+                      Es wird dringend empfohlen, nach dem Speichern der Datensätze die Darstellung
+                      in der mobilen App zu überprüfen und gegebenenfalls anzupassen!
                     </label>
                     <%= fu.text_field :url, class: "form-control" %>
                   </div>
@@ -46,7 +60,7 @@
                         :content_type,
                         options_for_select(
                           [
-                            ["Image", "image"], ["Video", "video"], ["Audio", "audio"]
+                            ["Bild", "image"], ["Video", "video"], ["Audio", "audio"]
                           ],
                           fmc.object.content_type
                         ),
