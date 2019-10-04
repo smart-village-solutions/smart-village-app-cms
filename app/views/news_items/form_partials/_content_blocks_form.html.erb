@@ -46,7 +46,14 @@
               Bereich werden als Slider/Karussell dargestellt.
             </p>
 
-            <%= render partial: "shared/partials/media_contents_form", locals: { record: content_block, form: fcb } %>
+            <%= render(
+                  partial: "shared/partials/media_contents_form",
+                  locals: {
+                    record: content_block,
+                    form: fcb,
+                    form_class: "nested-media-content-block"
+                  }
+                ) %>
           </div>
         </div>
       </div>

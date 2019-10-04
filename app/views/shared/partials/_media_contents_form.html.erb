@@ -1,7 +1,8 @@
+<% form_class ||= "nested-media" %>
 <% list_of_media_contents = record.media_contents.presence || [OpenStruct.new] %>
 
 <!-- TODO: Dateien entfernen und ergänzen geht nur im ersten Bereich!!! -->
-<div class="nested-media">
+<div class="<%= form_class %>">
   <% list_of_media_contents.each_with_index do |media_content, index| %>
     <%= form.fields_for "media_contents[#{index}]", media_content do |fmc| %>
       <div class="nested-medium-form">

@@ -195,9 +195,9 @@ class NewsItemsController < ApplicationController
       return unless content_block_params.present?
 
       content_blocks = []
-      media_contents = []
       content_block_params.each do |key, content_block|
         next if content_block.blank?
+        media_contents = []
         content_block[:media_contents].each do |key, media_content|
           media_contents << media_content
         end
