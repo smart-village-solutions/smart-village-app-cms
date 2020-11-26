@@ -194,11 +194,12 @@ class NewsItemsController < ApplicationController
   end
 
   def convert_params_for_graphql
-    # Convert has_many dates
+    # Convert has_many categories
     if @news_item_params["categories"].present?
       categories = []
-      @news_item_params["categories"].each do |key, category|
+      @news_item_params["categories"].each do |_key, category|
         next if category.blank?
+
         categories << category
       end
       @news_item_params["categories"] = categories

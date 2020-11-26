@@ -16,6 +16,6 @@ class SmartVillageApi
   end
 
   def self.auth_server_url
-    return Rails.application.credentials.auth_server[:url]
+    Rails.application.credentials.auth_server[:url]
   end
 end
