@@ -48,6 +48,29 @@
   <div class="row mb-5">
     <div class="col">
       <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
+        Kategorien
+      </h2>
+      <p>
+        Jede Nachricht kann in einer oder mehreren Kategorien abgelegt werden.
+      <p>
+      <p>
+        In der mobilen App wird hauptsächlich zwischen Nachrichten und Informationen unterschieden.
+      </p>
+
+      <%= render partial: "news_items/form_partials/categories_form", locals: { news_item: news_item, form: f } %>
+
+      <input
+        type="button"
+        value="weitere Kategorie hinzufügen"
+        id="nested-add-category"
+        class="btn btn-sm btn-secondary"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
         Bereiche
       </h2>
       <p>
@@ -86,6 +109,27 @@
   <%#= f.fields_for :address do |fadd|  %>
     <%#= render partial: "shared/partials/address_form", locals: { form: fadd, address: @news_item.address } %>
   <%# end %>
+
+  <% if visible_in_role?("role_push_notification") %>
+    <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
+            Push-Notification
+          </h2>
+          <p>
+            Nach dem Erstellen dieser Nachricht kann eine Push-Notification an alle registrierten Geräte gesendet werden, mit dem Hinweis auf diese Nachricht.
+            Bitte nutzen sie dieses Funktion sparsam um die Aufmerksamkeit der Kunden nicht zu sehr zu beanspruchen.
+          <p>
+        </div>
+      </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= check_box_tag "news_item[push_notification]", true, false %>
+        <label for="news_item_push_notification">Sende eine Push-Notification</label>
+      </div>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="col pb-4">

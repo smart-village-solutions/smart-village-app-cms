@@ -1,0 +1,32 @@
+<% list_of_categories = news_item.categories.presence || [OpenStruct.new] %>
+
+<div id="nested-categories">
+  <% list_of_categories.each_with_index do |category, index| %>
+    <%= form.fields_for "categories[#{index}]", category do |fcb| %>
+      <div class="nested-category-form">
+        <div class="card mb-4">
+          <div class="card-header py-3  bg-dark text-white">
+            <h3 class="m-0 font-weight-bold d-sm-flex align-items-center justify-content-between float-left">
+              Kategorie
+            </h3>
+            <input
+              type="button"
+              value="diesen Kategorie entfernen"
+              class="float-right remove btn btn-sm btn-danger"
+            />
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="description">Name</label>
+                  <%= fcb.text_field :name, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -31,6 +31,10 @@ class NewsItemsController < ApplicationController
     results = @smart_village.query <<~GRAPHQL
     query {
       newsItem(id: #{params[:id]}) {
+        categories {
+          id
+          name
+        }
         id
         author
         fullVersion
@@ -190,20 +194,31 @@ class NewsItemsController < ApplicationController
   end
 
   def convert_params_for_graphql
-      # Convert has_many content_blocks(which has_many media_contents)
-      content_block_params = @news_item_params["content_blocks"]
-      return unless content_block_params.present?
-
-      content_blocks = []
-      content_block_params.each do |key, content_block|
-        next if content_block.blank?
-        media_contents = []
-        content_block[:media_contents].each do |key, media_content|
-          media_contents << media_content
-        end
-        content_block[:media_contents] = media_contents
-        content_blocks << content_block
+    # Convert has_many dates
+    if @news_item_params["categories"].present?
+      categories = []
+      @news_item_params["categories"].each do |key, category|
+        next if category.blank?
+        categories << category
       end
-      @news_item_params["content_blocks"] = content_blocks
+      @news_item_params["categories"] = categories
+    end
+
+    # Convert has_many content_blocks(which has_many media_contents)
+    content_block_params = @news_item_params["content_blocks"]
+    return unless content_block_params.present?
+
+    content_blocks = []
+    content_block_params.each do |_key, content_block|
+      next if content_block.blank?
+
+      media_contents = []
+      content_block[:media_contents].each do |_key, media_content|
+        media_contents << media_content
+      end
+      content_block[:media_contents] = media_contents
+      content_blocks << content_block
+    end
+    @news_item_params["content_blocks"] = content_blocks
   end
 end
