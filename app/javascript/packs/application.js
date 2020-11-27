@@ -56,6 +56,12 @@ $(function() {
     }
   };
 
+  $('#nested-categories').nestedForm({
+    forms: '.nested-category-form',
+    adder: '#nested-add-category',
+    ...defaultNestedFormsOptions
+  });
+
   $('#nested-event-dates').nestedForm({
     forms: '.nested-event-date-form',
     adder: '#nested-add-event-dates',
