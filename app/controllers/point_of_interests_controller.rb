@@ -8,6 +8,7 @@ class PointOfInterestsController < ApplicationController
       pointsOfInterest {
         id
         name
+        visible
         updatedAt
         createdAt
       }

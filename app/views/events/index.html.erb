@@ -15,6 +15,9 @@
         <th scope="col">Termine</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th scope="col">Sichtbarkeit</th>
+        <% end %>
         <th scope="col">Aktionen</th>
       </tr>
     </thead>
@@ -26,6 +29,9 @@
           <td><%= event.dates.map { |date| "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" }.join("<br />").html_safe %></td>
           <td><%= toLocalDateTime(event.updated_at) %></td>
           <td><%= toLocalDateTime(event.created_at) %></td>
+          <% if editor? %>
+            <td><%= event.visible %></td>
+          <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_event_path(event.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to event_path(event.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>

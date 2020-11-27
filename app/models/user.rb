@@ -1,13 +1,14 @@
 class User
-  attr_accessor :name, :email, :data_provider, :applications, :authentication_token, :roles
+  attr_accessor :name, :email, :data_provider, :applications, :authentication_token, :roles, :permission
 
-  def initialize(email:, password: nil, data_provider: nil, applications: nil, authentication_token: nil, roles: nil)
+  def initialize(email:, password: nil, data_provider: nil, applications: nil, authentication_token: nil, roles: nil, permission: nil)
     @email = email
     @password = password
     @authentication_token = authentication_token
     @data_provider = data_provider
     @roles = roles
     @applications = applications
+    @permission = permission
   end
 
   def gravatar_url
@@ -41,6 +42,7 @@ class User
       @applications = data["applications"]
       @data_provider = data["data_provider"]
       @roles = data["roles"]
+      @permission = data["user"]["role"]
       data
     else
       result.body

@@ -8,6 +8,7 @@ class EventsController < ApplicationController
       eventRecords {
         id
         title
+        visible
         dates {
           dateStart
           dateEnd

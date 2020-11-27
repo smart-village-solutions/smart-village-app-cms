@@ -6,6 +6,15 @@ module ApplicationHelper
     @current_user.roles.fetch(role_name, false) == true
   end
 
+  def editor?
+    return false if @current_user.blank?
+    return false if @current_user.permission.blank?
+    return true if @current_user.permission == "admin"
+    return true if @current_user.permission == "editor"
+
+    false
+  end
+
   def toLocalDate(date)
     return "" unless date.present?
 
