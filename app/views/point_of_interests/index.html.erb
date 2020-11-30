@@ -11,6 +11,7 @@
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
+          <th>Datenquelle</th>
           <th scope="col">Sichtbarkeit</th>
         <% end %>
         <th scope="col">Aktionen</th>
@@ -24,7 +25,8 @@
           <td><%= toLocalDateTime(poi.updated_at) %></td>
           <td><%= toLocalDateTime(poi.created_at) %></td>
           <% if editor? %>
-            <td><%= poi.visible %></td>
+            <td><%= poi.data_provider.name %></td>
+            <td><%= visibility_switch(poi, "PointOfInterest") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%#= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>

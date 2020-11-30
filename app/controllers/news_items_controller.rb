@@ -8,6 +8,9 @@ class NewsItemsController < ApplicationController
       newsItems() {
         id
         title
+        dataProvider{
+          name
+        }
         visible
         contentBlocks{
           title

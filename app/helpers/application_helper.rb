@@ -26,4 +26,17 @@ module ApplicationHelper
 
     date_time.to_datetime.in_time_zone("Berlin").strftime("%d.%m.%Y %H:%M Uhr")
   end
+
+  def visibility_switch(item, item_class)
+    input_switch_on = content_tag("input", "freigegeben", "type": "radio", name: "options")
+    input_switch_off = content_tag("input", "gesperrt", "type": "radio", name: "options")
+
+    link_url_true = "location.href = '/visibility/#{item_class}/#{item.id}/true';"
+    switch_content_on = content_tag("label", input_switch_on, class: "btn btn-sm btn-primary #{item.visible ? 'active' : ''}", "data-item-id": item.id, onclick: link_url_true)
+
+    link_url_false = "location.href = '/visibility/#{item_class}/#{item.id}/false';"
+    switch_content_off = content_tag("label", input_switch_off, class: "btn btn-sm btn-primary #{item.visible ? '' : 'active'}", "data-item-id": item.id, onclick: link_url_false)
+
+    content_tag("div", switch_content_on + switch_content_off, class: "btn-group btn-group-toggle", "data-toggle": "buttons")
+  end
 end

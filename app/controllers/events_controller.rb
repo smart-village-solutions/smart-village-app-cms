@@ -9,6 +9,9 @@ class EventsController < ApplicationController
         id
         title
         visible
+        dataProvider{
+          name
+        }
         dates {
           dateStart
           dateEnd

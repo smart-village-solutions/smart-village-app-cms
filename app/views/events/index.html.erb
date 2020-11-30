@@ -16,6 +16,7 @@
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
+          <th>Datenquelle</th>
           <th scope="col">Sichtbarkeit</th>
         <% end %>
         <th scope="col">Aktionen</th>
@@ -30,7 +31,8 @@
           <td><%= toLocalDateTime(event.updated_at) %></td>
           <td><%= toLocalDateTime(event.created_at) %></td>
           <% if editor? %>
-            <td><%= event.visible %></td>
+            <td><%= event.data_provider.name %></td>
+            <td><%= visibility_switch(event, "Event") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_event_path(event.id), class: "btn btn-sm btn-secondary" %>

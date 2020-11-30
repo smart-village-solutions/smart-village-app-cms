@@ -1,5 +1,6 @@
 class User
-  attr_accessor :name, :email, :data_provider, :applications, :authentication_token, :roles, :permission
+  attr_accessor :name, :email, :data_provider, :applications,
+                :authentication_token, :roles, :permission
 
   def initialize(email:, password: nil, data_provider: nil, applications: nil, authentication_token: nil, roles: nil, permission: nil)
     @email = email
