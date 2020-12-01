@@ -8,6 +8,10 @@ class ToursController < ApplicationController
       tours {
         id
         name
+        visible
+        dataProvider{
+          name
+        }
         updatedAt
         createdAt
       }

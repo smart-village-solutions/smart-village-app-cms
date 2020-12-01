@@ -8,6 +8,10 @@ class NewsItemsController < ApplicationController
       newsItems() {
         id
         title
+        dataProvider{
+          name
+        }
+        visible
         contentBlocks{
           title
         }
@@ -31,6 +35,7 @@ class NewsItemsController < ApplicationController
     results = @smart_village.query <<~GRAPHQL
     query {
       newsItem(id: #{params[:id]}) {
+        visible
         categories {
           id
           name

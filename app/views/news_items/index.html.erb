@@ -14,6 +14,10 @@
         <th scope="col">Überschrift</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th>Datenquelle</th>
+          <th scope="col">Sichtbarkeit</th>
+        <% end %>
         <th scope="col">Aktionen</th>
       </tr>
     </thead>
@@ -24,6 +28,10 @@
           <td><%= news_item.title.presence || news_item.content_blocks.first.try(:title) %></td>
           <td><%= toLocalDateTime(news_item.updated_at) %></td>
           <td><%= toLocalDateTime(news_item.created_at) %></td>
+          <% if editor? %>
+            <td><%= news_item.data_provider.name %></td>
+            <td><%= visibility_switch(news_item, "NewsItem") %></td>
+          <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_news_item_path(news_item.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to news_item_path(news_item.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>

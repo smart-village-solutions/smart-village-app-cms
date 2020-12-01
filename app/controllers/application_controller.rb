@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
       email: session["current_user"]["email"],
       authentication_token: session["current_user"]["authentication_token"],
       applications: session["current_user"]["applications"],
-      roles: session["current_user"]["roles"]
+      roles: session["current_user"]["roles"],
+      permission: session["current_user"]["permission"]
     }
 
     @current_user = User.new(user_data)

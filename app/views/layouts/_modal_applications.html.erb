@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <% @current_user.applications.each do |application| %>
-          <h6><%= application["name"] %></h6>
+          <h6><%= application["name"] %> as <%= @current_user.permission.to_s.humanize %></h6>
           <dl class="dl-horizontal">
             <dt>App-ID:</dt>
             <dd><%= application["uid"] %></dd>

@@ -10,6 +10,10 @@
         <th scope="col">Überschrift</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th>Datenquelle</th>
+          <th scope="col">Sichtbarkeit</th>
+        <% end %>
         <th scope="col">Aktionen</th>
       </tr>
     </thead>
@@ -20,6 +24,10 @@
           <td><%= tour.name %></td>
           <td><%= toLocalDateTime(tour.updated_at) %></td>
           <td><%= toLocalDateTime(tour.created_at) %></td>
+          <% if editor? %>
+            <td><%= tour.data_provider.name %></td>
+            <td><%= visibility_switch(tour, "Tour") %></td>
+          <% end %>
           <td align="right" class="text-nowrap">
             <%#= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to tour_path(tour.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>

@@ -8,6 +8,10 @@ class PointOfInterestsController < ApplicationController
       pointsOfInterest {
         id
         name
+        visible
+        dataProvider{
+          name
+        }
         updatedAt
         createdAt
       }
