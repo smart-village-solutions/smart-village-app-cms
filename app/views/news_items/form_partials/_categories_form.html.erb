@@ -20,7 +20,7 @@
               <div class="col">
                 <div class="form-group">
                   <label for="description">Name</label>
-                  <%= fcb.text_field :name, class: "form-control" %>
+                  <%= fcb.select :name, options_for_select(@categories.map(&:name), fcb.object.name), {}, {class: "form-control", include_blank: true } %>
                 </div>
               </div>
             </div>
