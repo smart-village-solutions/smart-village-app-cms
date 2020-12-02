@@ -17,4 +17,17 @@ class ApplicationController < ActionController::Base
     @smart_village = SmartVillageApi.new(user: @current_user).client
   end
 
+  def load_category_list
+    results = @smart_village.query <<~GRAPHQL
+      query {
+        categories {
+          id
+          name
+        }
+      }
+    GRAPHQL
+
+    @categories = results.data.categories
+  end
+
 end
