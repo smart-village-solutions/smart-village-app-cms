@@ -1,26 +1,26 @@
 class EventsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
-  before_action :load_category_list, only: [:edit]
+  before_action :load_category_list, only: [:edit, :new]
 
   def index
     results = @smart_village.query <<~GRAPHQL
-    query {
-      eventRecords {
-        id
-        title
-        visible
-        dataProvider{
-          name
+      query {
+        eventRecords {
+          id
+          title
+          visible
+          dataProvider{
+            name
+          }
+          dates {
+            dateStart
+            dateEnd
+          }
+          updatedAt
+          createdAt
         }
-        dates {
-          dateStart
-          dateEnd
-        }
-        updatedAt
-        createdAt
       }
-    }
     GRAPHQL
 
     @events = results.data.event_records

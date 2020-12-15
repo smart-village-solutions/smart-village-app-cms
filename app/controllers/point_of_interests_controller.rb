@@ -1,22 +1,22 @@
 class PointOfInterestsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
-  before_action :load_category_list, only: [:edit]
+  before_action :load_category_list, only: [:edit, :new]
 
   def index
     results = @smart_village.query <<~GRAPHQL
-    query {
-      pointsOfInterest {
-        id
-        name
-        visible
-        dataProvider{
+      query {
+        pointsOfInterest {
+          id
           name
+          visible
+          dataProvider{
+            name
+          }
+          updatedAt
+          createdAt
         }
-        updatedAt
-        createdAt
       }
-    }
     GRAPHQL
 
     @points_of_interest = results.data.points_of_interest
