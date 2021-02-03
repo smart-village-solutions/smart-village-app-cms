@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Authentication
   attr_accessor :client_id, :client_secret, :settings
 

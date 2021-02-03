@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SmartVillageApi
   attr_accessor :user
 
@@ -8,9 +10,10 @@ class SmartVillageApi
   def client
     token = @user.get_access_token
 
-    Graphlient::Client.new("#{SmartVillageApi.auth_server_url}/graphql",
+    Graphlient::Client.new(
+      "#{SmartVillageApi.auth_server_url}/graphql",
       headers: {
-        'Authorization' => "Bearer #{token}"
+        "Authorization" => "Bearer #{token}"
       }
     )
   end
