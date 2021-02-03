@@ -1001,7 +1001,7 @@ Performance/RedundantMerge:
   # Max number of key-value pairs to consider an offense
   MaxKeyValuePairs: 2
 
-Performance/RedundantSortBy:
+Style/RedundantSortBy:
   Description: 'Use `sort` instead of `sort_by { |x| x }`.'
   Enabled: true
   VersionAdded: 0.36
@@ -1020,7 +1020,7 @@ Performance/ReverseEach:
   Enabled: true
   VersionAdded: 0.30
 
-Performance/Sample:
+Style/Sample:
   Description: >-
                   Use `sample` instead of `shuffle.first`,
                   `shuffle.last`, and `shuffle[Integer]`.
@@ -1070,7 +1070,7 @@ Performance/UnfreezeString:
   Enabled: true
   VersionAdded: 0.50
 
-Performance/UnneededSort:
+Style/UnneededSort:
   Description: >-
                   Use `min` instead of `sort.first`,
                   `max_by` instead of `sort_by...last`, etc.

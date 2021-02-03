@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Base class for POST and GET requests
 #
 # @author Marco Metz, Holger Frohloff
@@ -8,7 +9,7 @@
 # @params   [Hash]   An optional hash of parameters for the request
 #
 require "addressable/uri"
-require 'net/http'
+require "net/http"
 
 class ApiRequestService
   def initialize(uri, login = nil, password = nil, params = {}, headers = {})
@@ -23,7 +24,7 @@ class ApiRequestService
   def get_request(content_type_xml = false, pem = nil)
     uri = Addressable::URI.parse(@uri.strip).normalize
 
-    uri.query = [uri.query, URI.encode_www_form(@params)].join("&") if @params && @params.any?
+    uri.query = [uri.query, URI.encode_www_form(@params)].join("&") if @params&.any?
 
     @request = Net::HTTP::Get.new(uri.request_uri)
 
@@ -32,9 +33,7 @@ class ApiRequestService
       @request["accept"] = "text/xml"
     end
 
-    if @login.present? && @password.present?
-      @request.basic_auth(@login, @password)
-    end
+    @request.basic_auth(@login, @password) if @login.present? && @password.present?
 
     @headers.each do |key, value|
       @request.add_field key, value
@@ -53,7 +52,6 @@ class ApiRequestService
     end
 
     http.request(request)
-
   rescue Timeout::Error
     raise ApiTimeoutError
   end
@@ -95,7 +93,7 @@ class ApiRequestService
 
   private
 
-  attr_reader :uri, :headers, :request, :login, :password, :params
+    attr_reader :uri, :headers, :request, :login, :password, :params
 end
 
 # A custom error class.

@@ -58,6 +58,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    ast (2.4.2)
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -104,6 +105,7 @@ GEM
       graphql (~> 1.8)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jquery-rails (4.3.3)
@@ -148,6 +150,9 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    parallel (1.19.2)
+    parser (3.0.0.0)
+      ast (~> 2.4.1)
     public_suffix (3.1.0)
     puma (3.12.1)
     rack (2.0.9)
@@ -181,6 +186,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    rainbow (3.0.0)
     raindrops (0.19.0)
     rake (12.3.3)
     rb-fsevent (0.10.4)
@@ -189,8 +195,20 @@ GEM
     rb-readline (0.5.5)
     regexp_parser (1.5.1)
     rollbar (2.21.0)
+    rubocop (0.71.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.6)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-performance (1.6.1)
+      rubocop (>= 0.71.0)
+    rubocop-rspec (1.41.0)
+      rubocop (>= 0.68.1)
     ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
+    ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
     rubyzip (1.2.3)
     sass (3.7.4)
@@ -225,6 +243,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
+    unicode-display_width (1.6.1)
     unicorn (5.5.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -267,6 +286,9 @@ DEPENDENCIES
   rails (~> 6.0.3.2)
   rb-readline
   rollbar
+  rubocop (= 0.71)
+  rubocop-performance
+  rubocop-rspec
   ruby-debug-ide
   sass-rails (~> 5.0.8)
   selenium-webdriver

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -28,11 +30,11 @@ gem "jbuilder", "~> 2.5"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
-gem "rollbar"
 gem "addressable"
 gem "graphlient", "~> 0.3.7"
 gem "jquery-rails"
 gem "kaminari"
+gem "rollbar"
 
 # https://github.com/kanety/jquery-nested-form
 gem "nested_form_fields"
@@ -54,6 +56,10 @@ group :development do
   gem "rb-readline"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
+
+  gem "rubocop", "0.71"
+  gem "rubocop-performance"
+  gem "rubocop-rspec"
 end
 
 group :test do
