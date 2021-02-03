@@ -60,7 +60,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.2)
     bindex (0.7.0)
-    bootsnap (1.4.4)
+    bootsnap (1.4.9)
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
@@ -274,7 +274,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
-  bootsnap (>= 1.4.2)
+  bootsnap (>= 1.4.9)
   byebug
   capybara (>= 2.15)
   debase
@@ -287,7 +287,7 @@ DEPENDENCIES
   nokogiri (>= 1.11.0.rc4)
   puma (~> 3.11)
   rack (~> 2.1.4)
-  rails (~> 6.0.3.2)
+  rails (~> 6.0.3.4)
   rb-readline
   rollbar
   rubocop (= 0.71)
