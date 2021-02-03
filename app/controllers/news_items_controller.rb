@@ -6,14 +6,14 @@ class NewsItemsController < ApplicationController
   def index
     results = @smart_village.query <<~GRAPHQL
       query {
-        newsItems() {
+        newsItems {
           id
           title
-          dataProvider{
+          dataProvider {
             name
           }
           visible
-          contentBlocks{
+          contentBlocks {
             title
           }
           updatedAt
@@ -34,47 +34,26 @@ class NewsItemsController < ApplicationController
 
   def edit
     results = @smart_village.query <<~GRAPHQL
-    query {
-      newsItem(id: #{params[:id]}) {
-        visible
-        categories {
-          id
-          name
-        }
-        id
-        author
-        fullVersion
-        charactersToBeShown
-        publicationDate
-        publishedAt
-        title
-        externalId
-        sourceUrl {
-          url
-          description
-        }
-        address {
-          addition
-          street
-          zip
-          city
-          geoLocation {
-            latitude
-            longitude
+      query {
+        newsItem(
+          id: #{params[:id]}
+        ) {
+          visible
+          categories {
+            id
+            name
           }
-        }
-        dataProvider {
-          name
-          contact {
-            firstName
-            lastName
-            phone
-            fax
-            email
-            webUrls {
-              url
-              description
-            }
+          id
+          author
+          fullVersion
+          charactersToBeShown
+          publicationDate
+          publishedAt
+          title
+          externalId
+          sourceUrl {
+            url
+            description
           }
           address {
             addition
@@ -86,30 +65,53 @@ class NewsItemsController < ApplicationController
               longitude
             }
           }
-          logo {
-            url
-            description
-          }
-        }
-        contentBlocks {
-          title
-          intro
-          body
-          mediaContents {
-            id
-            captionText
-            contentType
-            copyright
-            height
-            width
-            sourceUrl {
+          dataProvider {
+            name
+            contact {
+              firstName
+              lastName
+              phone
+              fax
+              email
+              webUrls {
+                url
+                description
+              }
+            }
+            address {
+              addition
+              street
+              zip
+              city
+              geoLocation {
+                latitude
+                longitude
+              }
+            }
+            logo {
               url
               description
             }
           }
+          contentBlocks {
+            title
+            intro
+            body
+            mediaContents {
+              id
+              captionText
+              contentType
+              copyright
+              height
+              width
+              sourceUrl {
+                url
+                description
+              }
+            }
+          }
         }
-	    }
-    }
+      }
     GRAPHQL
 
     @news_item = results.data.news_item
@@ -150,7 +152,10 @@ class NewsItemsController < ApplicationController
 
       destroy_results = @smart_village.query <<~GRAPHQL
         mutation {
-          destroyRecord(id: #{old_id}, recordType: "NewsItem") {
+          destroyRecord(
+            id: #{old_id},
+            recordType: "NewsItem"
+          ) {
             id
             status
             statusCode
@@ -168,13 +173,17 @@ class NewsItemsController < ApplicationController
   def destroy
     results = @smart_village.query <<~GRAPHQL
       mutation {
-        destroyRecord(id: #{params["id"]}, recordType: "NewsItem") {
+        destroyRecord(
+          id: #{params["id"]},
+          recordType: "NewsItem"
+        ) {
           id
           status
           statusCode
         }
       }
     GRAPHQL
+
     if results.try(:data).try(:destroy_record).try(:status_code) == 200
       flash["notice"] = "Eintrag wurde gelöscht"
     else
@@ -185,47 +194,47 @@ class NewsItemsController < ApplicationController
 
   private
 
-  def new_news_item
-    OpenStruct.new(
-      address: OpenStruct.new(),
-      source_url: OpenStruct.new,
-      media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
-    )
-  end
-
-  def create_params
-    @news_item_params = params.require(:news_item).permit!
-    convert_params_for_graphql
-    Converter::Base.new.build_mutation('createNewsItem', @news_item_params)
-  end
-
-  def convert_params_for_graphql
-    # Convert has_many categories
-    if @news_item_params["categories"].present?
-      categories = []
-      @news_item_params["categories"].each do |_key, category|
-        next if category.blank?
-
-        categories << category
-      end
-      @news_item_params["categories"] = categories
+    def new_news_item
+      OpenStruct.new(
+        address: OpenStruct.new(),
+        source_url: OpenStruct.new,
+        media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+      )
     end
 
-    # Convert has_many content_blocks(which has_many media_contents)
-    content_block_params = @news_item_params["content_blocks"]
-    return unless content_block_params.present?
-
-    content_blocks = []
-    content_block_params.each do |_key, content_block|
-      next if content_block.blank?
-
-      media_contents = []
-      content_block[:media_contents].each do |_key, media_content|
-        media_contents << media_content
-      end
-      content_block[:media_contents] = media_contents
-      content_blocks << content_block
+    def create_params
+      @news_item_params = params.require(:news_item).permit!
+      convert_params_for_graphql
+      Converter::Base.new.build_mutation("createNewsItem", @news_item_params)
     end
-    @news_item_params["content_blocks"] = content_blocks
-  end
+
+    def convert_params_for_graphql
+      # Convert has_many categories
+      if @news_item_params["categories"].present?
+        categories = []
+        @news_item_params["categories"].each do |_key, category|
+          next if category.blank?
+
+          categories << category
+        end
+        @news_item_params["categories"] = categories
+      end
+
+      # Convert has_many content_blocks(which has_many media_contents)
+      content_block_params = @news_item_params["content_blocks"]
+      return unless content_block_params.present?
+
+      content_blocks = []
+      content_block_params.each do |_key, content_block|
+        next if content_block.blank?
+
+        media_contents = []
+        content_block[:media_contents].each do |_key, media_content|
+          media_contents << media_content
+        end
+        content_block[:media_contents] = media_contents
+        content_blocks << content_block
+      end
+      @news_item_params["content_blocks"] = content_blocks
+    end
 end

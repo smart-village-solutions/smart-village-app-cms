@@ -81,7 +81,7 @@
 
   <%= render partial: "events/form_partials/event_contacts", locals: { event: event, form: f } %>
 
-  <%= render partial: "shared/partials/url_form", locals: { record: event, form: f } %>
+  <%= render partial: "shared/partials/url_form", locals: { record: event, record_type: "event", form: f } %>
 
   <!-- Wird erstmal nicht benötigt
     <div class="card mb-4">
@@ -94,24 +94,7 @@
     </div>
   -->
 
-  <div class="row">
-    <div class="col">
-      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
-        Preise
-      </h3>
-    </div>
-  </div>
-
-  <%= render partial: "events/form_partials/event_prices", locals: { event: event, form: f } %>
-
-  <input
-    type="button"
-    value="weitere Preiskategorie hinzufügen"
-    id="nested-add-event-prices"
-    class="btn btn-sm btn-secondary"
-  />
-
-  <hr />
+  <%= render partial: "shared/partials/price_informations_form", locals: { record: event, record_type: "event", form: f } %>
 
   <div class="row">
     <div class="col">

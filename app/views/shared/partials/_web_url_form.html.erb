@@ -8,11 +8,11 @@
   </div>
 </div>
 
-<% list_of_urls = record.urls.presence || [OpenStruct.new] %>
+<% list_of_web_urls = record.web_urls.presence || [OpenStruct.new] %>
 
 <div id="nested-web-urls">
-  <% list_of_urls.each_with_index do |url, index| %>
-    <%= fields_for "#{record_type}[urls][#{index}]", url do |furl|  %>
+  <% list_of_web_urls.each_with_index do |url, index| %>
+    <%= fields_for "#{record_type}[web_urls][#{index}]", url do |furl|  %>
       <div class="nested-web-url-form">
         <div class="card mb-4">
           <div class="card-header py-3 bg-dark text-white">
