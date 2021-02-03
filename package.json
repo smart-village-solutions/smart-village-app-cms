@@ -7,9 +7,9 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.9.0",
     "@kanety/jquery-nested-form": "^0.2.0",
-    "@rails/actioncable": "^6.0.0-alpha",
-    "@rails/activestorage": "^6.0.0-alpha",
-    "@rails/ujs": "^6.0.0-alpha",
+    "@rails/actioncable": "^6.0.3-2",
+    "@rails/activestorage": "^6.0.3-2",
+    "@rails/ujs": "^6.0.3-2",
     "@rails/webpacker": "^4.0.7",
     "bootstrap": "^4.3.1",
     "datatables.net": "^1.10.19",
