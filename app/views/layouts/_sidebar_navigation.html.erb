@@ -1,13 +1,13 @@
 <!-- Nav Item - Dashboard -->
-<li class="nav-item active">
-  <a class="nav-link" href="/">
+<li class="nav-item <%= 'active' if params[:controller] == 'dashboard' %>">
+  <a class="nav-link font-weight-bold" href="/">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Dashboard</span>
   </a>
 </li>
 
-<li class="nav-item active">
-  <a class="nav-link" href="/data_provider">
+<li class="nav-item <%= 'active' if params[:controller] == 'data_provider' %>">
+  <a class="nav-link font-weight-bold" href="/data_provider">
     <i class="fas fa-fw fa-user-circle"></i>
     <span>Account</span>
   </a>
@@ -23,7 +23,7 @@
 
 <!-- Nav Item - News -->
 <% if visible_in_role?("role_news_item") %>
-  <li class="nav-item">
+  <li class="nav-item <%= 'active' if params[:controller] == 'news_items' %>">
     <a class="nav-link" href="/news_items">
       <i class="fas fa-fw fa-newspaper"></i>
       <span>Nachrichten</span>
@@ -33,7 +33,7 @@
 
 <!-- Nav Item - Events -->
 <% if visible_in_role?("role_event_record") %>
-  <li class="nav-item">
+  <li class="nav-item <%= 'active' if params[:controller] == 'events' %>">
     <a class="nav-link" href="/events">
       <i class="fas fa-fw fa-calendar-alt"></i>
       <span>Veranstaltungen</span></a>
@@ -42,7 +42,7 @@
 
 <!-- Nav Item - POIs -->
 <% if visible_in_role?("role_point_of_interest") %>
-  <li class="nav-item">
+  <li class="nav-item <%= 'active' if params[:controller] == 'point_of_interests' %>">
     <a class="nav-link" href="/point_of_interests">
       <i class="fas fa-fw fa-map-pin"></i>
       <span>Orte</span>
@@ -52,7 +52,7 @@
 
 <!-- Nav Item - Tours -->
 <% if visible_in_role?("role_tour") %>
-  <li class="nav-item">
+  <li class="nav-item <%= 'active' if params[:controller] == 'tours' %>">
     <a class="nav-link" href="/tours">
       <i class="fas fa-fw fa-walking"></i>
       <span>Touren</span>
