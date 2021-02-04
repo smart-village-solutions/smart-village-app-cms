@@ -9,6 +9,9 @@ extends:
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
+  $: readonly
+  ClassicEditor: readonly
+  initClassicEditor: readonly
 parser: 'babel-eslint'
 parserOptions:
   ecmaFeatures:

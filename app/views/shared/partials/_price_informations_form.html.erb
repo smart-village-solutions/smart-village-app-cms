@@ -11,7 +11,7 @@
 <div id="nested-price_informations">
   <% list_of_price_informations.each_with_index do |price, index| %>
     <%= fields_for "#{record_type}[price_informations][#{index}]", price do |fp|  %>
-      <div class="nested-price_informations-form">
+      <div class="nested-price_information-form">
         <div class="card mb-4">
           <div class="card-header py-3 bg-dark text-white">
             <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
@@ -48,7 +48,7 @@
 <input
   type="button"
   value="weitere Preiskategorie hinzufügen"
-  id="nested-add-price_informations"
+  id="nested-add-price_information"
   class="btn btn-sm btn-secondary"
 />
 

@@ -125,6 +125,22 @@ class PointOfInterestsController < ApplicationController
           dataProvider {
             name
           }
+          lunches {
+            id
+            text
+            dates {
+              dateStart
+              dateEnd
+            }
+            lunchOffers {
+              id
+              name
+              price
+            }
+            pointOfInterest {
+              id
+            }
+          }
         }
       }
     GRAPHQL
@@ -220,7 +236,8 @@ class PointOfInterestsController < ApplicationController
           contact: OpenStruct.new(web_urls: [OpenStruct.new]),
           address: OpenStruct.new()
         ),
-        media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+        media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
+        lunches: [OpenStruct.new]
       )
     end
 
@@ -287,6 +304,30 @@ class PointOfInterestsController < ApplicationController
           @point_of_interest_params.delete :operating_company
         end
       end
+
+      # Convert has_many lunches(which has_many dates and has_many lunch_offers)
+      lunches_params = @point_of_interest_params["lunches"]
+      return unless lunches_params.present?
+
+      lunches = []
+      lunches_params.each do |_key, lunch|
+        next if lunch.blank?
+
+        dates = []
+        lunch[:dates].each do |_key, date|
+          dates << date
+        end
+        lunch[:dates] = dates
+
+        lunch_offers = []
+        lunch[:lunch_offers].each do |_key, lunch_offer|
+          lunch_offers << lunch_offer
+        end
+        lunch[:lunch_offers] = lunch_offers
+
+        lunches << lunch
+      end
+      @point_of_interest_params["lunches"] = lunches
     end
 
     # check for present values recursively

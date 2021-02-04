@@ -1,0 +1,46 @@
+<% form_class ||= "nested-lunch-offer" %>
+<% list_of_lunch_offers = record.lunch_offers.presence || [OpenStruct.new] %>
+
+<div class="<%= form_class %>">
+  <% list_of_lunch_offers.each_with_index do |lunch_offer, index| %>
+    <%= form.fields_for "lunch_offers[#{index}]", lunch_offer do |flo| %>
+      <div class="nested-lunch-offer-form">
+        <div class="card mb-4">
+          <div class="card-header py-3 bg-dark text-white">
+            <h4 class="float-left">Angebot</h4>
+            <input
+              type="button"
+              value="dieses Angebot entfernen"
+              class="float-right remove btn btn-sm btn-danger"
+            />
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <%= flo.text_field :name, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="price">Preis</label>
+                  <%= flo.text_field :price, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<input
+  type="button"
+  value="weiteres Angebot hinzufügen"
+  class="nested-add-lunch-offer btn btn-sm btn-secondary"
+/>
