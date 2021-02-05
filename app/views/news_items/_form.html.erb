@@ -122,6 +122,7 @@
         </h2>
         <p>
           Nach dem Erstellen dieser Nachricht kann eine Push-Notification an alle registrierten Geräte gesendet werden, mit dem Hinweis auf diese Nachricht.
+          Aktivieren Sie dazu vor dem Speichern das folgende Kontrollkästchen.
           Bitte nutzen Sie diese Funktion sparsam, um die Aufmerksamkeit der Kunden nicht zu sehr zu beanspruchen.
         <p>
       </div>
@@ -130,6 +131,13 @@
         <div class="form-group">
           <%= check_box_tag "news_item[push_notification]", true, false %>
           <label for="news_item_push_notification">sende eine Push-Notification</label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+          Nachdem für diese Nachricht Push-Notifications verschickt wurden, kann die Nachricht nicht mehr bearbeitet werden.
+          Bitte überprüfen Sie im Vorfeld, ob alle Angaben vollständig und korrekt sind.
         </div>
       </div>
     </div>
@@ -141,3 +149,18 @@
     </div>
   </div>
 <% end %>
+
+<script>
+  var pushNotificationCheckBox = document.getElementById('news_item_push_notification');
+  var formSubmitButton = document.querySelector('input[type="submit"]');
+
+  if (pushNotificationCheckBox) {
+    pushNotificationCheckBox.addEventListener('change', function() {
+      if (this.checked) {
+        formSubmitButton.dataset.confirm = 'Sind Sie sicher, dass Sie die Bearbeitung abschließen und Push-Notifications versenden wollen?';
+      } else {
+        delete formSubmitButton.dataset.confirm;
+      }
+    });
+  }
+</script>
