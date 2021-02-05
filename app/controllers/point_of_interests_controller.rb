@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PointOfInterestsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
@@ -234,7 +236,7 @@ class PointOfInterestsController < ApplicationController
         operating_company: OpenStruct.new(
           web_urls: [OpenStruct.new],
           contact: OpenStruct.new(web_urls: [OpenStruct.new]),
-          address: OpenStruct.new()
+          address: OpenStruct.new
         ),
         media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
         lunches: [OpenStruct.new]
@@ -262,7 +264,7 @@ class PointOfInterestsController < ApplicationController
       # Convert has_many price_informations
       if @point_of_interest_params["price_informations"].present?
         price_informations = []
-        @point_of_interest_params["price_informations"].each do |key, price_information|
+        @point_of_interest_params["price_informations"].each do |_key, price_information|
           next if price_information.blank?
 
           price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
@@ -276,7 +278,7 @@ class PointOfInterestsController < ApplicationController
       # Convert has_many media_contents
       if @point_of_interest_params["media_contents"].present?
         media_contents = []
-        @point_of_interest_params["media_contents"].each do |key, media_content|
+        @point_of_interest_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
 
           media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
@@ -288,7 +290,7 @@ class PointOfInterestsController < ApplicationController
       # Convert has_many urls
       if @point_of_interest_params["web_urls"].present?
         web_urls = []
-        @point_of_interest_params["web_urls"].each do |key, url|
+        @point_of_interest_params["web_urls"].each do |_key, url|
           next if url.blank?
 
           web_urls << url

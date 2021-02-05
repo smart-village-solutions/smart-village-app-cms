@@ -116,21 +116,21 @@
     <hr />
 
     <div class="row">
-        <div class="col">
-          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
-            Push-Notification
-          </h2>
-          <p>
-            Nach dem Erstellen dieser Nachricht kann eine Push-Notification an alle registrierten Geräte gesendet werden, mit dem Hinweis auf diese Nachricht.
-            Bitte nutzen Sie diese Funktion sparsam, um die Aufmerksamkeit der Kunden nicht zu sehr zu beanspruchen.
-          <p>
-        </div>
+      <div class="col-12">
+        <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+          Push-Notification
+        </h2>
+        <p>
+          Nach dem Erstellen dieser Nachricht kann eine Push-Notification an alle registrierten Geräte gesendet werden, mit dem Hinweis auf diese Nachricht.
+          Bitte nutzen Sie diese Funktion sparsam, um die Aufmerksamkeit der Kunden nicht zu sehr zu beanspruchen.
+        <p>
       </div>
 
-    <div class="col-lg-6">
-      <div class="form-group">
-        <%= check_box_tag "news_item[push_notification]", true, false %>
-        <label for="news_item_push_notification">sende eine Push-Notification</label>
+      <div class="col-12">
+        <div class="form-group">
+          <%= check_box_tag "news_item[push_notification]", true, false %>
+          <label for="news_item_push_notification">sende eine Push-Notification</label>
+        </div>
       </div>
     </div>
   <% end %>
