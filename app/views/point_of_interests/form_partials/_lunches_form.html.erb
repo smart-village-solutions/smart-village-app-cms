@@ -45,6 +45,15 @@
                       }
                     ) %>
 
+                <%= render(
+                      partial: "point_of_interests/form_partials/attributes_form",
+                      locals: {
+                        record: lunch,
+                        index: index,
+                        form: fl,
+                      }
+                    ) %>
+
                 <hr />
 
                 <h3 class="mb-3 font-weight-bold d-sm-flex align-items-center justify-content-between">

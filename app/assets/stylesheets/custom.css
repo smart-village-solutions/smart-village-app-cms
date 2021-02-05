@@ -46,4 +46,8 @@ h1 {
   color: #999;
   padding: 3px 3px 5px;
 }
+
+.point_of_interest_attributes > span {
+  margin-right: 1em;
+  white-space: nowrap;
 }

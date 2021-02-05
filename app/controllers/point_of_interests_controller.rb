@@ -142,6 +142,7 @@ class PointOfInterestsController < ApplicationController
             pointOfInterest {
               id
             }
+            pointOfInterestAttributes
           }
         }
       }
@@ -326,6 +327,22 @@ class PointOfInterestsController < ApplicationController
           lunch_offers << lunch_offer
         end
         lunch[:lunch_offers] = lunch_offers
+
+        # Convert point_of_interest_attributes urls
+        # name and address data should be shown always
+        point_of_interest_attributes = ["name", "addresses"]
+        if lunch[:point_of_interest_attributes].present?
+          if lunch[:point_of_interest_attributes][:contact].present?
+            lunch[:point_of_interest_attributes][:contact].each do |key, value|
+              next unless value.present? && value == "true"
+
+              point_of_interest_attributes << "contact.#{key.camelcase(:lower)}"
+              # web urls can be in contact.webUrls and in webUrls, so we need two keys in that case
+              point_of_interest_attributes << key.camelcase(:lower) if key == "web_urls"
+            end
+          end
+        end
+        lunch[:point_of_interest_attributes] = point_of_interest_attributes.join(",")
 
         lunches << lunch
       end

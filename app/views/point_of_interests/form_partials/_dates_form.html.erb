@@ -5,13 +5,13 @@
     <%= form.fields_for "dates[#{index}]", date do |fd|  %>
       <div class="nested-date-form">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-12 col-sm-6">
             <div class="form-group">
               <label for="description">Startdatum *</label>
               <%= fd.date_field :date_start, class: "form-control", value: fd.object.date_start %>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-12 col-sm-6">
             <div class="form-group">
               <label for="description">Enddatum</label>
               <%= fd.date_field :date_end, class: "form-control", value: fd.object.date_end %>

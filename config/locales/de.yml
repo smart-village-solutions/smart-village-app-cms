@@ -1,5 +1,5 @@
-en:
-  hello: "Hello world"
+de:
+  hello: "Hallo Welt"
   forms:
     lunch:
       point_of_interest_attributes:

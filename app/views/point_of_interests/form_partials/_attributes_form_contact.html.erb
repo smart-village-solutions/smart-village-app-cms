@@ -1,0 +1,11 @@
+<span>
+  <%= check_box_tag(
+        "point_of_interest[lunches][#{index}][point_of_interest_attributes][contact][#{attribute}]",
+        true,
+        checked
+      ) %>
+  <%= label_tag(
+        "point_of_interest_lunches_#{index}_point_of_interest_attributes_contact_#{attribute}",
+        t("forms.lunch.point_of_interest_attributes.labels.contact.#{attribute}")
+      ) %>
+</span>
