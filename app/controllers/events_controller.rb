@@ -348,5 +348,31 @@ class EventsController < ApplicationController
         end
         @event_params["urls"] = urls
       end
+
+      # Check recursively if any organizer data is given.
+      # If not, we do not want to submit the params, because the name is required by the model,
+      # which will result in a validation error.
+      if @event_params["organizer"].present?
+        unless has_nested_values(@event_params["organizer"].to_h).include?(true)
+          @event_params.delete :organizer
+        end
+      end
+    end
+
+    # check for present values recursively
+    def has_nested_values(value_to_check, result = [])
+      result << true if value_to_check.class == String && value_to_check.present?
+
+      if value_to_check.class == Array
+        value_to_check.each do |value|
+          has_nested_values(value, result)
+        end
+      elsif value_to_check.class.to_s.include?("Hash")
+        value_to_check.each do |_key, value|
+          has_nested_values(value, result)
+        end
+      end
+
+      result
     end
 end

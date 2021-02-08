@@ -278,5 +278,31 @@ class PointOfInterestsController < ApplicationController
         end
         @point_of_interest_params["web_urls"] = web_urls
       end
+
+      # Check recursively if any operating_company data is given.
+      # If not, we do not want to submit the params, because the name is required by the model,
+      # which will result in a validation error.
+      if @point_of_interest_params["operating_company"].present?
+        unless has_nested_values(@point_of_interest_params["operating_company"].to_h).include?(true)
+          @point_of_interest_params.delete :operating_company
+        end
+      end
+    end
+
+    # check for present values recursively
+    def has_nested_values(value_to_check, result = [])
+      result << true if value_to_check.class == String && value_to_check.present?
+
+      if value_to_check.class == Array
+        value_to_check.each do |value|
+          has_nested_values(value, result)
+        end
+      elsif value_to_check.class.to_s.include?("Hash")
+        value_to_check.each do |_key, value|
+          has_nested_values(value, result)
+        end
+      end
+
+      result
     end
 end
