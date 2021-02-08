@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
@@ -277,7 +279,7 @@ class EventsController < ApplicationController
         organizer: OpenStruct.new(
           web_urls: [OpenStruct.new],
           contact: OpenStruct.new(web_urls: [OpenStruct.new]),
-          address: OpenStruct.new()
+          address: OpenStruct.new
         ),
         media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
       )
@@ -286,14 +288,14 @@ class EventsController < ApplicationController
     def create_params
       @event_params = params.require(:event).permit!
       convert_params_for_graphql
-      Converter::Base.new.build_mutation('createEventRecord', @event_params)
+      Converter::Base.new.build_mutation("createEventRecord", @event_params)
     end
 
     def convert_params_for_graphql
       # Convert has_many price_informations
       if @event_params["price_informations"].present?
         price_informations = []
-        @event_params["price_informations"].each do |key, price_information|
+        @event_params["price_informations"].each do |_key, price_information|
           next if price_information.blank?
 
           price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
@@ -307,7 +309,7 @@ class EventsController < ApplicationController
       # Convert has_many contacts
       if @event_params["contacts"].present?
         contacts = []
-        @event_params["contacts"].each do |key, contact|
+        @event_params["contacts"].each do |_key, contact|
           next if contact.blank?
 
           contacts << contact
@@ -318,7 +320,7 @@ class EventsController < ApplicationController
       # Convert has_many media_contents
       if @event_params["media_contents"].present?
         media_contents = []
-        @event_params["media_contents"].each do |key, media_content|
+        @event_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
 
           media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
@@ -330,7 +332,7 @@ class EventsController < ApplicationController
       # Convert has_many dates
       if @event_params["dates"].present?
         dates = []
-        @event_params["dates"].each do |key, date|
+        @event_params["dates"].each do |_key, date|
           next if date.blank?
 
           dates << date
@@ -341,7 +343,7 @@ class EventsController < ApplicationController
       # Convert has_many urls
       if @event_params["urls"].present?
         urls = []
-        @event_params["urls"].each do |key, url|
+        @event_params["urls"].each do |_key, url|
           next if url.blank?
 
           urls << url
@@ -353,23 +355,23 @@ class EventsController < ApplicationController
       # If not, we do not want to submit the params, because the name is required by the model,
       # which will result in a validation error.
       if @event_params["organizer"].present?
-        unless has_nested_values(@event_params["organizer"].to_h).include?(true)
+        unless nested_values?(@event_params["organizer"].to_h).include?(true)
           @event_params.delete :organizer
         end
       end
     end
 
     # check for present values recursively
-    def has_nested_values(value_to_check, result = [])
+    def nested_values?(value_to_check, result = [])
       result << true if value_to_check.class == String && value_to_check.present?
 
       if value_to_check.class == Array
         value_to_check.each do |value|
-          has_nested_values(value, result)
+          nested_values?(value, result)
         end
       elsif value_to_check.class.to_s.include?("Hash")
         value_to_check.each do |_key, value|
-          has_nested_values(value, result)
+          nested_values?(value, result)
         end
       end
 
