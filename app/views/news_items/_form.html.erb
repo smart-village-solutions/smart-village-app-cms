@@ -45,9 +45,9 @@
 
   <%= hidden_field_tag "news_item[published_at]", Time.now %>
 
-  <div class="row mb-5">
+  <div class="row">
     <div class="col">
-      <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h2 class="d-sm-flex align-items-center justify-content-between my-4">
         Kategorien
       </h2>
       <p>
@@ -57,7 +57,7 @@
         In der mobilen App wird hauptsächlich zwischen Nachrichten und Informationen unterschieden.
       </p>
 
-      <%= render partial: "news_items/form_partials/categories_form", locals: { news_item: news_item, form: f } %>
+      <%= render partial: "shared/partials/categories_form", locals: { record: news_item, form: f } %>
 
       <input
         type="button"
@@ -68,9 +68,11 @@
     </div>
   </div>
 
-  <div class="row mb-5">
+  <hr />
+
+  <div class="row">
     <div class="col">
-      <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h2 class="d-sm-flex align-items-center justify-content-between my-4">
         Bereiche
       </h2>
       <p>
@@ -111,14 +113,16 @@
   <%# end %>
 
   <% if visible_in_role?("role_push_notification") %>
+    <hr />
+
     <div class="row">
         <div class="col">
-          <h2 class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
             Push-Notification
           </h2>
           <p>
             Nach dem Erstellen dieser Nachricht kann eine Push-Notification an alle registrierten Geräte gesendet werden, mit dem Hinweis auf diese Nachricht.
-            Bitte nutzen Sie dieses Funktion sparsam, um die Aufmerksamkeit der Kunden nicht zu sehr zu beanspruchen.
+            Bitte nutzen Sie diese Funktion sparsam, um die Aufmerksamkeit der Kunden nicht zu sehr zu beanspruchen.
           <p>
         </div>
       </div>
@@ -126,7 +130,7 @@
     <div class="col-lg-6">
       <div class="form-group">
         <%= check_box_tag "news_item[push_notification]", true, false %>
-        <label for="news_item_push_notification">Sende eine Push-Notification</label>
+        <label for="news_item_push_notification">sende eine Push-Notification</label>
       </div>
     </div>
   <% end %>

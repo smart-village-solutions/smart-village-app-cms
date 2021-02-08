@@ -1,4 +1,4 @@
-<% list_of_categories = news_item.categories.presence || [OpenStruct.new] %>
+<% list_of_categories = record.categories.presence || [OpenStruct.new] %>
 
 <div id="nested-categories">
   <% list_of_categories.each_with_index do |category, index| %>

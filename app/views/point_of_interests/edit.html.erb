@@ -1,3 +1,14 @@
 <div class="d-sm-flex align-items-center justify-content-between">
   <h1 class="h3 mb-0 text-gray-800">Ort bearbeiten</h1>
 </div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <%= form_with( url: point_of_interest_path(@point_of_interest.id), method: :patch, local: true) do %>
+      <%= render partial: "point_of_interests/form", locals: { point_of_interest: @point_of_interest } %>
+    <% end %>
+  </div>
+  <div class="col-lg-4">
+    <%= render partial: "form_hints" %>
+  </div>
+</div>

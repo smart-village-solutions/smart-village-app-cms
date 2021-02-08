@@ -74,9 +74,9 @@ $(function() {
     ...defaultNestedFormsOptions
   });
 
-  $('#nested-event-prices').nestedForm({
-    forms: '.nested-event-price-form',
-    adder: '#nested-add-event-prices',
+  $('#price_informations').nestedForm({
+    forms: '.price_informations-form',
+    adder: '#nested-add-price_informations',
     ...defaultNestedFormsOptions
   });
 

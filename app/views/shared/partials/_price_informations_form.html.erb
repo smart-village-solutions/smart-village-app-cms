@@ -1,9 +1,17 @@
-<% list_of_price_informations = event.price_informations.presence || [OpenStruct.new] %>
+<% list_of_price_informations = record.price_informations.presence || [OpenStruct.new] %>
 
-<div id="nested-event-prices">
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      Preise
+    </h3>
+  </div>
+</div>
+
+<div id="nested-price_informations">
   <% list_of_price_informations.each_with_index do |price, index| %>
-    <%= fields_for "event[price_informations][#{index}]", price do |fp|  %>
-      <div class="nested-event-price-form">
+    <%= fields_for "#{record_type}[price_informations][#{index}]", price do |fp|  %>
+      <div class="nested-price_informations-form">
         <div class="card mb-4">
           <div class="card-header py-3 bg-dark text-white">
             <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
@@ -36,3 +44,12 @@
     <% end %>
   <% end %>
 </div>
+
+<input
+  type="button"
+  value="weitere Preiskategorie hinzufügen"
+  id="nested-add-price_informations"
+  class="btn btn-sm btn-secondary"
+/>
+
+<hr />

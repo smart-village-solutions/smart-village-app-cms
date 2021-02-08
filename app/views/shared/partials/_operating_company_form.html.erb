@@ -1,4 +1,4 @@
-<%= form.fields_for :organizer, record.organizer do |fo|  %>
+<%= form.fields_for :operating_company, record.operating_company do |fo|  %>
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -10,11 +10,11 @@
     </div>
   </div>
 
-  <%= fo.fields_for :contact, record.try(:organizer).try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) do |fc|  %>
+  <%= fo.fields_for :contact, record.try(:operating_company).try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) do |fc|  %>
     <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: fc.object } %>
   <% end %>
 
-  <%= fo.fields_for :address, record.try(:organizer).try(:address) || OpenStruct.new(geo_location: nil) do |fa|  %>
+  <%= fo.fields_for :address, record.try(:operating_company).try(:address) || OpenStruct.new(geo_location: nil) do |fa|  %>
     <%= render partial: "shared/partials/address_form", locals: { form: fa, address: fo.object } %>
   <% end %>
 <% end %>

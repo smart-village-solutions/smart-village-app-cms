@@ -38,7 +38,17 @@ class DataProviderController < ApplicationController
 
   def visibility
     @smart_village.query <<~GRAPHQL
-      mutation { changeVisibility (id: #{params[:id]}, recordType: "#{params[:item_type]}", visible: #{params[:visible] == "true"}){id, status, statusCode} }
+      mutation {
+        changeVisibility (
+          id: #{params[:id]},
+          recordType: "#{params[:item_type]}",
+          visible: #{params[:visible] == "true"}
+        ) {
+          id
+          status
+          statusCode
+        }
+      }
     GRAPHQL
 
     redirect_to "/#{params[:item_type].underscore.pluralize}"
