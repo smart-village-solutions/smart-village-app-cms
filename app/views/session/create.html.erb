@@ -4,11 +4,11 @@
 
 <%= form_tag( log_in_path , method: :post) do |f| %>
   <div class="form-group row">
-    <label for="exampleInputEmail1" class="col-lg-2 col-form-label">E-Mail Adresse</label>
+    <label for="exampleInputEmail1" class="col-lg-2 col-form-label">E-Mail-Adresse</label>
     <div class="col-lg-6">
       <%= text_field_tag(:email, "", class: "form-control", placeholder: "E-Mail eingeben") %>
       <small id="emailHelp" class="form-text text-muted">
-        Haben Sie noch keine Zugangsdaten, so wenden Sie sich bitte an: support@bad-belzig.de
+        Haben Sie noch keine Zugangsdaten, so wenden Sie sich bitte an <a href="mailto:support@smart-village.app">support@smart-village.app</a>
       </small>
     </div>
   </div>
