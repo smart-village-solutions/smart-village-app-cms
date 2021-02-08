@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PointOfInterestsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
@@ -125,6 +127,23 @@ class PointOfInterestsController < ApplicationController
           dataProvider {
             name
           }
+          lunches {
+            id
+            text
+            dates {
+              dateStart
+              dateEnd
+            }
+            lunchOffers {
+              id
+              name
+              price
+            }
+            pointOfInterest {
+              id
+            }
+            pointOfInterestAttributes
+          }
         }
       }
     GRAPHQL
@@ -218,9 +237,10 @@ class PointOfInterestsController < ApplicationController
         operating_company: OpenStruct.new(
           web_urls: [OpenStruct.new],
           contact: OpenStruct.new(web_urls: [OpenStruct.new]),
-          address: OpenStruct.new()
+          address: OpenStruct.new
         ),
-        media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+        media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
+        lunches: [OpenStruct.new]
       )
     end
 
@@ -245,7 +265,7 @@ class PointOfInterestsController < ApplicationController
       # Convert has_many price_informations
       if @point_of_interest_params["price_informations"].present?
         price_informations = []
-        @point_of_interest_params["price_informations"].each do |key, price_information|
+        @point_of_interest_params["price_informations"].each do |_key, price_information|
           next if price_information.blank?
 
           price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
@@ -259,7 +279,7 @@ class PointOfInterestsController < ApplicationController
       # Convert has_many media_contents
       if @point_of_interest_params["media_contents"].present?
         media_contents = []
-        @point_of_interest_params["media_contents"].each do |key, media_content|
+        @point_of_interest_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
 
           media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
@@ -271,7 +291,7 @@ class PointOfInterestsController < ApplicationController
       # Convert has_many urls
       if @point_of_interest_params["web_urls"].present?
         web_urls = []
-        @point_of_interest_params["web_urls"].each do |key, url|
+        @point_of_interest_params["web_urls"].each do |_key, url|
           next if url.blank?
 
           web_urls << url
@@ -283,23 +303,63 @@ class PointOfInterestsController < ApplicationController
       # If not, we do not want to submit the params, because the name is required by the model,
       # which will result in a validation error.
       if @point_of_interest_params["operating_company"].present?
-        unless has_nested_values(@point_of_interest_params["operating_company"].to_h).include?(true)
+        unless nested_values?(@point_of_interest_params["operating_company"].to_h).include?(true)
           @point_of_interest_params.delete :operating_company
         end
       end
+
+      # Convert has_many lunches(which has_many dates and has_many lunch_offers)
+      lunches_params = @point_of_interest_params["lunches"]
+      return unless lunches_params.present?
+
+      lunches = []
+      lunches_params.each do |_key, lunch|
+        next if lunch.blank?
+
+        dates = []
+        lunch[:dates].each do |_key, date|
+          dates << date
+        end
+        lunch[:dates] = dates
+
+        lunch_offers = []
+        lunch[:lunch_offers].each do |_key, lunch_offer|
+          lunch_offers << lunch_offer
+        end
+        lunch[:lunch_offers] = lunch_offers
+
+        # Convert point_of_interest_attributes urls
+        # name and address data should be shown always
+        point_of_interest_attributes = ["name", "addresses"]
+        if lunch[:point_of_interest_attributes].present?
+          if lunch[:point_of_interest_attributes][:contact].present?
+            lunch[:point_of_interest_attributes][:contact].each do |key, value|
+              next unless value.present? && value == "true"
+
+              point_of_interest_attributes << "contact.#{key.camelcase(:lower)}"
+              # web urls can be in contact.webUrls and in webUrls, so we need two keys in that case
+              point_of_interest_attributes << key.camelcase(:lower) if key == "web_urls"
+            end
+          end
+        end
+        lunch[:point_of_interest_attributes] = point_of_interest_attributes.join(",")
+
+        lunches << lunch
+      end
+      @point_of_interest_params["lunches"] = lunches
     end
 
     # check for present values recursively
-    def has_nested_values(value_to_check, result = [])
+    def nested_values?(value_to_check, result = [])
       result << true if value_to_check.class == String && value_to_check.present?
 
       if value_to_check.class == Array
         value_to_check.each do |value|
-          has_nested_values(value, result)
+          nested_values?(value, result)
         end
       elsif value_to_check.class.to_s.include?("Hash")
         value_to_check.each do |_key, value|
-          has_nested_values(value, result)
+          nested_values?(value, result)
         end
       end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewsItemsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
@@ -196,7 +198,7 @@ class NewsItemsController < ApplicationController
 
     def new_news_item
       OpenStruct.new(
-        address: OpenStruct.new(),
+        address: OpenStruct.new,
         source_url: OpenStruct.new,
         media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
       )

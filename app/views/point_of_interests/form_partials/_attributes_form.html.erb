@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-12">
+    <p>
+      Sie können die Daten des Ortes auswählen, die direkt bei diesem Gastro-Angebot mit
+      dargestellt werden sollen. Der Name und die Adresse des Ortes werden immer angezeigt.
+    <p>
+  </div>
+
+  <div class="col-12">
+    <div class="form-group point_of_interest_attributes">
+      <% ["phone", "email", "fax", "web_urls"].each do |attribute| %>
+        <% checked = record.point_of_interest_attributes&.include?("contact.#{attribute.camelcase(:lower)}") %>
+        <%= render(
+              partial: "point_of_interests/form_partials/attributes_form_contact",
+              locals: {
+                index: index,
+                attribute: attribute,
+                checked: checked
+              }
+            ) %>
+      <% end %>
+    </div>
+  </div>
+</div>

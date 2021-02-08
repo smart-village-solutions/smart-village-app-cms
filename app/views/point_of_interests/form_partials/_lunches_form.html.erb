@@ -1,0 +1,87 @@
+<hr />
+
+<% list_of_lunches = record.lunches.presence || [OpenStruct.new] %>
+
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      Gastro-Angebote
+    </h3>
+  </div>
+</div>
+
+<div id="nested-lunches">
+  <% list_of_lunches.each_with_index do |lunch, index| %>
+    <%= fields_for "point_of_interest[lunches][#{index}]", lunch do |fl|  %>
+      <div class="nested-lunch-form">
+        <div class="card mb-4">
+          <div class="card-header py-3 bg-dark text-white">
+            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+              Gastro-Angebot
+            </h4>
+            <input
+              type="button"
+              value="dieses Gastro-Angebot entfernen"
+              class="float-right removeContent btn btn-sm btn-danger"
+            />
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="text">Text</label>
+                      <%= fl.text_field :text, class: "form-control" %>
+                    </div>
+                  </div>
+                </div>
+
+                <%= render(
+                      partial: "point_of_interests/form_partials/dates_form",
+                      locals: {
+                        record: lunch,
+                        form: fl,
+                      }
+                    ) %>
+
+                <%= render(
+                      partial: "point_of_interests/form_partials/attributes_form",
+                      locals: {
+                        record: lunch,
+                        index: index,
+                        form: fl,
+                      }
+                    ) %>
+
+                <hr />
+
+                <h3 class="mb-3 font-weight-bold d-sm-flex align-items-center justify-content-between">
+                  Gerichte
+                </h3>
+                <p>
+                  Sie können jedem Gastro-Angebot ein oder mehrere Gerichte hinzufügen.
+                </p>
+
+                <%= render(
+                      partial: "point_of_interests/form_partials/lunch_offers_form",
+                      locals: {
+                        record: lunch,
+                        form: fl,
+                      }
+                    ) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<input
+  type="button"
+  value="weiteres Gericht hinzufügen"
+  id="nested-add-lunch"
+  class="btn btn-sm btn-secondary"
+/>

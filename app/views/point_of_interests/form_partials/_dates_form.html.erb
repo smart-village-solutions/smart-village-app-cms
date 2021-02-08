@@ -1,8 +1,8 @@
-<% list_of_dates = event.dates.presence || [OpenStruct.new] %>
+<% list_of_dates = record.dates.presence || [OpenStruct.new] %>
 
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
-    <%= fields_for "event[dates][#{index}]", date do |fd|  %>
+    <%= form.fields_for "dates[#{index}]", date do |fd|  %>
       <div class="nested-date-form">
         <div class="row">
           <div class="col-12 col-sm-6">
@@ -15,21 +15,6 @@
             <div class="form-group">
               <label for="description">Enddatum</label>
               <%= fd.date_field :date_end, class: "form-control", value: fd.object.date_end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 col-sm-6">
-            <div class="form-group">
-              <label for="description">Startzeit *</label>
-              <%= fd.time_field :time_start, class: "form-control", value: fd.object.time_start %>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6">
-            <div class="form-group">
-              <label for="description">Endzeit</label>
-              <%= fd.time_field :time_end, class: "form-control", value: fd.object.time_end %>
             </div>
           </div>
         </div>
