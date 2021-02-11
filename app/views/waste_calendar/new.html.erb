@@ -1,0 +1,58 @@
+<div class="d-sm-flex align-items-center justify-content-between">
+  <h1 class="h3 mb-0 text-gray-800">Daten für Abfallkalender importieren</h1>
+</div>
+
+<p>Die Abfalldaten bestehen aus 2 Informationsquellen, den <strong>Adressen</strong> und dem <strong>Tourplan</strong>.</p>
+
+<p>Der Import selbst erfolgt dabei in 2 Schritten.</p>
+<ul>
+  <li>Zuerst laden Sie zu beiden Informationsquellen alle relevanten Daten als CSV hoch</li>
+  <li>Anschließend müssen die Spalten aus beiden CSV-Quellen den Feldern aus dem Abfallkalender zugewiesen werden</li>
+</ul>
+
+<div class="row">
+  <div class="col-lg-8">
+    <%= form_with( url: "/waste_calendar", method: :post, local: true) do |f| %>
+      <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+            Adressdaten
+          </h2>
+          <p>
+            Bitte kopieren sie hier die CSV-Daten der Adressen hinein.<br>
+            <%= image_tag("example_address_data.png") %><br>
+            Komma oder Semikolon getrennte Werte mit mindestens folgenden Spalten: PLZ, ORT, Strasse, Pro Abfallart eine ID der Tour
+          <p>
+          <div class="form-group">
+            <label for="description">Adressdaten als CSV:</label>
+            <%= f.text_area :address_data, class: "form-control", rows: 8 %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+            Tourdaten
+          </h2>
+          <p>
+            Bitte kopieren sie hier die CSV-Daten der Touren alle Abfallarten hinein.<br>
+            <%= image_tag("example_pick_up_times.png") %><br>
+            Komma oder Semikolon getrennte Werte mit mindestens folgenden Spalten: Datum, ORT, Strasse, Pro Abfallart eine ID der Tour.<br>
+            Das Datum sollte bitte folgendermaßen formatiert sein: dd.mm.yyyy oder yyyy-mm-dd
+          <p>
+          <div class="form-group">
+            <label for="description">Tourdaten als CSV:</label>
+            <%= f.text_area :tour_data, class: "form-control", rows: 8 %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col pb-4">
+          <%= f.submit "Daten hochladen", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
