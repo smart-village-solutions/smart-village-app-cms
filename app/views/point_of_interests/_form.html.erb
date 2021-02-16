@@ -93,7 +93,9 @@
 
   <%= render partial: "shared/partials/media_contents_form", locals: { record: point_of_interest, form: f } %>
 
-  <%= render partial: "point_of_interests/form_partials/lunches_form", locals: { record: point_of_interest, form: f } %>
+  <% if visible_in_role?("role_lunch") %>
+    <%= render partial: "point_of_interests/form_partials/lunches_form", locals: { record: point_of_interest, form: f } %>
+  <% end %>
 
   <hr />
 
