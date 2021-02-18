@@ -37,26 +37,49 @@ class NewsItemsController < ApplicationController
 
   def edit
     results = @smart_village.query <<~GRAPHQL
-        query {
-          newsItem(
-            id: #{params[:id]}
-          ) {
-            visible
-            categories {
-              id
-              name
-            }
+      query {
+        newsItem(
+          id: #{params[:id]}
+        ) {
+          visible
+          categories {
             id
-            author
-            fullVersion
-            charactersToBeShown
-            publicationDate
-            publishedAt
-            title
-            externalId
-            sourceUrl {
-              url
-              description
+            name
+          }
+          id
+          author
+          fullVersion
+          charactersToBeShown
+          publicationDate
+          publishedAt
+          title
+          externalId
+          sourceUrl {
+            url
+            description
+          }
+          address {
+            addition
+            street
+            zip
+            city
+            geoLocation {
+              latitude
+              longitude
+            }
+          }
+          dataProvider {
+            name
+            contact {
+              firstName
+              lastName
+              phone
+              fax
+              email
+              webUrls {
+                url
+                description
+              }
             }
             address {
               addition
@@ -68,53 +91,29 @@ class NewsItemsController < ApplicationController
                 longitude
               }
             }
-            dataProvider {
-              name
-              contact {
-                firstName
-                lastName
-                phone
-                fax
-                email
-                webUrls {
-                  url
-                  description
-                }
-              }
-              address {
-                addition
-                street
-                zip
-                city
-                geoLocation {
-                  latitude
-                  longitude
-                }
-              }
-              logo {
+            logo {
+              url
+              description
+            }
+          }
+          contentBlocks {
+            title
+            intro
+            body
+            mediaContents {
+              id
+              captionText
+              contentType
+              copyright
+              height
+              width
+              sourceUrl {
                 url
                 description
               }
             }
-            contentBlocks {
-              title
-              intro
-              body
-              mediaContents {
-                id
-                captionText
-                contentType
-                copyright
-                height
-                width
-                sourceUrl {
-                  url
-                  description
-                }
-              }
-            }
-            pushNotificationsSentAt
           }
+          pushNotificationsSentAt
         }
       }
     GRAPHQL
