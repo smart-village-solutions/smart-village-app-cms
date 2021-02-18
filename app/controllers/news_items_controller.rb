@@ -20,6 +20,7 @@ class NewsItemsController < ApplicationController
           }
           updatedAt
           createdAt
+          pushNotificationsSentAt
         }
       }
     GRAPHQL
@@ -36,49 +37,26 @@ class NewsItemsController < ApplicationController
 
   def edit
     results = @smart_village.query <<~GRAPHQL
-      query {
-        newsItem(
-          id: #{params[:id]}
-        ) {
-          visible
-          categories {
-            id
-            name
-          }
-          id
-          author
-          fullVersion
-          charactersToBeShown
-          publicationDate
-          publishedAt
-          title
-          externalId
-          sourceUrl {
-            url
-            description
-          }
-          address {
-            addition
-            street
-            zip
-            city
-            geoLocation {
-              latitude
-              longitude
+        query {
+          newsItem(
+            id: #{params[:id]}
+          ) {
+            visible
+            categories {
+              id
+              name
             }
-          }
-          dataProvider {
-            name
-            contact {
-              firstName
-              lastName
-              phone
-              fax
-              email
-              webUrls {
-                url
-                description
-              }
+            id
+            author
+            fullVersion
+            charactersToBeShown
+            publicationDate
+            publishedAt
+            title
+            externalId
+            sourceUrl {
+              url
+              description
             }
             address {
               addition
@@ -90,33 +68,60 @@ class NewsItemsController < ApplicationController
                 longitude
               }
             }
-            logo {
-              url
-              description
-            }
-          }
-          contentBlocks {
-            title
-            intro
-            body
-            mediaContents {
-              id
-              captionText
-              contentType
-              copyright
-              height
-              width
-              sourceUrl {
+            dataProvider {
+              name
+              contact {
+                firstName
+                lastName
+                phone
+                fax
+                email
+                webUrls {
+                  url
+                  description
+                }
+              }
+              address {
+                addition
+                street
+                zip
+                city
+                geoLocation {
+                  latitude
+                  longitude
+                }
+              }
+              logo {
                 url
                 description
               }
             }
+            contentBlocks {
+              title
+              intro
+              body
+              mediaContents {
+                id
+                captionText
+                contentType
+                copyright
+                height
+                width
+                sourceUrl {
+                  url
+                  description
+                }
+              }
+            }
+            pushNotificationsSentAt
           }
         }
       }
     GRAPHQL
 
     @news_item = results.data.news_item
+
+    redirect_to news_items_path if @news_item.push_notifications_sent_at.present?
   end
 
   def create
