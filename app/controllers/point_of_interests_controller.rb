@@ -68,6 +68,15 @@ class PointOfInterestsController < ApplicationController
               longitude
             }
           }
+          openingHours {
+            weekday
+            timeFrom
+            timeTo
+            open
+            dateFrom
+            dateTo
+            description
+          }
           contact {
             id
             email
@@ -262,6 +271,17 @@ class PointOfInterestsController < ApplicationController
         end
       end
 
+      # Convert has_many opening_hours
+      if @point_of_interest_params["opening_hours"].present?
+        opening_hours = []
+        @point_of_interest_params["opening_hours"].each do |_key, opening_hour|
+          next if opening_hour.blank?
+
+          opening_hours << opening_hour if nested_values?(opening_hour.to_h).include?(true)
+        end
+        @point_of_interest_params["opening_hours"] = opening_hours
+      end
+
       # Convert has_many categories
       if @point_of_interest_params["categories"].present?
         categories = []
@@ -291,9 +311,7 @@ class PointOfInterestsController < ApplicationController
         @point_of_interest_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
 
-          if media_content.dig("source_url", "url").present?
-            media_contents << media_content
-          end
+          media_contents << media_content if media_content.dig("source_url", "url").present?
         end
         @point_of_interest_params["media_contents"] = media_contents
       end

@@ -39,6 +39,12 @@ $(function() {
     associations: 'urls' // needed to correctly increment ids of added sections
   });
 
+  $('#nested-opening-hours').nestedForm({
+    forms: '.nested-opening-hour-form',
+    adder: '#nested-add-opening-hour',
+    ...defaultNestedFormsOptions
+  });
+
   // media not nested in a content block, for example in events.
   // everything with classes here, because in content blocks nested-media will appear multiple times
   $('.nested-media').nestedForm({
