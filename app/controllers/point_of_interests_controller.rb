@@ -230,7 +230,9 @@ class PointOfInterestsController < ApplicationController
 
     def new_point_of_interest
       OpenStruct.new(
-        addresses: [OpenStruct.new],
+        addresses: [OpenStruct.new(
+          geo_location: OpenStruct.new
+        )],
         contact: OpenStruct.new(web_urls: [OpenStruct.new]),
         price_informations: [OpenStruct.new],
         web_urls: [OpenStruct.new],
@@ -251,6 +253,15 @@ class PointOfInterestsController < ApplicationController
     end
 
     def convert_params_for_graphql
+      # Check recursively if any addresses data is given.
+      # If not, we do not want to submit the params, because the name is required by the model,
+      # which will result in a validation error.
+      if @point_of_interest_params["addresses"].present?
+        unless nested_values?(@point_of_interest_params["addresses"].to_h).include?(true)
+          @point_of_interest_params.delete :addresses
+        end
+      end
+
       # Convert has_many categories
       if @point_of_interest_params["categories"].present?
         categories = []
@@ -269,9 +280,7 @@ class PointOfInterestsController < ApplicationController
           next if price_information.blank?
 
           price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
-          price_information["age_from"] = price_information["age_from"].present? ? price_information["age_from"].to_f : nil
-          price_information["age_to"] = price_information["age_to"].present? ? price_information["age_to"].to_f : nil
-          price_informations << price_information
+          price_informations << price_information if price_information.values.filter(&:present?).any?
         end
         @point_of_interest_params["price_informations"] = price_informations
       end
@@ -282,8 +291,9 @@ class PointOfInterestsController < ApplicationController
         @point_of_interest_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
 
-          media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
-          media_contents << media_content
+          if media_content.dig("source_url", "url").present?
+            media_contents << media_content
+          end
         end
         @point_of_interest_params["media_contents"] = media_contents
       end
@@ -297,6 +307,15 @@ class PointOfInterestsController < ApplicationController
           web_urls << url
         end
         @point_of_interest_params["web_urls"] = web_urls
+      end
+
+      # Check recursively if any contact data is given.
+      # If not, we do not want to submit the params, because the name is required by the model,
+      # which will result in a validation error.
+      if @point_of_interest_params["contact"].present?
+        unless nested_values?(@point_of_interest_params["contact"].to_h).include?(true)
+          @point_of_interest_params.delete :contact
+        end
       end
 
       # Check recursively if any operating_company data is given.
@@ -324,27 +343,32 @@ class PointOfInterestsController < ApplicationController
 
         lunch_offers = []
         lunch[:lunch_offers].each do |_key, lunch_offer|
-          lunch_offers << lunch_offer
+          lunch_offers << lunch_offer if lunch_offer.values.filter(&:present?).any?
         end
         lunch[:lunch_offers] = lunch_offers
 
-        # Convert point_of_interest_attributes urls
-        # name and address data should be shown always
-        point_of_interest_attributes = ["name", "addresses"]
-        if lunch[:point_of_interest_attributes].present?
-          if lunch[:point_of_interest_attributes][:contact].present?
-            lunch[:point_of_interest_attributes][:contact].each do |key, value|
-              next unless value.present? && value == "true"
+        # Check recursively if any lunch data is given.
+        # If not, we do not want to submit the params, because it would result in empty objects for
+        # the app.
+        if nested_values?(lunch.to_h).include?(true)
+          # Convert point_of_interest_attributes urls
+          # name and address data should be shown always
+          point_of_interest_attributes = ["name", "addresses"]
+          if lunch[:point_of_interest_attributes].present?
+            if lunch[:point_of_interest_attributes][:contact].present?
+              lunch[:point_of_interest_attributes][:contact].each do |key, value|
+                next unless value.present? && value == "true"
 
-              point_of_interest_attributes << "contact.#{key.camelcase(:lower)}"
-              # web urls can be in contact.webUrls and in webUrls, so we need two keys in that case
-              point_of_interest_attributes << key.camelcase(:lower) if key == "web_urls"
+                point_of_interest_attributes << "contact.#{key.camelcase(:lower)}"
+                # web urls can be in contact.webUrls and in webUrls, so we need two keys in that case
+                point_of_interest_attributes << key.camelcase(:lower) if key == "web_urls"
+              end
             end
           end
-        end
-        lunch[:point_of_interest_attributes] = point_of_interest_attributes.join(",")
 
-        lunches << lunch
+          lunch[:point_of_interest_attributes] = point_of_interest_attributes.join(",")
+          lunches << lunch
+        end
       end
       @point_of_interest_params["lunches"] = lunches
     end
