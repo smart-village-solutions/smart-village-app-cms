@@ -81,7 +81,7 @@ class OffersController < ApplicationController
         mutation {
           destroyRecord(
             id: #{old_id},
-            recordType: "genericItem"
+            recordType: "GenericItem"
           ) {
             id
             status
@@ -102,7 +102,7 @@ class OffersController < ApplicationController
       mutation {
         destroyRecord(
           id: #{params["id"]},
-          recordType: "genericItem"
+          recordType: "GenericItem"
         ) {
           id
           status
