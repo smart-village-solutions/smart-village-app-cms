@@ -59,3 +59,23 @@
     </a>
   </li>
 <% end %>
+
+<!-- Nav Item - Jobs -->
+<% if visible_in_role?("role_tour") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'jobs' %>">
+    <a class="nav-link" href="/jobs">
+      <i class="fas fa-fw fa-briefcase"></i>
+      <span>Stellenanzeigen</span>
+    </a>
+  </li>
+<% end %>
+
+<!-- Nav Item - Offers -->
+<% if visible_in_role?("role_tour") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'offers' %>">
+    <a class="nav-link" href="/offers">
+      <i class="fas fa-fw fa-building"></i>
+      <span>Gewerbliche Anzeigen</span>
+    </a>
+  </li>
+<% end %>
