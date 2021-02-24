@@ -123,6 +123,7 @@ class OffersController < ApplicationController
 
     def new_generic_item
       OpenStruct.new(
+        generic_type: "Offer",
         addresses: [OpenStruct.new],
         dates: [OpenStruct.new],
         price_informations: [OpenStruct.new],

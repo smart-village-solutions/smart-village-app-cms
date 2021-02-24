@@ -123,6 +123,7 @@ class JobsController < ApplicationController
 
     def new_generic_item
       OpenStruct.new(
+        generic_type: "Job",
         addresses: [OpenStruct.new],
         dates: [OpenStruct.new],
         price_informations: [OpenStruct.new],
