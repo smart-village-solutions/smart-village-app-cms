@@ -34,6 +34,18 @@ class JobsController < ApplicationController
           title
           createdAt
           payload
+          contacts {
+            id
+            email
+            fax
+            lastName
+            firstName
+            phone
+            webUrls{
+              url
+              description
+            }
+          }
         }
       }
     GRAPHQL
