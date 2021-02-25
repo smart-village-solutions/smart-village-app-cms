@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-lg-8">
-    <%= form_with( url: "/waste_calendar", method: :post, local: true) do |f| %>
+    <%= form_with(url: "/waste_calendar", method: :post, local: true) do |f| %>
       <%= hidden_field_tag :address_data, @address_data %>
       <%= hidden_field_tag :tour_data, @tour_data %>
       <div class="row">
@@ -16,20 +16,20 @@
           </h2>
           <div class="form-group">
             <label for="description">Straße:</label>
-            <div> <%= select_tag("address[street]", options_for_select(@address_data_selects), include_blank: true, class: "form-control" ) %></div>
+            <%= select_tag("address[street]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
           </div>
           <div class="form-group">
             <label for="description">PLZ:</label>
-            <div> <%= select_tag("address[zip]", options_for_select(@address_data_selects), include_blank: true, class: "form-control" ) %></div>
+            <%= select_tag("address[zip]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
           </div>
           <div class="form-group">
-            <label for="description">Stadt:</label>
-            <div> <%= select_tag("address[city]", options_for_select(@address_data_selects), include_blank: true, class: "form-control" ) %></div>
+            <label for="description">Ort:</label>
+            <%= select_tag("address[city]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
           </div>
           <% @waste_types.each do |key, waste_type| %>
             <div class="form-group">
               <label for="description"><%= waste_type["label"] %>:</label>
-              <%= select_tag("address[#{key}]", options_for_select(@address_data_selects), include_blank: true, class: "form-control" ) %>
+              <%= select_tag("address[#{key}]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
             </div>
           <% end %>
         </div>
@@ -42,12 +42,12 @@
           </h2>
           <div class="form-group">
             <label for="description">Datum:</label>
-            <div> <%= select_tag("tour[date]", options_for_select(@tour_data_selects), include_blank: true, class: "form-control" ) %></div>
+            <%= select_tag("tour[date]", options_for_select(@tour_data_selects), include_blank: true, class: "form-control") %>
           </div>
           <% @waste_types.each do |key, waste_type| %>
             <div class="form-group">
               <label for="description"><%= waste_type["label"] %>:</label>
-              <%= select_tag("tour[#{key}]", options_for_select(@tour_data_selects), include_blank: true, class: "form-control" ) %>
+              <%= select_tag("tour[#{key}]", options_for_select(@tour_data_selects), include_blank: true, class: "form-control") %>
             </div>
           <% end %>
         </div>

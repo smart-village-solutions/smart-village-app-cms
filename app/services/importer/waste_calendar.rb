@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
 class Importer::WasteCalendar
-  attr_accessor :smart_village, :waste_types, :address_data, :tour_data,
-                :address_assignment, :tour_assignment
+  attr_accessor :smart_village, :waste_types, :address_data, :tour_data, :address_assignment,
+                :tour_assignment
 
   # address_assignment = {"street"=>"STRASSE", "zip"=>"PLZ", "city"=>"ORT", "paper"=>"PAP",
   #   "recyclable"=>"LVP", "residual"=>"HM", "bio"=>"Bio", "glas_white"=>"", "glas_color"=>""}
   #
   # tour_assignment = {"date"=>"Datum", "paper"=>"PPK", "recyclable"=>"LVP", "residual"=>"HM",
   #   "bio"=>"BIO", "glas_white"=>"", "glas_color"=>""}
-
-  def initialize(smart_village:, waste_types:, address_data:, tour_data:, address_assignment:, tour_assignment:)
+  def initialize(
+    smart_village:,
+    waste_types:,
+    address_data:,
+    tour_data:,
+    address_assignment:,
+    tour_assignment:
+  )
     @smart_village = smart_village
     @waste_types = waste_types
     @address_data = address_data
@@ -44,17 +50,27 @@ class Importer::WasteCalendar
     end
   end
 
-  def send_single_pick_up_time(date, waste_type, street, zip, city)
-    results = @smart_village.query <<~GRAPHQL
-      mutation {
-        createWastePickUpTime (
-          pickupDate: "#{date}",
-          wasteLocationType: {
-            wasteType: "#{waste_type}",
-            address: {street: "#{street}", zip: "#{zip}", city: "#{city}"}}
-        ) { id }
-      }
-    GRAPHQL
-    results.data
-  end
+  private
+
+    def send_single_pick_up_time(date, waste_type, street, zip, city)
+      results = @smart_village.query <<~GRAPHQL
+        mutation {
+          createWastePickUpTime(
+            pickupDate: "#{date}",
+            wasteLocationType: {
+              wasteType: "#{waste_type}",
+              address: {
+                street: "#{street}",
+                zip: "#{zip}",
+                city: "#{city}"
+              }
+            }
+          ) {
+            id
+          }
+        }
+      GRAPHQL
+
+      results.data
+    end
 end

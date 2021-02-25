@@ -1,4 +1,6 @@
-require 'csv'
+# frozen_string_literal: true
+
+require "csv"
 
 class WasteCalendarController < ApplicationController
   before_action :verify_current_user
@@ -6,20 +8,25 @@ class WasteCalendarController < ApplicationController
 
   def index
     results = @smart_village.query <<~GRAPHQL
-      query { publicJsonFile(name: "wasteTypes") {content} }
+      query {
+        publicJsonFile(name: "wasteTypes") {
+          content
+        }
+      }
     GRAPHQL
+
     @waste_types = JSON.parse(results.data.public_json_file.content)
 
     results = @smart_village.query <<~GRAPHQL
       query {
         wasteAddresses(limit: 100) {
-          id,
-          street,
-          city,
-          zip,
+          id
+          street
+          city
+          zip
           wasteLocationTypes {
-            wasteType,
-            id,
+            wasteType
+            id
             listPickUpDates
           }
         }
@@ -34,8 +41,13 @@ class WasteCalendarController < ApplicationController
 
   def create
     results = @smart_village.query <<~GRAPHQL
-      query { publicJsonFile(name: "wasteTypes") {content} }
+      query {
+        publicJsonFile(name: "wasteTypes") {
+          content
+        }
+      }
     GRAPHQL
+
     @waste_types = JSON.parse(results.data.public_json_file.content)
 
     @address_data = params[:address_data]
