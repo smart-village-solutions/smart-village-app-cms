@@ -48,14 +48,21 @@ class WasteCalendarController < ApplicationController
     parsed_address_data = CSV.parse(@address_data, headers: true, col_sep: col_separator_address)
     parsed_tour_data = CSV.parse(@tour_data, headers: true, col_sep: col_separator_tour)
 
-    redirect_to action: :new and return unless parsed_address_data.present? && parsed_tour_data.present?
+    unless parsed_address_data.present? && parsed_tour_data.present?
+      flash[:notice] = "Bitte Adress- und Tourdaten eintragen"
+      redirect_to action: :new and return
+    end
 
     @address_data_selects = parsed_address_data.first.headers
     @tour_data_selects = parsed_tour_data.first.headers
 
+    # address and tour params are necessary for step 2, so without them this method is done here
     return unless params[:address].present? && params[:tour].present?
 
-    return unless params_complete(params[:address]) && params_complete(params[:tour])
+    unless value_present(params[:address]) && value_present(params[:tour])
+      flash[:notice] = "Bitte etwas bei Adress- und Tourdaten zuordnen für den Import"
+      return
+    end
 
     Thread.new do
       waste_importer = Importer::WasteCalendar.new(
@@ -75,8 +82,8 @@ class WasteCalendarController < ApplicationController
 
   private
 
-    # return true, if there are as many values as keys, which means that every column is assigned
-    def params_complete(params)
-      params.keys.count === params.values.filter(&:present?).count
+    # return true, if there is at least one assignment made
+    def value_present(params)
+      params.values.filter(&:present?).any?
     end
 end
