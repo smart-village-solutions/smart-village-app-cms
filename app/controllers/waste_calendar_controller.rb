@@ -68,10 +68,13 @@ class WasteCalendarController < ApplicationController
     @address_data_selects = parsed_address_data.first.headers
     @tour_data_selects = parsed_tour_data.first.headers
 
-    # address and tour params are necessary for step 2, so without them this method is done here
-    return unless params[:address].present? && params[:tour].present?
+    address_assignment = params[:address]
+    tour_assignment = params[:tour]
 
-    unless value_present(params[:address]) && value_present(params[:tour])
+    # address and tour params are necessary for step 2, so without them this method is done here
+    return unless address_assignment.present? && tour_assignment.present?
+
+    unless value_present(address_assignment) && value_present(tour_assignment)
       flash[:notice] = "Bitte etwas bei Adress- und Tourdaten zuordnen für den Import"
       return
     end
@@ -81,9 +84,9 @@ class WasteCalendarController < ApplicationController
         smart_village: @smart_village,
         waste_types: @waste_types,
         address_data: parsed_address_data,
-        address_assignment: params[:address],
+        address_assignment: address_assignment,
         tour_data: parsed_tour_data,
-        tour_assignment: params[:tour]
+        tour_assignment: tour_assignment
       )
       waste_importer.perform
     end
