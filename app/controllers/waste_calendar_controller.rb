@@ -55,6 +55,8 @@ class WasteCalendarController < ApplicationController
 
     return unless params[:address].present? && params[:tour].present?
 
+    return unless params_complete(params[:address]) && params_complete(params[:tour])
+
     Thread.new do
       waste_importer = Importer::WasteCalendar.new(
         smart_village: @smart_village,
@@ -70,4 +72,11 @@ class WasteCalendarController < ApplicationController
     flash[:notice] = "Import im Hintergrund gestartet ..."
     redirect_to action: :index
   end
+
+  private
+
+    # return true, if there are as many values as keys, which means that every column is assigned
+    def params_complete(params)
+      params.keys.count === params.values.filter(&:present?).count
+    end
 end
