@@ -67,7 +67,7 @@ class JobsController < ApplicationController
       return
     end
     new_id = results.data.create_generic_item.id
-    flash[:notice] = "Jobanzeige wurde erstellt"
+    flash[:notice] = "Stellenanzeige wurde erstellt"
     redirect_to edit_job_path(new_id)
   end
 
