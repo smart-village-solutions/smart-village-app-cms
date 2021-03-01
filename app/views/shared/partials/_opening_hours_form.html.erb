@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      Öffnungszeiten
+    </h3>
+  </div>
+</div>
+
+<% list_of_opening_hours = record.opening_hours.presence || [OpenStruct.new] %>
+
+<div id="nested-opening-hours">
+  <% list_of_opening_hours.each_with_index do |opening_hour, index| %>
+    <%= fields_for "#{record_type}[opening_hours][#{index}]", opening_hour do |foh|  %>
+      <div class="nested-opening-hour-form">
+        <div class="card mb-4">
+          <div class="card-header py-3 bg-dark text-white">
+            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+              Öffnungszeit
+            </h4>
+            <input
+              type="button"
+              value="diese Öffnungszeit entfernen"
+              class="float-right remove btn btn-sm btn-danger"
+            />
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="date_from">Startdatum *</label>
+                  <%= foh.date_field :date_from, class: "form-control", value: foh.object.date_from %>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="date_to">Enddatum</label>
+                  <%= foh.date_field :date_to, class: "form-control", value: foh.object.date_to %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="time_from">Startzeit *</label>
+                  <%= foh.time_field :time_from, class: "form-control", value: foh.object.time_from %>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="time_to">Endzeit</label>
+                  <%= foh.time_field :time_to, class: "form-control", value: foh.object.time_to %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="description">Beschreibung</label>
+                  <%= foh.text_field :description, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="weekday">Wochentag</label>
+                  <%= foh.select(
+                        :weekday,
+                        options_for_select(
+                          [
+                            "Montag",
+                            "Dienstag",
+                            "Mittwoch",
+                            "Donnerstag",
+                            "Freitag",
+                            "Samstag",
+                            "Sonntag"
+                          ],
+                          foh.object.weekday
+                        ),
+                        { include_blank: true },
+                        { class: "form-control"  }
+                      ) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <%= foh.check_box :open, { }, true, false %>
+                  <%= foh.label :open, "geöffnet?" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<input
+  type="button"
+  value="weitere Öffnungszeit hinzufügen"
+  id="nested-add-opening-hour"
+  class="btn btn-sm btn-secondary"
+/>
+
+<hr />

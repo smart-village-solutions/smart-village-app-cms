@@ -47,13 +47,14 @@
     </div>
   </div>
 
-  <% point_of_interest.addresses.each do |address| %>
-    <%= f.fields_for :addresses, address do |fadd|  %>
-      <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: address } %>
-    <% end %>
+  <% address = point_of_interest.try(:addresses).try(:first) || OpenStruct.new(geo_location: nil) %>
+  <%= f.fields_for :addresses, address do |fadd| %>
+    <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: address } %>
   <% end %>
 
   <hr />
+
+  <%= render partial: "shared/partials/opening_hours_form", locals: { record: point_of_interest, record_type: "point_of_interest", form: f } %>
 
   <div class="row">
     <div class="col">
@@ -75,8 +76,9 @@
     </div>
   </div>
 
-  <%= f.fields_for "contact", point_of_interest.contact do |fc|  %>
-    <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: point_of_interest.contact } %>
+  <% contact = point_of_interest.try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) %>
+  <%= f.fields_for "contact", contact do |fc|  %>
+    <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
   <% end %>
 
   <%= render partial: "shared/partials/web_url_form", locals: { record: point_of_interest, record_type: "point_of_interest", form: f } %>
