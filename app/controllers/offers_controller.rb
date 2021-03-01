@@ -55,7 +55,7 @@ class OffersController < ApplicationController
       return
     end
     new_id = results.data.create_generic_item.id
-    flash[:notice] = "Gewerbliche Anzeige wurde erstellt"
+    flash[:notice] = "Werbliche Anzeige wurde erstellt"
     redirect_to edit_offer_path(new_id)
   end
 
