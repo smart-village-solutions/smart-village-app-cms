@@ -1,17 +1,19 @@
+<% headline ||= "Ansprechpartner"  %>
+
 <div class="row">
   <div class="col">
     <h3 class="d-sm-flex align-items-center justify-content-between my-4">
-      Ansprechpartner für die Veranstaltung
+      <%= headline %>
     </h3>
   </div>
 </div>
 
-<% list_of_contacts = event.contacts.presence || [OpenStruct.new(web_urls: [OpenStruct.new])] %>
+<% list_of_contacts = record.contacts.presence || [OpenStruct.new(web_urls: [OpenStruct.new])] %>
 
-<div id="nested-event-contacts">
+<div id="nested-contacts">
   <% list_of_contacts.each_with_index do |contact, index| %>
     <%= form.fields_for "contacts[#{index}]", contact do |fc|  %>
-      <div class="nested-event-contact-form">
+      <div class="nested-contact-form">
         <div class="card mb-4">
           <div class="card-header py-3  bg-dark text-white">
             <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
@@ -35,6 +37,6 @@
 <input
   type="button"
   value="Kontakt hinzufügen"
-  id="nested-add-event-contacts"
+  id="nested-add-contacts"
   class="btn btn-sm btn-secondary"
 />

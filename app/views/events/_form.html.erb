@@ -79,7 +79,7 @@
 
   <%= render partial: "shared/partials/organizer_form", locals: { record: event, form: f } %>
 
-  <%= render partial: "events/form_partials/event_contacts", locals: { event: event, form: f } %>
+  <%= render partial: "shared/partials/contacts_form", locals: { record: event, form: f, headline: "Ansprechpartner für die Veranstaltung" } %>
 
   <%= render partial: "shared/partials/url_form", locals: { record: event, record_type: "event", form: f } %>
 
