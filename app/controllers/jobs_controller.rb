@@ -10,13 +10,20 @@ class JobsController < ApplicationController
         genericItems(genericType: "Job") {
           id
           title
-          createdAt
           payload
+          dataProvider {
+            name
+          }
+          updatedAt
+          createdAt
         }
       }
     GRAPHQL
 
     @jobs = results.data.generic_items
+  end
+
+  def show
   end
 
   def new
@@ -30,9 +37,10 @@ class JobsController < ApplicationController
           id: #{params[:id]}
         ){
           id
-          genericType
           title
-          createdAt
+          genericType
+          externalId
+          publicationDate
           payload
           contacts {
             id
@@ -41,9 +49,52 @@ class JobsController < ApplicationController
             lastName
             firstName
             phone
-            webUrls{
+            webUrls {
               url
               description
+            }
+          }
+          contentBlocks {
+            body
+          }
+          mediaContents {
+            id
+            captionText
+            contentType
+            copyright
+            height
+            width
+            sourceUrl {
+              url
+              description
+            }
+          }
+          dates {
+            dateEnd
+          }
+          companies {
+            name
+            contact {
+              firstName
+              lastName
+              phone
+              fax
+              email
+              webUrls {
+                url
+                description
+              }
+            }
+            address {
+              addition
+              street
+              zip
+              city
+              kind
+              geoLocation {
+                latitude
+                longitude
+              }
             }
           }
         }
@@ -51,9 +102,6 @@ class JobsController < ApplicationController
     GRAPHQL
 
     @job = results.data.generic_item
-  end
-
-  def show
   end
 
   def create
@@ -136,10 +184,15 @@ class JobsController < ApplicationController
     def new_generic_item
       OpenStruct.new(
         generic_type: "Job",
-        addresses: [OpenStruct.new],
+        contacts: [OpenStruct.new(web_urls: [OpenStruct.new])],
+        content_blocks: [OpenStruct.new],
+        media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
         dates: [OpenStruct.new],
-        price_informations: [OpenStruct.new],
-        media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+        companies: [OpenStruct.new(
+          web_urls: [OpenStruct.new],
+          contact: OpenStruct.new(web_urls: [OpenStruct.new]),
+          address: OpenStruct.new
+        )]
       )
     end
 
@@ -150,36 +203,52 @@ class JobsController < ApplicationController
     end
 
     def convert_params_for_graphql
-      # Convert has_many categories
-      if @job_params["categories"].present?
-        categories = []
-        @job_params["categories"].each do |_key, category|
-          next if category.blank?
+      # Convert has_many contacts
+      if @job_params["contacts"].present?
+        contacts = []
+        @job_params["contacts"].each do |_key, contact|
+          next if contact.blank?
+          next unless nested_values?(contact.to_h).include?(true)
 
-          categories << category
+          contacts << contact
         end
-        @job_params["categories"] = categories
+        @job_params["contacts"] = contacts
       end
 
-      # Convert has_many price_informations
-      if @job_params["price_informations"].present?
-        price_informations = []
-        @job_params["price_informations"].each do |_key, price_information|
-          next if price_information.blank?
+      # Convert has_many content_blocks(which has_many media_contents)
+      content_block_params = @job_params["content_blocks"]
+      return unless content_block_params.present?
 
-          price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
-          price_information["age_from"] = price_information["age_from"].present? ? price_information["age_from"].to_f : nil
-          price_information["age_to"] = price_information["age_to"].present? ? price_information["age_to"].to_f : nil
-          price_informations << price_information
+      content_blocks = []
+      content_block_params.each do |_key, content_block|
+        next if content_block.blank?
+
+        if content_block[:media_contents].present?
+          media_contents = []
+          content_block[:media_contents].each do |_key, media_content|
+            # content_type is always something (default: `image`), so we need to check all values
+            # except that to know, if the object is an empty one
+            next unless nested_values?(media_content.except(:content_type).to_h).include?(true)
+
+            media_contents << media_content
+          end
+          content_block[:media_contents] = media_contents
         end
-        @job_params["price_informations"] = price_informations
+
+        next unless nested_values?(content_block.to_h).include?(true)
+
+        content_blocks << content_block
       end
+      @job_params["content_blocks"] = content_blocks
 
       # Convert has_many media_contents
       if @job_params["media_contents"].present?
         media_contents = []
         @job_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
+          # content_type is always something (default: `image`), so we need to check all values
+          # except that to know, if the object is an empty one
+          next unless nested_values?(media_content.except(:content_type).to_h).include?(true)
 
           media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
           media_contents << media_content
@@ -192,10 +261,21 @@ class JobsController < ApplicationController
         dates = []
         @job_params["dates"].each do |_key, date|
           next if date.blank?
+          next unless nested_values?(date.to_h).include?(true)
 
           dates << date
         end
         @job_params["dates"] = dates
+      end
+
+      # Check if `operating_company` data is given.
+      # For jobs we need an array as `companies`, so we need to remove `operating_company` data
+      # and create an array of its data as companies.
+      if @job_params["operating_company"].present?
+        if nested_values?(@job_params["operating_company"].to_h).include?(true)
+          @job_params["companies"] = [@job_params["operating_company"]]
+        end
+        @job_params.delete :operating_company
       end
     end
 

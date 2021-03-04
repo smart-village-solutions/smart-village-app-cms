@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-lg-8">
-    <%= form_with( url: job_path(@job.id), method: :patch, local: true) do %>
+    <%= form_with(url: job_path(@job.id), method: :patch, local: true) do %>
       <%= render partial: "jobs/form", locals: { job: @job } %>
     <% end %>
   </div>

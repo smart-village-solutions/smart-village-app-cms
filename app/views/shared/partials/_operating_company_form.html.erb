@@ -1,20 +1,22 @@
-<%= form.fields_for :operating_company, record.operating_company do |fo|  %>
+<% object ||= record.try(:operating_company) %>
+
+<%= form.fields_for :operating_company, object do |fo|  %>
   <div class="row">
     <div class="col">
       <div class="form-group">
         <label for="description">
-          Institution/Firma * <small>(Pflichfeld, wenn hier weitere Angaben gemacht werden)</small>
+          Name der Institution/Firma * <small>(Pflichtfeld, wenn hier weitere Angaben gemacht werden)</small>
         </label>
         <%= fo.text_field :name, class: "form-control" %>
       </div>
     </div>
   </div>
 
-  <%= fo.fields_for :contact, record.try(:operating_company).try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) do |fc|  %>
+  <%= fo.fields_for :contact, object.try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) do |fc|  %>
     <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: fc.object } %>
   <% end %>
 
-  <%= fo.fields_for :address, record.try(:operating_company).try(:address) || OpenStruct.new(geo_location: nil) do |fa|  %>
+  <%= fo.fields_for :address, object.try(:address) || OpenStruct.new(geo_location: nil) do |fa|  %>
     <%= render partial: "shared/partials/address_form", locals: { form: fa, address: fo.object } %>
   <% end %>
 <% end %>

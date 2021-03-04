@@ -1,6 +1,6 @@
 <div class="d-sm-flex align-items-center justify-content-between">
   <h1 class="h3 mb-0 text-gray-800">Stellenanzeigen</h1>
-  <%= link_to new_job_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+  <%= link_to new_job_path, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
     Neue Stellenanzeige erstellen
   <% end %>
@@ -11,9 +11,13 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Titel</th>
-        <th scope="col">CreatedAt</th>
+        <th scope="col">Überschrift</th>
         <th scope="col">Payload</th>
+        <th scope="col">Änderungsdatum</th>
+        <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th>Datenquelle</th>
+        <% end %>
         <th scope="col">Aktionen</th>
       </tr>
     </thead>
@@ -22,8 +26,12 @@
         <tr>
           <td scope="row"><%= job.id %></td>
           <td scope="row"><%= job.title %></td>
-          <td scope="row"><%= job.created_at %></td>
-          <td scope="row"><%= job.payload %></td>
+          <td scope="row"><%= job.payload.presence %></td>
+          <td scope="row"><%= toLocalDateTime(job.updated_at) %></td>
+          <td scope="row"><%= toLocalDateTime(job.created_at) %></td>
+          <% if editor? %>
+            <td><%= job.data_provider.name %></td>
+          <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_job_path(job.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to job_path(job.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
