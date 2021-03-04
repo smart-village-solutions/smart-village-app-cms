@@ -19,6 +19,15 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Art der Anstellung</label>
+        <%= text_field_tag "job_payload_employment_type", @job.payload["employmentType"], class: "form-control", name: "job[payload][employment_type]" %>
+      </div>
+    </div>
+  </div>
+
   <%= render partial: "shared/partials/contacts_form", locals: { record: job, form: f, fields: [] } %>
 
   <div class="row">
