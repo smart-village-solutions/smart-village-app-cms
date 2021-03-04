@@ -1,4 +1,4 @@
-<% list_of_content_blocks = news_item.content_blocks.presence || [OpenStruct.new] %>
+<% list_of_content_blocks = record.content_blocks.presence || [OpenStruct.new] %>
 
 <div id="nested-content-blocks">
   <% list_of_content_blocks.each_with_index do |content_block, index| %>
