@@ -28,6 +28,13 @@ class EventsController < ApplicationController
     @events = results.data.event_records
   end
 
+  def show
+  end
+
+  def new
+    @event = new_event_record
+  end
+
   def edit
     results = @smart_village.query <<~GRAPHQL
       query {
@@ -74,7 +81,7 @@ class EventsController < ApplicationController
             lastName
             firstName
             phone
-            webUrls{
+            webUrls {
               url
               description
             }
@@ -181,13 +188,6 @@ class EventsController < ApplicationController
     GRAPHQL
 
     @event = results.data.event_record
-  end
-
-  def new
-    @event = new_event_record
-  end
-
-  def show
   end
 
   def create
@@ -311,6 +311,7 @@ class EventsController < ApplicationController
         contacts = []
         @event_params["contacts"].each do |_key, contact|
           next if contact.blank?
+          next unless nested_values?(contact.to_h).include?(true)
 
           contacts << contact
         end
@@ -322,6 +323,9 @@ class EventsController < ApplicationController
         media_contents = []
         @event_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
+          # content_type is always something (default: `image`), so we need to check all values
+          # except that to know, if the object is an empty one
+          next unless nested_values?(media_content.except(:content_type).to_h).include?(true)
 
           media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
           media_contents << media_content
@@ -334,6 +338,7 @@ class EventsController < ApplicationController
         dates = []
         @event_params["dates"].each do |_key, date|
           next if date.blank?
+          next unless nested_values?(date.to_h).include?(true)
 
           dates << date
         end

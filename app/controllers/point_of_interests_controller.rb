@@ -75,7 +75,7 @@ class PointOfInterestsController < ApplicationController
             lastName
             firstName
             phone
-            webUrls{
+            webUrls {
               url
               description
             }
