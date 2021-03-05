@@ -12,7 +12,6 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
-        <th scope="col">Payload</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -26,11 +25,10 @@
         <tr>
           <td scope="row"><%= offer.id %></td>
           <td scope="row"><%= offer.title %></td>
-          <td scope="row"><%= offer.payload.presence %></td>
           <td scope="row"><%= toLocalDateTime(offer.updated_at) %></td>
           <td scope="row"><%= toLocalDateTime(offer.created_at) %></td>
           <% if editor? %>
-            <td><%= job.data_provider.name %></td>
+            <td><%= offer.data_provider.name %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_offer_path(offer.id), class: "btn btn-sm btn-secondary" %>
