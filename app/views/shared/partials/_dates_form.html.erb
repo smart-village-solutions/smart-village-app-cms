@@ -1,6 +1,7 @@
 <% fields ||= ['date_start', 'date_end'] %>
 <% labels ||= { date_start: "Startdatum *", date_end: "Enddatum" } %>
 <% list_of_dates = record.dates.presence || [OpenStruct.new] %>
+<% date_end ||= nil %>
 
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
@@ -19,7 +20,11 @@
             <div class="col-12 col-sm-<%= 12 / fields.count %>">
               <div class="form-group">
                 <label for="description"><%= labels[:date_end] %></label>
-                <%= fd.date_field :date_end, class: "form-control", value: fd.object.date_end %>
+                <%= fd.date_field(
+                      :date_end,
+                      class: "form-control",
+                      value: fd.object.date_end || date_end
+                    ) %>
               </div>
             </div>
           <% end %>

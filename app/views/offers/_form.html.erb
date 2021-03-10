@@ -58,7 +58,15 @@
     </div>
   </div>
 
-  <%= render(partial: "shared/partials/dates_form", locals: { record: offer, form: f, fields: ['date_end'], labels: { date_end: "Ablaufdatum" } }) %>
+  <%= render(
+        partial: "shared/partials/dates_form",
+        locals: {
+          record: offer,
+          form: f,
+          fields: ['date_end'],
+          labels: { date_end: "Ablaufdatum" },
+          date_end: (Time.now + 4.weeks).to_date
+      }) %>
 
   <hr />
 
