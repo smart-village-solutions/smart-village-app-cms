@@ -49,11 +49,11 @@
     <div class="col">
       <div class="form-group">
         <label for="description">Veröffentlichungsdatum</label>
-        <%=
-          f.date_field :publication_date,
-          class: "form-control",
-          value: f.object.publication_date.try(:to_date) || Time.now.to_date
-        %>
+        <%= f.date_field(
+              :publication_date,
+              class: "form-control",
+              value: f.object.publication_date.try(:to_date) || Time.now.to_date
+            ) %>
       </div>
     </div>
   </div>
