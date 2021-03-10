@@ -4,8 +4,8 @@
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="description">Stellenanzeige</label>
-        <%= f.text_field :title, class: "form-control" %>
+        <label for="description">Stellenanzeigen-Titel *</label>
+        <%= f.text_field :title, required: true, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -43,9 +43,10 @@
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="description">Veröffentlichungsdatum</label>
+        <label for="description">Veröffentlichungsdatum *</label>
         <%= f.date_field(
               :publication_date,
+              required: true,
               class: "form-control",
               value: f.object.publication_date.try(:to_date) || Time.now.to_date
             ) %>
@@ -59,6 +60,7 @@
           record: job,
           form: f,
           fields: ['date_end'],
+          requireds: ['date_end'],
           labels: { date_end: "Ablaufdatum" },
           date_end: (Time.now + 4.weeks).to_date
       }) %>
