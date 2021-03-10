@@ -234,16 +234,18 @@ class NewsItemsController < ApplicationController
       content_block_params.each do |_key, content_block|
         next if content_block.blank?
 
-        media_contents = []
-        content_block[:media_contents].each do |_key, media_content|
-          # content_type is always something (default: `image`), so we need to check all values
-          # except that to know, if the object is an empty one
-          next unless nested_values?(media_content.except(:content_type).to_h).include?(true)
+        if content_block[:media_contents].present?
+          media_contents = []
+          content_block[:media_contents].each do |_key, media_content|
+            # content_type is always something (default: `image`), so we need to check all values
+            # except that to know, if the object is an empty one
+            next unless nested_values?(media_content.except(:content_type).to_h).include?(true)
 
-          media_contents << media_content
+            media_contents << media_content
+          end
+          content_block[:media_contents] = media_contents
         end
 
-        content_block[:media_contents] = media_contents
         next unless nested_values?(content_block.to_h).include?(true)
 
         content_blocks << content_block
