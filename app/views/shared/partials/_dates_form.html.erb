@@ -20,7 +20,12 @@
           <% if fields.include?('date_end') %>
             <div class="col-12 col-sm-<%= 12 / fields.count %>">
               <div class="form-group">
-                <label for="description"><%= labels[:date_end] %></label>
+                <label for="description">
+                  <%= labels[:date_end] %>
+                  <% if requireds.include?("date_end")%>
+                    *
+                  <% end %>
+                </label>
                 <%= fd.date_field(
                       :date_end,
                       required: requireds.include?("date_end"),
