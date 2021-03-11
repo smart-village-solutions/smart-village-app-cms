@@ -12,7 +12,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
-        <th scope="col">Payload</th>
+        <th scope="col">Art der Anstellung</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -26,7 +26,7 @@
         <tr>
           <td scope="row"><%= job.id %></td>
           <td scope="row"><%= job.title %></td>
-          <td scope="row"><%= job.payload.presence %></td>
+          <td scope="row"><%= (job.payload || {})["employmentType"] %></td>
           <td scope="row"><%= toLocalDateTime(job.updated_at) %></td>
           <td scope="row"><%= toLocalDateTime(job.created_at) %></td>
           <% if editor? %>
