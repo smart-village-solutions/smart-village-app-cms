@@ -112,9 +112,9 @@
     <%#= render partial: "shared/partials/address_form", locals: { form: fadd, address: @news_item.address } %>
   <%# end %>
 
-  <% if visible_in_role?("role_push_notification") %>
-    <hr />
+  <hr />
 
+  <% if visible_in_role?("role_push_notification") %>
     <div class="row">
       <div class="col-12">
         <h2 class="d-sm-flex align-items-center justify-content-between my-4">
