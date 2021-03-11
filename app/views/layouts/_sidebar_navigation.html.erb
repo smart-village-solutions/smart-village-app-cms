@@ -61,7 +61,7 @@
 <% end %>
 
 <!-- Nav Item - Jobs -->
-<% if visible_in_role?("role_tour") %>
+<% if visible_in_role?("role_job") %>
   <li class="nav-item <%= 'active' if params[:controller] == 'jobs' %>">
     <a class="nav-link" href="/jobs">
       <i class="fas fa-fw fa-briefcase"></i>
@@ -71,7 +71,7 @@
 <% end %>
 
 <!-- Nav Item - Offers -->
-<% if visible_in_role?("role_tour") %>
+<% if visible_in_role?("role_offer") %>
   <li class="nav-item <%= 'active' if params[:controller] == 'offers' %>">
     <a class="nav-link" href="/offers">
       <i class="fas fa-fw fa-building"></i>
