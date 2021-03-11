@@ -1,6 +1,7 @@
 <% fields ||= ['date_start', 'date_end'] %>
 <% requireds ||= [] %>
-<% labels ||= { date_start: "Startdatum *", date_end: "Enddatum" } %>
+<% labels ||= { date_start: "Startdatum", date_end: "Enddatum" } %>
+<% values ||= {} %>
 <% list_of_dates = record.dates.presence || [OpenStruct.new] %>
 
 <div id="nested-dates">
@@ -11,8 +12,18 @@
           <% if fields.include?('date_start') %>
             <div class="col-12 col-sm-<%= 12 / fields.count %>">
               <div class="form-group">
-                <label for="description"><%= labels[:date_start] %></label>
-                <%= fd.date_field :date_start, class: "form-control", value: fd.object.date_start %>
+                <label for="description">
+                  <%= labels[:date_start] %>
+                  <% if requireds.include?("date_start")%>
+                    *
+                  <% end %>
+                </label>
+                <%= fd.date_field(
+                      :date_start,
+                      required: requireds.include?("date_start"),
+                      class: "form-control",
+                      value: fd.object.date_start
+                    ) %>
               </div>
             </div>
           <% end %>
