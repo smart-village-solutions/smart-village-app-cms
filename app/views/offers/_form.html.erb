@@ -67,7 +67,9 @@
           fields: ['date_end'],
           requireds: ['date_end'],
           labels: { date_end: "Ablaufdatum" },
-          date_end: (Time.now + 4.weeks).to_date
+          values: {
+            date_end: (Time.now + 4.weeks).to_date
+          }
       }) %>
 
   <hr />

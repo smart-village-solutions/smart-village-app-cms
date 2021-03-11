@@ -2,7 +2,6 @@
 <% requireds ||= [] %>
 <% labels ||= { date_start: "Startdatum *", date_end: "Enddatum" } %>
 <% list_of_dates = record.dates.presence || [OpenStruct.new] %>
-<% date_end ||= nil %>
 
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
@@ -30,7 +29,7 @@
                       :date_end,
                       required: requireds.include?("date_end"),
                       class: "form-control",
-                      value: fd.object.date_end || date_end
+                      value: fd.object.date_end || values[:date_end].presence
                     ) %>
               </div>
             </div>
