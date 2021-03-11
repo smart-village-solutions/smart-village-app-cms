@@ -20,9 +20,9 @@ $(function() {
     ...defaultNestedFormsOptions
   });
 
-  $('#nested-event-contacts').nestedForm({
-    forms: '.nested-event-contact-form',
-    adder: '#nested-add-event-contacts',
+  $('#nested-contacts').nestedForm({
+    forms: '.nested-contact-form',
+    adder: '#nested-add-contacts',
     ...defaultNestedFormsOptions
   });
 

@@ -1,74 +1,78 @@
 # frozen_string_literal: true
 
-class NewsItemsController < ApplicationController
+class JobsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
-  before_action :load_category_list, only: [:edit, :new]
 
   def index
     results = @smart_village.query <<~GRAPHQL
       query {
-        newsItems {
+        genericItems(genericType: "Job") {
           id
           title
+          payload
           dataProvider {
             name
           }
-          visible
-          contentBlocks {
-            title
-          }
           updatedAt
           createdAt
-          pushNotificationsSentAt
         }
       }
     GRAPHQL
 
-    @news_items = results.data.news_items
+    @jobs = results.data.generic_items
   end
 
   def show
   end
 
   def new
-    @news_item = new_news_item
+    @job = new_generic_item
   end
 
   def edit
     results = @smart_village.query <<~GRAPHQL
       query {
-        newsItem(
+        genericItem(
           id: #{params[:id]}
-        ) {
-          visible
-          categories {
-            id
-            name
-          }
+        ){
           id
-          author
-          fullVersion
-          charactersToBeShown
-          publicationDate
-          publishedAt
           title
+          genericType
           externalId
-          sourceUrl {
-            url
-            description
-          }
-          address {
-            addition
-            street
-            zip
-            city
-            geoLocation {
-              latitude
-              longitude
+          publicationDate
+          payload
+          contacts {
+            id
+            email
+            fax
+            lastName
+            firstName
+            phone
+            webUrls {
+              url
+              description
             }
           }
-          dataProvider {
+          contentBlocks {
+            body
+          }
+          mediaContents {
+            id
+            captionText
+            contentType
+            copyright
+            height
+            width
+            sourceUrl {
+              url
+              description
+            }
+          }
+          dates {
+            dateEnd
+          }
+          companies {
             name
             contact {
               firstName
@@ -86,41 +90,18 @@ class NewsItemsController < ApplicationController
               street
               zip
               city
+              kind
               geoLocation {
                 latitude
                 longitude
               }
             }
-            logo {
-              url
-              description
-            }
           }
-          contentBlocks {
-            title
-            intro
-            body
-            mediaContents {
-              id
-              captionText
-              contentType
-              copyright
-              height
-              width
-              sourceUrl {
-                url
-                description
-              }
-            }
-          }
-          pushNotificationsSentAt
         }
       }
     GRAPHQL
 
-    @news_item = results.data.news_item
-
-    redirect_to news_items_path if @news_item.push_notifications_sent_at.present?
+    @job = results.data.generic_item
   end
 
   def create
@@ -129,13 +110,13 @@ class NewsItemsController < ApplicationController
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      @news_item = new_news_item
+      @job = new_generic_item
       render :new
       return
     end
-    new_id = results.data.create_news_item.id
-    flash[:notice] = "Nachricht wurde erstellt"
-    redirect_to edit_news_item_path(new_id)
+    new_id = results.data.create_generic_item.id
+    flash[:notice] = "Stellenanzeige wurde erstellt"
+    redirect_to edit_job_path(new_id)
   end
 
   def update
@@ -147,11 +128,11 @@ class NewsItemsController < ApplicationController
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_news_item_path(old_id)
+      redirect_to edit_job_path(old_id)
       return
     end
 
-    new_id = results.data.create_news_item.id
+    new_id = results.data.create_generic_item.id
 
     if new_id.present? && new_id != old_id
       # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
@@ -160,7 +141,7 @@ class NewsItemsController < ApplicationController
         mutation {
           destroyRecord(
             id: #{old_id},
-            recordType: "NewsItem"
+            recordType: "GenericItem"
           ) {
             id
             status
@@ -169,10 +150,10 @@ class NewsItemsController < ApplicationController
         }
       GRAPHQL
 
-      redirect_to edit_news_item_path(new_id)
+      redirect_to edit_job_path(new_id)
     else
       flash[:error] = "Fehler: #{results.errors.inspect}"
-      redirect_to edit_news_item_path(old_id)
+      redirect_to edit_job_path(old_id)
     end
   end
 
@@ -181,7 +162,7 @@ class NewsItemsController < ApplicationController
       mutation {
         destroyRecord(
           id: #{params["id"]},
-          recordType: "NewsItem"
+          recordType: "GenericItem"
         ) {
           id
           status
@@ -195,39 +176,47 @@ class NewsItemsController < ApplicationController
     else
       flash["notice"] = "Fehler: #{results.errors.inspect}"
     end
-    redirect_to news_items_path
+    redirect_to jobs_path
   end
 
   private
 
-    def new_news_item
+    def new_generic_item
       OpenStruct.new(
-        address: OpenStruct.new,
-        source_url: OpenStruct.new,
-        media_contents: [OpenStruct.new(source_url: OpenStruct.new)]
+        generic_type: "Job",
+        contacts: [OpenStruct.new(web_urls: [OpenStruct.new])],
+        content_blocks: [OpenStruct.new],
+        media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
+        dates: [OpenStruct.new],
+        companies: [OpenStruct.new(
+          web_urls: [OpenStruct.new],
+          contact: OpenStruct.new(web_urls: [OpenStruct.new]),
+          address: OpenStruct.new
+        )]
       )
     end
 
     def create_params
-      @news_item_params = params.require(:news_item).permit!
+      @job_params = params.require(:job).permit!
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createNewsItem", @news_item_params)
+      Converter::Base.new.build_mutation("createGenericItem", @job_params)
     end
 
     def convert_params_for_graphql
-      # Convert has_many categories
-      if @news_item_params["categories"].present?
-        categories = []
-        @news_item_params["categories"].each do |_key, category|
-          next if category.blank?
+      # Convert has_many contacts
+      if @job_params["contacts"].present?
+        contacts = []
+        @job_params["contacts"].each do |_key, contact|
+          next if contact.blank?
+          next unless nested_values?(contact.to_h).include?(true)
 
-          categories << category
+          contacts << contact
         end
-        @news_item_params["categories"] = categories
+        @job_params["contacts"] = contacts
       end
 
       # Convert has_many content_blocks(which has_many media_contents)
-      content_block_params = @news_item_params["content_blocks"]
+      content_block_params = @job_params["content_blocks"]
       return unless content_block_params.present?
 
       content_blocks = []
@@ -250,7 +239,44 @@ class NewsItemsController < ApplicationController
 
         content_blocks << content_block
       end
-      @news_item_params["content_blocks"] = content_blocks
+      @job_params["content_blocks"] = content_blocks
+
+      # Convert has_many media_contents
+      if @job_params["media_contents"].present?
+        media_contents = []
+        @job_params["media_contents"].each do |_key, media_content|
+          next if media_content.blank?
+          # content_type is always something (default: `image`), so we need to check all values
+          # except that to know, if the object is an empty one
+          next unless nested_values?(media_content.except(:content_type).to_h).include?(true)
+
+          media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
+          media_contents << media_content
+        end
+        @job_params["media_contents"] = media_contents
+      end
+
+      # Convert has_many dates
+      if @job_params["dates"].present?
+        dates = []
+        @job_params["dates"].each do |_key, date|
+          next if date.blank?
+          next unless nested_values?(date.to_h).include?(true)
+
+          dates << date
+        end
+        @job_params["dates"] = dates
+      end
+
+      # Check if `operating_company` data is given.
+      # For jobs we need an array as `companies`, so we need to remove `operating_company` data
+      # and create an array of its data as companies.
+      if @job_params["operating_company"].present?
+        if nested_values?(@job_params["operating_company"].to_h).include?(true)
+          @job_params["companies"] = [@job_params["operating_company"]]
+        end
+        @job_params.delete :operating_company
+      end
     end
 
     # check for present values recursively

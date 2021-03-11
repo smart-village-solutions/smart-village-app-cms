@@ -1,0 +1,96 @@
+<%= fields_for :offer, offer do |f|  %>
+  <%= hidden_field_tag "offer[generic_type]", @offer.generic_type %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Anzeigen-Titel *</label>
+        <%= f.text_field :title, required: true, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Externe ID</label>
+        <%= f.text_field :external_id, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+        Inhalt
+      </h2>
+
+      <%= render partial: "shared/partials/content_blocks_form", locals: { record: offer, form: f, fields: ['body']  } %>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Dateien
+      </h3>
+    </div>
+  </div>
+
+  <%= render partial: "shared/partials/media_contents_form", locals: { record: offer, form: f } %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Veröffentlichungsdatum *</label>
+        <%= f.date_field(
+              :publication_date,
+              required: true,
+              class: "form-control",
+              value: f.object.publication_date.try(:to_date) || Time.now.to_date
+            ) %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(
+        partial: "shared/partials/dates_form",
+        locals: {
+          record: offer,
+          form: f,
+          fields: ['date_end'],
+          requireds: ['date_end'],
+          labels: {
+            date_end: "Ablaufdatum"
+          },
+          values: {
+            date_end: (Time.now + 4.weeks).to_date
+          }
+      }) %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Firma
+      </h3>
+    </div>
+  </div>
+
+  <%= render partial: "shared/partials/operating_company_form", locals: { record: offer, form: f, object: offer.companies.try(:first) } %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col pb-4">
+      <%= f.submit "Speichern", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

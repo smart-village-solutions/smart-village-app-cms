@@ -1,0 +1,74 @@
+<% fields ||= ['header', 'title', 'intro', 'body', 'media_contents'] %>
+
+<% list_of_content_blocks = record.content_blocks.presence || [OpenStruct.new] %>
+
+<div id="nested-content-blocks">
+  <% list_of_content_blocks.each_with_index do |content_block, index| %>
+    <%= form.fields_for "content_blocks[#{index}]", content_block do |fcb| %>
+      <div class="nested-content-block-form">
+        <div class="card mb-4">
+          <% if fields.include?('header') %>
+            <div class="card-header py-3  bg-dark text-white">
+              <h3 class="m-0 font-weight-bold d-sm-flex align-items-center justify-content-between float-left">
+                Bereich
+              </h3>
+              <input
+                type="button"
+                value="diesen Bereich entfernen"
+                class="float-right removeContent btn btn-sm btn-danger"
+              />
+            </div>
+          <% end %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <% if fields.include?('title') %>
+                  <div class="form-group">
+                    <label for="description">Überschrift</label>
+                    <%= fcb.text_field :title, class: "form-control" %>
+                  </div>
+                <% end %>
+                <% if fields.include?('intro') %>
+                  <div class="form-group">
+                    <label for="description">Einleitung</label>
+                    <%= fcb.text_area :intro, class: "form-control html-editor", rows: 5 %>
+                    <!-- TODO: HTML Editor muss auch bei hinzugefügten Bereichen funktionieren. -->
+                    <p class="hint">Dieser Text wird hervorgehoben dargestellt.</p>
+                  </div>
+                <% end %>
+                <% if fields.include?('body') %>
+                  <div class="form-group">
+                    <label for="description">Text</label>
+                    <%= fcb.text_area :body, class: "form-control html-editor", rows: 10 %>
+                    <!-- TODO: HTML Editor muss auch bei hinzugefügten Bereichen funktionieren. -->
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <% if fields.include?('media_contents') %>
+              <hr />
+
+              <h3 class="mb-3 font-weight-bold d-sm-flex align-items-center justify-content-between">
+                Dateien
+              </h3>
+              <p>
+                Sie können jedem Bereich eine oder mehrere Dateien hinzufügen. Mehrere Bilder in einem
+                Bereich werden als Slider/Karussell dargestellt.
+              </p>
+
+              <%= render(
+                    partial: "shared/partials/media_contents_form",
+                    locals: {
+                      record: content_block,
+                      form: fcb,
+                      form_class: "nested-media-content-block"
+                    }
+                  ) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

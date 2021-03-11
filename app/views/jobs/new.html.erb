@@ -1,0 +1,14 @@
+<div class="d-sm-flex align-items-center justify-content-between">
+  <h1 class="h3 mb-0 text-gray-800">Stellenanzeige anlegen</h1>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <%= form_with( url: jobs_path, method: :post, local: true) do %>
+      <%= render partial: "jobs/form", locals: { job: @job } %>
+    <% end %>
+  </div>
+  <div class="col-lg-4">
+    <%= render partial: "form_hints" %>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<%= fields_for :job, job do |f|  %>
+  <%= hidden_field_tag "job[generic_type]", @job.generic_type %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Stellenanzeigen-Titel *</label>
+        <%= f.text_field :title, required: true, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Externe ID</label>
+        <%= f.text_field :external_id, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Art der Anstellung</label>
+        <%= text_field_tag "job_payload_employment_type", (@job.payload || {})["employmentType"], class: "form-control", name: "job[payload][employment_type]" %>
+      </div>
+    </div>
+  </div>
+
+  <%= render partial: "shared/partials/contacts_form", locals: { record: job, form: f, fields: [] } %>
+
+  <div class="row">
+    <div class="col">
+      <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+        Inhalt
+      </h2>
+
+      <%= render partial: "shared/partials/content_blocks_form", locals: { record: job, form: f, fields: ['body']  } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Veröffentlichungsdatum *</label>
+        <%= f.date_field(
+              :publication_date,
+              required: true,
+              class: "form-control",
+              value: f.object.publication_date.try(:to_date) || Time.now.to_date
+            ) %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(
+        partial: "shared/partials/dates_form",
+        locals: {
+          record: job,
+          form: f,
+          fields: ['date_end'],
+          requireds: ['date_end'],
+          labels: {
+            date_end: "Ablaufdatum"
+          },
+          values: {
+            date_end: (Time.now + 4.weeks).to_date
+          }
+      }) %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Dateien
+      </h3>
+    </div>
+  </div>
+
+  <%= render partial: "shared/partials/media_contents_form", locals: { record: job, form: f } %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Firma
+      </h3>
+    </div>
+  </div>
+
+  <%= render partial: "shared/partials/operating_company_form", locals: { record: job, form: f, object: job.companies.try(:first) } %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col pb-4">
+      <%= f.submit "Speichern", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

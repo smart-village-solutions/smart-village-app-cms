@@ -1,0 +1,47 @@
+<% fields ||= ['header', 'button'] %>
+<% headline ||= "Ansprechpartner"  %>
+
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      <%= headline %>
+    </h3>
+  </div>
+</div>
+
+<% list_of_contacts = record.contacts.presence || [OpenStruct.new(web_urls: [OpenStruct.new])] %>
+
+<div id="nested-contacts">
+  <% list_of_contacts.each_with_index do |contact, index| %>
+    <%= form.fields_for "contacts[#{index}]", contact do |fc|  %>
+      <div class="nested-contact-form">
+        <div class="card mb-4">
+          <% if fields.include?('header') %>
+            <div class="card-header py-3  bg-dark text-white">
+              <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+                Kontakt
+              </h4>
+              <input
+                type="button"
+                value="diesen Kontakt entfernen"
+                class="float-right remove btn btn-sm btn-danger"
+              />
+            </div>
+          <% end %>
+          <div class="card-body">
+            <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% if fields.include?('button') %>
+  <input
+    type="button"
+    value="Kontakt hinzufügen"
+    id="nested-add-contacts"
+    class="btn btn-sm btn-secondary"
+  />
+<% end %>
