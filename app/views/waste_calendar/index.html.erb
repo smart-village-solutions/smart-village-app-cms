@@ -1,0 +1,45 @@
+<div class="d-sm-flex align-items-center justify-content-between">
+  <h1 class="h3 mb-0 text-gray-800">Abfallkalender (nur die ersten 100 Datensätze)</h1>
+  <%= link_to new_waste_calendar_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neue Daten importieren
+  <% end %>
+</div>
+
+<div class="pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Straße</th>
+        <th scope="col">Ort</th>
+        <th scope="col">PLZ</th>
+        <% @waste_types.each do |key, waste_type| %>
+          <th><%= waste_type["label"] %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @waste_locations.each do |waste_address| %>
+        <tr>
+          <th scope="row"><%= waste_address.id %></th>
+          <td><%= waste_address.street %></td>
+          <td><%= waste_address.city %></td>
+          <td><%= waste_address.zip %></td>
+          <% @waste_types.each do |key, waste_type| %>
+            <% waste_location_types = waste_address.waste_location_types.select{ |a| a.waste_type == key } %>
+            <td>
+              <ul>
+                <% waste_location_types.map(&:list_pick_up_dates).each do |list_pick_up_dates| %>
+                  <% list_pick_up_dates.each do |list_pick_up_date| %>
+                    <li><%= list_pick_up_date %></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

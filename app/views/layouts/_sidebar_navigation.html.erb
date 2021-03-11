@@ -14,12 +14,8 @@
 </li>
 
 <!-- Divider -->
-<hr class="sidebar-divider" />
+<hr class="sidebar-divider my-0" />
 
-<!-- Heading -->
-<div class="sidebar-heading">
-  Resources
-</div>
 
 <!-- Nav Item - News -->
 <% if visible_in_role?("role_news_item") %>
@@ -76,6 +72,19 @@
     <a class="nav-link" href="/offers">
       <i class="fas fa-fw fa-building"></i>
       <span>Werbliche Anzeigen</span>
+    </a>
+  </li>
+<% end %>
+
+<!-- Nav Item - WasteCalendar -->
+<% if visible_in_role?("role_waste_calendar") %>
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0" />
+
+  <li class="nav-item <%= 'active' if params[:controller] == 'waste_calendar' %>">
+    <a class="nav-link" href="/waste_calendar">
+      <i class="fas fa-fw fa-trash-alt"></i>
+      <span>Abfallkalender</span>
     </a>
   </li>
 <% end %>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :tours
   resources :point_of_interests
   resources :events
+  resources :waste_calendar
   resources :jobs
   resources :offers
   get "/data_provider", to: "data_provider#edit"

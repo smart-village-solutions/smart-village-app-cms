@@ -1,0 +1,63 @@
+<div class="d-sm-flex align-items-center justify-content-between">
+  <h1 class="h3 mb-0 text-gray-800">Schritt 2: Daten für Import zuweisen</h1>
+</div>
+
+<p>Die Spalten aus beiden CSV-Quellen werden nun den Feldern aus dem Abfallkalender zugewiesen.</p>
+
+<div class="row">
+  <div class="col-lg-8">
+    <%= form_with(url: "/waste_calendar", method: :post, local: true) do |f| %>
+      <%= hidden_field_tag :address_data, @address_data %>
+      <%= hidden_field_tag :tour_data, @tour_data %>
+      <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+            Adressdaten
+          </h2>
+          <div class="form-group">
+            <label for="description">Straße:</label>
+            <%= select_tag("address[street]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
+          </div>
+          <div class="form-group">
+            <label for="description">PLZ:</label>
+            <%= select_tag("address[zip]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
+          </div>
+          <div class="form-group">
+            <label for="description">Ort:</label>
+            <%= select_tag("address[city]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
+          </div>
+          <% @waste_types.each do |key, waste_type| %>
+            <div class="form-group">
+              <label for="description"><%= waste_type["label"] %>:</label>
+              <%= select_tag("address[#{key}]", options_for_select(@address_data_selects), include_blank: true, class: "form-control") %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+            Tourdaten
+          </h2>
+          <div class="form-group">
+            <label for="description">Datum:</label>
+            <%= select_tag("tour[date]", options_for_select(@tour_data_selects), include_blank: true, class: "form-control") %>
+          </div>
+          <% @waste_types.each do |key, waste_type| %>
+            <div class="form-group">
+              <label for="description"><%= waste_type["label"] %>:</label>
+              <%= select_tag("tour[#{key}]", options_for_select(@tour_data_selects), include_blank: true, class: "form-control") %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col pb-4">
+          <%= f.submit "Daten importieren", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
