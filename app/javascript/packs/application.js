@@ -70,7 +70,13 @@ $(function() {
     searching: true,
     language: {
       url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
-    }
+    },
+    columnDefs: [
+      {
+        bSortable: false,
+        targets: 'nosort'
+      }
+    ]
   });
 
   // Toggle the side navigation
