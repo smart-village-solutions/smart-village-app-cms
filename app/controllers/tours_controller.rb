@@ -230,7 +230,7 @@ class ToursController < ApplicationController
         @tour_params["categories"] = categories
       end
 
-      # Convert length_km to String
+      # Convert length_km to Integer
       if @tour_params["length_km"].present?
         @tour_params["length_km"] = @tour_params["length_km"].to_i
       else
