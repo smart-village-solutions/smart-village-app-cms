@@ -1,5 +1,9 @@
 <div class="d-sm-flex align-items-center justify-content-between">
   <h1 class="h3 mb-0 text-gray-800">Touren</h1>
+  <%= link_to new_tour_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neue Tour erstellen
+  <% end %>
 </div>
 
 <div class="pb-4">
@@ -29,7 +33,7 @@
             <td><%= visibility_switch(tour, "Tour") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
-            <%#= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
+            <%= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to tour_path(tour.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
               <i class="fas fa-trash"></i>
             <% end %>
