@@ -200,7 +200,9 @@ class ToursController < ApplicationController
 
     def new_tour
       OpenStruct.new(
-        addresses: [OpenStruct.new],
+        addresses: [OpenStruct.new(
+          geo_location: OpenStruct.new
+        )],
         contact: OpenStruct.new(web_urls: [OpenStruct.new]),
         web_urls: [OpenStruct.new],
         operating_company: OpenStruct.new(
@@ -219,6 +221,15 @@ class ToursController < ApplicationController
     end
 
     def convert_params_for_graphql
+      # Check recursively if any addresses data is given.
+      # If not, we do not want to submit the params, because the name is required by the model,
+      # which will result in a validation error.
+      if @tour_params["addresses"].present?
+        unless nested_values?(@tour_params["addresses"].to_h).include?(true)
+          @tour_params.delete :addresses
+        end
+      end
+
       # Convert has_many categories
       if @tour_params["categories"].present?
         categories = []
@@ -243,8 +254,7 @@ class ToursController < ApplicationController
         @tour_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
 
-          media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
-          media_contents << media_content
+          media_contents << media_content if media_content.dig("source_url", "url").present?
         end
         @tour_params["media_contents"] = media_contents
       end
@@ -258,6 +268,15 @@ class ToursController < ApplicationController
           web_urls << url
         end
         @tour_params["web_urls"] = web_urls
+      end
+
+      # Check recursively if any contact data is given.
+      # If not, we do not want to submit the params, because the name is required by the model,
+      # which will result in a validation error.
+      if @tour_params["contact"].present?
+        unless nested_values?(@tour_params["contact"].to_h).include?(true)
+          @tour_params.delete :contact
+        end
       end
 
       # Check recursively if any operating_company data is given.
