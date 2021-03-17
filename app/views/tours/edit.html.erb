@@ -1,8 +1,8 @@
-<div class="d-sm-flex align-items-center justify-content-between">
+<div class="text-center">
   <h1 class="h3 mb-0 font-weight-bold">Tour bearbeiten</h1>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
   <div class="col-lg-8">
     <%= form_with( url: tour_path(@tour.id), method: :patch, local: true) do %>
       <%= render partial: "tours/form", locals: { tour: @tour } %>

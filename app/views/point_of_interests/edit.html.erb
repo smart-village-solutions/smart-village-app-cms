@@ -1,8 +1,8 @@
-<div class="d-sm-flex align-items-center justify-content-between">
+<div class="text-center">
   <h1 class="h3 mb-0 font-weight-bold">Ort bearbeiten</h1>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
   <div class="col-lg-8">
     <%= form_with( url: point_of_interest_path(@point_of_interest.id), method: :patch, local: true) do %>
       <%= render partial: "point_of_interests/form", locals: { point_of_interest: @point_of_interest } %>
