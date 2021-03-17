@@ -17,6 +17,15 @@ body .bg-gradient-primary {
   background-size: cover;
 }
 
+
+body.app {
+  color: #11223f;
+}
+
+body .table {
+  color: #11223f;
+}
+
 body .btn-primary {
   color: #fff;
   background-color: #2d963c;
