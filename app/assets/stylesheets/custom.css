@@ -62,6 +62,24 @@ body .btn-secondary {
   border-color: #11223f;
 }
 
+body .page-item.active .page-link {
+  color: #fff;
+  background-color: #11223f;
+  border-color: #11223f;
+}
+
+body .page-link {
+  color: #11223f;
+}
+
+body .page-link:hover {
+  color: #fff;
+  background-color: #11223f;
+  border-color: #11223f;
+}
+
+body .scroll-to-top:hover {
+  background: #11223f;
 }
 
 h1 {
