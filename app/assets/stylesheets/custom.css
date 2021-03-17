@@ -34,21 +34,34 @@ body .navbar-nav.sidebar {
 }
 
 body .btn-primary {
-  color: #fff;
-  background-color: #2d963c;
-  border-color: #2d963c;
+  background-color: #828960;
+  border-color: #828960;
+}
+
+body .btn-primary:not(:disabled):not(.disabled):active,
+body .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #11223f;
+  background-color: #AEBFBC;
+  border-color: #AEBFBC;
 }
 
 body .btn-primary:hover {
-  color: #fff;
-  background-color: #085036;
-  border-color: #085036;
+  opacity: 0.7;
+  background-color: #828960;
+  border-color: #828960;
+}
+
+body .btn-danger:hover {
+  opacity: 0.7;
 }
 
 body .btn-secondary {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: #11223f;
+  border-color: #11223f;
+}
+
 }
 
 h1 {
