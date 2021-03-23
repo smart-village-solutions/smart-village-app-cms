@@ -61,6 +61,7 @@ $(function() {
   $.fn.DataTable = function(opts) {
     return $(this)
       .dataTable(opts)
+      .moment( 'DD/MM/YY' )
       .api();
   };
 
