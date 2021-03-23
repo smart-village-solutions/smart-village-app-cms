@@ -1,11 +1,11 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="text-center mb-4">
   <h1 class="h3 mb-0 font-weight-bold">Anmeldung</h1>
 </div>
 
 <%= form_tag( log_in_path , method: :post) do |f| %>
-  <div class="form-group row">
+  <div class="form-group row justify-content-center">
     <label for="exampleInputEmail1" class="col-lg-2 col-form-label">E-Mail-Adresse</label>
-    <div class="col-lg-6">
+    <div class="col-lg-5">
       <%= text_field_tag(:email, "", class: "form-control", placeholder: "E-Mail eingeben") %>
       <small id="emailHelp" class="form-text text-muted">
         Haben Sie noch keine Zugangsdaten, so wenden Sie sich bitte an <a href="mailto:support@smart-village.app">support@smart-village.app</a>
@@ -13,12 +13,14 @@
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row justify-content-center">
     <label for="exampleInputPassword1" class="col-lg-2 col-form-label">Passwort</label>
-    <div class="col-lg-6">
+    <div class="col-lg-5">
       <%= password_field_tag(:password, "", class: "form-control", placeholder: "Passwort eingeben") %>
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Anmelden</button>
+  <div class="row justify-content-center mt-5">
+    <button type="submit" class="btn btn-primary">Anmelden</button>
+  </div>
 <% end %>
