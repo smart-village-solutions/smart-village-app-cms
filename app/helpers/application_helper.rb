@@ -28,15 +28,20 @@ module ApplicationHelper
   end
 
   def visibility_switch(item, item_class)
-    input_switch_on = content_tag("input", "freigegeben", "type": "radio", name: "options")
-    input_switch_off = content_tag("input", "gesperrt", "type": "radio", name: "options")
+    input_switch = check_box_tag(
+      "visible-#{item.id}",
+      item.visible ? 'freigegeben' : 'gesperrt',
+      item.visible,
+      class: "custom-control-input"
+    )
 
-    link_url_true = "location.href = '/visibility/#{item_class}/#{item.id}/true';"
-    switch_content_on = content_tag("label", input_switch_on, class: "btn btn-sm btn-primary #{item.visible ? 'active' : ''}", "data-item-id": item.id, onclick: link_url_true)
+    label_switch = label_tag(
+      "visible-#{item.id}",
+      "",
+      class: "custom-control-label",
+      onclick: "location.href = '/visibility/#{item_class}/#{item.id}/#{item.visible ? 'false' : 'true'}';"
+    )
 
-    link_url_false = "location.href = '/visibility/#{item_class}/#{item.id}/false';"
-    switch_content_off = content_tag("label", input_switch_off, class: "btn btn-sm btn-primary #{item.visible ? '' : 'active'}", "data-item-id": item.id, onclick: link_url_false)
-
-    content_tag("div", switch_content_on + switch_content_off, class: "btn-group btn-group-toggle", "data-toggle": "buttons")
+    content_tag("div", input_switch + label_switch, class: "custom-control custom-switch")
   end
 end

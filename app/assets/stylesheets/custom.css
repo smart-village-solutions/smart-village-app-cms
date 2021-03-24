@@ -78,6 +78,11 @@ body .page-link:hover {
   border-color: #11223f;
 }
 
+body .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #828960;
+  background-color: #828960;
+}
+
 body .scroll-to-top:hover {
   background: #11223f;
 }
