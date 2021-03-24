@@ -17,22 +17,74 @@ body .bg-gradient-primary {
   background-size: cover;
 }
 
+body #wrapper #content-wrapper {
+  background-color: #fbfaf8;
+}
+
+body.app {
+  color: #11223f;
+}
+
+body .table {
+  color: #11223f;
+}
+
+body .navbar-nav.sidebar {
+  background-color: #11223f;
+}
+
 body .btn-primary {
-  color: #fff;
-  background-color: #2d963c;
-  border-color: #2d963c;
+  background-color: #828960;
+  border-color: #828960;
+}
+
+body .btn-primary:not(:disabled):not(.disabled):active,
+body .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #11223f;
+  background-color: #AEBFBC;
+  border-color: #AEBFBC;
 }
 
 body .btn-primary:hover {
-  color: #fff;
-  background-color: #085036;
-  border-color: #085036;
+  opacity: 0.7;
+  background-color: #828960;
+  border-color: #828960;
+}
+
+body .btn-danger:hover {
+  opacity: 0.7;
 }
 
 body .btn-secondary {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: #11223f;
+  border-color: #11223f;
+}
+
+body .page-item.active .page-link {
+  color: #fff;
+  background-color: #11223f;
+  border-color: #11223f;
+}
+
+body .page-link {
+  color: #11223f;
+}
+
+body .page-link:hover {
+  color: #fff;
+  background-color: #11223f;
+  border-color: #11223f;
+}
+
+body .custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #828960;
+  background-color: #828960;
+}
+
+body .scroll-to-top:hover {
+  background: #11223f;
 }
 
 h1 {

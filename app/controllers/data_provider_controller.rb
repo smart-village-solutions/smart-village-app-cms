@@ -53,6 +53,10 @@ class DataProviderController < ApplicationController
       }
     GRAPHQL
 
-    redirect_to "/#{params[:item_type].underscore.pluralize}"
+    if params[:item_type] === "EventRecord"
+      redirect_to "/events"
+    else
+      redirect_to "/#{params[:item_type].underscore.pluralize}"
+    end
   end
 end

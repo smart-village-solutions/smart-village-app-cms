@@ -1,5 +1,5 @@
-<div class="d-sm-flex align-items-center justify-content-between">
-  <h1 class="h3 mb-0 text-gray-800">Stellenanzeigen</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold">Stellenanzeigen</h1>
   <%= link_to new_job_path, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
     Neue Stellenanzeige erstellen
@@ -18,7 +18,7 @@
         <% if editor? %>
           <th>Datenquelle</th>
         <% end %>
-        <th scope="col">Aktionen</th>
+        <th scope="col" class="nosort">Aktionen</th>
       </tr>
     </thead>
     <tbody>

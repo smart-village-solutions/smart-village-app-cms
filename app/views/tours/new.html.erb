@@ -1,14 +1,11 @@
-<div class="d-sm-flex align-items-center justify-content-between">
-  <h1 class="h3 mb-0 text-gray-800">Tour anlegen</h1>
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Tour anlegen</h1>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
   <div class="col-lg-8">
     <%= form_with( url: tours_path, method: :post, local: true) do %>
       <%= render partial: "tours/form", locals: { tour: @tour } %>
     <% end %>
-  </div>
-  <div class="col-lg-4">
-    <%= render partial: "form_hints" %>
   </div>
 </div>

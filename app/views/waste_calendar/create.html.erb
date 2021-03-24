@@ -1,11 +1,11 @@
-<div class="d-sm-flex align-items-center justify-content-between">
-  <h1 class="h3 mb-0 text-gray-800">Schritt 2: Daten für Import zuweisen</h1>
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Schritt 2: Daten für Import zuweisen</h1>
 </div>
 
-<p>Die Spalten aus beiden CSV-Quellen werden nun den Feldern aus dem Abfallkalender zugewiesen.</p>
 
 <div class="row">
   <div class="col-lg-8">
+    <p>Die Spalten aus beiden CSV-Quellen werden nun den Feldern aus dem Abfallkalender zugewiesen.</p>
     <%= form_with(url: "/waste_calendar", method: :post, local: true) do |f| %>
       <%= hidden_field_tag :address_data, @address_data %>
       <%= hidden_field_tag :tour_data, @tour_data %>
@@ -53,10 +53,8 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col pb-4">
-          <%= f.submit "Daten importieren", class: "btn btn-primary" %>
-        </div>
+      <div class="row justify-content-center pb-4">
+        <%= f.submit "Daten importieren", class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>

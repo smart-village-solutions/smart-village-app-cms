@@ -70,22 +70,24 @@ $(function() {
     searching: true,
     language: {
       url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
-    }
+    },
+    columnDefs: [
+      {
+        bSortable: false,
+        targets: 'nosort'
+      }
+    ]
   });
 
   // Toggle the side navigation
   $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
-    $('body').toggleClass('sidebar-toggled');
     $('.sidebar').toggleClass('toggled');
-    if ($('.sidebar').hasClass('toggled')) {
-      $('.sidebar .collapse').collapse('hide');
-    }
   });
 
   // Close any open menu accordions when window is resized below 768px
   $(window).resize(function() {
     if ($(window).width() < 768) {
-      $('.sidebar .collapse').collapse('hide');
+      $('.sidebar').addClass('toggled');
     }
   });
 
