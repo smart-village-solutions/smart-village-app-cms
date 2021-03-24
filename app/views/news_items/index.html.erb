@@ -30,7 +30,7 @@
           <td><%= toLocalDateTime(news_item.created_at) %></td>
           <% if editor? %>
             <td><%= news_item.data_provider.name %></td>
-            <td><%= visibility_switch(news_item, "NewsItem") %></td>
+            <td align="center"><%= visibility_switch(news_item, "NewsItem") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_news_item_path(news_item.id), class: "btn btn-sm btn-secondary" if news_item.push_notifications_sent_at.blank? %>

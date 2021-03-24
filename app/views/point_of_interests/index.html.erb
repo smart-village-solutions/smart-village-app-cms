@@ -30,7 +30,7 @@
           <td><%= toLocalDateTime(poi.created_at) %></td>
           <% if editor? %>
             <td><%= poi.data_provider.name %></td>
-            <td><%= visibility_switch(poi, "PointOfInterest") %></td>
+            <td align="center"><%= visibility_switch(poi, "PointOfInterest") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>

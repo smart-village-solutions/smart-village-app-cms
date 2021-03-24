@@ -30,7 +30,7 @@
           <td><%= toLocalDateTime(tour.created_at) %></td>
           <% if editor? %>
             <td><%= tour.data_provider.name %></td>
-            <td><%= visibility_switch(tour, "Tour") %></td>
+            <td align="center"><%= visibility_switch(tour, "Tour") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
