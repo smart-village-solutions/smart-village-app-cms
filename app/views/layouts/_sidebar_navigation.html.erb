@@ -6,13 +6,6 @@
   </a>
 </li>
 
-<li class="nav-item <%= 'active' if params[:controller] == 'data_provider' %>">
-  <a class="nav-link font-weight-bold" href="/data_provider">
-    <i class="fas fa-fw fa-user-circle"></i>
-    <span>Account</span>
-  </a>
-</li>
-
 <!-- Divider -->
 <hr class="sidebar-divider my-0" />
 
@@ -88,3 +81,13 @@
     </a>
   </li>
 <% end %>
+
+<!-- Divider -->
+<hr class="sidebar-divider my-0" />
+
+<li class="nav-item <%= 'active' if params[:controller] == 'data_provider' %>">
+  <a class="nav-link font-weight-bold" href="/data_provider">
+    <i class="fas fa-fw fa-user-circle"></i>
+    <span>Account</span>
+  </a>
+</li>
