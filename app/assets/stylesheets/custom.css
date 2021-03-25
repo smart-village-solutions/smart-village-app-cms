@@ -21,6 +21,22 @@ body #wrapper #content-wrapper {
   background-color: #fff;
 }
 
+@media (max-width: 767px) {
+  body .container,
+  body .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  body .card-header {
+    padding: 0.75rem;
+  }
+
+  body .card-body {
+    padding: 0.5rem;
+  }
+}
+
 body.app {
   color: #11223f;
 }
