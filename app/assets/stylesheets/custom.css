@@ -111,6 +111,10 @@ h1 {
   padding-bottom: 2em;
 }
 
+.btn.btn-primary.btn--big {
+  font-size: 20px;
+}
+
 .hint {
   font-size: 0.8em;
   color: #999;
