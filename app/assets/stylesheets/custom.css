@@ -18,7 +18,7 @@ body .bg-gradient-primary {
 }
 
 body #wrapper #content-wrapper {
-  background-color: #fbfaf8;
+  background-color: #fff;
 }
 
 body.app {
@@ -34,8 +34,9 @@ body .navbar-nav.sidebar {
 }
 
 body .btn-primary {
-  background-color: #828960;
-  border-color: #828960;
+  background-color: #b1bfba;
+  border-color: #b1bfba;
+  color: #11223f;
 }
 
 body .btn-primary:not(:disabled):not(.disabled):active,
@@ -48,8 +49,9 @@ body .btn-primary:not(:disabled):not(.disabled).active,
 
 body .btn-primary:hover {
   opacity: 0.7;
-  background-color: #828960;
-  border-color: #828960;
+  background-color: #b1bfba;
+  border-color: #b1bfba;
+  color: #11223f;
 }
 
 body .btn-danger:hover {
@@ -79,8 +81,8 @@ body .page-link:hover {
 }
 
 body .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #828960;
-  background-color: #828960;
+  border-color: #b1bfba;
+  background-color: #b1bfba;
 }
 
 body .scroll-to-top:hover {
