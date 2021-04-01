@@ -97,8 +97,8 @@ body .page-link:hover {
 }
 
 body .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #b1bfba;
   background-color: #b1bfba;
+  border-color: #b1bfba;
 }
 
 body .scroll-to-top:hover {
