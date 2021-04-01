@@ -24,7 +24,7 @@
       <% @offers.each do |offer| %>
         <tr>
           <td scope="row"><%= offer.id %></td>
-          <td scope="row"><%= offer.title %></td>
+          <td scope="row"><%= link_to offer.title, edit_offer_path(offer.id) %></td>
           <td scope="row"><%= toLocalDateTime(offer.updated_at) %></td>
           <td scope="row"><%= toLocalDateTime(offer.created_at) %></td>
           <% if editor? %>

@@ -25,7 +25,7 @@
       <% @tours.each do |tour| %>
         <tr>
           <th scope="row"><%= tour.id %></th>
-          <td><%= tour.name %></td>
+          <td><%= link_to tour.name, edit_tour_path(tour.id) %></td>
           <td><%= toLocalDateTime(tour.updated_at) %></td>
           <td><%= toLocalDateTime(tour.created_at) %></td>
           <% if editor? %>

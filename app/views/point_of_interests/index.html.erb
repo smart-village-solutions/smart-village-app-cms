@@ -25,7 +25,7 @@
       <% @points_of_interest.each do |poi| %>
         <tr>
           <th scope="row"><%= poi.id %></th>
-          <td><%= poi.name %></td>
+          <td><%= link_to poi.name, edit_point_of_interest_path(poi.id) %></td>
           <td><%= toLocalDateTime(poi.updated_at) %></td>
           <td><%= toLocalDateTime(poi.created_at) %></td>
           <% if editor? %>

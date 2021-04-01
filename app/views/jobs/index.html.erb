@@ -25,7 +25,7 @@
       <% @jobs.each do |job| %>
         <tr>
           <td scope="row"><%= job.id %></td>
-          <td scope="row"><%= job.title %></td>
+          <td scope="row"><%= link_to job.title, edit_job_path(job.id) %></td>
           <td scope="row"><%= (job.payload || {})["employmentType"] %></td>
           <td scope="row"><%= toLocalDateTime(job.updated_at) %></td>
           <td scope="row"><%= toLocalDateTime(job.created_at) %></td>
