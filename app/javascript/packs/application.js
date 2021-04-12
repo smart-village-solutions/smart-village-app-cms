@@ -112,17 +112,16 @@ $(function() {
     }
   });
 
-  // Smooth scrolling using jQuery easing
+  // Smooth scrolling using jQuery
   $(document).on('click', 'a.scroll-to-top', function(e) {
-    var $anchor = $(this);
     $('html, body')
       .stop()
       .animate(
         {
-          scrollTop: $($anchor.attr('href')).offset().top
+          scrollTop: 0
         },
-        1000,
-        'easeInOutExpo'
+        500,
+        'swing'
       );
     e.preventDefault();
   });
