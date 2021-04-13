@@ -5,14 +5,14 @@
     <%= form.fields_for "categories[#{index}]", category do |fcb| %>
       <div class="nested-category-form">
         <div class="card mb-4">
-          <div class="card-header py-3  bg-dark text-white">
-            <h3 class="m-0 font-weight-bold d-sm-flex align-items-center justify-content-between float-left">
+          <div class="d-flex flex-wrap justify-content-between card-header py-3  bg-dark text-white">
+            <h4>
               Kategorie
-            </h3>
+            </h4>
             <input
               type="button"
-              value="diesen Kategorie entfernen"
-              class="float-right remove btn btn-sm btn-danger"
+              value="diese Kategorie entfernen"
+              class="remove btn btn-sm btn-danger"
             />
           </div>
           <div class="card-body">

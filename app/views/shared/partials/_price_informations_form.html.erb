@@ -13,14 +13,14 @@
     <%= fields_for "#{record_type}[price_informations][#{index}]", price do |fp|  %>
       <div class="nested-price_information-form">
         <div class="card mb-4">
-          <div class="card-header py-3 bg-dark text-white">
-            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+            <h4>
               Preiskategorie
             </h4>
             <input
               type="button"
               value="diese Preiskategorie entfernen"
-              class="remove btn btn-sm btn-danger float-right"
+              class="remove btn btn-sm btn-danger"
             />
           </div>
           <div class="card-body">
