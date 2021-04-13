@@ -85,6 +85,11 @@ $(function() {
     $('.sidebar').toggleClass('toggled');
   });
 
+  // On small screens don't show sidebar on load
+  if ($(window).width() < 768) {
+    $('.sidebar').toggleClass('toggled');
+  }
+
   // Close any open menu accordions when window is resized below 768px
   $(window).resize(function() {
     if ($(window).width() < 768) {
