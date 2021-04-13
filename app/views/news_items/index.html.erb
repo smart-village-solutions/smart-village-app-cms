@@ -28,7 +28,7 @@
           <% if news_item.push_notifications_sent_at.blank? %>
             <td>
               <%= link_to(
-                    news_item.title.presence || news_item.content_blocks.first.try(:title),
+                    news_item.title.presence || news_item.content_blocks.first.try(:title) || "",
                     edit_news_item_path(news_item.id)
                   )%>
             </td>
