@@ -9,13 +9,6 @@ class DashboardController < ApplicationController
       query {
         genericItems(genericType: "Job") {
           id
-          title
-          payload
-          dataProvider {
-            name
-          }
-          updatedAt
-          createdAt
         }
       }
     GRAPHQL
@@ -24,17 +17,6 @@ class DashboardController < ApplicationController
       query {
         newsItems {
           id
-          title
-          dataProvider {
-            name
-          }
-          visible
-          contentBlocks {
-            title
-          }
-          updatedAt
-          createdAt
-          pushNotificationsSentAt
         }
       }
     GRAPHQL
@@ -43,17 +25,6 @@ class DashboardController < ApplicationController
       query {
         eventRecords {
           id
-          title
-          visible
-          dataProvider {
-            name
-          }
-          dates {
-            dateStart
-            dateEnd
-          }
-          updatedAt
-          createdAt
         }
       }
     GRAPHQL
@@ -62,12 +33,6 @@ class DashboardController < ApplicationController
       query {
         genericItems(genericType: "Offer") {
           id
-          title
-          dataProvider {
-            name
-          }
-          updatedAt
-          createdAt
         }
       }
     GRAPHQL
@@ -76,13 +41,6 @@ class DashboardController < ApplicationController
       query {
         pointsOfInterest {
           id
-          name
-          visible
-          dataProvider{
-            name
-          }
-          updatedAt
-          createdAt
         }
       }
     GRAPHQL
@@ -91,13 +49,6 @@ class DashboardController < ApplicationController
       query {
         tours {
           id
-          name
-          visible
-          dataProvider {
-            name
-          }
-          updatedAt
-          createdAt
         }
       }
     GRAPHQL
