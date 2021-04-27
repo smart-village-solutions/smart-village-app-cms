@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :waste_calendar
   resources :jobs
   resources :offers
+  resources :constructions
   get "/data_provider", to: "data_provider#edit"
   get "/visibility/:item_type/:id/:visible", to: "data_provider#visibility"
   patch "/data_provider", to: "data_provider#update"

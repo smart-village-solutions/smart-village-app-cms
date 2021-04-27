@@ -32,6 +32,12 @@ $(function() {
     ...defaultNestedFormsOptions
   });
 
+  $('#nested-restrictions').nestedForm({
+    forms: '.nested-restriction-form',
+    adder: '#nested-add-restriction',
+    ...defaultNestedFormsOptions
+  });
+
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',

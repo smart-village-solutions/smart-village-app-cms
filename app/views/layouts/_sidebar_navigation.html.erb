@@ -69,6 +69,16 @@
   </li>
 <% end %>
 
+<!-- Nav Item - Constructions -->
+<% if visible_in_role?("role_offer") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'constructions' %>">
+    <a class="nav-link" href="/constructions">
+      <i class="fas fa-fw fa-tools"></i>
+      <span>Baustellen</span>
+    </a>
+  </li>
+<% end %>
+
 <!-- Nav Item - WasteCalendar -->
 <% if visible_in_role?("role_waste_calendar") %>
   <!-- Divider -->

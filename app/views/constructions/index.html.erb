@@ -1,0 +1,43 @@
+<div class="d-flex align-items-center justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold">Baustellen</h1>
+  <%= link_to new_construction_path, class: "btn btn-sm btn-primary shadow-sm ml-3" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neue Baustelle erstellen
+  <% end %>
+</div>
+
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Überschrift</th>
+        <th scope="col">Änderungsdatum</th>
+        <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th>Datenquelle</th>
+        <% end %>
+        <th scope="col" class="nosort">Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @constructions.each do |construction| %>
+        <tr>
+          <td scope="row"><%= construction.id %></td>
+          <td scope="row"><%= link_to construction.title, edit_construction_path(construction.id) %></td>
+          <td scope="row"><%= toLocalDateTime(construction.updated_at) %></td>
+          <td scope="row"><%= toLocalDateTime(construction.created_at) %></td>
+          <% if editor? %>
+            <td><%= construction.data_provider.name %></td>
+          <% end %>
+          <td align="right" class="text-nowrap">
+            <%= link_to "Bearbeiten", edit_construction_path(construction.id), class: "btn btn-sm btn-secondary" %>
+            <%= link_to construction_path(construction.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
