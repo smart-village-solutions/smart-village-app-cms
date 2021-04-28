@@ -1,25 +1,25 @@
-<% list_of_restrictions = (@construction.payload || {})["restriction"].presence || [OpenStruct.new] %>
+<% list_of_restrictions = (@construction.payload || {})["restrictions"].presence || [OpenStruct.new] %>
 
 <div class="row">
   <div class="col">
     <h3 class="d-sm-flex align-items-center justify-content-between my-4">
-      Eingränzung
+      Eingrenzung
     </h3>
   </div>
 </div>
 
 <div id="nested-restrictions">
   <% list_of_restrictions.each_with_index do |restriction, index| %>
-    <%= fields_for "#{record_type}[restrictions][#{index}]", restriction do |fp|  %>
+    <%= fields_for "#{record_type}[payload][restrictions][#{index}]", restriction do |fp|  %>
       <div class="nested-restriction-form">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>
-              Eingränzung
+              Eingrenzung
             </h4>
             <input
               type="button"
-              value="diese Eingränzung entfernen"
+              value="diese Eingrenzung entfernen"
               class="remove btn btn-sm btn-danger"
             />
           </div>
@@ -28,7 +28,10 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <label for="description">Beschreibung</label>
-                  <%= fp.text_field :description, class: "form-control" %>
+                  <%= fp.text_field "description",
+                        class: "form-control",
+                        value: restriction["description"]
+                      %>
                 </div>
               </div>
             </div>
@@ -41,7 +44,7 @@
 
 <input
   type="button"
-  value="weitere Eingränzung hinzufügen"
+  value="weitere Eingrenzung hinzufügen"
   id="nested-add-restriction"
   class="btn btn-sm btn-secondary"
 />

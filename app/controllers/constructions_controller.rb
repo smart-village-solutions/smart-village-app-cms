@@ -223,16 +223,33 @@ class ConstructionsController < ApplicationController
       end
 
       # Convert has_many restrictions
-      # if @construction_params["restrictions"].present?
-      #   restrictions = []
-      #   @construction_params["restrictions"].each do |_key, price_information|
-      #     next if price_information.blank?
+      if @construction_params["payload"]["restrictions"].present?
+        restrictions = []
+        @construction_params["payload"]["restrictions"].each do |_key, value|
+          next if value.blank?
+          next if value["description"].blank?
 
-      #     price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
-      #     restrictions << price_information if price_information.values.filter(&:present?).any?
-      #   end
-      #   @construction_params["restrictions"] = restrictions
-      # end
+          restrictions << value
+        end
+        @construction_params["payload"]["restrictions"] = restrictions
+      end
+
+      # Convert string to float for location options
+      if @construction_params["locations"].present?
+        geo_locations = []
+        @construction_params["locations"].each do |_key, location|
+          next if location.blank?
+          next if location["geo_location"].blank?
+          next if location["geo_location"]["latitude"].blank?
+          next if location["geo_location"]["longitude"].blank?
+
+          location["geoLocation"] = {}
+          location["geoLocation"]["latitude"] = location["geo_location"]["latitude"].to_f if location["geo_location"]["latitude"].present?
+          location["geoLocation"]["longitude"] = location["geo_location"]["longitude"].to_f if location["geo_location"]["longitude"].present?
+          geo_locations << location
+        end
+        @construction_params["locations"] = geo_locations
+      end
 
       # Convert has_many dates
       if @construction_params["dates"].present?
