@@ -81,25 +81,20 @@ $(function() {
   });
 
   // Toggle the side navigation
-  $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
-    $('.sidebar').toggleClass('toggled');
+  $('#sidebarToggle, #sidebarToggleTop').on('click', function() {
+    $('.sidebar, #sidebarToggleTop').toggleClass('toggled');
   });
-
-  // On small screens don't show sidebar on load
-  if ($(window).width() < 768) {
-    $('.sidebar').toggleClass('toggled');
-  }
 
   // Close any open menu accordions when window is resized below 768px
   $(window).resize(function() {
-    if ($(window).width() < 768) {
-      $('.sidebar').addClass('toggled');
+    if ($(window).width() < 992) {
+      $('.sidebar, #sidebarToggleTop').addClass('toggled');
     }
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
   $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
-    if ($(window).width() > 768) {
+    if ($(window).width() > 991) {
       var e0 = e.originalEvent,
         delta = e0.wheelDelta || -e0.detail;
       this.scrollTop += (delta < 0 ? 1 : -1) * 30;

@@ -41,12 +41,33 @@ body.app {
   color: #11223f;
 }
 
+@media (min-width: 768px) {
+  body.app {
+    margin-left: 104px; /* NOTE: necessary because of the sidebar */
+  }
+}
+
+@media (max-width: 768px) {
+  #sidebarToggleTop {
+    margin-left: 104px; /* NOTE: necessary because of the sidebar */
+  }
+
+  #sidebarToggleTop.toggled {
+    margin-left: 0; /* NOTE: necessary because of the sidebar */
+  }
+}
+
 body .table {
   color: #11223f;
 }
 
 body .navbar-nav.sidebar {
   background-color: #11223f;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 2;
 }
 
 body .btn-primary {
