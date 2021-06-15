@@ -133,3 +133,7 @@ h1 {
   padding: 0.5rem;
   background-color: #F5F5F5;
 }
+
+.html-editor-text + .ck-editor .ck-editor__editable {
+  min-height: 200px;
+}
