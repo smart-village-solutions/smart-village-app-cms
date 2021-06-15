@@ -22,29 +22,31 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-      <!-- Sidebar -->
-      <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
+      <% if @current_user.present? %>
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex " href="/">
-          <div class="sidebar-brand-text text-left">SmartVillage<sup>CMS</sup></div>
-        </a>
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex " href="/">
+            <div class="sidebar-brand-text text-left">SmartVillage<sup>CMS</sup></div>
+          </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
 
-        <%= render partial: "layouts/sidebar_navigation" if @current_user.present? %>
+          <%= render partial: "layouts/sidebar_navigation" if @current_user.present? %>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+          <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
 
-      </ul>
-      <!-- End of Sidebar -->
+        </ul>
+        <!-- End of Sidebar -->
+      <% end %>
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
@@ -52,19 +54,21 @@
         <!-- Main Content -->
         <div id="content">
 
-          <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <% if @current_user.present? %>
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-            <!-- Sidebar Toggle (Topbar) -->
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-              <i class="fa fa-bars"></i>
-            </button>
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
 
-            <!-- Topbar Navbar -->
-            <%= render partial: "layouts/header_navigation"  if @current_user.present? %>
+              <!-- Topbar Navbar -->
+              <%= render partial: "layouts/header_navigation"  if @current_user.present? %>
 
-          </nav>
-          <!-- End of Topbar -->
+            </nav>
+            <!-- End of Topbar -->
+          <% end %>
 
           <!-- Begin Page Content -->
           <div class="container-fluid">
@@ -86,7 +90,12 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © <a href="https://www.ikusei.de">ikusei GmbH</a> 2019</span>
+              <span>
+                <a target="_blank" href="https://smart-village.solutions/">
+                  Smart Village Solutions SVS GmbH
+                </a>
+                2021
+              </span>
             </div>
           </div>
         </footer>

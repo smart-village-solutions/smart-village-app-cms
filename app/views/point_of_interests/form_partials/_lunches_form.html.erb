@@ -15,14 +15,14 @@
     <%= fields_for "point_of_interest[lunches][#{index}]", lunch do |fl|  %>
       <div class="nested-lunch-form">
         <div class="card mb-4">
-          <div class="card-header py-3 bg-dark text-white">
-            <h4 class="m-0 d-sm-flex align-items-center justify-content-between float-left">
+          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+            <h4>
               Gastro-Angebot
             </h4>
             <input
               type="button"
               value="dieses Gastro-Angebot entfernen"
-              class="float-right removeContent btn btn-sm btn-danger"
+              class="removeContent btn btn-sm btn-danger"
             />
           </div>
           <div class="card-body">

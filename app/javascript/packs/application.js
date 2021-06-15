@@ -71,6 +71,7 @@ $(function() {
     language: {
       url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
     },
+    order: [[0, 'desc']],
     columnDefs: [
       {
         bSortable: false,
@@ -83,6 +84,11 @@ $(function() {
   $('#sidebarToggle, #sidebarToggleTop').on('click', function(e) {
     $('.sidebar').toggleClass('toggled');
   });
+
+  // On small screens don't show sidebar on load
+  if ($(window).width() < 768) {
+    $('.sidebar').toggleClass('toggled');
+  }
 
   // Close any open menu accordions when window is resized below 768px
   $(window).resize(function() {
@@ -111,17 +117,16 @@ $(function() {
     }
   });
 
-  // Smooth scrolling using jQuery easing
+  // Smooth scrolling using jQuery
   $(document).on('click', 'a.scroll-to-top', function(e) {
-    var $anchor = $(this);
     $('html, body')
       .stop()
       .animate(
         {
-          scrollTop: $($anchor.attr('href')).offset().top
+          scrollTop: 0
         },
-        1000,
-        'easeInOutExpo'
+        500,
+        'swing'
       );
     e.preventDefault();
   });

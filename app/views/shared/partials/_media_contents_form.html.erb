@@ -7,12 +7,12 @@
     <%= form.fields_for "media_contents[#{index}]", media_content do |fmc| %>
       <div class="nested-medium-form">
         <div class="card mb-4">
-          <div class="card-header py-3 bg-dark text-white">
-            <h4 class="float-left">Datei</h4>
+          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+            <h4>Datei</h4>
             <input
               type="button"
               value="diese Datei entfernen"
-              class="float-right remove btn btn-sm btn-danger"
+              class="remove btn btn-sm btn-danger"
             />
           </div>
           <div class="card-body">

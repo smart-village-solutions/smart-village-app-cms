@@ -18,7 +18,23 @@ body .bg-gradient-primary {
 }
 
 body #wrapper #content-wrapper {
-  background-color: #fbfaf8;
+  background-color: #fff;
+}
+
+@media (max-width: 767px) {
+  body .container,
+  body .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  body .card-header {
+    padding: 0.75rem;
+  }
+
+  body .card-body {
+    padding: 0.5rem;
+  }
 }
 
 body.app {
@@ -34,8 +50,9 @@ body .navbar-nav.sidebar {
 }
 
 body .btn-primary {
-  background-color: #828960;
-  border-color: #828960;
+  background-color: #b1bfba;
+  border-color: #b1bfba;
+  color: #11223f;
 }
 
 body .btn-primary:not(:disabled):not(.disabled):active,
@@ -48,8 +65,9 @@ body .btn-primary:not(:disabled):not(.disabled).active,
 
 body .btn-primary:hover {
   opacity: 0.7;
-  background-color: #828960;
-  border-color: #828960;
+  background-color: #b1bfba;
+  border-color: #b1bfba;
+  color: #11223f;
 }
 
 body .btn-danger:hover {
@@ -79,8 +97,8 @@ body .page-link:hover {
 }
 
 body .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #828960;
-  background-color: #828960;
+  background-color: #b1bfba;
+  border-color: #b1bfba;
 }
 
 body .scroll-to-top:hover {
@@ -93,6 +111,10 @@ h1 {
   padding-bottom: 2em;
 }
 
+.btn.btn-primary.btn--big {
+  font-size: 20px;
+}
+
 .hint {
   font-size: 0.8em;
   color: #999;
@@ -102,4 +124,12 @@ h1 {
 .point_of_interest_attributes > span {
   margin-right: 1em;
   white-space: nowrap;
+}
+
+.button-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #F5F5F5;
 }

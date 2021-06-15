@@ -1,13 +1,13 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-5">
+<div class="d-flex align-items-center justify-content-between mb-5">
   <h1 class="h3 mb-0 pb-0 font-weight-bold">Nachrichten</h1>
-  <%= link_to new_news_item_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+  <%= link_to new_news_item_path,  class: "btn btn-sm btn-primary shadow-sm ml-3" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
     Neue Nachricht erstellen
   <% end %>
 </div>
 
-<div class="pb-4">
-  <table class="table table-responsive data_table bg-white">
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -25,7 +25,16 @@
       <% @news_items.each do |news_item| %>
         <tr>
           <th scope="row"><%= news_item.id %></th>
-          <td><%= news_item.title.presence || news_item.content_blocks.first.try(:title) %></td>
+          <% if news_item.push_notifications_sent_at.blank? %>
+            <td>
+              <%= link_to(
+                    news_item.title.presence || news_item.content_blocks.first.try(:title) || "",
+                    edit_news_item_path(news_item.id)
+                  )%>
+            </td>
+          <% else %>
+            <td><%= news_item.title.presence || news_item.content_blocks.first.try(:title) %></td>
+          <% end %>
           <td><%= toLocalDateTime(news_item.updated_at) %></td>
           <td><%= toLocalDateTime(news_item.created_at) %></td>
           <% if editor? %>

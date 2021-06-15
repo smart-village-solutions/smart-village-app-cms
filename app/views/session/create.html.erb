@@ -1,5 +1,5 @@
-<div class="text-center mb-4">
-  <h1 class="h3 mb-0 font-weight-bold">Anmeldung</h1>
+<div class="text-center my-4 pt-5">
+  <h1 class="h3 mb-0 mt-0 pt-5 font-weight-bold">Anmeldung</h1>
 </div>
 
 <%= form_tag( log_in_path , method: :post) do |f| %>
@@ -7,9 +7,6 @@
     <label for="exampleInputEmail1" class="col-lg-2 col-form-label">E-Mail-Adresse</label>
     <div class="col-lg-5">
       <%= text_field_tag(:email, "", class: "form-control", placeholder: "E-Mail eingeben") %>
-      <small id="emailHelp" class="form-text text-muted">
-        Haben Sie noch keine Zugangsdaten, so wenden Sie sich bitte an <a href="mailto:support@smart-village.app">support@smart-village.app</a>
-      </small>
     </div>
   </div>
 

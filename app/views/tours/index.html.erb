@@ -1,13 +1,13 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-5">
+<div class="d-flex align-items-center justify-content-between mb-5">
   <h1 class="h3 mb-0 pb-0 font-weight-bold">Touren</h1>
-  <%= link_to new_tour_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+  <%= link_to new_tour_path,  class: "btn btn-sm btn-primary shadow-sm ml-3" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
     Neue Tour erstellen
   <% end %>
 </div>
 
-<div class="pb-4">
-  <table class="table table-responsive data_table bg-white">
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -25,7 +25,7 @@
       <% @tours.each do |tour| %>
         <tr>
           <th scope="row"><%= tour.id %></th>
-          <td><%= tour.name %></td>
+          <td><%= link_to tour.name, edit_tour_path(tour.id) %></td>
           <td><%= toLocalDateTime(tour.updated_at) %></td>
           <td><%= toLocalDateTime(tour.created_at) %></td>
           <% if editor? %>

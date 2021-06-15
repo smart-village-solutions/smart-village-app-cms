@@ -4,15 +4,154 @@
 </div>
 
 <!-- Content Row -->
-<div class="row justify-content-center">
-  <div class="jumbotron ml-3 bg-white shadow">
-    <h2 class=""><strong>Willkommen im Redaktionsbereich</h2>
-    <hr class="my-4" />
-    <p>
-      Sie haben hier die Möglichkeit, eigene Inhalte für die App zu erstellen und zu bearbeiten.
-    </p>
-    <p>
-      Bei Fragen wenden Sie sich bitte an <a href="mailto:support@smart-village.app">support@smart-village.app</a>
-    </p>
-  </div>
+<div class="row px-4 px-lg-0 justify-content-center">
+  <% if visible_in_role?("role_news_item") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          Nachrichten
+        </h4>
+        <h5>
+          <%= @news_items.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/news_items",  class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_news_item_path,  class: "btn btn-sm btn-secondary shadow-sm" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_event_record") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          Veranstaltungen
+        </h4>
+        <h5>
+          <%= @events.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/events",  class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_event_path,  class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_point_of_interest") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          Orte
+        </h4>
+        <h5>
+          <%= @points_of_interest.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/point_of_interests",  class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_point_of_interest_path,  class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_tour") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          Touren
+        </h4>
+        <h5>
+          <%= @tours.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/tours",  class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_tour_path,  class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_job") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          Stellenanzeigen
+        </h4>
+        <h5>
+          <%= @jobs.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/jobs",  class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_job_path,  class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_offer") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          Werbliche Anzeigen
+        </h4>
+        <h5>
+          <%= @offers.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/offers",  class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_offer_path,  class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

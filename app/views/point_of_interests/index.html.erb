@@ -1,13 +1,13 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-5">
+<div class="d-flex align-items-center justify-content-between mb-5">
   <h1 class="h3 mb-0 pb-0 font-weight-bold">Orte</h1>
-  <%= link_to new_point_of_interest_path,  class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+  <%= link_to new_point_of_interest_path,  class: "btn btn-sm btn-primary shadow-sm ml-3" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
     Neuen Ort erstellen
   <% end %>
 </div>
 
-<div class="pb-4">
-  <table class="table table-responsive data_table bg-white">
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -25,7 +25,7 @@
       <% @points_of_interest.each do |poi| %>
         <tr>
           <th scope="row"><%= poi.id %></th>
-          <td><%= poi.name %></td>
+          <td><%= link_to poi.name, edit_point_of_interest_path(poi.id) %></td>
           <td><%= toLocalDateTime(poi.updated_at) %></td>
           <td><%= toLocalDateTime(poi.created_at) %></td>
           <% if editor? %>

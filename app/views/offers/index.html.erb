@@ -1,12 +1,12 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-5">
+<div class="d-flex align-items-center justify-content-between mb-5">
   <h1 class="h3 mb-0 pb-0 font-weight-bold">Werbliche Anzeigen</h1>
-  <%= link_to new_offer_path, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" do %>
+  <%= link_to new_offer_path, class: "btn btn-sm btn-primary shadow-sm ml-3" do %>
     <i class="fas fa-plus fa-sm text-white-50"></i>
     Neue werbliche Anzeige erstellen
   <% end %>
 </div>
 
-<div class="pb-4">
+<div class="table-responsive pb-4">
   <table class="table data_table bg-white">
     <thead>
       <tr>
@@ -24,7 +24,7 @@
       <% @offers.each do |offer| %>
         <tr>
           <td scope="row"><%= offer.id %></td>
-          <td scope="row"><%= offer.title %></td>
+          <td scope="row"><%= link_to offer.title, edit_offer_path(offer.id) %></td>
           <td scope="row"><%= toLocalDateTime(offer.updated_at) %></td>
           <td scope="row"><%= toLocalDateTime(offer.created_at) %></td>
           <% if editor? %>
