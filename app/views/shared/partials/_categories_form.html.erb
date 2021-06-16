@@ -9,11 +9,9 @@
             <h4>
               Kategorie
             </h4>
-            <input
-              type="button"
-              value="diese Kategorie entfernen"
-              class="remove btn btn-sm btn-danger"
-            />
+            <%= link_to "/",  class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
           </div>
           <div class="card-body">
             <div class="row">

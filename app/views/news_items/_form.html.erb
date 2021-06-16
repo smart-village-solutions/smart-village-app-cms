@@ -59,12 +59,10 @@
 
       <%= render partial: "shared/partials/categories_form", locals: { record: news_item, form: f } %>
 
-      <input
-        type="button"
-        value="weitere Kategorie hinzufügen"
-        id="nested-add-category"
-        class="btn btn-sm btn-secondary"
-      />
+      <%= link_to "/",  class: "btn btn-sm btn-secondary", id:"nested-add-category" do %>
+        <i class="fas fa-plus text-white mr-2"></i>
+        Kategorie hinzufügen
+      <% end %>
     </div>
   </div>
 
@@ -89,12 +87,10 @@
 
       <%= render partial: "shared/partials/content_blocks_form", locals: { record: news_item, form: f } %>
 
-      <input
-        type="button"
-        value="weiteren Bereich hinzufügen"
-        id="nested-add-content-block"
-        class="btn btn-sm btn-secondary"
-      />
+      <%= link_to "/",  class: "btn btn-sm btn-secondary", id:"nested-add-content-block" do %>
+        <i class="fas fa-plus text-white mr-2"></i>
+        Bereich hinzufügen
+      <% end %>
     </div>
   </div>
 

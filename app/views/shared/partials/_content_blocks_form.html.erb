@@ -12,11 +12,9 @@
               <h4>
                 Bereich
               </h4>
-              <input
-                type="button"
-                value="diesen Bereich entfernen"
-                class="removeContent btn btn-sm btn-danger"
-              />
+              <%= link_to "/",  class: "removeContent btn btn-sm btn-danger" do %>
+                <i class="fa fa-trash text-white"></i>
+              <% end %>
             </div>
           <% end %>
           <div class="card-body">

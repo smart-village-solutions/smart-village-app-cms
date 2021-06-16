@@ -21,11 +21,9 @@
               <h4>
                 Kontakt
               </h4>
-              <input
-                type="button"
-                value="diesen Kontakt entfernen"
-                class="remove btn btn-sm btn-danger"
-              />
+              <%= link_to "/",  class: "remove btn btn-sm btn-danger" do %>
+                <i class="fa fa-trash text-white"></i>
+              <% end %>
             </div>
           <% end %>
           <div class="card-body">
@@ -38,10 +36,8 @@
 </div>
 
 <% if fields.include?('button') %>
-  <input
-    type="button"
-    value="Kontakt hinzufügen"
-    id="nested-add-contacts"
-    class="btn btn-sm btn-secondary"
-  />
+  <%= link_to "/",  class: "btn btn-sm btn-secondary", id:"nested-add-contacts" do %>
+    <i class="fas fa-plus text-white mr-2"></i>
+    Kontakt hinzufügen
+  <% end %>
 <% end %>
