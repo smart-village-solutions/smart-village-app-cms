@@ -34,7 +34,13 @@
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_survey_path(survey.id), class: "btn btn-sm btn-secondary" %>
-            <%= link_to survey_path(survey.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+            <%= link_to(
+                  survey_path(survey.id),
+                  method: :delete,
+                  "data-confirm" => "Möchten Sie diese Umfrage wirklich löschen? Damit werden auch alle zugehörigen Kommentare und Stimmabgaben gelöscht.",
+                  class: "btn btn-sm btn-danger",
+                  title: "Löschen"
+                ) do %>
               <i class="fas fa-trash"></i>
             <% end %>
           </td>
