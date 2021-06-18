@@ -30,7 +30,7 @@
           <td><%= toLocalDateTime(survey.created_at) %></td>
           <% if editor? %>
             <td><%= survey.data_provider.name %></td>
-            <td align="center"><%= visibility_switch(survey, "survey") %></td>
+            <td align="center"><%= visibility_switch(survey, "Survey") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_survey_path(survey.id), class: "btn btn-sm btn-secondary" %>
