@@ -4,6 +4,14 @@
 <% values ||= {} %>
 <% list_of_dates = record.dates.presence || [OpenStruct.new] %>
 
+<%#
+  response options of a survey can have just one `date`,
+  so we need to check for that and build a dates array
+%>
+<% if record.date.present? %>
+  <% list_of_dates = [record.date] %>
+<% end %>
+
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
     <%= form.fields_for "dates[#{index}]", date do |fd|  %>

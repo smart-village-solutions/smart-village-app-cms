@@ -1,0 +1,24 @@
+<% response_options = survey.response_options.presence || Array.new(10, OpenStruct.new) %>
+
+<div id="nested-response-options">
+  <% response_options.each_with_index do |response_option, index| %>
+    <%= fields_for "survey[response_options][#{index}]", response_option do |fro|  %>
+      <div class="nested-response-option-form">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (deutsch)</label>
+              <%= fro.text_field :title_de, name: "survey[response_options][#{index}][title][de]", class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (polnisch)</label>
+              <%= fro.text_field :title_pl, name: "survey[response_options][#{index}][title][pl]", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
