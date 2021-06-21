@@ -29,9 +29,7 @@ class SurveysController < ApplicationController
   end
 
   def edit
-    # TODO: request data for edit form
-    flash[:notice] = "Umfragen können noch nicht bearbeitet werden"
-    redirect_to surveys_path
+    @survey = edit_survey_record
   end
 
   def create
@@ -47,6 +45,21 @@ class SurveysController < ApplicationController
     new_id = results.data.create_survey_poll.id
     flash[:notice] = "Umfrage wurde erstellt"
     redirect_to edit_survey_path(new_id)
+  end
+
+  def update
+    survey_id = params[:id]
+    query = create_params
+    begin
+      @smart_village.query query
+    rescue Graphlient::Errors::GraphQLError => e
+      flash[:error] = e.errors.messages["data"].to_s
+      @survey = edit_survey_record
+      render :edit
+      return
+    end
+    flash[:notice] = "Umfrage wurde aktualisiert"
+    redirect_to edit_survey_path(survey_id)
   end
 
   def destroy
@@ -80,10 +93,65 @@ class SurveysController < ApplicationController
       )
     end
 
+    def edit_survey_record
+      results = @smart_village.query <<~GRAPHQL
+        query {
+          surveys(
+            ids: [
+              #{params[:id]}
+            ]
+          ) {
+            id
+            title
+            description
+            questionId
+            questionTitle
+            date {
+              dateStart
+              dateEnd
+            }
+            responseOptions {
+              id
+              title
+              votesCount
+            }
+            visible
+            dataProvider {
+              name
+            }
+            updatedAt
+            createdAt
+          }
+        }
+      GRAPHQL
+
+      survey = results.data.surveys.first
+
+      OpenStruct.new(
+        id: survey.id,
+        title_de: survey.title["de"],
+        title_pl: survey.title["pl"],
+        description_de: survey.description["de"],
+        description_pl: survey.description["pl"],
+        question_id: survey.question_id,
+        question_title_de: survey.question_title["de"],
+        question_title_pl: survey.question_title["pl"],
+        date: survey.date,
+        response_options: survey.response_options.map do |response_option|
+          OpenStruct.new(
+            id: response_option.id,
+            title_de: response_option.title["de"],
+            title_pl: response_option.title["pl"],
+            votes_count: response_option.votes_count
+          )
+        end
+      )
+    end
+
     def create_params
       @survey_params = params.require(:survey).permit!
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createSurveyPoll", @survey_params)
+      Converter::Base.new.build_mutation("createOrUpdateSurveyPoll", @survey_params)
     end
 
     def convert_params_for_graphql

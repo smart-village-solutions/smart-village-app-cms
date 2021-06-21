@@ -1,9 +1,15 @@
 <% response_options = survey.response_options.presence || Array.new(10, OpenStruct.new) %>
 
+<%# fill up response options to render always 10 %>
+<% if response_options.count < 10 %>
+  <% response_options = response_options + Array.new(10 - response_options.count, OpenStruct.new) %>
+<% end %>
+
 <div id="nested-response-options">
   <% response_options.each_with_index do |response_option, index| %>
     <%= fields_for "survey[response_options][#{index}]", response_option do |fro|  %>
       <div class="nested-response-option-form">
+        <%= fro.hidden_field :id, name: "survey[response_options][#{index}][id]" %>
         <div class="row">
           <div class="col-12 col-sm-6">
             <div class="form-group">
