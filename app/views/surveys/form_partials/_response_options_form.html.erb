@@ -9,6 +9,7 @@
   <% response_options.each_with_index do |response_option, index| %>
     <%= fields_for "survey[response_options][#{index}]", response_option do |fro|  %>
       <div class="nested-response-option-form">
+        <%= fro.hidden_field :id, name: "survey[response_options][#{index}][id]" %>
         <div class="row">
           <div class="col-12 col-sm-6">
             <div class="form-group">

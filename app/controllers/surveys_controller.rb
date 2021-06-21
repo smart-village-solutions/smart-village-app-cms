@@ -49,7 +49,16 @@ class SurveysController < ApplicationController
 
   def update
     survey_id = params[:id]
-    flash[:notice] = "Keine Änderung: Umfragen können noch nicht gespeichert werden"
+    query = create_params
+    begin
+      @smart_village.query query
+    rescue Graphlient::Errors::GraphQLError => e
+      flash[:error] = e.errors.messages["data"].to_s
+      @survey = edit_survey_record
+      render :edit
+      return
+    end
+    flash[:notice] = "Umfrage wurde aktualisiert"
     redirect_to edit_survey_path(survey_id)
   end
 
@@ -95,6 +104,7 @@ class SurveysController < ApplicationController
             id
             title
             description
+            questionId
             questionTitle
             date {
               dateStart
@@ -123,6 +133,7 @@ class SurveysController < ApplicationController
         title_pl: survey.title["pl"],
         description_de: survey.description["de"],
         description_pl: survey.description["pl"],
+        question_id: survey.question_id,
         question_title_de: survey.question_title["de"],
         question_title_pl: survey.question_title["pl"],
         date: survey.date,
@@ -140,7 +151,7 @@ class SurveysController < ApplicationController
     def create_params
       @survey_params = params.require(:survey).permit!
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createSurveyPoll", @survey_params)
+      Converter::Base.new.build_mutation("createOrUpdateSurveyPoll", @survey_params)
     end
 
     def convert_params_for_graphql

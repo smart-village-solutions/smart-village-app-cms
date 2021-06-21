@@ -1,4 +1,5 @@
 <%= fields_for :survey, survey do |f|  %>
+  <%= f.hidden_field :id, name: "survey[id]" %>
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -26,6 +27,7 @@
   </div>
 
   <div class="row">
+    <%= f.hidden_field :question_id, name: "survey[question_id]" %>
     <div class="col">
       <div class="form-group">
         <label for="description">Frage (deutsch) *</label>
