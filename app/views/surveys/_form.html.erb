@@ -62,7 +62,13 @@
         Antwortmöglichkeiten
       </h2>
 
-      <p>(min. 2, max. 10, Zeichenlänge max. 150, in deutsch und polnisch)</p>
+      <p>
+        Sie können den Text der Antworten jederzeit bearbeiten.
+        Das Löschen einer Antwort ist aber nur möglich, wenn für diese noch keine
+        Stimmen abgegeben wurden.
+      </p>
+
+      <p><small>(min. 2, max. 10, Zeichenlänge max. 150, in deutsch und polnisch)</small></p>
 
       <%= render partial: "surveys/form_partials/response_options_form", locals: { survey: survey, form: f  } %>
     </div>
