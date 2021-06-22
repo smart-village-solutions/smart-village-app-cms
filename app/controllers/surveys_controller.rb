@@ -42,7 +42,7 @@ class SurveysController < ApplicationController
       render :new
       return
     end
-    new_id = results.data.create_survey_poll.id
+    new_id = results.data.create_or_update_survey_poll.id
     flash[:notice] = "Umfrage wurde erstellt"
     redirect_to edit_survey_path(new_id)
   end
