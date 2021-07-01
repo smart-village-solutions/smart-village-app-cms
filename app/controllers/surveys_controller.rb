@@ -3,6 +3,7 @@
 class SurveysController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
+  before_action :load_languages, only: [:index, :new, :edit]
 
   def index
     results = @smart_village.query <<~GRAPHQL
@@ -85,6 +86,17 @@ class SurveysController < ApplicationController
   end
 
   private
+
+    def load_languages
+      languages = @smart_village.query <<~GRAPHQL
+      query {
+        publicJsonFile(name: "languages") {
+          content
+        }
+      }
+      GRAPHQL
+      @languages = JSON.parse(languages.data.public_json_file.content)
+    end
 
     def new_survey_record
       OpenStruct.new(

@@ -11,18 +11,14 @@
       <div class="nested-response-option-form">
         <%= fro.hidden_field :id, name: "survey[response_options][#{index}][id]" %>
         <div class="row">
-          <div class="col-12 col-sm-6">
-            <div class="form-group">
-              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (deutsch)<%= " *" if [0, 1].include?(index) %></label>
-              <%= fro.text_field :title_de, name: "survey[response_options][#{index}][title][de]", class: "form-control", maxlength: "150", required: [0, 1].include?(index) %>
+          <% @languages.each_with_index do |language, language_index| %>
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="description"><%= index + 1 %>. Antwortmöglichkeit (<%= language %>)<%= " *" if [0, 1].include?(index) && language_index == 0 %></label>
+                <%= fro.text_field "title_#{language}", name: "survey[response_options][#{index}][title][#{language}]", class: "form-control", maxlength: "150", required: [0, 1].include?(index) && language_index == 0 %>
+              </div>
             </div>
-          </div>
-          <div class="col-12 col-sm-6">
-            <div class="form-group">
-              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (polnisch)</label>
-              <%= fro.text_field :title_pl, name: "survey[response_options][#{index}][title][pl]", class: "form-control", maxlength: "150" %>
-            </div>
-          </div>
+          <% end %>
         </div>
         <% if response_option.votes_count.present? %>
           <div class="row">
