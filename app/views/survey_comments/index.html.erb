@@ -18,7 +18,21 @@
       <% @survey_comments.each do |survey_comment| %>
         <tr>
           <th scope="row"><%= survey_comment.id %></th>
-          <td><%= survey_comment.message %></td>
+          <td>
+            <% if survey_comment.message.length > 100 %>
+              <%= link_to(
+                    survey_comment.message.truncate(100),
+                    "#",
+                    data: { toggle: "modal", target: "#message_#{survey_comment.id}" }
+                  ) %>
+              <%= render(
+                    partial: "survey_comments/modal_message",
+                    locals: { survey_comment: survey_comment }
+                  ) %>
+            <% else %>
+              <%= survey_comment.message %>
+            <% end %>
+          </td>
           <td><%= toLocalDateTime(survey_comment.created_at) %></td>
           <% if editor? %>
             <td align="center"><%= visibility_switch(survey_comment, "Survey_Comment") %></td>
