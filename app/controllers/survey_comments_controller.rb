@@ -11,6 +11,7 @@ class SurveyCommentsController < ApplicationController
           surveyId: #{params[:survey_id]}
         ) {
           id
+          surveyPollId
           message
           createdAt
           visible

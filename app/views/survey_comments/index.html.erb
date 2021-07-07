@@ -21,7 +21,7 @@
           <td><%= survey_comment.message %></td>
           <td><%= toLocalDateTime(survey_comment.created_at) %></td>
           <% if editor? %>
-            <td align="center"><%= visibility_switch(survey_comment, "Survey::Comment") %></td>
+            <td align="center"><%= visibility_switch(survey_comment, "Survey_Comment") %></td>
           <% end %>
         </tr>
       <% end %>
