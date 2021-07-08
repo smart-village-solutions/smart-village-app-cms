@@ -23,10 +23,10 @@
     <tbody>
       <% @constructions.each do |construction| %>
         <tr>
-          <td scope="row"><%= construction.id %></td>
-          <td scope="row"><%= link_to construction.title, edit_construction_path(construction.id) %></td>
-          <td scope="row"><%= toLocalDateTime(construction.updated_at) %></td>
-          <td scope="row"><%= toLocalDateTime(construction.created_at) %></td>
+          <th scope="row"><%= construction.id %></th>
+          <td><%= link_to construction.title, edit_construction_path(construction.id) %></td>
+          <td><%= toLocalDateTime(construction.updated_at) %></td>
+          <td><%= toLocalDateTime(construction.created_at) %></td>
           <% if editor? %>
             <td><%= construction.data_provider.name %></td>
           <% end %>
