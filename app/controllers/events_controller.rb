@@ -208,14 +208,12 @@ class EventsController < ApplicationController
   def update
     old_id = params[:id]
     query = create_params
+    logger.warn(query)
+
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_event_path(old_id)
-      return
-    rescue Graphlient::Errors::ClientError => e
-      flash[:error] = e.inspect
       redirect_to edit_event_path(old_id)
       return
     end
@@ -224,6 +222,7 @@ class EventsController < ApplicationController
 
     if new_id.present? && new_id != old_id
       # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
+
       destroy_results = @smart_village.query <<~GRAPHQL
         mutation {
           destroyRecord(
