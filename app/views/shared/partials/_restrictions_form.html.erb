@@ -10,7 +10,7 @@
 
 <div id="nested-restrictions">
   <% list_of_restrictions.each_with_index do |restriction, index| %>
-    <%= fields_for "#{record_type}[payload][restrictions][#{index}]", restriction do |fp|  %>
+    <%= fields_for "#{record_type}[payload][restrictions][#{index}]", restriction do |fr|  %>
       <div class="nested-restriction-form">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
@@ -28,10 +28,11 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <label for="description">Beschreibung</label>
-                  <%= fp.text_field "description",
+                  <%= fr.text_field(
+                        :description,
                         class: "form-control",
                         value: restriction["description"]
-                      %>
+                      ) %>
                 </div>
               </div>
             </div>
