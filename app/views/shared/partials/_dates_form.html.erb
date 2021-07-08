@@ -8,7 +8,7 @@
   response options of a survey can have just one `date`,
   so we need to check for that and build a dates array
 %>
-<% if record.date.present? %>
+<% if record.try(:date).present? %>
   <% list_of_dates = [record.date] %>
 <% end %>
 
