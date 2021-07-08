@@ -59,7 +59,7 @@
 
       <%= render partial: "shared/partials/categories_form", locals: { record: news_item, form: f } %>
 
-      <%= link_to "/",  class: "btn btn-sm btn-secondary", id:"nested-add-category" do %>
+      <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-category" do %>
         <i class="fas fa-plus text-white mr-2"></i>
         Kategorie hinzufügen
       <% end %>
@@ -87,7 +87,7 @@
 
       <%= render partial: "shared/partials/content_blocks_form", locals: { record: news_item, form: f } %>
 
-      <%= link_to "/",  class: "btn btn-sm btn-secondary", id:"nested-add-content-block" do %>
+      <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-content-block" do %>
         <i class="fas fa-plus text-white mr-2"></i>
         Bereich hinzufügen
       <% end %>

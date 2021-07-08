@@ -21,7 +21,7 @@
               <h4>
                 Kontakt
               </h4>
-              <%= link_to "/",  class: "remove btn btn-sm btn-danger" do %>
+              <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
                 <i class="fa fa-trash text-white"></i>
               <% end %>
             </div>
@@ -36,7 +36,7 @@
 </div>
 
 <% if fields.include?('button') %>
-  <%= link_to "/",  class: "btn btn-sm btn-secondary", id:"nested-add-contacts" do %>
+  <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-contacts" do %>
     <i class="fas fa-plus text-white mr-2"></i>
     Kontakt hinzufügen
   <% end %>
