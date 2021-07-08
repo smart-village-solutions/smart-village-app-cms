@@ -1,3 +1,5 @@
+<% list_of_content_blocks = job.content_blocks.presence || [OpenStruct.new] %>
+
 <div class="row">
   <div class="col">
     <h3 class="d-sm-flex align-items-center justify-content-between my-4">
@@ -5,8 +7,6 @@
     </h3>
   </div>
 </div>
-
-<% list_of_content_blocks = job.content_blocks.presence || [OpenStruct.new] %>
 
 <div id="nested-content-blocks">
   <% list_of_content_blocks.each_with_index do |content_block, index| %>

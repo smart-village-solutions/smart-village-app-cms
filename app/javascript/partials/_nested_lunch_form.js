@@ -37,6 +37,9 @@ $(function() {
         forms: `.nested-lunch-offer-form-${timestamp}`,
         adder: `.nested-add-lunch-offer-${timestamp}`,
         ...defaultNestedFormsOptions,
+        beforeAddForm: ($form) => {
+          $form.children(`.nested-lunch-offer-form-${timestamp}`).removeClass('d-none');
+        },
         associations: 'lunch_offers' // needed to correctly increment ids of added sections
       });
     };

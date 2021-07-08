@@ -1,5 +1,4 @@
-<% fields ||= ['header', 'title', 'intro', 'body', 'media_contents'] %>
-
+<% fields ||= ["header", "title", "intro", "body", "media_contents"] %>
 <% list_of_content_blocks = record.content_blocks.presence || [OpenStruct.new] %>
 
 <div id="nested-content-blocks">
@@ -7,7 +6,7 @@
     <%= form.fields_for "content_blocks[#{index}]", content_block do |fcb| %>
       <div class="nested-content-block-form">
         <div class="card mb-4">
-          <% if fields.include?('header') %>
+          <% if fields.include?("header") %>
             <div class="d-flex flex-wrap justify-content-between card-header py-3  bg-dark text-white">
               <h4>
                 Bereich
@@ -18,7 +17,7 @@
             </div>
           <% end %>
           <div class="card-body">
-            <% if fields.include?('media_contents') %>
+            <% if fields.include?("media_contents") %>
               <h3 class="mb-3 font-weight-bold d-sm-flex align-items-center justify-content-between">
                 Dateien
               </h3>
@@ -41,13 +40,13 @@
 
             <div class="row">
               <div class="col">
-                <% if fields.include?('title') %>
+                <% if fields.include?("title") %>
                   <div class="form-group">
                     <label for="description">Überschrift</label>
                     <%= fcb.text_field :title, class: "form-control" %>
                   </div>
                 <% end %>
-                <% if fields.include?('intro') %>
+                <% if fields.include?("intro") %>
                   <div class="form-group">
                     <label for="description">Einleitung</label>
                     <%= fcb.text_area :intro, class: "form-control html-editor", rows: 5 %>
@@ -55,7 +54,7 @@
                     <p class="hint">Dieser Text wird hervorgehoben dargestellt.</p>
                   </div>
                 <% end %>
-                <% if fields.include?('body') %>
+                <% if fields.include?("body") %>
                   <div class="form-group">
                     <label for="description">Text</label>
                     <%= fcb.text_area :body, class: "form-control html-editor html-editor-text", rows: 10 %>

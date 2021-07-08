@@ -1,3 +1,4 @@
+<% fields = ["description", "amount"] %>
 <% list_of_price_informations = record.price_informations.presence || [OpenStruct.new] %>
 
 <div class="row">
@@ -11,7 +12,7 @@
 <div id="nested-price_informations">
   <% list_of_price_informations.each_with_index do |price, index| %>
     <%= fields_for "#{record_type}[price_informations][#{index}]", price do |fp|  %>
-      <div class="nested-price_information-form">
+      <div class="nested-price_information-form<%= " d-none" if empty?(price, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>

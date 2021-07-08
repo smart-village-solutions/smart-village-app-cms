@@ -37,6 +37,9 @@ $(function() {
         forms: `.nested-medium-form-${timestamp}`,
         adder: `.nested-add-medium-${timestamp}`,
         ...defaultNestedFormsOptions,
+        beforeAddForm: ($form) => {
+          $form.children(`.nested-medium-form-${timestamp}`).removeClass('d-none');
+        },
         associations: 'media_contents' // needed to correctly increment ids of added sections
       });
     };
