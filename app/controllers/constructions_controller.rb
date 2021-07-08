@@ -159,7 +159,7 @@ class ConstructionsController < ApplicationController
         generic_type: "Baustelle",
         content_blocks: [OpenStruct.new],
         media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
-        dates: [OpenStruct.new],
+        dates: [OpenStruct.new]
       )
     end
 
@@ -262,22 +262,5 @@ class ConstructionsController < ApplicationController
         end
         @construction_params["dates"] = dates
       end
-    end
-
-    # check for present values recursively
-    def nested_values?(value_to_check, result = [])
-      result << true if value_to_check.class == String && value_to_check.present?
-
-      if value_to_check.class == Array
-        value_to_check.each do |value|
-          nested_values?(value, result)
-        end
-      elsif value_to_check.class.to_s.include?("Hash")
-        value_to_check.each do |_key, value|
-          nested_values?(value, result)
-        end
-      end
-
-      result
     end
 end

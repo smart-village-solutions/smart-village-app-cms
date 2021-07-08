@@ -390,21 +390,4 @@ class PointOfInterestsController < ApplicationController
       end
       @point_of_interest_params["lunches"] = lunches
     end
-
-    # check for present values recursively
-    def nested_values?(value_to_check, result = [])
-      result << true if value_to_check.class == String && value_to_check.present?
-
-      if value_to_check.class == Array
-        value_to_check.each do |value|
-          nested_values?(value, result)
-        end
-      elsif value_to_check.class.to_s.include?("Hash")
-        value_to_check.each do |_key, value|
-          nested_values?(value, result)
-        end
-      end
-
-      result
-    end
 end
