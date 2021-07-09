@@ -298,6 +298,7 @@ class PointOfInterestsController < ApplicationController
         price_informations = []
         @point_of_interest_params["price_informations"].each do |_key, price_information|
           next if price_information.blank?
+          next unless nested_values?(price_information.to_h).include?(true)
 
           price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
           price_informations << price_information if price_information.values.filter(&:present?).any?
@@ -354,16 +355,20 @@ class PointOfInterestsController < ApplicationController
         next if lunch.blank?
 
         dates = []
-        lunch[:dates].each do |_key, date|
-          dates << date
+        if lunch[:dates].present?
+          lunch[:dates].each do |_key, date|
+            dates << date
+          end
+          lunch[:dates] = dates
         end
-        lunch[:dates] = dates
 
         lunch_offers = []
-        lunch[:lunch_offers].each do |_key, lunch_offer|
-          lunch_offers << lunch_offer if lunch_offer.values.filter(&:present?).any?
+        if lunch[:lunch_offers].present?
+          lunch[:lunch_offers].each do |_key, lunch_offer|
+            lunch_offers << lunch_offer if lunch_offer.values.filter(&:present?).any?
+          end
+          lunch[:lunch_offers] = lunch_offers
         end
-        lunch[:lunch_offers] = lunch_offers
 
         # Check recursively if any lunch data is given.
         # If not, we do not want to submit the params, because it would result in empty objects for

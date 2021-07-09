@@ -1,3 +1,6 @@
+<% fields = ["date_from", "date_to", "time_from", "time_to", "description", "weekday", "open"] %>
+<% list_of_opening_hours = record.opening_hours.presence || [OpenStruct.new] %>
+
 <div class="row">
   <div class="col">
     <h3 class="d-sm-flex align-items-center justify-content-between my-4">
@@ -6,22 +9,18 @@
   </div>
 </div>
 
-<% list_of_opening_hours = record.opening_hours.presence || [OpenStruct.new] %>
-
 <div id="nested-opening-hours">
   <% list_of_opening_hours.each_with_index do |opening_hour, index| %>
     <%= fields_for "#{record_type}[opening_hours][#{index}]", opening_hour do |foh|  %>
-      <div class="nested-opening-hour-form">
+      <div class="nested-opening-hour-form<%= " d-none" if empty?(opening_hour, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>
               Öffnungszeit
             </h4>
-            <input
-              type="button"
-              value="diese Öffnungszeit entfernen"
-              class="remove btn btn-sm btn-danger"
-            />
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
           </div>
           <div class="card-body">
             <div class="row">
@@ -100,11 +99,9 @@
   <% end %>
 </div>
 
-<input
-  type="button"
-  value="weitere Öffnungszeit hinzufügen"
-  id="nested-add-opening-hour"
-  class="btn btn-sm btn-secondary"
-/>
+<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-opening-hour" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Öffnungszeit hinzufügen
+<% end %>
 
 <hr />

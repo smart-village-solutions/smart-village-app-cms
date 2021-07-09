@@ -1,3 +1,6 @@
+<% fields = ["url", "description"] %>
+<% list_of_urls = record.urls.presence || [OpenStruct.new] %>
+
 <hr />
 
 <div class="row">
@@ -8,22 +11,18 @@
   </div>
 </div>
 
-<% list_of_urls = record.urls.presence || [OpenStruct.new] %>
-
 <div id="nested-web-urls">
   <% list_of_urls.each_with_index do |url, index| %>
     <%= fields_for "#{record_type}[urls][#{index}]", url do |furl|  %>
-      <div class="nested-web-url-form">
+      <div class="nested-web-url-form<%= " d-none" if empty?(url, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>
               Link
             </h4>
-            <input
-              type="button"
-              value="diesen Link entfernen"
-              class="remove btn btn-sm btn-danger"
-            />
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
           </div>
           <div class="card-body">
             <div class="row">
@@ -47,11 +46,9 @@
   <% end %>
 </div>
 
-<input
-  type="button"
-  value="weiteren Link hinzufügen"
-  id="nested-add-web-urls"
-  class="btn btn-sm btn-secondary"
-/>
+<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-web-urls" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Link hinzufügen
+<% end %>
 
 <hr />

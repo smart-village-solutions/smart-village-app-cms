@@ -71,7 +71,7 @@
 
   <hr />
 
-  <%= render partial: "shared/partials/contacts_form", locals: { record: job, form: f, fields: [] } %>
+  <%= render partial: "shared/partials/contacts_form", locals: { record: job, form: f, sections: [] } %>
 
   <div class="row">
     <div class="col">
@@ -92,8 +92,8 @@
         locals: {
           record: job,
           form: f,
-          fields: ['date_end'],
-          requireds: ['date_end'],
+          fields: ["date_end"],
+          requireds: ["date_end"],
           labels: {
             date_end: "Ablaufdatum"
           },

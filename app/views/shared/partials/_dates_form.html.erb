@@ -1,4 +1,5 @@
-<% fields ||= ['date_start', 'date_end'] %>
+<% fields ||= ["date_start", "date_end"] %>
+<% force_visibility ||= false %>
 <% requireds ||= [] %>
 <% labels ||= { date_start: "Startdatum", date_end: "Enddatum" } %>
 <% values ||= {} %>
@@ -7,9 +8,9 @@
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
     <%= form.fields_for "dates[#{index}]", date do |fd|  %>
-      <div class="nested-date-form">
+      <div class="nested-date-form<%= " d-none" if !force_visibility && empty?(date, fields) %>">
         <div class="row">
-          <% if fields.include?('date_start') %>
+          <% if fields.include?("date_start") %>
             <div class="col-12 col-sm-<%= 12 / fields.count %>">
               <div class="form-group">
                 <label for="description">
@@ -27,7 +28,7 @@
               </div>
             </div>
           <% end %>
-          <% if fields.include?('date_end') %>
+          <% if fields.include?("date_end") %>
             <div class="col-12 col-sm-<%= 12 / fields.count %>">
               <div class="form-group">
                 <label for="description">
