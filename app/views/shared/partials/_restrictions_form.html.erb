@@ -1,3 +1,4 @@
+<% fields = ["description"] %>
 <% list_of_restrictions = (@construction.payload || {})["restrictions"].presence || [OpenStruct.new] %>
 
 <div class="row">
@@ -11,17 +12,15 @@
 <div id="nested-restrictions">
   <% list_of_restrictions.each_with_index do |restriction, index| %>
     <%= fields_for "#{record_type}[payload][restrictions][#{index}]", restriction do |fr|  %>
-      <div class="nested-restriction-form">
+      <div class="nested-restriction-form<%= " d-none" if empty?(OpenStruct.new(restriction), fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>
               Eingrenzung
             </h4>
-            <input
-              type="button"
-              value="diese Eingrenzung entfernen"
-              class="remove btn btn-sm btn-danger"
-            />
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
           </div>
           <div class="card-body">
             <div class="row">
@@ -43,11 +42,9 @@
   <% end %>
 </div>
 
-<input
-  type="button"
-  value="weitere Eingrenzung hinzufügen"
-  id="nested-add-restriction"
-  class="btn btn-sm btn-secondary"
-/>
+<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-restriction" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Eingrenzung hinzufügen
+<% end %>
 
 <hr />

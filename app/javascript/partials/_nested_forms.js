@@ -44,7 +44,10 @@ $(function() {
   $('#nested-restrictions').nestedForm({
     forms: '.nested-restriction-form',
     adder: '#nested-add-restriction',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-restriction-form').removeClass('d-none');
+    }
   });
 
   $('#nested-web-urls').nestedForm({
