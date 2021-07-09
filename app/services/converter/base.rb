@@ -15,6 +15,8 @@ module Converter
 
     def cleanup(data)
       data.delete :id
+
+      data
     end
 
     def convert_to_json(data)
