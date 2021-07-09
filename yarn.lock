@@ -712,10 +712,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.9.0.tgz#1aa5c59efb1b8c6eb6277d1e3e8c8f31998b8c8e"
   integrity sha512-g795BBEzM/Hq2SYNPm/NQTIp3IWd4eXSH0ds87Na2jnrAUFX3wkyZAI4Gwj9DOaWMuz2/01i8oWI7P7T/XLkhg==
 
-"@kanety/jquery-nested-form@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@kanety/jquery-nested-form/-/jquery-nested-form-0.2.0.tgz#4ecd3141e1cf254764e76239428b33b203158581"
-  integrity sha512-+DVVwXpH5LqjmuDl8NZ9MZ/6di/0gfEUOe4Cocf3e2mSUJR4llQW7yiTk9tWUyzEqAgrg+Vn8Qe3vXuJ8C8UcQ==
+"@kanety/jquery-nested-form@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@kanety/jquery-nested-form/-/jquery-nested-form-0.6.0.tgz#cfc7f63ba2847ff0a6305cf9aaef1e33c1329274"
+  integrity sha512-VAEI7oxXj1YVRArkMdchQD+scSIhJDLK1/z8FHcoE+Bl6udreKfYnSfJXH1tWYQ9vWhuh0CaIrhWkQOvhHBQPg==
   dependencies:
     jquery "^3.3.1"
 

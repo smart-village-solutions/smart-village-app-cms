@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.9.0",
-    "@kanety/jquery-nested-form": "^0.2.0",
+    "@kanety/jquery-nested-form": "^0.6.0",
     "@rails/actioncable": "^6.0.3-4",
     "@rails/activestorage": "^6.0.3-4",
     "@rails/ujs": "^6.0.3-4",
