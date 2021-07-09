@@ -21,7 +21,7 @@
     "startbootstrap-sb-admin-2": "^4.0.6",
     "turbolinks": "^5.2.0",
     "vue": "^2.6.10",
-    "vue-loader": "^15.7.0",
+    "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.10"
   },
   "version": "0.1.0",
