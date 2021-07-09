@@ -39,8 +39,9 @@
   </div>
 </div>
 
-<% contact.web_urls.each do |web_url| %>
-  <%= fields_for :web_url, web_url do |fu|  %>
+<% list_of_web_urls = contact.web_urls.presence || [OpenStruct.new] %>
+<% list_of_web_urls.each do |web_url| %>
+  <%= form.fields_for :web_urls, web_url do |fu| %>
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">

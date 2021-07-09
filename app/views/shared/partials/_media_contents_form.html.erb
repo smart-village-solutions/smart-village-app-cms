@@ -1,11 +1,11 @@
 <% form_class ||= "nested-media" %>
+<% fields = ["source_url", "caption_text", "content_type", "copyright"] %>
 <% list_of_media_contents = record.media_contents.presence || [OpenStruct.new] %>
 
-<!-- TODO: Dateien entfernen und ergänzen geht nur im ersten Bereich!!! -->
 <div class="<%= form_class %>">
   <% list_of_media_contents.each_with_index do |media_content, index| %>
     <%= form.fields_for "media_contents[#{index}]", media_content do |fmc| %>
-      <div class="nested-medium-form">
+      <div class="nested-medium-form<%= " d-none" if empty?(media_content, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>Datei</h4>

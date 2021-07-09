@@ -17,32 +17,47 @@ $(function() {
   $('#nested-dates').nestedForm({
     forms: '.nested-date-form',
     adder: '#nested-add-dates',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-date-form').removeClass('d-none');
+    }
   });
 
   $('#nested-contacts').nestedForm({
     forms: '.nested-contact-form',
     adder: '#nested-add-contacts',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-contact-form').removeClass('d-none');
+    }
   });
 
   $('#nested-price_informations').nestedForm({
     forms: '.nested-price_information-form',
     adder: '#nested-add-price_information',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-price_information-form').removeClass('d-none');
+    }
   });
 
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
     ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-web-url-form').removeClass('d-none');
+    },
     associations: 'urls' // needed to correctly increment ids of added sections
   });
 
   $('#nested-opening-hours').nestedForm({
     forms: '.nested-opening-hour-form',
     adder: '#nested-add-opening-hour',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-opening-hour-form').removeClass('d-none');
+    }
   });
 
   // media not nested in a content block, for example in events.
@@ -50,7 +65,10 @@ $(function() {
   $('.nested-media').nestedForm({
     forms: '.nested-medium-form',
     adder: '.nested-add-medium',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-medium-form').removeClass('d-none');
+    }
   });
 });
 /* eslint-enable func-names */

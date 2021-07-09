@@ -1,5 +1,7 @@
-<% fields ||= ['header', 'button'] %>
+<% sections ||= ["header", "button"] %>
 <% headline ||= "Ansprechpartner"  %>
+<% fields = ["first_name", "last_name", "email", "phone", "fax", "web_urls"] %>
+<% list_of_contacts = record.contacts.presence || [OpenStruct.new] %>
 
 <div class="row">
   <div class="col">
@@ -9,14 +11,12 @@
   </div>
 </div>
 
-<% list_of_contacts = record.contacts.presence || [OpenStruct.new(web_urls: [OpenStruct.new])] %>
-
 <div id="nested-contacts">
   <% list_of_contacts.each_with_index do |contact, index| %>
     <%= form.fields_for "contacts[#{index}]", contact do |fc|  %>
-      <div class="nested-contact-form">
+      <div class="nested-contact-form<%= " d-none" if empty?(contact, fields) %>">
         <div class="card mb-4">
-          <% if fields.include?('header') %>
+          <% if sections.include?("header") %>
             <div class="d-flex flex-wrap justify-content-between card-header py-3  bg-dark text-white">
               <h4>
                 Kontakt
@@ -35,7 +35,7 @@
   <% end %>
 </div>
 
-<% if fields.include?('button') %>
+<% if sections.include?("button") %>
   <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-contacts" do %>
     <i class="fas fa-plus text-white mr-2"></i>
     Kontakt hinzufügen

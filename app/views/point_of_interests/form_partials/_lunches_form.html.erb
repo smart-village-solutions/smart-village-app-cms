@@ -1,6 +1,6 @@
-<hr />
-
 <% list_of_lunches = record.lunches.presence || [OpenStruct.new] %>
+
+<hr />
 
 <div class="row">
   <div class="col">
@@ -40,6 +40,7 @@
                       locals: {
                         record: lunch,
                         form: fl,
+                        force_visibility: true
                       }
                     ) %>
 
