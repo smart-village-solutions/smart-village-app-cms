@@ -8,7 +8,7 @@ class ConstructionsController < ApplicationController
   def index
     results = @smart_village.query <<~GRAPHQL
       query {
-        genericItems(genericType: "Baustelle") {
+        genericItems(genericType: "ConstructionSite") {
           id
           title
           payload
@@ -156,7 +156,7 @@ class ConstructionsController < ApplicationController
 
     def new_generic_item
       OpenStruct.new(
-        generic_type: "Baustelle",
+        generic_type: "ConstructionSite",
         content_blocks: [OpenStruct.new],
         media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
         dates: [OpenStruct.new]
