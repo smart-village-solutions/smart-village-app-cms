@@ -5,7 +5,7 @@
     "dev-server": "bin/webpack-dev-server"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.9.0",
+    "@fortawesome/fontawesome-free": "5.15.3",
     "@kanety/jquery-nested-form": "^0.2.0",
     "@rails/actioncable": "^6.0.3-4",
     "@rails/activestorage": "^6.0.3-4",
