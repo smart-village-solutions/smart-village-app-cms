@@ -34,9 +34,9 @@
                       form_class: "nested-media-content-block"
                     }
                   ) %>
-            <% end %>
 
-            <hr />
+              <hr />
+            <% end %>
 
             <div class="row">
               <div class="col">
@@ -50,7 +50,6 @@
                   <div class="form-group">
                     <label for="description">Einleitung</label>
                     <%= fcb.text_area :intro, class: "form-control html-editor", rows: 5 %>
-                    <!-- TODO: HTML Editor muss auch bei hinzugefügten Bereichen funktionieren. -->
                     <p class="hint">Dieser Text wird hervorgehoben dargestellt.</p>
                   </div>
                 <% end %>
@@ -58,7 +57,6 @@
                   <div class="form-group">
                     <label for="description">Text</label>
                     <%= fcb.text_area :body, class: "form-control html-editor html-editor-text", rows: 10 %>
-                    <!-- TODO: HTML Editor muss auch bei hinzugefügten Bereichen funktionieren. -->
                   </div>
                 <% end %>
               </div>

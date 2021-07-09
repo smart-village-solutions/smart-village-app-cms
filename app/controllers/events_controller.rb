@@ -208,14 +208,12 @@ class EventsController < ApplicationController
   def update
     old_id = params[:id]
     query = create_params
+    logger.warn(query)
+
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_event_path(old_id)
-      return
-    rescue Graphlient::Errors::ClientError => e
-      flash[:error] = e.inspect
       redirect_to edit_event_path(old_id)
       return
     end
@@ -224,6 +222,7 @@ class EventsController < ApplicationController
 
     if new_id.present? && new_id != old_id
       # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
+
       destroy_results = @smart_village.query <<~GRAPHQL
         mutation {
           destroyRecord(
@@ -365,22 +364,5 @@ class EventsController < ApplicationController
           @event_params.delete :organizer
         end
       end
-    end
-
-    # check for present values recursively
-    def nested_values?(value_to_check, result = [])
-      result << true if value_to_check.class == String && value_to_check.present?
-
-      if value_to_check.class == Array
-        value_to_check.each do |value|
-          nested_values?(value, result)
-        end
-      elsif value_to_check.class.to_s.include?("Hash")
-        value_to_check.each do |_key, value|
-          nested_values?(value, result)
-        end
-      end
-
-      result
     end
 end

@@ -1,4 +1,4 @@
-<%= form.fields_for :accessibility_information, record.accessibility_information do |fai|  %>
+<%= form.fields_for :accessibility_information, record.accessibility_information do |fai| %>
   <div class="row">
     <div class="col-lg-6">
       <div class="form-group">
@@ -16,7 +16,7 @@
   </div>
 
   <% record.urls.each do |url| %>
-    <%= fields_for :urls, url do |furl|  %>
+    <%= fields_for :urls, url do |furl| %>
       <div class="row">
         <div class="col-lg-6">
           <div class="form-group">

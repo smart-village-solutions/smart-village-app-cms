@@ -1,4 +1,4 @@
-<%= fields_for :point_of_interest, point_of_interest do |f|  %>
+<%= fields_for :point_of_interest, point_of_interest do |f| %>
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -75,7 +75,7 @@
   </div>
 
   <% contact = point_of_interest.try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) %>
-  <%= f.fields_for "contact", contact do |fc|  %>
+  <%= f.fields_for "contact", contact do |fc| %>
     <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
   <% end %>
 

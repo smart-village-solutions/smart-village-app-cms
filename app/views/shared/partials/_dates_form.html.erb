@@ -7,7 +7,7 @@
 
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
-    <%= form.fields_for "dates[#{index}]", date do |fd|  %>
+    <%= form.fields_for "dates[#{index}]", date do |fd| %>
       <div class="nested-date-form<%= " d-none" if !force_visibility && empty?(date, fields) %>">
         <div class="row">
           <% if fields.include?("date_start") %>
@@ -23,7 +23,7 @@
                       :date_start,
                       required: requireds.include?("date_start"),
                       class: "form-control",
-                      value: fd.object.date_start
+                      value: fd.object.date_start || values[:date_start].presence
                     ) %>
               </div>
             </div>
@@ -51,3 +51,9 @@
     <% end %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $('#construction_dates_0__date_start').change(function() {
+    $('#construction_dates_0__date_end').val($('#construction_dates_0__date_start').val())
+  });
+</script>

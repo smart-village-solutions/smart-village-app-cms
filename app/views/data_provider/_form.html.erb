@@ -1,4 +1,4 @@
-<%= fields_for :data_provider, data_provider do |f|  %>
+<%= fields_for :data_provider, data_provider do |f| %>
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <%= f.fields_for :logo_attributes, OpenStruct.new(data_provider["logo"]) do |fadd|  %>
+  <%= f.fields_for :logo_attributes, OpenStruct.new(data_provider["logo"]) do |fadd| %>
     <%= fadd.hidden_field :id %>
 
     <div class="row">
@@ -43,7 +43,7 @@
     </div>
   <% end %>
 
-  <%= f.fields_for :address_attributes, OpenStruct.new(data_provider["address"]) do |fadd|  %>
+  <%= f.fields_for :address_attributes, OpenStruct.new(data_provider["address"]) do |fadd| %>
   <%= fadd.hidden_field :id %>
     <div class="row">
       <div class="col">
@@ -86,7 +86,7 @@
     </div>
   <% end %>
 
-<%= f.fields_for :contact_attributes, OpenStruct.new(data_provider["contact"]) do |fadd|  %>
+<%= f.fields_for :contact_attributes, OpenStruct.new(data_provider["contact"]) do |fadd| %>
   <%= fadd.hidden_field :id %>
     <div class="row">
       <div class="col">
@@ -143,4 +143,3 @@
     <%= f.submit "Speichern", class: "btn btn-primary btn--big" %>
   </div>
 <% end %>
-

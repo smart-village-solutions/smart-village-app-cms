@@ -23,10 +23,10 @@
     <tbody>
       <% @offers.each do |offer| %>
         <tr>
-          <td scope="row"><%= offer.id %></td>
-          <td scope="row"><%= link_to offer.title, edit_offer_path(offer.id) %></td>
-          <td scope="row"><%= toLocalDateTime(offer.updated_at) %></td>
-          <td scope="row"><%= toLocalDateTime(offer.created_at) %></td>
+          <th scope="row"><%= offer.id %></th>
+          <td><%= link_to offer.title, edit_offer_path(offer.id) %></td>
+          <td><%= toLocalDateTime(offer.updated_at) %></td>
+          <td><%= toLocalDateTime(offer.created_at) %></td>
           <% if editor? %>
             <td><%= offer.data_provider.name %></td>
           <% end %>

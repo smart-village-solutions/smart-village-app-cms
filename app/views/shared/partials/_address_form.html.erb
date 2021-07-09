@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<%= form.fields_for :geo_location, address.try(:geo_location) || OpenStruct.new do |fgeo|  %>
+<%= form.fields_for :geo_location, address.try(:geo_location) || OpenStruct.new do |fgeo| %>
   <div class="row">
     <div class="col-lg-6">
       <div class="form-group">

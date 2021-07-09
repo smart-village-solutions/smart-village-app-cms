@@ -41,6 +41,15 @@ $(function() {
     }
   });
 
+  $('#nested-restrictions').nestedForm({
+    forms: '.nested-restriction-form',
+    adder: '#nested-add-restriction',
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-restriction-form').removeClass('d-none');
+    }
+  });
+
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',

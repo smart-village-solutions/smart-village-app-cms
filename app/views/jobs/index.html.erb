@@ -24,11 +24,11 @@
     <tbody>
       <% @jobs.each do |job| %>
         <tr>
-          <td scope="row"><%= job.id %></td>
-          <td scope="row"><%= link_to job.title, edit_job_path(job.id) %></td>
-          <td scope="row"><%= (job.payload || {})["employmentType"] %></td>
-          <td scope="row"><%= toLocalDateTime(job.updated_at) %></td>
-          <td scope="row"><%= toLocalDateTime(job.created_at) %></td>
+          <th scope="row"><%= job.id %></th>
+          <td><%= link_to job.title, edit_job_path(job.id) %></td>
+          <td><%= (job.payload || {})["employmentType"] %></td>
+          <td><%= toLocalDateTime(job.updated_at) %></td>
+          <td><%= toLocalDateTime(job.created_at) %></td>
           <% if editor? %>
             <td><%= job.data_provider.name %></td>
           <% end %>

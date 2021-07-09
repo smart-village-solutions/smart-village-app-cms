@@ -3,7 +3,7 @@
 class PointOfInterestsController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
-  before_action :load_category_list, only: [:edit, :new, :create]
+  before_action :load_category_list, only: [:edit, :new]
 
   def index
     results = @smart_village.query <<~GRAPHQL
@@ -394,22 +394,5 @@ class PointOfInterestsController < ApplicationController
         end
       end
       @point_of_interest_params["lunches"] = lunches
-    end
-
-    # check for present values recursively
-    def nested_values?(value_to_check, result = [])
-      result << true if value_to_check.class == String && value_to_check.present?
-
-      if value_to_check.class == Array
-        value_to_check.each do |value|
-          nested_values?(value, result)
-        end
-      elsif value_to_check.class.to_s.include?("Hash")
-        value_to_check.each do |_key, value|
-          nested_values?(value, result)
-        end
-      end
-
-      result
     end
 end

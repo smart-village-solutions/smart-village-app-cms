@@ -2,7 +2,7 @@
 
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
-    <%= fields_for "event[dates][#{index}]", date do |fd|  %>
+    <%= fields_for "event[dates][#{index}]", date do |fd| %>
       <div class="nested-date-form">
         <div class="row">
           <div class="col-12 col-sm-6">

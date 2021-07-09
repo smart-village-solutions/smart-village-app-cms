@@ -11,7 +11,7 @@
 
 <div id="nested-opening-hours">
   <% list_of_opening_hours.each_with_index do |opening_hour, index| %>
-    <%= fields_for "#{record_type}[opening_hours][#{index}]", opening_hour do |foh|  %>
+    <%= fields_for "#{record_type}[opening_hours][#{index}]", opening_hour do |foh| %>
       <div class="nested-opening-hour-form<%= " d-none" if empty?(opening_hour, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">

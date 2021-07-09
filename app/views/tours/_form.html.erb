@@ -1,4 +1,4 @@
-<%= fields_for :tour, tour do |f|  %>
+<%= fields_for :tour, tour do |f| %>
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -82,7 +82,7 @@
   </div>
 
   <% contact = tour.try(:contact) || OpenStruct.new(web_urls: [OpenStruct.new]) %>
-  <%= f.fields_for "contact", contact do |fc|  %>
+  <%= f.fields_for "contact", contact do |fc| %>
     <%= render partial: "shared/partials/contact_form", locals: { form: fc, contact: contact } %>
   <% end %>
 

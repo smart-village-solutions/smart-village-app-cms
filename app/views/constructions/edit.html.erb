@@ -1,0 +1,13 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">
+    Baustelle bearbeiten
+  </h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <%= form_with(url: construction_path(@construction.id), method: :patch, local: true) do %>
+      <%= render partial: "constructions/form", locals: { construction: @construction } %>
+    <% end %>
+  </div>
+</div>

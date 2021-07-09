@@ -1,0 +1,50 @@
+<% fields = ["description"] %>
+<% list_of_restrictions = (@construction.payload || {})["restrictions"].presence || [OpenStruct.new] %>
+
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      Eingrenzung
+    </h3>
+  </div>
+</div>
+
+<div id="nested-restrictions">
+  <% list_of_restrictions.each_with_index do |restriction, index| %>
+    <%= fields_for "#{record_type}[payload][restrictions][#{index}]", restriction do |fr| %>
+      <div class="nested-restriction-form<%= " d-none" if empty?(OpenStruct.new(restriction), fields) %>">
+        <div class="card mb-4">
+          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+            <h4>
+              Eingrenzung
+            </h4>
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="description">Beschreibung</label>
+                  <%= fr.text_field(
+                        :description,
+                        class: "form-control",
+                        value: restriction["description"]
+                      ) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-restriction" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Eingrenzung hinzufügen
+<% end %>
+
+<hr />
