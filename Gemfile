@@ -39,7 +39,7 @@ gem "kaminari"
 gem "rollbar"
 
 # https://github.com/kanety/jquery-nested-form
-gem "nested_form_fields"
+gem "nested_form_fields", ">= 0.8.2"
 
 gem "unicorn"
 
