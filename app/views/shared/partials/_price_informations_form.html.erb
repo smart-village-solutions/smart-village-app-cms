@@ -17,11 +17,9 @@
             <h4>
               Preiskategorie
             </h4>
-            <input
-              type="button"
-              value="diese Preiskategorie entfernen"
-              class="remove btn btn-sm btn-danger"
-            />
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
           </div>
           <div class="card-body">
             <div class="row">
@@ -45,11 +43,9 @@
   <% end %>
 </div>
 
-<input
-  type="button"
-  value="weitere Preiskategorie hinzufügen"
-  id="nested-add-price_information"
-  class="btn btn-sm btn-secondary"
-/>
+<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-price_information" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Preiskategorie hinzufügen
+<% end %>
 
 <hr />
