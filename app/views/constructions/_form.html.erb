@@ -1,4 +1,4 @@
-<%= fields_for :construction, construction do |f|  %>
+<%= fields_for :construction, construction do |f| %>
   <%= hidden_field_tag "construction[generic_type]", @construction.generic_type %>
 
   <div class="row">
@@ -89,7 +89,7 @@
         <label for="description">Latitude</label>
         <% list_of_locations = construction.locations.presence || [OpenStruct.new(geo_location: nil)] %>
         <% list_of_locations.each_with_index do |location, index| %>
-          <%= fields_for "construction[locations][#{index}][geo_location]", location.geo_location do |fl|  %>
+          <%= fields_for "construction[locations][#{index}][geo_location]", location.geo_location do |fl| %>
             <%= fl.text_field :latitude, class: "form-control" %>
           <% end %>
         <% end %>
@@ -100,7 +100,7 @@
       <div class="form-group">
         <label for="description">Longitude</label>
         <% list_of_locations.each_with_index do |location, index| %>
-          <%= fields_for "construction[locations][#{index}][geo_location]", location.geo_location do |fl|  %>
+          <%= fields_for "construction[locations][#{index}][geo_location]", location.geo_location do |fl| %>
             <%= fl.text_field :longitude, class: "form-control" %>
           <% end %>
         <% end %>

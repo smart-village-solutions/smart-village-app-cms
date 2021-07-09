@@ -7,7 +7,7 @@
 
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
-    <%= form.fields_for "dates[#{index}]", date do |fd|  %>
+    <%= form.fields_for "dates[#{index}]", date do |fd| %>
       <div class="nested-date-form<%= " d-none" if !force_visibility && empty?(date, fields) %>">
         <div class="row">
           <% if fields.include?("date_start") %>
