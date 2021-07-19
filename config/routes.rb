@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   resources :jobs
   resources :offers
   resources :surveys
+  get "/surveys/:survey_id/comments", to: "survey_comments#index", as: :survey_comments
   get "/data_provider", to: "data_provider#edit"
   get "/visibility/:item_type/:id/:visible", to: "data_provider#visibility"
+  get "/visibility/:item_type/:id/:visible/:parent_id", to: "data_provider#visibility"
   patch "/data_provider", to: "data_provider#update"
   match "/login", to: "session#create", as: :log_in, via: %i[get post]
   get "/logout", to: "session#destroy"

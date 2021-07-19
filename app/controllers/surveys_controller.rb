@@ -17,6 +17,9 @@ class SurveysController < ApplicationController
           }
           updatedAt
           createdAt
+          comments: surveyComments {
+            id
+          }
         }
       }
     GRAPHQL
