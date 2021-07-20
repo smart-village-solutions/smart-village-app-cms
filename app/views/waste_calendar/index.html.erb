@@ -28,7 +28,7 @@
           <td><%= waste_address.zip %></td>
           <% @waste_types.each do |key, waste_type| %>
             <% waste_location_types = waste_address.waste_location_types.select{ |a| a.waste_type == key } %>
-            <td>
+            <td class="text-nowrap">
               <ul>
                 <% waste_location_types.map(&:list_pick_up_dates).each do |list_pick_up_dates| %>
                   <% list_pick_up_dates.each do |list_pick_up_date| %>
