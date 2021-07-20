@@ -1,5 +1,5 @@
 <% fields = ["description"] %>
-<% list_of_restrictions = (@construction.payload || {})["restrictions"].presence || [OpenStruct.new] %>
+<% list_of_restrictions = (record.payload || {})["restrictions"].presence || [OpenStruct.new] %>
 
 <div class="row">
   <div class="col">
