@@ -15,6 +15,10 @@ class ConstructionsController < ApplicationController
           dataProvider {
             name
           }
+          dates {
+            dateStart
+            dateEnd
+          }
           updatedAt
           createdAt
         }

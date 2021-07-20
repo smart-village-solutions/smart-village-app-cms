@@ -12,6 +12,8 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
+        <th scope="col">Startdatum</th>
+        <th scope="col">Enddatum</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -25,6 +27,8 @@
         <tr>
           <th scope="row"><%= construction.id %></th>
           <td><%= link_to construction.title, edit_construction_path(construction.id) %></td>
+          <td><%= toLocalDateTime(construction.dates.try(:first).try(:date_start)) %></td>
+          <td><%= toLocalDateTime(construction.dates.try(:first).try(:date_end)) %></td>
           <td><%= toLocalDateTime(construction.updated_at) %></td>
           <td><%= toLocalDateTime(construction.created_at) %></td>
           <% if editor? %>

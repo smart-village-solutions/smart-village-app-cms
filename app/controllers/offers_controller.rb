@@ -13,6 +13,10 @@ class OffersController < ApplicationController
           dataProvider {
             name
           }
+          publicationDate
+          dates {
+            dateEnd
+          }
           updatedAt
           createdAt
         }

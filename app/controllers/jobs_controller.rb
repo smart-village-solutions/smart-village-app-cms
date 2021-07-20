@@ -14,6 +14,10 @@ class JobsController < ApplicationController
           dataProvider {
             name
           }
+          publicationDate
+          dates {
+            dateEnd
+          }
           updatedAt
           createdAt
         }

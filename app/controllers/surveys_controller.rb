@@ -15,6 +15,10 @@ class SurveysController < ApplicationController
           dataProvider {
             name
           }
+          date {
+            dateStart
+            dateEnd
+          }
           updatedAt
           createdAt
           comments: surveyComments {
