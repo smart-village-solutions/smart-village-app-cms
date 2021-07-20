@@ -65,6 +65,7 @@ class ConstructionsController < ApplicationController
             dateEnd
           }
           locations {
+            name
             geoLocation {
               latitude
               longitude
