@@ -31,7 +31,7 @@
           <td><%= toLocalDateTime(event.updated_at) %></td>
           <td><%= toLocalDateTime(event.created_at) %></td>
           <% if editor? %>
-            <td><%= event.data_provider.name %></td>
+            <td><%= event.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(event, "EventRecord") %></td>
           <% end %>
           <td align="right" class="text-nowrap">

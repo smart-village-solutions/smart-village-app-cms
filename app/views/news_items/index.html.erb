@@ -38,7 +38,7 @@
           <td><%= toLocalDateTime(news_item.updated_at) %></td>
           <td><%= toLocalDateTime(news_item.created_at) %></td>
           <% if editor? %>
-            <td><%= news_item.data_provider.name %></td>
+            <td><%= news_item.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(news_item, "NewsItem") %></td>
           <% end %>
           <td align="right" class="text-nowrap">

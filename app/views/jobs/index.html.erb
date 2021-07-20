@@ -30,7 +30,7 @@
           <td><%= toLocalDateTime(job.updated_at) %></td>
           <td><%= toLocalDateTime(job.created_at) %></td>
           <% if editor? %>
-            <td><%= job.data_provider.name %></td>
+            <td><%= job.data_provider.try(:name) %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_job_path(job.id), class: "btn btn-sm btn-secondary" %>
