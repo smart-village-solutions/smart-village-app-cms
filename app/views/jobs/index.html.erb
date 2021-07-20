@@ -13,6 +13,8 @@
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
         <th scope="col">Art der Anstellung</th>
+        <th scope="col">Veröffentlichungsdatum</th>
+        <th scope="col">Ablaufdatum</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -27,6 +29,8 @@
           <th scope="row"><%= job.id %></th>
           <td><%= link_to job.title, edit_job_path(job.id) %></td>
           <td><%= (job.payload || {})["employmentType"] %></td>
+          <td><%= toLocalDateTime(job.publication_date.try(:to_date)) %></td>
+          <td><%= toLocalDateTime(job.dates.try(:first).try(:date_end)) %></td>
           <td><%= toLocalDateTime(job.updated_at) %></td>
           <td><%= toLocalDateTime(job.created_at) %></td>
           <% if editor? %>
