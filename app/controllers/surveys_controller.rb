@@ -89,12 +89,13 @@ class SurveysController < ApplicationController
 
     def load_languages
       languages = @smart_village.query <<~GRAPHQL
-      query {
-        publicJsonFile(name: "languages") {
-          content
+        query {
+          publicJsonFile(name: "languages") {
+            content
+          }
         }
-      }
       GRAPHQL
+
       @languages = JSON.parse(languages.data.public_json_file.content)
     end
 
