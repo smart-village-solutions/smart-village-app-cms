@@ -29,7 +29,7 @@
           <td><%= toLocalDateTime(tour.updated_at) %></td>
           <td><%= toLocalDateTime(tour.created_at) %></td>
           <% if editor? %>
-            <td><%= tour.data_provider.name %></td>
+            <td><%= tour.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(tour, "Tour") %></td>
           <% end %>
           <td align="right" class="text-nowrap">

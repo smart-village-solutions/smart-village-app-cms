@@ -29,7 +29,7 @@
           <td><%= toLocalDateTime(poi.updated_at) %></td>
           <td><%= toLocalDateTime(poi.created_at) %></td>
           <% if editor? %>
-            <td><%= poi.data_provider.name %></td>
+            <td><%= poi.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(poi, "PointOfInterest") %></td>
           <% end %>
           <td align="right" class="text-nowrap">

@@ -28,7 +28,7 @@
           <td><%= toLocalDateTime(construction.updated_at) %></td>
           <td><%= toLocalDateTime(construction.created_at) %></td>
           <% if editor? %>
-            <td><%= construction.data_provider.name %></td>
+            <td><%= construction.data_provider.try(:name) %></td>
           <% end %>
           <td align="right" class="text-nowrap">
             <%= link_to "Bearbeiten", edit_construction_path(construction.id), class: "btn btn-sm btn-secondary" %>
