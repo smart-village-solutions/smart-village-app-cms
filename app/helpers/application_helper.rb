@@ -39,9 +39,17 @@ module ApplicationHelper
       "visible-#{item.id}",
       "",
       class: "custom-control-label",
-      onclick: "location.href = '/visibility/#{item_class}/#{item.id}/#{item.visible ? 'false' : 'true'}';"
+      onclick: visibility_location_href(item, item_class)
     )
 
     content_tag("div", input_switch + label_switch, class: "custom-control custom-switch")
+  end
+
+  private
+
+  def visibility_location_href(item, item_class)
+    return "location.href = '/visibility/#{item_class}/#{item.id}/#{item.visible ? 'false' : 'true'}/#{item.survey_poll_id}';" if item_class === "Survey_Comment"
+
+    "location.href = '/visibility/#{item_class}/#{item.id}/#{item.visible ? 'false' : 'true'}';"
   end
 end

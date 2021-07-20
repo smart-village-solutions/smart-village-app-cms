@@ -1,0 +1,39 @@
+<% response_options = survey.response_options.presence || Array.new(10, OpenStruct.new) %>
+
+<%# fill up response options to render always 10 %>
+<% if response_options.count < 10 %>
+  <% response_options = response_options + Array.new(10 - response_options.count, OpenStruct.new) %>
+<% end %>
+
+<div id="nested-response-options">
+  <% response_options.each_with_index do |response_option, index| %>
+    <%= fields_for "survey[response_options][#{index}]", response_option do |fro|  %>
+      <div class="nested-response-option-form">
+        <%= fro.hidden_field :id, name: "survey[response_options][#{index}][id]" %>
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (deutsch)<%= " *" if [0, 1].include?(index) %></label>
+              <%= fro.text_field :title_de, name: "survey[response_options][#{index}][title][de]", class: "form-control", maxlength: "150", required: [0, 1].include?(index) %>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (polnisch)</label>
+              <%= fro.text_field :title_pl, name: "survey[response_options][#{index}][title][pl]", class: "form-control", maxlength: "150" %>
+            </div>
+          </div>
+        </div>
+        <% if response_option.votes_count.present? %>
+          <div class="row">
+            <div class="col-12">
+              <div class="alert alert-secondary" role="alert">
+                Anzahl Stimmen: <%= response_option.votes_count %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

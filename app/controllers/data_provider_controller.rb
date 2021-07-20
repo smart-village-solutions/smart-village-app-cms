@@ -43,7 +43,7 @@ class DataProviderController < ApplicationController
       mutation {
         changeVisibility (
           id: #{params[:id]},
-          recordType: "#{params[:item_type]}",
+          recordType: "#{visibility_record_type(params)}",
           visible: #{params[:visible] == "true"}
         ) {
           id
@@ -53,10 +53,22 @@ class DataProviderController < ApplicationController
       }
     GRAPHQL
 
-    if params[:item_type] === "EventRecord"
-      redirect_to "/events"
-    else
-      redirect_to "/#{params[:item_type].underscore.pluralize}"
-    end
+    redirect_to visibility_redirect_to(params)
   end
+
+  private
+
+    def visibility_record_type(params)
+      return "Survey::Poll" if params[:item_type] === "Survey"
+      return "Survey::Comment" if params[:item_type] === "Survey_Comment"
+
+      params[:item_type]
+    end
+
+    def visibility_redirect_to(params)
+      return "/events" if params[:item_type] === "EventRecord"
+      return "/surveys/#{params[:parent_id]}/comments" if params[:item_type] === "Survey_Comment"
+
+      "/#{params[:item_type].underscore.pluralize}"
+    end
 end

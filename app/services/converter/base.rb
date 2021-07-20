@@ -1,7 +1,8 @@
 module Converter
   class Base
-    def build_mutation(name, entry)
-      data = cleanup_and_convert_to_json(entry)
+    def build_mutation(name, data)
+      data = cleanup(data) unless name.downcase.include?("update")
+      data = convert_to_json(data)
       data = convert_keys_to_camelcase(data)
       data = remove_quotes_from_keys(data)
       data = remove_quotes_from_boolean_values(data)
@@ -12,10 +13,14 @@ module Converter
       "mutation { #{name} (forceCreate: true, #{data}) {id} }"
     end
 
-    def cleanup_and_convert_to_json(entry)
-      entry.delete :id
+    def cleanup(data)
+      data.delete :id
 
-      JSON.parse(entry.to_json)
+      data
+    end
+
+    def convert_to_json(data)
+      JSON.parse(data.to_json)
     end
 
     def convert_keys_to_camelcase(data)

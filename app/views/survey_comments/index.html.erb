@@ -1,0 +1,44 @@
+<div class="d-flex align-items-center justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold">Kommentare zur Umfrage <%= params[:survey_id] %></h1>
+</div>
+
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Text</th>
+        <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th scope="col" class="nosort">Sichtbarkeit</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @survey_comments.each do |survey_comment| %>
+        <tr>
+          <th scope="row"><%= survey_comment.id %></th>
+          <td>
+            <% if survey_comment.message.length > 100 %>
+              <%= link_to(
+                    survey_comment.message.truncate(100),
+                    "#",
+                    data: { toggle: "modal", target: "#message_#{survey_comment.id}" }
+                  ) %>
+              <%= render(
+                    partial: "survey_comments/modal_message",
+                    locals: { survey_comment: survey_comment }
+                  ) %>
+            <% else %>
+              <%= survey_comment.message %>
+            <% end %>
+          </td>
+          <td><%= toLocalDateTime(survey_comment.created_at) %></td>
+          <% if editor? %>
+            <td align="center"><%= visibility_switch(survey_comment, "Survey_Comment") %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
