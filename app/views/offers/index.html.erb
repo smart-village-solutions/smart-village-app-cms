@@ -12,6 +12,8 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
+        <th scope="col">Veröffentlichungsdatum</th>
+        <th scope="col">Ablaufdatum</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -25,6 +27,8 @@
         <tr>
           <th scope="row"><%= offer.id %></th>
           <td><%= link_to offer.title, edit_offer_path(offer.id) %></td>
+          <td><%= toLocalDateTime(offer.publication_date.try(:to_date)) %></td>
+          <td><%= toLocalDateTime(offer.dates.try(:first).try(:date_end)) %></td>
           <td><%= toLocalDateTime(offer.updated_at) %></td>
           <td><%= toLocalDateTime(offer.created_at) %></td>
           <% if editor? %>
