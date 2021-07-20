@@ -57,6 +57,10 @@ body.app {
   }
 }
 
+.row-gap {
+  row-gap: 10px;
+}
+
 body .table {
   color: #11223f;
 }
