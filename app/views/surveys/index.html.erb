@@ -13,6 +13,8 @@
         <th scope="col">ID</th>
         <th scope="col">Titel</th>
         <th scope="col">Kommentare</th>
+        <th scope="col">Startdatum</th>
+        <th scope="col">Enddatum</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -33,6 +35,8 @@
                   survey.comments.count :
                     (link_to survey.comments.count, survey_comments_path(survey.id)) %>
           </td>
+          <td><%= toLocalDateTime(survey.date.try(:date_start)) %></td>
+          <td><%= toLocalDateTime(survey.date.try(:date_end)) %></td>
           <td><%= toLocalDateTime(survey.updated_at) %></td>
           <td><%= toLocalDateTime(survey.created_at) %></td>
           <% if editor? %>
