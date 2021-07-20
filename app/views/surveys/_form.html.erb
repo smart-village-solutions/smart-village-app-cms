@@ -62,7 +62,13 @@
         Stimmen abgegeben wurden.
       </p>
 
-      <p><small>(min. 2, max. 10, Zeichenlänge max. 150, in <%= @languages.join(" und ") %>)</small></p>
+      <% if @languages.present? %>
+        <p>
+          <small>
+            (min. 2, max. 10, Zeichenlänge max. 150, in <%= @languages.join(" und ") %>)
+          </small>
+        </p>
+      <% end %>
 
       <%= render partial: "surveys/form_partials/response_options_form", locals: { survey: survey, form: f  } %>
     </div>
