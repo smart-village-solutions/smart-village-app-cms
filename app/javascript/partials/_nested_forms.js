@@ -11,7 +11,10 @@ $(function() {
   $('#nested-categories').nestedForm({
     forms: '.nested-category-form',
     adder: '#nested-add-category',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($form) => {
+      $form.children('.nested-category-form').removeClass('d-none');
+    }
   });
 
   $('#nested-dates').nestedForm({
