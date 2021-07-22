@@ -37,8 +37,8 @@ $(function() {
         forms: `.nested-lunch-offer-form-${timestamp}`,
         adder: `.nested-add-lunch-offer-${timestamp}`,
         ...defaultNestedFormsOptions,
-        beforeAddForm: ($form) => {
-          $form.children(`.nested-lunch-offer-form-${timestamp}`).removeClass('d-none');
+        beforeAddForm: ($container) => {
+          $container.children(`.nested-lunch-offer-form-${timestamp}`).removeClass('d-none');
         },
         associations: 'lunch_offers' // needed to correctly increment ids of added sections
       });
@@ -49,14 +49,14 @@ $(function() {
       adder: '#nested-add-lunch',
       remover: '.removeContent',
       postfixes: '',
-      afterInitialize: function() {
+      afterInitialize: () => {
         const $initialForms = $('.nested-lunch-form');
 
         $initialForms.each((index, form) => {
           initNestedLunchOffers($(form));
         });
       },
-      beforeAddForm: function($container, $form) {
+      beforeAddForm: ($container, $form) => {
         // we only want one initialized lunch offer, so remove eventually created others
         $form.find('.nested-lunch-offer-form').each((index, form) => {
           if (index > 0) {
@@ -65,7 +65,7 @@ $(function() {
         });
         $container.children('.nested-lunch-form').removeClass('d-none');
       },
-      afterAddForm: function($container, $form) {
+      afterAddForm: (_$container, $form) => {
         initNestedLunchOffers($form);
 
         // init html editors for lunch field text
