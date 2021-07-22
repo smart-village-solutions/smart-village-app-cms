@@ -1,5 +1,8 @@
 <% form_class ||= "nested-media" %>
-<% fields = ["source_url", "caption_text", "content_type", "copyright"] %>
+<%# fields without "source_url" here, because it is a nested object but we check for emptyness
+  # currently just flatly, so we need to check all values except that to know,
+  # if the object is an empty one %>
+<% fields = ["caption_text", "content_type", "copyright"] %>
 <% list_of_media_contents = record.media_contents.presence || [OpenStruct.new] %>
 
 <div class="<%= form_class %>">
