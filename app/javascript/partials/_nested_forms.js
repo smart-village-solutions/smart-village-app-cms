@@ -11,15 +11,18 @@ $(function() {
   $('#nested-categories').nestedForm({
     forms: '.nested-category-form',
     adder: '#nested-add-category',
-    ...defaultNestedFormsOptions
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($container) => {
+      $container.children('.nested-category-form').removeClass('d-none');
+    }
   });
 
   $('#nested-dates').nestedForm({
     forms: '.nested-date-form',
     adder: '#nested-add-dates',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-date-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-date-form').removeClass('d-none');
     }
   });
 
@@ -27,8 +30,8 @@ $(function() {
     forms: '.nested-contact-form',
     adder: '#nested-add-contacts',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-contact-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-contact-form').removeClass('d-none');
     }
   });
 
@@ -36,8 +39,8 @@ $(function() {
     forms: '.nested-price_information-form',
     adder: '#nested-add-price_information',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-price_information-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-price_information-form').removeClass('d-none');
     }
   });
 
@@ -45,8 +48,8 @@ $(function() {
     forms: '.nested-restriction-form',
     adder: '#nested-add-restriction',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-restriction-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-restriction-form').removeClass('d-none');
     }
   });
 
@@ -54,8 +57,8 @@ $(function() {
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-web-url-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-web-url-form').removeClass('d-none');
     },
     associations: 'urls' // needed to correctly increment ids of added sections
   });
@@ -64,8 +67,8 @@ $(function() {
     forms: '.nested-opening-hour-form',
     adder: '#nested-add-opening-hour',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-opening-hour-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-opening-hour-form').removeClass('d-none');
     }
   });
 
@@ -75,8 +78,8 @@ $(function() {
     forms: '.nested-medium-form',
     adder: '.nested-add-medium',
     ...defaultNestedFormsOptions,
-    beforeAddForm: ($form) => {
-      $form.children('.nested-medium-form').removeClass('d-none');
+    beforeAddForm: ($container) => {
+      $container.children('.nested-medium-form').removeClass('d-none');
     }
   });
 });

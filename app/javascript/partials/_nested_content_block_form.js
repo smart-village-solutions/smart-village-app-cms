@@ -37,8 +37,8 @@ $(function() {
         forms: `.nested-medium-form-${timestamp}`,
         adder: `.nested-add-medium-${timestamp}`,
         ...defaultNestedFormsOptions,
-        beforeAddForm: ($form) => {
-          $form.children(`.nested-medium-form-${timestamp}`).removeClass('d-none');
+        beforeAddForm: ($container) => {
+          $container.children(`.nested-medium-form-${timestamp}`).removeClass('d-none');
         },
         associations: 'media_contents' // needed to correctly increment ids of added sections
       });
@@ -49,14 +49,14 @@ $(function() {
       adder: '#nested-add-content-block',
       remover: '.removeContent',
       postfixes: '',
-      afterInitialize: function() {
+      afterInitialize: () => {
         const $initialForms = $('.nested-content-block-form');
 
         $initialForms.each((index, form) => {
           initNestedMediaContents($(form));
         });
       },
-      beforeAddForm: function($container, $form) {
+      beforeAddForm: (_$container, $form) => {
         // we only want one initialized media content, so remove eventually created others
         $form.find('.nested-medium-form').each((index, form) => {
           if (index > 0) {
@@ -64,7 +64,7 @@ $(function() {
           }
         });
       },
-      afterAddForm: function($container, $form) {
+      afterAddForm: (_$container, $form) => {
         initNestedMediaContents($form);
 
         // init html editors for content block fields body and intro
