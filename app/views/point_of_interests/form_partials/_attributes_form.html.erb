@@ -9,13 +9,12 @@
   <div class="col-12">
     <div class="form-group point_of_interest_attributes">
       <% ["phone", "email", "fax", "web_urls"].each do |attribute| %>
-        <% checked = record.point_of_interest_attributes&.include?("contact.#{attribute.camelcase(:lower)}") %>
         <%= render(
               partial: "point_of_interests/form_partials/attributes_form_contact",
               locals: {
                 index: index,
                 attribute: attribute,
-                checked: checked
+                checked: lunch_point_of_interest_attribute_checked?(record, attribute)
               }
             ) %>
       <% end %>

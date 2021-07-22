@@ -63,6 +63,7 @@ $(function() {
             $(form).remove();
           }
         });
+        $container.children('.nested-lunch-form').removeClass('d-none');
       },
       afterAddForm: function($container, $form) {
         initNestedLunchOffers($form);

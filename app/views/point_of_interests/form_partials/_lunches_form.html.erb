@@ -13,7 +13,7 @@
 <div id="nested-lunches">
   <% list_of_lunches.each_with_index do |lunch, index| %>
     <%= fields_for "point_of_interest[lunches][#{index}]", lunch do |fl| %>
-      <div class="nested-lunch-form">
+      <div class="nested-lunch-form<%= " d-none" if lunch_empty?(lunch) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>

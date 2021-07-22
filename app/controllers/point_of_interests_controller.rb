@@ -374,8 +374,8 @@ class PointOfInterestsController < ApplicationController
         # If not, we do not want to submit the params, because it would result in empty objects for
         # the app.
         if nested_values?(lunch.to_h).include?(true)
-          # Convert point_of_interest_attributes urls
-          # name and address data should be shown always
+          # Convert point_of_interest_attributes
+          # name and address data should be shown always in the mobile app
           point_of_interest_attributes = ["name", "addresses"]
           if lunch[:point_of_interest_attributes].present?
             if lunch[:point_of_interest_attributes][:contact].present?
