@@ -86,8 +86,11 @@ $(function() {
   });
 
   // Close any open menu accordions when window is resized below 768px
+  // Resize event gets triggered on mobile scroll as the address bar gets smaller,
+  // therefore check for difference in width inside resize event
+  var width = $(window).width();
   $(window).resize(function() {
-    if ($(window).width() < 992) {
+    if ($(window).width() != width && $(window).width() < 992) {
       $('.sidebar, #sidebarToggleTop').addClass('toggled');
     }
   });
