@@ -251,5 +251,14 @@ class NewsItemsController < ApplicationController
         content_blocks << content_block
       end
       @news_item_params["content_blocks"] = content_blocks
+
+      # Convert has_one source_url
+      # We receive an array of urls and need to convert them to one source_url that gets transmitted
+      if @news_item_params["source_urls"].present?
+        if nested_values?(@news_item_params["source_urls"].to_h).include?(true)
+          @news_item_params["source_url"] = @news_item_params["source_urls"]["0"]
+        end
+        @news_item_params.delete :source_urls
+      end
     end
 end
