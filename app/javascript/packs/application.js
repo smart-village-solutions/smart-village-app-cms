@@ -85,11 +85,31 @@ $(function() {
     $('.sidebar, #sidebarToggleTop').toggleClass('toggled');
   });
 
-  // Close any open menu accordions when window is resized below 768px
-  $(window).resize(function() {
-    if ($(window).width() < 992) {
+  // Close any open menu accordions when window is resized below 992px.
+  // Resize event gets triggered on mobile scroll as the address bar gets smaller,
+  // therefore check for difference in width inside resize event.
+  var width = $(window).width();
+
+  $(window).on('resize', function() {
+    if ($(window).width() != width && $(window).width() < 992) {
       $('.sidebar, #sidebarToggleTop').addClass('toggled');
     }
+  });
+
+  // on rotation change remove resize listener, update `width` and bin resize listener again
+  $(window).on('orientationchange', function() {
+    $(window).off('resize');
+
+    // wait a bit until orientation is changed and new dimensions set
+    setTimeout(() => {
+      width = $(window).width();
+
+      $(window).on('resize', function() {
+        if ($(window).width() != width && $(window).width() < 992) {
+          $('.sidebar, #sidebarToggleTop').addClass('toggled');
+        }
+      });
+    }, 500);
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
