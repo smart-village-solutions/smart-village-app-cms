@@ -1,20 +1,31 @@
+<% headline ||= "Links" %>
 <% fields = ["url", "description"] %>
-<% list_of_web_urls = record.web_urls.presence || [OpenStruct.new] %>
+
+<% if record_type == "event" %>
+  <% list_of_web_urls = record.urls.presence || [OpenStruct.new] %>
+  <% web_urls_key = "urls" %>
+<% elsif record_type == "news_item" %>
+  <% list_of_web_urls = [record.source_url.presence] || [OpenStruct.new] %>
+  <% web_urls_key = "source_urls" %>
+<% else %>
+  <% list_of_web_urls = record.web_urls.presence || [OpenStruct.new] %>
+  <% web_urls_key = "web_urls" %>
+<% end %>
 
 <hr />
 
 <div class="row">
   <div class="col">
     <h3 class="d-sm-flex align-items-center justify-content-between my-4">
-      Links
+      <%= headline %>
     </h3>
   </div>
 </div>
 
 <div id="nested-web-urls">
   <% list_of_web_urls.each_with_index do |url, index| %>
-    <%= fields_for "#{record_type}[web_urls][#{index}]", url do |furl| %>
-      <div class="nested-web-url-form<%= " d-none" if empty?(url, fields) %>">
+    <%= fields_for "#{record_type}[#{web_urls_key}][#{index}]", url do |furl| %>
+      <div class="nested-web-url-form<%= " d-none" if record_type != "news_item" && empty?(url, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>
@@ -46,9 +57,11 @@
   <% end %>
 </div>
 
-<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-web-urls" do %>
-  <i class="fas fa-plus text-white mr-2"></i>
-  Link hinzufügen
+<% if record_type != "news_item" %>
+  <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-web-urls" do %>
+    <i class="fas fa-plus text-white mr-2"></i>
+    Link hinzufügen
+  <% end %>
 <% end %>
 
 <hr />

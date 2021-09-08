@@ -108,7 +108,7 @@
     <%#= render partial: "shared/partials/address_form", locals: { form: fadd, address: @news_item.address } %>
   <%# end %>
 
-  <hr />
+  <%= render partial: "shared/partials/web_url_form", locals: { record: news_item, record_type: "news_item", form: f, headline: "Quelle" } %>
 
   <% if visible_in_role?("role_push_notification") %>
     <div class="row">
