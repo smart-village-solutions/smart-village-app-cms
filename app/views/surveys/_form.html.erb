@@ -58,6 +58,27 @@
     }) %>
 
   <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label for="description">Startzeit</label>
+        <%= f.time_field(
+              :time_start,
+              class: "form-control"
+            ) %>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label for="description">Endzeit</label>
+        <%= f.time_field(
+              :time_end,
+              class: "form-control"
+            ) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col">
       <h2 class="d-sm-flex align-items-center justify-content-between my-4">
         Antwortmöglichkeiten
