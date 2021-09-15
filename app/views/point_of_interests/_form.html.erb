@@ -26,7 +26,7 @@
         Jeder Ort kann in einer oder mehreren Kategorien abgelegt werden.
       <p>
 
-      <%= render partial: "shared/partials/categories_form", locals: { record: point_of_interest, form: f } %>
+      <%= render partial: "shared/partials/categories_form", locals: { record: point_of_interest, record_type: "point_of_interest", form: f } %>
 
       <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-category" do %>
         <i class="fas fa-plus text-white mr-2"></i>
