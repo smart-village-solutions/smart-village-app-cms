@@ -11,6 +11,9 @@ class NewsItemsController < ApplicationController
         newsItems {
           id
           title
+          categories {
+            name
+          }
           dataProvider {
             name
           }
