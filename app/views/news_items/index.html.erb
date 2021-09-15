@@ -12,6 +12,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
+        <th scope="col">Kategorie</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -35,6 +36,7 @@
           <% else %>
             <td><%= news_item.title.presence || news_item.content_blocks.first.try(:title) %></td>
           <% end %>
+          <td><%= news_item.categories.first.try(:name) %></td>
           <td><%= toLocalDateTime(news_item.updated_at) %></td>
           <td><%= toLocalDateTime(news_item.created_at) %></td>
           <% if editor? %>

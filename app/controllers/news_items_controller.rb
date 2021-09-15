@@ -11,6 +11,9 @@ class NewsItemsController < ApplicationController
         newsItems {
           id
           title
+          categories {
+            name
+          }
           dataProvider {
             name
           }
@@ -124,6 +127,11 @@ class NewsItemsController < ApplicationController
   end
 
   def create
+    unless category_present?(news_item_params)
+      flash[:error] = "Bitte eine Kategorie auswählen"
+      redirect_to new_news_item_path and return
+    end
+
     query = create_params
     begin
       results = @smart_village.query query
@@ -140,6 +148,12 @@ class NewsItemsController < ApplicationController
 
   def update
     old_id = params[:id]
+
+    unless category_present?(news_item_params)
+      flash[:error] = "Bitte eine Kategorie auswählen"
+      redirect_to edit_news_item_path(old_id) and return
+    end
+
     query = create_params
     logger.warn(query)
 
@@ -200,6 +214,10 @@ class NewsItemsController < ApplicationController
 
   private
 
+    def news_item_params
+      params.require(:news_item).permit!
+    end
+
     def new_news_item
       OpenStruct.new(
         address: OpenStruct.new,
@@ -209,7 +227,7 @@ class NewsItemsController < ApplicationController
     end
 
     def create_params
-      @news_item_params = params.require(:news_item).permit!
+      @news_item_params = news_item_params
       convert_params_for_graphql
       Converter::Base.new.build_mutation("createNewsItem", @news_item_params)
     end
@@ -220,6 +238,7 @@ class NewsItemsController < ApplicationController
         categories = []
         @news_item_params["categories"].each do |_key, category|
           next if category.blank?
+          next unless nested_values?(category.to_h).include?(true)
 
           categories << category
         end
@@ -260,5 +279,17 @@ class NewsItemsController < ApplicationController
         end
         @news_item_params.delete :source_urls
       end
+    end
+
+    # return true, if there is at least one category selected
+    def category_present?(params)
+      params["categories"].each do |_key, category|
+        next if category.blank?
+        next unless nested_values?(category.to_h).include?(true)
+
+        return true
+      end
+
+      false
     end
 end
