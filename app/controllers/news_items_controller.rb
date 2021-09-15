@@ -124,7 +124,7 @@ class NewsItemsController < ApplicationController
   end
 
   def create
-    unless category_present?(params.require(:news_item).permit!)
+    unless category_present?(news_item_params)
       flash[:error] = "Bitte eine Kategorie auswählen"
       redirect_to new_news_item_path and return
     end
@@ -146,7 +146,7 @@ class NewsItemsController < ApplicationController
   def update
     old_id = params[:id]
 
-    unless category_present?(params.require(:news_item).permit!)
+    unless category_present?(news_item_params)
       flash[:error] = "Bitte eine Kategorie auswählen"
       redirect_to edit_news_item_path(old_id) and return
     end
@@ -211,6 +211,10 @@ class NewsItemsController < ApplicationController
 
   private
 
+    def news_item_params
+      params.require(:news_item).permit!
+    end
+
     def new_news_item
       OpenStruct.new(
         address: OpenStruct.new,
@@ -220,7 +224,7 @@ class NewsItemsController < ApplicationController
     end
 
     def create_params
-      @news_item_params = params.require(:news_item).permit!
+      @news_item_params = news_item_params
       convert_params_for_graphql
       Converter::Base.new.build_mutation("createNewsItem", @news_item_params)
     end
