@@ -102,6 +102,16 @@
   </li>
 <% end %>
 
+<!-- Nav Item - Surveys -->
+<% if visible_in_role?("role_encounter_support") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'encounters_supports' %>">
+    <a class="nav-link" href="/encounters_supports">
+      <i class="fas fa-fw fa-handshake"></i>
+      <span>Begegnungen</span>
+    </a>
+  </li>
+<% end %>
+
 <!-- Divider -->
 <hr class="sidebar-divider my-0" />
 

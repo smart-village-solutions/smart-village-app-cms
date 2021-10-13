@@ -35,7 +35,8 @@ class User
   end
 
   def sign_in
-    uri = Addressable::URI.parse("#{SmartVillageApi.auth_server_url}/users/sign_in.json")
+    auth_server = SmartVillageApi.auth_server_url
+    uri = Addressable::URI.parse("#{auth_server}/users/sign_in.json")
     result = ApiRequestService.new(uri.to_s, nil, nil, user_credentials).post_request
     if result.code == "200" && result.body.present?
       data = JSON.parse(result.body)

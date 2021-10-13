@@ -1,0 +1,104 @@
+<div class="d-flex flex-wrap align-items-center row-gap justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold mr-3">
+    Nutzer und Begegnungen mit Support-ID: <%= params[:id] %>
+  </h1>
+</div>
+
+<div
+  class="d-flex flex-column col-12 col-sm-10 col-lg-7 col-xl-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+>
+  <div class="py-5 px-4">
+    <div class="d-flex justify-content-between align-items-center pb-2">
+      <h4>
+        <%= @user["first_name"] %> <%= @user["last_name"] %>
+      </h4>
+      <h5 class="<%= @user["verified"] ? "text-success" : "text-danger" %>">
+        <%= @user["verified"] ? "verifiziert" : "nicht verifiziert" %>
+      </h5>
+    </div>
+
+    <div>
+      <p>
+        <img src="<%= @user["image_uri"] %>" alt="Profilbild von <%= @user["first_name"] %> <%= @user["last_name"] %>" />
+      </p>
+      <p>
+        <small>Geburtsdatum:</small>
+        <br />
+        <%= @user["birth_date"] %>
+      </p>
+      <p class="mb-0">
+        <small>Telefon:</small>
+        <br />
+        <%= @user["phone"] %>
+      </p>
+    </div>
+  </div>
+
+  <% unless @user["verified"] %>
+    <div class="button-banner">
+      <div></div>
+
+      <%= link_to(
+            encounters_supports_verify_user_path(params[:id], @user["user_uuid"]),
+            class: "btn btn-sm btn-secondary shadow-sm",
+            data: {
+              confirm: 'Bitte bestätigen Sie, dass der Nutzer jetzt verifiziert werden soll.'
+            }
+          ) do %>
+        Jetzt verifizieren
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      Begegnungen
+    </h3>
+  </div>
+</div>
+
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">Datum</th>
+        <th scope="col">Begegnung mit</th>
+        <th scope="col">Kennung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @encounters.each do |encounter| %>
+        <tr>
+          <td data-updated-at="<%= toLocalDateTime(encounter["updated_at"]) %>">
+            <%= toLocalDateTime(encounter["created_at"]) %>
+          </td>
+          <td>
+            <% if encounter["user_provided"]["user_uuid"] != @user["user_uuid"] %>
+              <% encounter_with_user = encounter["user_provided"] %>
+            <% else %>
+              <% encounter_with_user = encounter["user_scanned"] %>
+            <% end %>
+
+            <%= link_to(
+                  "#{encounter_with_user["first_name"]} #{encounter_with_user["last_name"]}",
+                  "#",
+                  data: {
+                    toggle: "modal",
+                    target: "#encounter_with_user_#{encounter_with_user["user_uuid"]}"
+                  }
+                ) %>
+            <%= render(
+                  partial: "encounters_supports/modal_encounter_with_user",
+                  locals: { encounter_with_user: encounter_with_user }
+                ) %>
+          </td>
+          <td data-status="<%= encounter["status"] %>">
+            <%= encounter["encounter_uuid"] %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
