@@ -38,7 +38,13 @@
     <div class="button-banner">
       <div></div>
 
-      <%= link_to "/verify_user", class: "btn btn-sm btn-secondary shadow-sm" do %>
+      <%= link_to(
+            encounters_supports_verify_user_path(params[:id], @user["user_uuid"]),
+            class: "btn btn-sm btn-secondary shadow-sm",
+            data: {
+              confirm: 'Bitte bestätigen Sie, dass der Nutzer jetzt verifiziert werden soll.'
+            }
+          ) do %>
         Jetzt verifizieren
       <% end %>
     </div>

@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :surveys
   get "/surveys/:survey_id/comments", to: "survey_comments#index", as: :survey_comments
   resources :encounters_supports, only: [:index, :show]
-  post "/encounters_support", to: "encounters_supports#validate", as: :encounters_support_validate
+  post "/encounters_supports/validate", to: "encounters_supports#validate"
+  get "/encounters_supports/:id/verify/:user_id", to: "encounters_supports#verify_user", as: :encounters_supports_verify_user
   get "/data_provider", to: "data_provider#edit"
   get "/visibility/:item_type/:id/:visible", to: "data_provider#visibility"
   get "/visibility/:item_type/:id/:visible/:parent_id", to: "data_provider#visibility"
