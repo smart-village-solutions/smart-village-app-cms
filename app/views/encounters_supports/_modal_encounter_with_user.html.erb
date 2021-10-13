@@ -10,10 +10,10 @@
       <div class="modal-body">
         <div class="d-flex justify-content-between align-items-center pb-2">
           <h4>
-            <%= @user["first_name"] %> <%= @user["last_name"] %>
+            <%= encounter_with_user["first_name"] %> <%= encounter_with_user["last_name"] %>
           </h4>
-          <h5 class="<%= @user["verified"] ? "text-success" : "text-danger" %>">
-            <%= @user["verified"] ? "verifiziert" : "nicht verifiziert" %>
+          <h5 class="<%= encounter_with_user["verified"] ? "text-success" : "text-danger" %>">
+            <%= encounter_with_user["verified"] ? "verifiziert" : "nicht verifiziert" %>
           </h5>
         </div>
 
