@@ -15,7 +15,10 @@ class EncountersSupportsController < ApplicationController
     result = verify_support_id
 
     if result && result.code == "200" && result.body.present?
-      @data = JSON.parse(result.body)
+      user_data = OpenStruct.new(JSON.parse(result.body))
+
+      @user = user_data.to_h.as_json(except: :encounters)
+      @encounters = user_data["encounters"]
     else
       flash[:error] = "Support-ID nicht gültig"
       redirect_to encounters_supports_path

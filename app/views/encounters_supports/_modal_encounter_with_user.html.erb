@@ -1,0 +1,38 @@
+<div class="modal fade" id="encounter_with_user_<%= encounter_with_user["user_uuid"] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Begegnung mit</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center pb-2">
+          <h4>
+            <%= @user["first_name"] %> <%= @user["last_name"] %>
+          </h4>
+          <h5 class="<%= @user["verified"] ? "text-success" : "text-danger" %>">
+            <%= @user["verified"] ? "verifiziert" : "nicht verifiziert" %>
+          </h5>
+        </div>
+
+        <div>
+          <p>
+            <img src="<%= encounter_with_user["image_uri"] %>" alt="Profilbild von <%= encounter_with_user["first_name"] %> <%= encounter_with_user["last_name"] %>" />
+          </p>
+          <p>
+            <small>Geburtsdatum:</small>
+            <br />
+            <%= encounter_with_user["birth_date"] %>
+          </p>
+          <p class="mb-0">
+            <small>Telefon:</small>
+            <br />
+            <%= encounter_with_user["phone"] %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
