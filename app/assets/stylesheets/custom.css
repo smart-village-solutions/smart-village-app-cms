@@ -67,8 +67,8 @@ body .table {
 
 body .navbar-nav.sidebar {
   background-color: #11223f;
-  bottom: 0;
   left: 0;
+  min-height: 100%;
   position: absolute;
   top: 0;
   z-index: 2;
