@@ -1,7 +1,12 @@
 <% fields ||= ["date_start", "date_end"] %>
 <% force_visibility ||= false %>
 <% requireds ||= [] %>
-<% labels ||= { date_start: "Startdatum", date_end: "Enddatum" } %>
+<% labels ||= {
+     date_start: "Startdatum",
+     date_end: "Enddatum",
+     time_start: "Startzeit",
+     time_end: "Endzeit"
+   } %>
 <% values ||= {} %>
 <% list_of_dates = record.dates.presence || [OpenStruct.new] %>
 
@@ -19,7 +24,7 @@
       <div class="nested-date-form<%= " d-none" if !force_visibility && empty?(date, fields) %>">
         <div class="row">
           <% if fields.include?("date_start") %>
-            <div class="col-12 col-sm-<%= 12 / fields.count %>">
+            <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label for="description">
                   <%= labels[:date_start] %>
@@ -37,7 +42,7 @@
             </div>
           <% end %>
           <% if fields.include?("date_end") %>
-            <div class="col-12 col-sm-<%= 12 / fields.count %>">
+            <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label for="description">
                   <%= labels[:date_end] %>
@@ -55,6 +60,47 @@
             </div>
           <% end %>
         </div>
+
+        <% if fields.include?("time_start") || fields.include?("time_end") %>
+          <div class="row">
+            <% if fields.include?("time_start") %>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="description">
+                    <%= labels[:time_start] %>
+                    <% if requireds.include?("time_start")%>
+                      *
+                    <% end %>
+                  </label>
+                  <%= fd.time_field(
+                        :time_start,
+                        required: requireds.include?("time_start"),
+                        class: "form-control",
+                        value: fd.object.time_start || values[:time_start].presence
+                      ) %>
+                </div>
+              </div>
+            <% end %>
+            <% if fields.include?("time_end") %>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="description">
+                    <%= labels[:time_end] %>
+                    <% if requireds.include?("time_end")%>
+                      *
+                    <% end %>
+                  </label>
+                  <%= fd.time_field(
+                        :time_end,
+                        required: requireds.include?("time_end"),
+                        class: "form-control",
+                        value: fd.object.time_end || values[:time_end].presence
+                      ) %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% end %>

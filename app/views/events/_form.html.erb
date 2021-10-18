@@ -53,7 +53,15 @@
       </h3>
     </div>
   </div>
-  <%= render partial: "events/form_partials/event_dates", locals: { event: event, form: f } %>
+  <%= render(
+        partial: "shared/partials/dates_form",
+        locals: {
+          record: event,
+          form: f,
+          fields: ['date_start', 'date_end', 'time_start', 'time_end'],
+          requireds: ['date_start'],
+          force_visibility: true
+      }) %>
 
   <div class="row">
     <div class="col">

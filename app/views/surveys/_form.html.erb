@@ -45,12 +45,8 @@
       locals: {
         record: survey,
         form: f,
-        fields: ['date_start', 'date_end'],
+        fields: ['date_start', 'date_end', 'time_start', 'time_end'],
         requireds: ['date_start', 'date_end'],
-        labels: {
-          date_start: "Startdatum",
-          date_end: "Enddatum"
-        },
         values: {
           date_start: Time.now.to_date
         },
