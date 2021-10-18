@@ -24,7 +24,7 @@
       <div class="nested-date-form<%= " d-none" if !force_visibility && empty?(date, fields) %>">
         <div class="row">
           <% if fields.include?("date_start") %>
-            <div class="col-12 col-sm-<%= 12 / fields.count %>">
+            <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label for="description">
                   <%= labels[:date_start] %>
@@ -42,7 +42,7 @@
             </div>
           <% end %>
           <% if fields.include?("date_end") %>
-            <div class="col-12 col-sm-<%= 12 / fields.count %>">
+            <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label for="description">
                   <%= labels[:date_end] %>
