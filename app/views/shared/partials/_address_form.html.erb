@@ -1,3 +1,6 @@
+<% index ||= -1 %>
+<% count ||= 0 %>
+
 <div class="row">
   <div class="col-lg-6">
     <div class="form-group">
@@ -43,13 +46,21 @@
         <label for="description">Latitude</label>
         <%= fgeo.text_field :latitude, class: "form-control" %>
       </div>
-    </div>
 
-    <div class="col-lg-6">
       <div class="form-group">
         <label for="description">Longitude</label>
         <%= fgeo.text_field :longitude, class: "form-control" %>
       </div>
     </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <div id="leafletMap-<%= index %>" class="leafletMap"></div>
+      </div>
+    </div>
   </div>
+
+  <% if index < count - 1 %>
+    <hr />
+  <% end %>
 <% end %>

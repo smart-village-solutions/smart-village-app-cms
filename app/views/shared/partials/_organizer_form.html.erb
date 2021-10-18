@@ -15,6 +15,6 @@
   <% end %>
 
   <%= fo.fields_for :address, record.try(:organizer).try(:address) || OpenStruct.new(geo_location: nil) do |fa| %>
-    <%= render partial: "shared/partials/address_form", locals: { form: fa, address: fo.object } %>
+    <%= render partial: "shared/partials/address_form", locals: { form: fa, address: fa.object } %>
   <% end %>
 <% end %>

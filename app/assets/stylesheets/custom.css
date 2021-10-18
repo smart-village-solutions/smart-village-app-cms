@@ -166,3 +166,7 @@ h1 {
 .card-header > h4 {
   margin-bottom: 0;
 }
+
+.leafletMap {
+  height: 320px;
+}

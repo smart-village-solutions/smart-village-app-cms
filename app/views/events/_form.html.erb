@@ -63,9 +63,12 @@
     </div>
   </div>
 
-  <% event.addresses.each do |address| %>
-    <%= f.fields_for :addresses, address do |fadd| %>
-      <%= render partial: "shared/partials/address_form", locals: { form: fadd, address: address } %>
+  <% event.addresses.each_with_index do |address, index| %>
+    <%= f.fields_for "addresses[#{index}]", address do |fadd| %>
+      <%= render(
+            partial: "shared/partials/address_form",
+            locals: { form: fadd, address: address, index: index, count: event.addresses.count }
+          ) %>
     <% end %>
   <% end %>
 
