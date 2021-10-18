@@ -116,6 +116,8 @@ class SurveysController < ApplicationController
             date {
               dateStart
               dateEnd
+              timeStart
+              timeEnd
             }
             responseOptions {
               id

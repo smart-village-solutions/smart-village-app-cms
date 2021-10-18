@@ -45,38 +45,13 @@
       locals: {
         record: survey,
         form: f,
-        fields: ['date_start', 'date_end'],
+        fields: ['date_start', 'date_end', 'time_start', 'time_end'],
         requireds: ['date_start', 'date_end'],
-        labels: {
-          date_start: "Startdatum",
-          date_end: "Enddatum"
-        },
         values: {
           date_start: Time.now.to_date
         },
         force_visibility: true
     }) %>
-
-  <div class="row">
-    <div class="col-12 col-sm-6">
-      <div class="form-group">
-        <label for="description">Startzeit</label>
-        <%= f.time_field(
-              :time_start,
-              class: "form-control"
-            ) %>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6">
-      <div class="form-group">
-        <label for="description">Endzeit</label>
-        <%= f.time_field(
-              :time_end,
-              class: "form-control"
-            ) %>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col">
