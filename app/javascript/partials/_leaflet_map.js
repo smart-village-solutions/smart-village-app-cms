@@ -29,7 +29,7 @@ function initLeafletMap(id) {
   });
 
   var icon = L.icon({
-    iconUrl: '/assets/marker.svg',
+    iconUrl: '/marker.svg',
     iconSize: [30, 30],
     iconAnchor: [15, 30]
   });
