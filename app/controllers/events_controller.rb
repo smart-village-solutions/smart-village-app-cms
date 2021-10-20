@@ -291,6 +291,18 @@ class EventsController < ApplicationController
     end
 
     def convert_params_for_graphql
+      # Convert has_many addresses
+      if @event_params["addresses"].present?
+        addresses = []
+        @event_params["addresses"].each do |_key, address|
+          next if address.blank?
+          next unless nested_values?(address.to_h).include?(true)
+
+          addresses << address
+        end
+        @event_params["addresses"] = addresses
+      end
+
       # Convert has_many price_informations
       if @event_params["price_informations"].present?
         price_informations = []

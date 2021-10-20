@@ -15,5 +15,7 @@
  *= require startbootstrap-sb-admin-2/css/sb-admin-2
  *= require @fortawesome/fontawesome-free/css/all.css
  *= require startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.css
+ *= require leaflet/dist/leaflet.css
+ *= require leaflet-gesture-handling/dist/leaflet-gesture-handling.css
  *= require_self
  */
