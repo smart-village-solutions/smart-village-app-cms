@@ -1,4 +1,8 @@
-<% index ||= -1 %>
+<%#
+  we need a unique id here to avoid duplications for map containers on one page.
+  we create a pseudo random number here between 100 and 1090 to effort that.
+%>
+<% index ||= rand(1000) + 100 %>
 <% count ||= 0 %>
 
 <div class="row">
