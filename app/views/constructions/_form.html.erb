@@ -107,17 +107,21 @@
             <label for="description">Latitude</label>
             <%= fgl.text_field :latitude, class: "form-control" %>
           </div>
-        </div>
 
-        <div class="col-lg-6">
           <div class="form-group">
             <label for="description">Longitude</label>
             <%= fgl.text_field :longitude, class: "form-control" %>
           </div>
         </div>
-      <% end %>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <div id="leafletMap" class="leafletMap"></div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 
   <hr />
 
