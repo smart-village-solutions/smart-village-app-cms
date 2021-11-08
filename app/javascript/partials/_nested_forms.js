@@ -70,8 +70,8 @@ $(function() {
     beforeAddForm: ($container) => {
       $container.children('.nested-opening-hour-form').removeClass('d-none');
     },
-    afterAddForm: ($container) => {
-      $container.find('[id$="open"]').prop('checked', true);
+    afterAddForm: (_, $form) => {
+      $form.find('[id$="open"]').prop('checked', true);
     }
   });
 
