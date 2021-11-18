@@ -40,7 +40,7 @@
           <td><%= toLocalDateTime(survey.updated_at) %></td>
           <td><%= toLocalDateTime(survey.created_at) %></td>
           <% if editor? %>
-            <td><%= survey.data_provider.name %></td>
+            <td><%= survey.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(survey, "Survey") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
