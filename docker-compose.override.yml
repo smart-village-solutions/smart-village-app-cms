@@ -6,11 +6,3 @@ services:
       context: .
     environment:
       RAILS_ENV: development
-    volumes:
-      - ./docker/unicorn.rb:/app/config/unicorn.rb
-
-  nginx:
-    volumes:
-      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    labels:
-      - traefik.frontend.rule=Host:cms.localhost

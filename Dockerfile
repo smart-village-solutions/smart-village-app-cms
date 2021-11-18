@@ -1,31 +1,30 @@
-FROM ruby:2.7.1
+FROM registry.gitlab.tpwd.de/cmmc-systems/ruby-nginx/ruby-2.7.1
 
-RUN apt-get update \
-  && apt-get install -y curl apt-transport-https ca-certificates \
-  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
-  && curl -sL https://deb.nodesource.com/setup_10.x | bash \
-  && apt-get install -y nodejs \
-  && apt-get install -y yarn \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /usr/src/*
+RUN apk add mariadb-dev
 
-ENV DOCKERIZE_VERSION v0.6.1
-RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-  | tar -C /usr/local/bin -xz
+RUN apk add nodejs
+RUN apk add npm
+RUN apk add yarn
 
+RUN mkdir -p /unicorn
+RUN mkdir -p /app
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock /app/
-RUN gem install bundler
-RUN bundle install
+COPY . .
 
-COPY . /app
+# COPY docker/database.yml /app/config/database.yml
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/unicorn.rb /app/config/unicorn.rb
+
+RUN chmod +x /app/docker/entrypoint.sh
+
+COPY Gemfile Gemfile.lock /app/
+
+RUN gem install bundler
+RUN bundle config set --local without 'development test'
+RUN bundle install
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 
-VOLUME /unicorn
-VOLUME /assets
-
 # Start the main process.
-CMD ["bundle", "exec", "unicorn", "-c", "./config/unicorn.rb"]
+CMD ["sh", "-c", "nginx-debug ; bundle exec unicorn -c config/unicorn.rb"]
