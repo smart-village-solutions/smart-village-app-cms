@@ -124,6 +124,9 @@ class NewsItemsController < ApplicationController
     @news_item = results.data.news_item
 
     redirect_to news_items_path if @news_item.push_notifications_sent_at.present?
+  rescue Graphlient::Errors::GraphQLError
+    flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
+    redirect_to news_items_path
   end
 
   def create
