@@ -1,4 +1,6 @@
 <%= fields_for :news_item, news_item do |f| %>
+  <%= hidden_field_tag "news_item[id]", f.object.id if f.object.id.present? %>
+
   <!-- NOTE: Wird erstmal nicht benötigt
     <div class="row">
       <div class="col">

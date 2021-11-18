@@ -1,7 +1,7 @@
 module Converter
   class Base
-    def build_mutation(name, data)
-      data = cleanup(data) unless name.downcase.include?("update")
+    def build_mutation(name, data, update = false)
+      data = cleanup(data) unless name.downcase.include?("update") || update
       data = convert_to_json(data)
       data = convert_keys_to_camelcase(data)
       data = remove_quotes_from_keys(data)
