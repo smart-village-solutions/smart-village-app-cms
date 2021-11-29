@@ -59,6 +59,17 @@
         Antwortmöglichkeiten
       </h2>
 
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <%= f.check_box :question_allow_multiple_responses, {}, true, false %>
+            <label for="survey_question_allow_multiple_responses">
+              Nutzern mehrere Antwortmöglichkeiten gestatten?
+            </label>
+          </div>
+        </div>
+      </div>
+
       <p>
         Sie können den Text der Antworten jederzeit bearbeiten.
         Das Löschen einer Antwort ist aber nur möglich, wenn für diese noch keine

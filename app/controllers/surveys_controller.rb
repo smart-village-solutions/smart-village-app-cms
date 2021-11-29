@@ -113,6 +113,7 @@ class SurveysController < ApplicationController
             description
             questionId
             questionTitle
+            questionAllowMultipleResponses
             date {
               dateStart
               dateEnd
@@ -145,6 +146,7 @@ class SurveysController < ApplicationController
         question_id: survey.question_id,
         question_title_de: survey.question_title["de"],
         question_title_pl: survey.question_title["pl"],
+        question_allow_multiple_responses: survey.question_allow_multiple_responses,
         date: survey.date,
         response_options: survey.response_options.map do |response_option|
           OpenStruct.new(
@@ -169,6 +171,9 @@ class SurveysController < ApplicationController
         dates = @survey_params.delete(:dates)
         @survey_params["date"] = dates["0"]
       end
+
+      # Convert to boolean
+      @survey_params["question_allow_multiple_responses"] = @survey_params["question_allow_multiple_responses"] == "true"
 
       # Convert has_many response_options
       if @survey_params["response_options"].present?
