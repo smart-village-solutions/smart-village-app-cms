@@ -17,12 +17,14 @@
               <%= fro.text_field :title_de, name: "survey[response_options][#{index}][title][de]", class: "form-control", maxlength: "150", required: [0, 1].include?(index) %>
             </div>
           </div>
-          <div class="col-12 col-sm-6">
-            <div class="form-group">
-              <label for="description"><%= index + 1 %>. Antwortmöglichkeit (polnisch)</label>
-              <%= fro.text_field :title_pl, name: "survey[response_options][#{index}][title][pl]", class: "form-control", maxlength: "150" %>
+          <% if survey.is_multilingual %>
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="description"><%= index + 1 %>. Antwortmöglichkeit (polnisch)</label>
+                <%= fro.text_field :title_pl, name: "survey[response_options][#{index}][title][pl]", class: "form-control", maxlength: "150" %>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
         <% if response_option.votes_count.present? %>
           <div class="row">

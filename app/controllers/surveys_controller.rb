@@ -128,6 +128,7 @@ class SurveysController < ApplicationController
             dataProvider {
               name
             }
+            isMultilingual
             updatedAt
             createdAt
           }
@@ -153,7 +154,8 @@ class SurveysController < ApplicationController
             title_pl: response_option.title["pl"],
             votes_count: response_option.votes_count
           )
-        end
+        end,
+        is_multilingual: survey.is_multilingual
       )
     end
 
@@ -169,6 +171,9 @@ class SurveysController < ApplicationController
         dates = @survey_params.delete(:dates)
         @survey_params["date"] = dates["0"]
       end
+
+      # Convert to boolean
+      @survey_params["is_multilingual"] = @survey_params["is_multilingual"] == "true"
 
       # Convert has_many response_options
       if @survey_params["response_options"].present?

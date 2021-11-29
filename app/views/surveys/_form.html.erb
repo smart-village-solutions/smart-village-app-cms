@@ -1,15 +1,27 @@
 <%= fields_for :survey, survey do |f|  %>
   <%= f.hidden_field :id, name: "survey[id]" %>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.check_box :is_multilingual, {}, true, false %>
+        <label for="survey_is_multilingual">deutsche und polnische Texte bereitstellen?</label>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col">
       <div class="form-group">
         <label for="description">Titel (deutsch)</label>
         <%= f.text_field :title_de, name: "survey[title][de]", class: "form-control" %>
       </div>
-      <div class="form-group">
-        <label for="description">Titel (polnisch)</label>
-        <%= f.text_field :title_pl, name: "survey[title][pl]", class: "form-control" %>
-      </div>
+      <% if survey.is_multilingual %>
+        <div class="form-group">
+          <label for="description">Titel (polnisch)</label>
+          <%= f.text_field :title_pl, name: "survey[title][pl]", class: "form-control" %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -19,10 +31,12 @@
         <label for="description">Beschreibung (deutsch)</label>
         <%= f.text_area :description_de, name: "survey[description][de]", class: "form-control", rows: 3 %>
       </div>
-      <div class="form-group">
-        <label for="description">Beschreibung (polnisch)</label>
-        <%= f.text_area :description_pl, name: "survey[description][pl]", class: "form-control", rows: 3 %>
-      </div>
+      <% if survey.is_multilingual %>
+        <div class="form-group">
+          <label for="description">Beschreibung (polnisch)</label>
+          <%= f.text_area :description_pl, name: "survey[description][pl]", class: "form-control", rows: 3 %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -33,10 +47,12 @@
         <label for="description">Frage (deutsch) *</label>
         <%= f.text_field :question_title_de, name: "survey[question_title][de]", class: "form-control", required: true %>
       </div>
-      <div class="form-group">
-        <label for="description">Frage (polnisch)</label>
-        <%= f.text_field :question_title_pl, name: "survey[question_title][pl]", class: "form-control" %>
-      </div>
+      <% if survey.is_multilingual %>
+        <div class="form-group">
+          <label for="description">Frage (polnisch)</label>
+          <%= f.text_field :question_title_pl, name: "survey[question_title][pl]", class: "form-control" %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -65,7 +81,11 @@
         Stimmen abgegeben wurden.
       </p>
 
-      <p><small>(min. 2, max. 10, Zeichenlänge max. 150, in deutsch und polnisch)</small></p>
+      <% if survey.is_multilingual %>
+        <p><small>(min. 2, max. 10, Zeichenlänge max. 150, in deutsch und polnisch)</small></p>
+      <% else %>
+        <p><small>(min. 2, max. 10, Zeichenlänge max. 150)</small></p>
+      <% end %>
 
       <%= render partial: "surveys/form_partials/response_options_form", locals: { survey: survey, form: f  } %>
     </div>
