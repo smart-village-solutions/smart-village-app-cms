@@ -54,6 +54,15 @@
     }) %>
 
   <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.check_box :can_comment, {}, true, false %>
+        <label for="survey_can_comment">Kommentare ermöglichen?</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col">
       <h2 class="d-sm-flex align-items-center justify-content-between my-4">
         Antwortmöglichkeiten

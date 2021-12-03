@@ -24,6 +24,7 @@ class SurveysController < ApplicationController
           comments: surveyComments {
             id
           }
+          canComment
         }
       }
     GRAPHQL
@@ -128,6 +129,7 @@ class SurveysController < ApplicationController
             dataProvider {
               name
             }
+            canComment
             updatedAt
             createdAt
           }
@@ -153,7 +155,8 @@ class SurveysController < ApplicationController
             title_pl: response_option.title["pl"],
             votes_count: response_option.votes_count
           )
-        end
+        end,
+        can_comment: survey.can_comment
       )
     end
 
@@ -169,6 +172,9 @@ class SurveysController < ApplicationController
         dates = @survey_params.delete(:dates)
         @survey_params["date"] = dates["0"]
       end
+
+      # Convert to boolean
+      @survey_params["can_comment"] = @survey_params["can_comment"] == "true"
 
       # Convert has_many response_options
       if @survey_params["response_options"].present?
