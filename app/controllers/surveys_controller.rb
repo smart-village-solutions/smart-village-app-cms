@@ -131,6 +131,7 @@ class SurveysController < ApplicationController
               name
             }
             canComment
+            isMultilingual
             updatedAt
             createdAt
           }
@@ -158,7 +159,8 @@ class SurveysController < ApplicationController
             votes_count: response_option.votes_count
           )
         end,
-        can_comment: survey.can_comment
+        can_comment: survey.can_comment,
+        is_multilingual: survey.is_multilingual
       )
     end
 
@@ -178,6 +180,7 @@ class SurveysController < ApplicationController
       # Convert to boolean
       @survey_params["can_comment"] = @survey_params["can_comment"] == "true"
       @survey_params["question_allow_multiple_responses"] = @survey_params["question_allow_multiple_responses"] == "true"
+      @survey_params["is_multilingual"] = @survey_params["is_multilingual"] == "true"
 
       # Convert has_many response_options
       if @survey_params["response_options"].present?
