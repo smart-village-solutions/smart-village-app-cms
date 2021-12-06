@@ -1,7 +1,9 @@
 FROM registry.gitlab.tpwd.de/cmmc-systems/ruby-nginx/ruby-2.7.1
 
-RUN apk add mariadb-dev
+RUN apk update && apk upgrade
 
+RUN apk add sqlite
+RUN apk add sqlite-dev
 RUN apk add nodejs
 RUN apk add npm
 RUN apk add yarn
@@ -23,6 +25,9 @@ COPY Gemfile Gemfile.lock /app/
 RUN gem install bundler
 RUN bundle config set --local without 'development test'
 RUN bundle install
+
+RUN yarn
+RUN rake assets:precompile
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 
