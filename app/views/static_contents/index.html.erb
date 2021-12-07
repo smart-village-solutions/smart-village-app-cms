@@ -1,0 +1,55 @@
+<div class="d-flex flex-wrap align-items-center row-gap justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold mr-3">Statische Inhalte</h1>
+  <%= link_to new_static_content_path, class: "btn btn-sm btn-primary shadow-sm" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neuen Inhalt erstellen
+  <% end %>
+</div>
+
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col" class="nosort">Inhalt</th>
+        <th scope="col">Änderungsdatum</th>
+        <th scope="col">Erstellungsdatum</th>
+        <th scope="col" class="nosort">Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @static_contents.each do |static_content| %>
+        <tr>
+          <th scope="row"><%= static_content.id %></th>
+          <td scope="row"><%= static_content.name %></td>
+          <td>
+            <%= link_to(
+                  "Vorschau",
+                  "#",
+                  data: { toggle: "modal", target: "#message_#{static_content.id}" }
+                ) %>
+            <%= render(
+                  partial: "static_contents/modal_message",
+                  locals: { static_content: static_content }
+                ) %>
+          </td>
+          <td><%= toLocalDateTime(static_content.updated_at) %></td>
+          <td><%= toLocalDateTime(static_content.created_at) %></td>
+          <td align="right" class="text-nowrap">
+            <%= link_to "Bearbeiten", edit_static_content_path(static_content.name), class: "btn btn-sm btn-secondary" %>
+            <%= link_to(
+                  static_content_path(static_content.id),
+                  method: :delete,
+                  "data-confirm" => "Möchten Sie diesen Inhalt wirklich löschen?",
+                  class: "btn btn-sm btn-danger",
+                  title: "Löschen"
+                ) do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

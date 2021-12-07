@@ -170,3 +170,7 @@ h1 {
 .leafletMap {
   height: 320px;
 }
+
+.modal-body img {
+  width: 100%;
+}
