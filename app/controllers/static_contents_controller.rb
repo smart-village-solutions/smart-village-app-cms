@@ -26,16 +26,19 @@ class StaticContentsController < ApplicationController
 
   def edit
     @static_content = edit_static_content_record
+
+    if @static_content.name == "not found" && @static_content.content == ""
+      redirect_to static_contents_path
+    end
   end
 
-  # TODO: when implementing edit
   def create
     query = create_params
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      @static_content = new_static_content_record
+      @static_content = new_static_content_record(params.fetch(:static_content))
       render :new
       return
     end
@@ -44,7 +47,6 @@ class StaticContentsController < ApplicationController
     redirect_to edit_static_content_path(new_id)
   end
 
-  # TODO: when implementing edit
   def update
     static_content_id = params[:id]
     query = create_params
@@ -60,7 +62,6 @@ class StaticContentsController < ApplicationController
     redirect_to edit_static_content_path(static_content_id)
   end
 
-  # TODO: when implementing destroy
   def destroy
     results = @smart_village.query <<~GRAPHQL
       mutation {
@@ -85,15 +86,15 @@ class StaticContentsController < ApplicationController
 
   private
 
-    def new_static_content_record
-      OpenStruct.new
+    def new_static_content_record(params = nil)
+      OpenStruct.new(params)
     end
 
     def edit_static_content_record
       results = @smart_village.query <<~GRAPHQL
         query {
           staticContent: publicHtmlFile(
-            name: #{params[:name]}
+            name: "#{params[:id]}"
           ) {
             id
             name
@@ -109,28 +110,6 @@ class StaticContentsController < ApplicationController
 
     def create_params
       @static_content_params = params.require(:static_content).permit!
-      convert_params_for_graphql
       Converter::Base.new.build_mutation("createOrUpdateStaticContent", @static_content_params)
-    end
-
-    # TODO: when implementing edit
-    def convert_params_for_graphql
-    end
-
-    # check for present values recursively
-    def nested_values?(value_to_check, result = [])
-      result << true if value_to_check.class == String && value_to_check.present?
-
-      if value_to_check.class == Array
-        value_to_check.each do |value|
-          nested_values?(value, result)
-        end
-      elsif value_to_check.class.to_s.include?("Hash")
-        value_to_check.each do |_key, value|
-          nested_values?(value, result)
-        end
-      end
-
-      result
     end
 end

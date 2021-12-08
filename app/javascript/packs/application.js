@@ -24,6 +24,9 @@ require('../partials/_nested_lunch_form');
 // map in forms
 require('../partials/_leaflet_map');
 
+// ckeditor custom build
+require('../ckeditor');
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -31,23 +34,32 @@ require('../partials/_leaflet_map');
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-const initClassicEditor = (htmlEditor) => {
-  ClassicEditor.create(htmlEditor, {
-    toolbar: [
-      'heading',
-      '|',
-      'bulletedList',
-      'numberedList',
-      'link',
-      'bold',
-      'italic',
-      '|',
-      'undo',
-      'redo'
-    ]
-  })
-    .then((editor) => {
-      // console.log(Array.from(editor.ui.componentFactory.names()));
+const initClassicEditor = (htmlEditor, rich = false) => {
+  ClassicEditor.create(
+    htmlEditor,
+    !rich && {
+      toolbar: [
+        'heading',
+        '|',
+        'bulletedList',
+        'numberedList',
+        'link',
+        'bold',
+        'italic',
+        '|',
+        'undo',
+        'redo'
+      ]
+    }
+  )
+    .then(() => {
+      // SVA-315
+      $('.ck-file-dialog-button button svg').insertBefore($('.ck-file-dialog-button button'));
+      $('.ck-file-dialog-button button').remove();
+      $('.ck-file-dialog-button').on('click', (e) => {
+        e.preventDefault();
+        $('.ck-file-dialog-button + .ck-splitbutton__arrow').trigger('click');
+      });
     })
     .catch((error) => {
       console.error(error);
@@ -57,6 +69,9 @@ const initClassicEditor = (htmlEditor) => {
 /* eslint-disable func-names */
 $(function () {
   document.querySelectorAll('.html-editor').forEach((htmlEditor) => initClassicEditor(htmlEditor));
+  document
+    .querySelectorAll('.html-editor-rich')
+    .forEach((htmlEditor) => initClassicEditor(htmlEditor, true));
 
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
