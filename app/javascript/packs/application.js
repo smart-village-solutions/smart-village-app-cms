@@ -7,6 +7,7 @@ require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('jquery');
 require('jquery.easing');
+var moment = require('moment');
 require('bootstrap/dist/js/bootstrap.bundle.min.js');
 require('@fortawesome/fontawesome-free/js/all.js');
 var DataTable = require('datatables.net/js/jquery.dataTables.js');
@@ -54,19 +55,18 @@ const initClassicEditor = (htmlEditor) => {
 };
 
 /* eslint-disable func-names */
-$(function() {
+$(function () {
   document.querySelectorAll('.html-editor').forEach((htmlEditor) => initClassicEditor(htmlEditor));
 
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
-  $.fn.dataTable.moment( 'DD.MM.YYYY HH:mm [Uhr]' );
+  $.fn.dataTable.moment = moment;
+  $.fn.dataTable.moment('DD.MM.YYYY HH:mm [Uhr]');
   $.fn.dataTableSettings = DataTable.settings;
   $.fn.dataTableExt = DataTable.ext;
   DataTable.$ = $;
-  $.fn.DataTable = function(opts) {
-    return $(this)
-      .dataTable(opts)
-      .api();
+  $.fn.DataTable = function (opts) {
+    return $(this).dataTable(opts).api();
   };
 
   $('.data_table').DataTable({
@@ -84,7 +84,7 @@ $(function() {
   });
 
   // Toggle the side navigation
-  $('#sidebarToggle, #sidebarToggleTop').on('click', function() {
+  $('#sidebarToggle, #sidebarToggleTop').on('click', function () {
     $('.sidebar, #sidebarToggleTop').toggleClass('toggled');
   });
 
@@ -93,21 +93,21 @@ $(function() {
   // therefore check for difference in width inside resize event.
   var width = $(window).width();
 
-  $(window).on('resize', function() {
+  $(window).on('resize', function () {
     if ($(window).width() != width && $(window).width() < 992) {
       $('.sidebar, #sidebarToggleTop').addClass('toggled');
     }
   });
 
   // on rotation change remove resize listener, update `width` and bin resize listener again
-  $(window).on('orientationchange', function() {
+  $(window).on('orientationchange', function () {
     $(window).off('resize');
 
     // wait a bit until orientation is changed and new dimensions set
     setTimeout(() => {
       width = $(window).width();
 
-      $(window).on('resize', function() {
+      $(window).on('resize', function () {
         if ($(window).width() != width && $(window).width() < 992) {
           $('.sidebar, #sidebarToggleTop').addClass('toggled');
         }
@@ -116,7 +116,7 @@ $(function() {
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
-  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
     if ($(window).width() > 991) {
       var e0 = e.originalEvent,
         delta = e0.wheelDelta || -e0.detail;
@@ -126,7 +126,7 @@ $(function() {
   });
 
   // Scroll to top button appear
-  $(document).on('scroll', function() {
+  $(document).on('scroll', function () {
     var scrollDistance = $(this).scrollTop();
     if (scrollDistance > 100) {
       $('.scroll-to-top').fadeIn();
@@ -136,16 +136,14 @@ $(function() {
   });
 
   // Smooth scrolling using jQuery
-  $(document).on('click', 'a.scroll-to-top', function(e) {
-    $('html, body')
-      .stop()
-      .animate(
-        {
-          scrollTop: 0
-        },
-        500,
-        'swing'
-      );
+  $(document).on('click', 'a.scroll-to-top', function (e) {
+    $('html, body').stop().animate(
+      {
+        scrollTop: 0
+      },
+      500,
+      'swing'
+    );
     e.preventDefault();
   });
 });
