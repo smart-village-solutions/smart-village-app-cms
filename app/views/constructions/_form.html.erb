@@ -1,4 +1,5 @@
 <%= fields_for :construction, construction do |f| %>
+  <%= hidden_field_tag "construction[id]", f.object.id if f.object.id.present? %>
   <%= hidden_field_tag "construction[generic_type]", construction.generic_type %>
 
   <div class="row">
