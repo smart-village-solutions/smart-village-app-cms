@@ -11,8 +11,8 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
- *= require bootstrap/dist/css/bootstrap
- *= require startbootstrap-sb-admin-2/css/sb-admin-2
+ *= require bootstrap/dist/css/bootstrap.css
+ *= require startbootstrap-sb-admin-2/css/sb-admin-2.css
  *= require @fortawesome/fontawesome-free/css/all.css
  *= require startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.css
  *= require leaflet/dist/leaflet.css
