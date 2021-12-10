@@ -158,10 +158,13 @@ class PointOfInterestsController < ApplicationController
     GRAPHQL
 
     @point_of_interest = results.data.point_of_interest
+  rescue Graphlient::Errors::GraphQLError
+    flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
+    redirect_to point_of_interests_path
   end
 
   def create
-    query = create_params
+    query = create_or_update_mutation
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
@@ -176,41 +179,18 @@ class PointOfInterestsController < ApplicationController
   end
 
   def update
-    old_id = params[:id]
-    query = create_params
-    logger.warn(query)
+    point_of_interest_id = params[:id]
+
+    query = create_or_update_mutation(true)
+    # logger.warn(query)
 
     begin
-      results = @smart_village.query query
+      @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_point_of_interest_path(old_id)
-      return
     end
 
-    new_id = results.data.create_point_of_interest.id
-
-    if new_id.present? && new_id != old_id
-      # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
-
-      destroy_results = @smart_village.query <<~GRAPHQL
-        mutation {
-          destroyRecord(
-            id: #{old_id},
-            recordType: "PointOfInterest"
-          ) {
-            id
-            status
-            statusCode
-          }
-        }
-      GRAPHQL
-
-      redirect_to edit_point_of_interest_path(new_id)
-    else
-      flash[:error] = "Fehler: #{results.errors.inspect}"
-      redirect_to edit_point_of_interest_path(old_id)
-    end
+    redirect_to edit_point_of_interest_path(point_of_interest_id)
   end
 
   def destroy
@@ -237,6 +217,10 @@ class PointOfInterestsController < ApplicationController
 
   private
 
+    def point_of_interest_params
+      params.require(:point_of_interest).permit!
+    end
+
     def new_point_of_interest
       OpenStruct.new(
         addresses: [OpenStruct.new(
@@ -255,10 +239,10 @@ class PointOfInterestsController < ApplicationController
       )
     end
 
-    def create_params
-      @point_of_interest_params = params.require(:point_of_interest).permit!
+    def create_or_update_mutation(update = false)
+      @point_of_interest_params = point_of_interest_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createPointOfInterest", @point_of_interest_params)
+      Converter::Base.new.build_mutation("createPointOfInterest", @point_of_interest_params, update)
     end
 
     def convert_params_for_graphql

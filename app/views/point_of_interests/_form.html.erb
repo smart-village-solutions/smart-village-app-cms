@@ -1,4 +1,6 @@
 <%= fields_for :point_of_interest, point_of_interest do |f| %>
+  <%= hidden_field_tag "point_of_interest[id]", f.object.id if f.object.id.present? %>
+
   <div class="row">
     <div class="col">
       <div class="form-group">
