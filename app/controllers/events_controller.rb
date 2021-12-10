@@ -188,10 +188,13 @@ class EventsController < ApplicationController
     GRAPHQL
 
     @event = results.data.event_record
+  rescue Graphlient::Errors::GraphQLError
+    flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
+    redirect_to events_path
   end
 
   def create
-    query = create_params
+    query = create_or_update_mutation
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
@@ -206,41 +209,18 @@ class EventsController < ApplicationController
   end
 
   def update
-    old_id = params[:id]
-    query = create_params
-    logger.warn(query)
+    event_id = params[:id]
+
+    query = create_or_update_mutation(true)
+    # logger.warn(query)
 
     begin
-      results = @smart_village.query query
+      @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_event_path(old_id)
-      return
     end
 
-    new_id = results.data.create_event_record.id
-
-    if new_id.present? && new_id != old_id
-      # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
-
-      destroy_results = @smart_village.query <<~GRAPHQL
-        mutation {
-          destroyRecord(
-            id: #{old_id},
-            recordType: "EventRecord"
-          ) {
-            id
-            status
-            statusCode
-          }
-        }
-      GRAPHQL
-
-      redirect_to edit_event_path(new_id)
-    else
-      flash[:error] = "Fehler: #{results.errors.inspect}"
-      redirect_to edit_event_path(old_id)
-    end
+    redirect_to edit_event_path(event_id)
   end
 
   def destroy
@@ -267,6 +247,10 @@ class EventsController < ApplicationController
 
   private
 
+    def event_params
+      params.require(:event).permit!
+    end
+
     def new_event_record
       OpenStruct.new(
         addresses: [OpenStruct.new],
@@ -284,10 +268,10 @@ class EventsController < ApplicationController
       )
     end
 
-    def create_params
-      @event_params = params.require(:event).permit!
+    def create_or_update_mutation(update = false)
+      @event_params = event_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createEventRecord", @event_params)
+      Converter::Base.new.build_mutation("createEventRecord", @event_params, update)
     end
 
     def convert_params_for_graphql
