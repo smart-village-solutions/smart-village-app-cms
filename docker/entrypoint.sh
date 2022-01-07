@@ -8,7 +8,7 @@ rm -f /unicorn.pid
 
 npm set audit false
 
-# rake assets:precompile
+rake assets:precompile
 # cp -r /app/public/* /assets/
 
 exec "$@"
