@@ -1,5 +1,5 @@
 {
-  "name": "jsonform_cms",
+  "name": "bbnavi-cms",
   "private": true,
   "scripts": {
     "dev-server": "bin/webpack-dev-server"
