@@ -45,11 +45,22 @@ body.app {
   body.app {
     margin-left: 104px; /* NOTE: necessary because of the sidebar */
   }
+
+  .sidebar.toggled #image-3-98 {
+    height: 17.78px;
+    width: 72px;
+  }
 }
 
 @media (max-width: 768px) {
+  .sidebar #image-3-98 {
+    height: 17.78px;
+    width: 72px;
+  }
+
   #sidebarToggleTop {
     margin-left: 104px; /* NOTE: necessary because of the sidebar */
+    color: #da1b1b;
   }
 
   #sidebarToggleTop.toggled {
@@ -61,12 +72,21 @@ body.app {
   row-gap: 10px;
 }
 
+a {
+  color: #da1b1b;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #8e1212;
+}
+
 body .table {
   color: #11223f;
 }
 
 body .navbar-nav.sidebar {
-  background-color: #11223f;
+  background-color: #da1b1b;
   left: 0;
   min-height: 100%;
   position: absolute;
@@ -101,24 +121,30 @@ body .btn-danger:hover {
 
 body .btn-secondary {
   color: #fff;
-  background-color: #11223f;
-  border-color: #11223f;
+  background-color: #da1b1b;
+  border-color: #da1b1b;
+}
+
+body .btn-secondary:hover {
+  opacity: 0.7;
+  background-color: #da1b1b;
+  border-color: #da1b1b;
 }
 
 body .page-item.active .page-link {
   color: #fff;
-  background-color: #11223f;
-  border-color: #11223f;
+  background-color: #da1b1b;
+  border-color: #da1b1b;
 }
 
 body .page-link {
-  color: #11223f;
+  color: #da1b1b;
 }
 
 body .page-link:hover {
   color: #fff;
-  background-color: #11223f;
-  border-color: #11223f;
+  background-color: #da1b1b;
+  border-color: #da1b1b;
 }
 
 body .custom-control-input:checked ~ .custom-control-label::before {
@@ -127,7 +153,7 @@ body .custom-control-input:checked ~ .custom-control-label::before {
 }
 
 body .scroll-to-top:hover {
-  background: #11223f;
+  background: #da1b1b;
 }
 
 h1 {
