@@ -12,6 +12,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Name</th>
+        <th scope="col" class="nosort">Version</th>
         <th scope="col" class="nosort">Inhalt</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
@@ -23,6 +24,7 @@
         <tr>
           <th scope="row"><%= static_content.id %></th>
           <td scope="row"><%= static_content.name %></td>
+          <td scope="row"><%= static_content.version %></td>
           <td>
             <%= link_to(
                   "Vorschau",
@@ -37,7 +39,11 @@
           <td><%= toLocalDateTime(static_content.updated_at) %></td>
           <td><%= toLocalDateTime(static_content.created_at) %></td>
           <td align="right" class="text-nowrap">
-            <%= link_to "Bearbeiten", edit_static_content_path(static_content.name), class: "btn btn-sm btn-secondary" %>
+            <%= link_to(
+                  "Bearbeiten",
+                  edit_static_content_path(static_content.name, version: static_content.version),
+                  class: "btn btn-sm btn-secondary"
+                ) %>
             <%= link_to(
                   static_content_path(static_content.id),
                   method: :delete,

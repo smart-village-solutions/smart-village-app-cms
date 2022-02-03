@@ -21,6 +21,15 @@
   <div class="row">
     <div class="col">
       <div class="form-group">
+        <%= f.label :version, "Version <small>(dreistellige Versionsnummer (Beispiel: 1.2.3) angeben, wenn nötig)</small>".html_safe %>
+        <%= f.text_field :version, pattern: "\\d+(\\.\\d+)?(\\.\\d+)?", class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
         <%= f.label :content, "Inhalt" %>
         <%= f.text_area :content, class: "form-control html-editor-rich html-editor-text", rows: 15 %>
       </div>

@@ -11,6 +11,7 @@ class StaticContentsController < ApplicationController
           id
           name
           content
+          version
           updatedAt
           createdAt
         }
@@ -42,13 +43,16 @@ class StaticContentsController < ApplicationController
       render :new
       return
     end
-    new_id = results.data.create_or_update_static_content_poll.id
+    byebug
+    new_name = results.data.create_or_update_static_content.name
+    new_version = results.data.create_or_update_static_content.version
     flash[:notice] = "Statischer Inhalt wurde erstellt"
-    redirect_to edit_static_content_path(new_id)
+    redirect_to edit_static_content_path(new_name, version: new_version)
   end
 
   def update
-    static_content_id = params[:id]
+    static_content_name = params[:name]
+    static_content_version = params[:static_content][:version]
     query = create_params
     begin
       @smart_village.query query
@@ -59,7 +63,7 @@ class StaticContentsController < ApplicationController
       return
     end
     flash[:notice] = "Statischer Inhalt wurde aktualisiert"
-    redirect_to edit_static_content_path(static_content_id)
+    redirect_to edit_static_content_path(static_content_name, version: static_content_version)
   end
 
   def destroy
@@ -94,11 +98,13 @@ class StaticContentsController < ApplicationController
       results = @smart_village.query <<~GRAPHQL
         query {
           staticContent: publicHtmlFile(
-            name: "#{params[:id]}"
+            name: "#{params[:name]}",
+            version: "#{params[:version]}"
           ) {
             id
             name
             content
+            version
             updatedAt
             createdAt
           }
@@ -110,6 +116,10 @@ class StaticContentsController < ApplicationController
 
     def create_params
       @static_content_params = params.require(:static_content).permit!
-      Converter::Base.new.build_mutation("createOrUpdateStaticContent", @static_content_params)
+      Converter::Base.new.build_mutation(
+        "createOrUpdateStaticContent",
+        @static_content_params,
+        "id name version"
+      )
     end
 end
