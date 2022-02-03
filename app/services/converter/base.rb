@@ -1,6 +1,6 @@
 module Converter
   class Base
-    def build_mutation(name, data)
+    def build_mutation(name, data, return_keys = "id")
       data = cleanup(data) unless name.downcase.include?("update")
       data = convert_to_json(data)
       data = convert_keys_to_camelcase(data)
@@ -10,7 +10,7 @@ module Converter
       # remove leading and tailing curly braces
       data = data.gsub(/^\{/, "").gsub(/\}$/, "")
 
-      "mutation { #{name} (forceCreate: true, #{data}) {id} }"
+      "mutation { #{name} (forceCreate: true, #{data}) { #{return_keys} } }"
     end
 
     def cleanup(data)
