@@ -277,6 +277,12 @@ class PointOfInterestsController < ApplicationController
         @point_of_interest_params["opening_hours"].each do |_key, opening_hour|
           next if opening_hour.blank?
 
+          # it is needed to cast "false" to boolean here in order to pass GraphQL server validations
+          # => Graphlient::Errors::ClientError (Argument 'open' on InputObject 'OpeningHourInput' has an invalid value. Expected type 'Boolean'.)
+          # somehow magic happens for check_box value "true" and it is not needed
+          if opening_hour[:open].present? && opening_hour[:open] == "false"
+            opening_hour[:open] = false
+          end
           opening_hours << opening_hour if nested_values?(opening_hour.to_h).include?(true)
         end
         @point_of_interest_params["opening_hours"] = opening_hours
