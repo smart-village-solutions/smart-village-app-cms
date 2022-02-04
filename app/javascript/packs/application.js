@@ -7,7 +7,7 @@ require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('jquery');
 require('jquery.easing');
-var moment = require('moment');
+require('moment');
 require('bootstrap/dist/js/bootstrap.bundle.min.js');
 require('@fortawesome/fontawesome-free/js/all.js');
 var DataTable = require('datatables.net/js/jquery.dataTables.js');
@@ -75,8 +75,8 @@ $(function () {
 
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
-  $.fn.dataTable.moment = moment;
   $.fn.dataTable.moment('DD.MM.YYYY HH:mm [Uhr]');
+  $.fn.dataTable.moment('DD.MM.YYYY');
   $.fn.dataTableSettings = DataTable.settings;
   $.fn.dataTableExt = DataTable.ext;
   DataTable.$ = $;
