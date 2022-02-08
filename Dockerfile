@@ -18,7 +18,8 @@ WORKDIR /app
 
 COPY Gemfile Gemfile.lock /app/
 RUN gem install bundler
-RUN bundle install --without development test
+RUN bundle config set without "development test"
+RUN bundle install
 
 COPY . /app
 
