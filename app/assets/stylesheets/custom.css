@@ -205,3 +205,7 @@ h1 {
 .ck.ck-splitbutton:hover > .ck-file-dialog-button + .ck-splitbutton__arrow::after {
   width: 0 !important;
 }
+
+.ct-image {
+  max-width: 90px;
+}
