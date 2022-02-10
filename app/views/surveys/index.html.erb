@@ -31,7 +31,7 @@
           <td><%= link_to i18n_json_to_text(survey.question_title), edit_survey_path(survey.id) %></td>
           <td>
             <%# link to survey counts table if there are any %>
-            <%= survey.comments.count.zero? ?
+            <%= !survey.can_comment ? "-" : survey.comments.count.zero? ?
                   survey.comments.count :
                     (link_to survey.comments.count, survey_comments_path(survey.id)) %>
           </td>

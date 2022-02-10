@@ -1,0 +1,70 @@
+<style>
+  #static_content_name {
+    text-transform: lowercase;
+  }
+</style>
+
+
+<%= fields_for :static_content, static_content do |f|  %>
+  <%= f.hidden_field :id if static_content.id %>
+  <%= hidden_field_tag "static_content[data_type]", "html" %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= f.label :name, "Bezeichnung * <small>(nur Kleinschreibung, keine Leerzeichen, keine Umlaute)</small>".html_safe %>
+        <%= f.text_field :name, class: "form-control", required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= f.label :version, "Version <small>(dreistellige Versionsnummer (Beispiel: 1.2.3) angeben, wenn nötig)</small>".html_safe %>
+        <%= f.text_field :version, pattern: "\\d+(\\.\\d+)?(\\.\\d+)?", class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= f.label :content, "Inhalt" %>
+        <%= f.text_area :content, class: "form-control html-editor-rich html-editor-text", rows: 15 %>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row justify-content-center pb-4">
+    <%= f.submit "Speichern", class: "btn btn-primary btn--big" %>
+  </div>
+<% end %>
+
+<script>
+  // "Ban" spaces in name field
+  // thanks to: https://stackoverflow.com/a/14236929/9956365
+  $('#static_content_name').on({
+      // When a new character was typed in
+      keydown: function(e) {
+        // 32 - ASCII for Space;
+        // `return false` cancels the keypress
+        if (e.which === 32) return false;
+      },
+      // When spaces managed to "sneak in" via copy/paste
+      change: function() {
+        // Regex-replace all spaces in the final value with hyphen
+        this.value = this.value.replace(/\s/g, '-');
+        // Regex-replace all umlauts in the final value
+        this.value = this.value.toLowerCase();
+        this.value = this.value.replace(/ä/g, 'ae');
+        this.value = this.value.replace(/ö/g, 'oe');
+        this.value = this.value.replace(/ü/g, 'ue');
+        this.value = this.value.replace(/ß/g, 'ss');
+      }
+      // NOTE: value replacement only in events that already involve the textbox losing
+      //       focus, else caret position gets mangled.
+  });
+</script>

@@ -196,3 +196,12 @@ h1 {
 .leafletMap {
   height: 320px;
 }
+
+.modal-body img {
+  width: 100%;
+}
+
+/* SVA-315 */
+.ck.ck-splitbutton:hover > .ck-file-dialog-button + .ck-splitbutton__arrow::after {
+  width: 0 !important;
+}

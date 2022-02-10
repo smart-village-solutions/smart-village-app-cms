@@ -1,0 +1,11 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Inhalt erstellen</h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <%= form_with(url: static_contents_path, method: :post, local: true) do %>
+      <%= render partial: "static_contents/form", locals: { static_content: @static_content } %>
+    <% end %>
+  </div>
+</div>

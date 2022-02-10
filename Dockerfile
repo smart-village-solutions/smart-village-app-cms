@@ -23,7 +23,7 @@ RUN chmod +x /app/docker/entrypoint.sh
 COPY Gemfile Gemfile.lock /app/
 
 RUN gem install bundler
-RUN bundle config set --local without 'development test'
+RUN bundle config set without "development test"
 RUN bundle install
 
 RUN yarn

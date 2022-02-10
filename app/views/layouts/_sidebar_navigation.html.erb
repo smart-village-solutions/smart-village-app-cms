@@ -102,12 +102,22 @@
   </li>
 <% end %>
 
-<!-- Nav Item - Surveys -->
+<!-- Nav Item - Encounters -->
 <% if visible_in_role?("role_encounter_support") %>
   <li class="nav-item <%= 'active' if params[:controller] == 'encounters_supports' %>">
     <a class="nav-link" href="/encounters_supports">
       <i class="fas fa-fw fa-handshake"></i>
       <span>Begegnungen</span>
+    </a>
+  </li>
+<% end %>
+
+<!-- Nav Item - StaticContents -->
+<% if visible_in_role?("role_static_contents") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'static_contents' %>">
+    <a class="nav-link" href="/static_contents">
+      <i class="fas fa-fw fa-file-alt"></i>
+      <span>Statische Inhalte</span>
     </a>
   </li>
 <% end %>
