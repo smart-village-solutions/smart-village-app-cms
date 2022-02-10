@@ -196,3 +196,7 @@ h1 {
 .leafletMap {
   height: 320px;
 }
+
+.ct-image {
+  max-width: 90px;
+}
