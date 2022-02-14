@@ -24,8 +24,9 @@
 /public/assets
 .byebug_history
 
-# Ignore master key for decrypting credentials and more.
+# Ignore keys for decrypting credentials and more.
 /config/master.key
+/config/credentials/production.key
 
 /public/packs
 /public/packs-test

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   match "/login", to: "session#create", as: :log_in, via: %i[get post]
   get "/logout", to: "session#destroy"
   get "dashboard/index"
+  resources :static_contents, except: :destroy, param: :name
+  delete "/static_contents/:id", to: "static_contents#destroy"
 
   root "dashboard#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

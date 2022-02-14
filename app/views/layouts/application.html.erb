@@ -11,10 +11,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
-    <%#= javascript_pack_tag 'vue' %>
+    <%= stylesheet_link_tag "application", media: "all" %>
   </head>
   <body id="page-top" class="app">
 
@@ -113,6 +110,6 @@
 
     <!-- Applications Modal-->
     <%= render partial: "layouts/modal_applications" if @current_user.present? %>
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag "application" %>
 </body>
 </html>

@@ -24,6 +24,7 @@ class SurveysController < ApplicationController
           comments: surveyComments {
             id
           }
+          canComment
         }
       }
     GRAPHQL
@@ -113,6 +114,7 @@ class SurveysController < ApplicationController
             description
             questionId
             questionTitle
+            questionAllowMultipleResponses
             date {
               dateStart
               dateEnd
@@ -128,6 +130,8 @@ class SurveysController < ApplicationController
             dataProvider {
               name
             }
+            canComment
+            isMultilingual
             updatedAt
             createdAt
           }
@@ -145,6 +149,7 @@ class SurveysController < ApplicationController
         question_id: survey.question_id,
         question_title_de: survey.question_title["de"],
         question_title_pl: survey.question_title["pl"],
+        question_allow_multiple_responses: survey.question_allow_multiple_responses,
         date: survey.date,
         response_options: survey.response_options.map do |response_option|
           OpenStruct.new(
@@ -153,7 +158,9 @@ class SurveysController < ApplicationController
             title_pl: response_option.title["pl"],
             votes_count: response_option.votes_count
           )
-        end
+        end,
+        can_comment: survey.can_comment,
+        is_multilingual: survey.is_multilingual
       )
     end
 
@@ -169,6 +176,11 @@ class SurveysController < ApplicationController
         dates = @survey_params.delete(:dates)
         @survey_params["date"] = dates["0"]
       end
+
+      # Convert to boolean
+      @survey_params["can_comment"] = @survey_params["can_comment"] == "true"
+      @survey_params["question_allow_multiple_responses"] = @survey_params["question_allow_multiple_responses"] == "true"
+      @survey_params["is_multilingual"] = @survey_params["is_multilingual"] == "true"
 
       # Convert has_many response_options
       if @survey_params["response_options"].present?

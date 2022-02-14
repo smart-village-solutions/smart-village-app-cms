@@ -7,6 +7,7 @@ require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('jquery');
 require('jquery.easing');
+require('moment');
 require('bootstrap/dist/js/bootstrap.bundle.min.js');
 require('@fortawesome/fontawesome-free/js/all.js');
 var DataTable = require('datatables.net/js/jquery.dataTables.js');
@@ -23,6 +24,9 @@ require('../partials/_nested_lunch_form');
 // map in forms
 require('../partials/_leaflet_map');
 
+// ckeditor custom build
+require('../ckeditor');
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -30,23 +34,32 @@ require('../partials/_leaflet_map');
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-const initClassicEditor = (htmlEditor) => {
-  ClassicEditor.create(htmlEditor, {
-    toolbar: [
-      'heading',
-      '|',
-      'bulletedList',
-      'numberedList',
-      'link',
-      'bold',
-      'italic',
-      '|',
-      'undo',
-      'redo'
-    ]
-  })
-    .then((editor) => {
-      // console.log(Array.from(editor.ui.componentFactory.names()));
+const initClassicEditor = (htmlEditor, rich = false) => {
+  ClassicEditor.create(
+    htmlEditor,
+    !rich && {
+      toolbar: [
+        'heading',
+        '|',
+        'bulletedList',
+        'numberedList',
+        'link',
+        'bold',
+        'italic',
+        '|',
+        'undo',
+        'redo'
+      ]
+    }
+  )
+    .then(() => {
+      // SVA-315
+      $('.ck-file-dialog-button button svg').insertBefore($('.ck-file-dialog-button button'));
+      $('.ck-file-dialog-button button').remove();
+      $('.ck-file-dialog-button').on('click', (e) => {
+        e.preventDefault();
+        $('.ck-file-dialog-button + .ck-splitbutton__arrow').trigger('click');
+      });
     })
     .catch((error) => {
       console.error(error);
@@ -54,19 +67,21 @@ const initClassicEditor = (htmlEditor) => {
 };
 
 /* eslint-disable func-names */
-$(function() {
+$(function () {
   document.querySelectorAll('.html-editor').forEach((htmlEditor) => initClassicEditor(htmlEditor));
+  document
+    .querySelectorAll('.html-editor-rich')
+    .forEach((htmlEditor) => initClassicEditor(htmlEditor, true));
 
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
-  $.fn.dataTable.moment( 'DD.MM.YYYY HH:mm [Uhr]' );
+  $.fn.dataTable.moment('DD.MM.YYYY HH:mm [Uhr]');
+  $.fn.dataTable.moment('DD.MM.YYYY');
   $.fn.dataTableSettings = DataTable.settings;
   $.fn.dataTableExt = DataTable.ext;
   DataTable.$ = $;
-  $.fn.DataTable = function(opts) {
-    return $(this)
-      .dataTable(opts)
-      .api();
+  $.fn.DataTable = function (opts) {
+    return $(this).dataTable(opts).api();
   };
 
   $('.data_table').DataTable({
@@ -84,7 +99,7 @@ $(function() {
   });
 
   // Toggle the side navigation
-  $('#sidebarToggle, #sidebarToggleTop').on('click', function() {
+  $('#sidebarToggle, #sidebarToggleTop').on('click', function () {
     $('.sidebar, #sidebarToggleTop').toggleClass('toggled');
   });
 
@@ -93,21 +108,21 @@ $(function() {
   // therefore check for difference in width inside resize event.
   var width = $(window).width();
 
-  $(window).on('resize', function() {
+  $(window).on('resize', function () {
     if ($(window).width() != width && $(window).width() < 992) {
       $('.sidebar, #sidebarToggleTop').addClass('toggled');
     }
   });
 
   // on rotation change remove resize listener, update `width` and bin resize listener again
-  $(window).on('orientationchange', function() {
+  $(window).on('orientationchange', function () {
     $(window).off('resize');
 
     // wait a bit until orientation is changed and new dimensions set
     setTimeout(() => {
       width = $(window).width();
 
-      $(window).on('resize', function() {
+      $(window).on('resize', function () {
         if ($(window).width() != width && $(window).width() < 992) {
           $('.sidebar, #sidebarToggleTop').addClass('toggled');
         }
@@ -116,7 +131,7 @@ $(function() {
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
-  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
     if ($(window).width() > 991) {
       var e0 = e.originalEvent,
         delta = e0.wheelDelta || -e0.detail;
@@ -126,7 +141,7 @@ $(function() {
   });
 
   // Scroll to top button appear
-  $(document).on('scroll', function() {
+  $(document).on('scroll', function () {
     var scrollDistance = $(this).scrollTop();
     if (scrollDistance > 100) {
       $('.scroll-to-top').fadeIn();
@@ -136,16 +151,14 @@ $(function() {
   });
 
   // Smooth scrolling using jQuery
-  $(document).on('click', 'a.scroll-to-top', function(e) {
-    $('html, body')
-      .stop()
-      .animate(
-        {
-          scrollTop: 0
-        },
-        500,
-        'swing'
-      );
+  $(document).on('click', 'a.scroll-to-top', function (e) {
+    $('html, body').stop().animate(
+      {
+        scrollTop: 0
+      },
+      500,
+      'swing'
+    );
     e.preventDefault();
   });
 });

@@ -11,7 +11,7 @@
     >
       <div class="d-flex justify-content-between align-items-center py-5 px-4">
         <h4>
-          Nachrichten
+          <i class="fas fa-fw fa-newspaper"></i> Nachrichten
         </h4>
         <h5>
           <%= @news_items.count %>
@@ -36,7 +36,7 @@
     >
       <div class="d-flex justify-content-between align-items-center py-5 px-4">
         <h4>
-          Veranstaltungen
+          <i class="fas fa-fw fa-calendar-alt"></i> Veranstaltungen
         </h4>
         <h5>
           <%= @events.count %>
@@ -61,7 +61,7 @@
     >
       <div class="d-flex justify-content-between align-items-center py-5 px-4">
         <h4>
-          Orte
+          <i class="fas fa-fw fa-map-pin"></i> Orte
         </h4>
         <h5>
           <%= @points_of_interest.count %>
@@ -86,7 +86,7 @@
     >
       <div class="d-flex justify-content-between align-items-center py-5 px-4">
         <h4>
-          Touren
+          <i class="fas fa-fw fa-walking"></i> Touren
         </h4>
         <h5>
           <%= @tours.count %>
@@ -111,7 +111,7 @@
     >
       <div class="d-flex justify-content-between align-items-center py-5 px-4">
         <h4>
-          Stellenanzeigen
+          <i class="fas fa-fw fa-briefcase"></i> Stellenanzeigen
         </h4>
         <h5>
           <%= @jobs.count %>
@@ -136,7 +136,7 @@
     >
       <div class="d-flex justify-content-between align-items-center py-5 px-4">
         <h4>
-          Werbliche Anzeigen
+          <i class="fas fa-fw fa-building"></i> Werbliche Anzeigen
         </h4>
         <h5>
           <%= @offers.count %>
@@ -149,6 +149,123 @@
         <% end %>
 
         <%= link_to new_offer_path, class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_constuction_site") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-tools"></i> Baustellen
+        </h4>
+        <h5>
+          <%= @constructions.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/constructions", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_construction_path, class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_waste_calendar") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-trash-alt"></i> Abfallkalender
+        </h4>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/waste_calendar", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Für <%= @waste_locations.count %> Straßen anzeigen
+        <% end %>
+
+        <%= link_to new_waste_calendar_path, class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neue Daten importieren
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_survey") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-chart-bar"></i> Umfragen
+        </h4>
+        <h5>
+          <%= @surveys.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/surveys", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_survey_path, class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_encounter_support") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-handshake"></i> Begegnungen
+        </h4>
+        <h5>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/encounters_supports", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Nutzer und Begegnungen einsehen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if visible_in_role?("role_static_contents") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-file-alt"></i> Statische Inhalte
+        </h4>
+        <h5>
+          <%= @static_contents.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/static_contents", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_static_content_path, class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
           Neu anlegen
         <% end %>
       </div>

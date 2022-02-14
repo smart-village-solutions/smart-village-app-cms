@@ -1,0 +1,11 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Inhalt bearbeiten</h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <%= form_with(url: static_content_path(@static_content.name), method: :patch, local: true) do %>
+      <%= render partial: "static_contents/form", locals: { static_content: @static_content } %>
+    <% end %>
+  </div>
+</div>
