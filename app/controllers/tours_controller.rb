@@ -119,10 +119,13 @@ class ToursController < ApplicationController
     GRAPHQL
 
     @tour = results.data.tour
+  rescue Graphlient::Errors::GraphQLError
+    flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
+    redirect_to tours_path
   end
 
   def create
-    query = create_params
+    query = create_or_update_mutation
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
@@ -137,41 +140,18 @@ class ToursController < ApplicationController
   end
 
   def update
-    old_id = params[:id]
-    query = create_params
-    logger.warn(query)
+    tour_id = params[:id]
+
+    query = create_or_update_mutation(true)
+    # logger.warn(query)
 
     begin
-      results = @smart_village.query query
+      @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_tour_path(old_id)
-      return
     end
 
-    new_id = results.data.create_tour.id
-
-    if new_id.present? && new_id != old_id
-      # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
-
-      destroy_results = @smart_village.query <<~GRAPHQL
-        mutation {
-          destroyRecord(
-            id: #{old_id},
-            recordType: "Tour"
-          ) {
-            id
-            status
-            statusCode
-          }
-        }
-      GRAPHQL
-
-      redirect_to edit_tour_path(new_id)
-    else
-      flash[:error] = "Fehler: #{results.errors.inspect}"
-      redirect_to edit_tour_path(old_id)
-    end
+    redirect_to edit_tour_path(tour_id)
   end
 
   def destroy
@@ -198,6 +178,10 @@ class ToursController < ApplicationController
 
   private
 
+    def tour_params
+      params.require(:tour).permit!
+    end
+
     def new_tour
       OpenStruct.new(
         addresses: [OpenStruct.new(
@@ -214,10 +198,10 @@ class ToursController < ApplicationController
       )
     end
 
-    def create_params
-      @tour_params = params.require(:tour).permit!
+    def create_or_update_mutation(update = false)
+      @tour_params = tour_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createTour", @tour_params)
+      Converter::Base.new.build_mutation("createTour", @tour_params, update)
     end
 
     def convert_params_for_graphql

@@ -1,4 +1,6 @@
 <%= fields_for :tour, tour do |f| %>
+  <%= hidden_field_tag "tour[id]", f.object.id if f.object.id.present? %>
+
   <div class="row">
     <div class="col">
       <div class="form-group">

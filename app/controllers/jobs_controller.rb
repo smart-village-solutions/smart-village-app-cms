@@ -106,10 +106,13 @@ class JobsController < ApplicationController
     GRAPHQL
 
     @job = results.data.generic_item
+  rescue Graphlient::Errors::GraphQLError
+    flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
+    redirect_to jobs_path
   end
 
   def create
-    query = create_params
+    query = create_or_update_mutation
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
@@ -124,41 +127,18 @@ class JobsController < ApplicationController
   end
 
   def update
-    old_id = params[:id]
-    query = create_params
-    logger.warn(query)
+    job_id = params[:id]
+
+    query = create_or_update_mutation(true)
+    # logger.warn(query)
 
     begin
-      results = @smart_village.query query
+      @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_job_path(old_id)
-      return
     end
 
-    new_id = results.data.create_generic_item.id
-
-    if new_id.present? && new_id != old_id
-      # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
-
-      destroy_results = @smart_village.query <<~GRAPHQL
-        mutation {
-          destroyRecord(
-            id: #{old_id},
-            recordType: "GenericItem"
-          ) {
-            id
-            status
-            statusCode
-          }
-        }
-      GRAPHQL
-
-      redirect_to edit_job_path(new_id)
-    else
-      flash[:error] = "Fehler: #{results.errors.inspect}"
-      redirect_to edit_job_path(old_id)
-    end
+    redirect_to edit_job_path(job_id)
   end
 
   def destroy
@@ -185,6 +165,10 @@ class JobsController < ApplicationController
 
   private
 
+    def job_params
+      params.require(:job).permit!
+    end
+
     def new_generic_item
       OpenStruct.new(
         generic_type: "Job",
@@ -200,10 +184,10 @@ class JobsController < ApplicationController
       )
     end
 
-    def create_params
-      @job_params = params.require(:job).permit!
+    def create_or_update_mutation(update = false)
+      @job_params = job_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createGenericItem", @job_params)
+      Converter::Base.new.build_mutation("createGenericItem", @job_params, update)
     end
 
     def convert_params_for_graphql

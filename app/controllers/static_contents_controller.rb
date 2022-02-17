@@ -119,6 +119,7 @@ class StaticContentsController < ApplicationController
       Converter::Base.new.build_mutation(
         "createOrUpdateStaticContent",
         @static_content_params,
+        false,
         "id name version"
       )
     end
