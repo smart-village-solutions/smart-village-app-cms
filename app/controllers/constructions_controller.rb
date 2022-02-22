@@ -229,8 +229,6 @@ class ConstructionsController < ApplicationController
         @construction_params["locations"].each do |_key, location|
           next if location.blank?
           next if location["geo_location"].blank?
-          next if location["geo_location"]["latitude"].blank?
-          next if location["geo_location"]["longitude"].blank?
 
           location["geoLocation"] = {}
           location["geoLocation"]["latitude"] = location["geo_location"]["latitude"].to_f if location["geo_location"]["latitude"].present?
