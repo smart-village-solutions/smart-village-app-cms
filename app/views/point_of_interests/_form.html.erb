@@ -1,6 +1,18 @@
 <%= fields_for :point_of_interest, point_of_interest do |f| %>
   <%= hidden_field_tag "point_of_interest[id]", f.object.id if f.object.id.present? %>
 
+  <% if @point_of_interest.needs_update %>
+    <div class="row justify-content-center pb-4">
+      <div class="col col-outdated-data">
+        Bitte aktualisieren Sie ihre Daten oder bestätigen Sie, dass diese noch aktuell sind:
+      </div>
+      <div class="col col-outdated-data">
+        <%= f.submit "Daten sind noch aktuell", class: "btn btn-primary btn--big" %>
+      </div>
+    </div>
+  <% end %>
+
+
   <div class="row">
     <div class="col">
       <div class="form-group">
