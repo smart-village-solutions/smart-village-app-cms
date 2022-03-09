@@ -8,7 +8,7 @@ class PointOfInterestsController < ApplicationController
   def index
     results = @smart_village.query <<~GRAPHQL
       query {
-        pointsOfInterest {
+        pointsOfInterest(category: "Fahrradvermietung/-service") {
           id
           name
           visible

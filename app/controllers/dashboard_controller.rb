@@ -32,7 +32,7 @@ class DashboardController < ApplicationController
     if helpers.visible_in_role?("role_point_of_interest")
       poi_results = @smart_village.query <<~GRAPHQL
         query {
-          pointsOfInterest {
+          pointsOfInterest(category: "Fahrradvermietung/-service") {
             id
           }
         }
