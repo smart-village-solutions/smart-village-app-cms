@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "securerandom"
+
 # This controller handles file uploads to minio buckets
 # specifically for uploading images for e.g. POIs
 class MinioController < ApplicationController
@@ -8,14 +10,13 @@ class MinioController < ApplicationController
   before_action :minio_setup
 
   def signed_url
-    object_name = params[:filename] || "test.jpg"
     bucket = @minio_config["bucket"]
     headers = {}
     options = { path_style: true }
 
     url = @storage.put_object_url(
       bucket,
-      object_name,
+      generate_filename,
       15.minutes.from_now.to_time.to_i,
       headers,
       options
@@ -43,5 +44,13 @@ class MinioController < ApplicationController
         aws_secret_access_key: @minio_config["secret_access_key"],
         region: @minio_config["region"]
       )
+    end
+
+    def generate_filename
+      file_name_and_extension = params[:filename].split(".")
+      filename = file_name_and_extension[0].gsub(" ", "-")
+      extension = file_name_and_extension.last
+
+      "#{filename}-#{SecureRandom.hex}.#{extension}"
     end
 end
