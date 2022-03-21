@@ -47,10 +47,9 @@ class MinioController < ApplicationController
     end
 
     def generate_filename
-      file_name_and_extension = params[:filename].split(".")
-      filename = file_name_and_extension[0].gsub(" ", "-")
-      extension = file_name_and_extension.last
+      extension = File.extname(params[:filename])
+      filename = File.basename(params[:filename], extension).gsub(" ", "-")
 
-      "#{filename}-#{SecureRandom.hex}.#{extension}"
+      "cms_uploads/#{filename}-#{SecureRandom.hex}#{extension}"
     end
 end
