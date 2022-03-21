@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :static_contents, except: :destroy, param: :name
   delete "/static_contents/:id", to: "static_contents#destroy"
 
+  get "/minio/signed_url", to: "minio#signed_url"
+
   root "dashboard#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

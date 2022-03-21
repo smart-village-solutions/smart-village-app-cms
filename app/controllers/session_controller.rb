@@ -14,12 +14,14 @@ class SessionController < ApplicationController
         session["current_user"]["applications"] = @current_user.applications
         session["current_user"]["roles"] = @current_user.roles
         session["current_user"]["permission"] = @current_user.permission
+        session["current_user"]["minio"] = @current_user.minio
         redirect_to root_path
       else
         flash[:error] = "E-Mail oder Passwort ist falsch"
         redirect_to log_in_path
       end
     end
+
   end
 
   def destroy
