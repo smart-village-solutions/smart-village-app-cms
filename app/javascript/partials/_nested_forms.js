@@ -75,6 +75,11 @@ $(function() {
     }
   });
 
+
+  // We need to know the amount of forms at DOM load to know which classes we have to fix,
+  // see below in afterAddForm callback
+  const nestedMediaFormCount = $('.nested-medium-form').length;
+
   // media not nested in a content block, for example in events.
   // everything with classes here, because in content blocks nested-media will appear multiple times
   $('.nested-media').nestedForm({
@@ -83,6 +88,38 @@ $(function() {
     ...defaultNestedFormsOptions,
     beforeAddForm: ($container) => {
       $container.children('.nested-medium-form').removeClass('d-none');
+    },
+    afterAddForm: function(_, $form) {
+
+      // If we only have one nested media form, we don't have to do anything
+      // becasue the index of 0 is already the right one
+      if ($('.nested-medium-form').length === 1) {
+        return;
+      }
+
+      // Increment the index on all elements of the new form by 100
+      let oldFormIndex = nestedMediaFormCount - 1;
+      let formIndex = $('.nested-medium-form').length - 1;
+
+      $form.find('.upload-toggle').attr('data-target', '.file-upload-collapse-' + formIndex);
+      $form.find('[data-index]').attr('data-index', formIndex);
+
+      const classNamesToFix = [
+        'file-upload-collapse',
+        'file-input',
+        'upload-progress',
+        'upload-progress-bar',
+        'image-preview-wrapper',
+        'image-preview'
+      ]
+
+      classNamesToFix.forEach((className) => {
+        let $el = $form.find('.' + className);
+        $el.removeClass(className + '-' + oldFormIndex);
+        $el.addClass(className + '-' + formIndex);
+      });
+
+      window.bindFileUploadEvents();
     }
   });
 });
