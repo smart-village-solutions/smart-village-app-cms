@@ -1,0 +1,12 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@rails/webpacker > optimize-css-assets-webpack-plugin > last-call-webpack-plugin > lodash':
+        patched: '2022-03-26T00:39:45.278Z'
+    - '@rails/webpacker > @babel/preset-env > @babel/preset-modules > @babel/types > lodash':
+        patched: '2022-03-26T00:39:45.278Z'
+    - '@rails/webpacker > @babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-regex > lodash':
+        patched: '2022-03-26T00:39:45.278Z'
