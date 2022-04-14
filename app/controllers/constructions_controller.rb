@@ -80,10 +80,13 @@ class ConstructionsController < ApplicationController
     GRAPHQL
 
     @construction = results.data.generic_item
+  rescue Graphlient::Errors::GraphQLError
+    flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
+    redirect_to constructions_path
   end
 
   def create
-    query = create_params
+    query = create_or_update_mutation
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
@@ -98,41 +101,18 @@ class ConstructionsController < ApplicationController
   end
 
   def update
-    old_id = params[:id]
-    query = create_params
-    logger.warn(query)
+    construction_id = params[:id]
+
+    query = create_or_update_mutation(true)
+    # logger.warn(query)
 
     begin
-      results = @smart_village.query query
+      @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      redirect_to edit_construction_path(old_id)
-      return
     end
 
-    new_id = results.data.create_generic_item.id
-
-    if new_id.present? && new_id != old_id
-      # Nach dem Erstellen des neuen Datensatzes wird der alte gelöscht
-
-      destroy_results = @smart_village.query <<~GRAPHQL
-        mutation {
-          destroyRecord(
-            id: #{old_id},
-            recordType: "GenericItem"
-          ) {
-            id
-            status
-            statusCode
-          }
-        }
-      GRAPHQL
-
-      redirect_to edit_construction_path(new_id)
-    else
-      flash[:error] = "Fehler: #{results.errors.inspect}"
-      redirect_to edit_construction_path(old_id)
-    end
+    redirect_to edit_construction_path(construction_id)
   end
 
   def destroy
@@ -159,6 +139,10 @@ class ConstructionsController < ApplicationController
 
   private
 
+    def construction_params
+      params.require(:construction).permit!
+    end
+
     def new_generic_item
       OpenStruct.new(
         generic_type: "ConstructionSite",
@@ -168,10 +152,10 @@ class ConstructionsController < ApplicationController
       )
     end
 
-    def create_params
-      @construction_params = params.require(:construction).permit!
+    def create_or_update_mutation(update = false)
+      @construction_params = construction_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createGenericItem", @construction_params)
+      Converter::Base.new.build_mutation("createGenericItem", @construction_params, update)
     end
 
     def convert_params_for_graphql
@@ -245,8 +229,6 @@ class ConstructionsController < ApplicationController
         @construction_params["locations"].each do |_key, location|
           next if location.blank?
           next if location["geo_location"].blank?
-          next if location["geo_location"]["latitude"].blank?
-          next if location["geo_location"]["longitude"].blank?
 
           location["geoLocation"] = {}
           location["geoLocation"]["latitude"] = location["geo_location"]["latitude"].to_f if location["geo_location"]["latitude"].present?

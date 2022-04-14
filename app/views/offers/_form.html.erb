@@ -1,4 +1,5 @@
 <%= fields_for :offer, offer do |f| %>
+  <%= hidden_field_tag "offer[id]", f.object.id if f.object.id.present? %>
   <%= hidden_field_tag "offer[generic_type]", @offer.generic_type %>
 
   <div class="row">

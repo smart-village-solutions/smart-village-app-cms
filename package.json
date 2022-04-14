@@ -11,6 +11,7 @@
     "@rails/activestorage": "^6.1.4",
     "@rails/ujs": "^6.1.4",
     "@rails/webpacker": "^5.2.2",
+    "axios": "^0.26.1",
     "bootstrap": "^4.6.0",
     "datatable-sorting-datetime-moment": "^1.0.1",
     "datatables.net": "^1.10.19",

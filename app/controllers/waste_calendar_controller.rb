@@ -15,7 +15,7 @@ class WasteCalendarController < ApplicationController
       }
     GRAPHQL
 
-    @waste_types = JSON.parse(results.data.public_json_file.content)
+    @waste_types = results.data.public_json_file.content
 
     results = @smart_village.query <<~GRAPHQL
       query {
@@ -48,7 +48,7 @@ class WasteCalendarController < ApplicationController
       }
     GRAPHQL
 
-    @waste_types = JSON.parse(results.data.public_json_file.content)
+    @waste_types = results.data.public_json_file.content
 
     @address_data = params[:address_data]
     @tour_data = params[:tour_data]

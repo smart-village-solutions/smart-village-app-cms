@@ -209,3 +209,34 @@ h1 {
 .ct-image {
   max-width: 90px;
 }
+
+/* Fileupload: SVA-226 */
+.form-control-file {
+  margin-bottom: 1em;
+}
+
+.upload-progress, .image-preview-wrapper {
+  display: none;
+}
+
+.image-preview-wrapper {
+  margin-top: 2em;
+}
+
+.image-preview-wrapper > label {
+  text-align: center;
+  text-decoration: underline;
+  display: block;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.file-upload-collapse {
+  margin-bottom: 1em;
+}

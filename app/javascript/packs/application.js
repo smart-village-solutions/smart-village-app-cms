@@ -27,6 +27,8 @@ require('../partials/_leaflet_map');
 // ckeditor custom build
 require('../ckeditor');
 
+require('./fileupload')
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.

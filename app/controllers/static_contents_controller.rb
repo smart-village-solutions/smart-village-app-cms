@@ -43,7 +43,7 @@ class StaticContentsController < ApplicationController
       render :new
       return
     end
-    byebug
+
     new_name = results.data.create_or_update_static_content.name
     new_version = results.data.create_or_update_static_content.version
     flash[:notice] = "Statischer Inhalt wurde erstellt"
@@ -119,6 +119,7 @@ class StaticContentsController < ApplicationController
       Converter::Base.new.build_mutation(
         "createOrUpdateStaticContent",
         @static_content_params,
+        false,
         "id name version"
       )
     end

@@ -16,7 +16,11 @@
               <i class="fa fa-trash text-white"></i>
             <% end %>
           </div>
+
           <div class="card-body">
+
+            <%= render partial: "shared/partials/fileupload", locals: { index: index } %>
+
             <%= fmc.fields_for :source_url, media_content.source_url do |fu| %>
               <div class="row">
                 <div class="col">
@@ -38,13 +42,13 @@
                       Es wird dringend empfohlen, nach dem Speichern der Datensätze die Darstellung
                       in der mobilen App zu überprüfen und gegebenenfalls anzupassen!
                     </label>
-                    <%= fu.text_field :url, class: "form-control" %>
+                    <%= fu.text_field :url, class: "form-control media-content-url" %>
                   </div>
                 </div>
               </div>
             <% end %>
 
-            <div class="row">
+            <div class="row" hidden>
               <div class="col">
                 <div class="form-group">
                   <label for="description">Bildunterschrift</label>

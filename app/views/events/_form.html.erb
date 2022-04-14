@@ -1,4 +1,5 @@
 <%= fields_for :event, event do |f| %>
+  <%= hidden_field_tag "event[id]", f.object.id if f.object.id.present? %>
   <%= hidden_field_tag "event[category_name]", @event.category.name if @event.category.present? %>
 
   <div class="row">
