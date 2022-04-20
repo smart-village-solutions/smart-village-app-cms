@@ -23,6 +23,7 @@ class PointOfInterestRidesharesController < ApplicationController
       query {
         pointsOfInterest(descendants: "Mitfahrpunkte" ) {
           id
+          externalId
           name
           visible
           dataProvider{
@@ -56,6 +57,7 @@ class PointOfInterestRidesharesController < ApplicationController
             name
           }
           id
+          externalId
           name
           description
           mediaContents {

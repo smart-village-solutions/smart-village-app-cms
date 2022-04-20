@@ -11,6 +11,7 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
+        <th scope="col">ExternalId</th>
         <th scope="col">Überschrift</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
@@ -25,6 +26,7 @@
       <% @points_of_interest.each do |poi| %>
         <tr>
           <th scope="row"><%= poi.id %></th>
+          <th scope="row"><%= poi.external_id %></th>
           <td><%= link_to poi.name, edit_point_of_interest_path(poi.id) %></td>
           <td><%= toLocalDateTime(poi.updated_at) %></td>
           <td><%= toLocalDateTime(poi.created_at) %></td>
@@ -33,7 +35,7 @@
             <td align="center"><%= visibility_switch(poi, "PointOfInterest") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
-            <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
+            <%= link_to "Bearbeiten", edit_point_of_interest_rideshare_path(poi.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to point_of_interest_rideshare_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
               <i class="fas fa-trash"></i>
             <% end %>
