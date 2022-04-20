@@ -1,0 +1,73 @@
+<%= form.fields_for :open_street_map, record.open_street_map do |fai| %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="capacity">Kapazität</label>
+        <%= fai.number_field :capacity, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="capacity_charging">Ladekapazität</label>
+        <%= fai.text_field :capacity_charging, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="capacity_disabled">Kapazität für Behinderte</label>
+        <%= fai.text_field :capacity_disabled, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="fee">Gebühren</label>
+        <%= fai.text_field :fee, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="lit">Beleuchtung</label>
+        <%= fai.text_field :lit, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="parking">Parkplatz</label>
+        <%= fai.text_field :parking, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="shelter">Überdachung</label>
+        <%= fai.text_field :shelter, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="surface">Oberfläche</label>
+        <%= fai.text_field :surface, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="utilization">Auslastung</label>
+        <%= fai.text_field :utilization, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="website">Website</label>
+        <%= fai.text_field :website, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+<% end %>

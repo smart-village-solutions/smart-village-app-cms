@@ -39,6 +39,16 @@
   </li>
 <% end %>
 
+<!-- Nav Item - POI Rideshares -->
+<% if visible_in_role?("role_point_of_interest") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'point_of_interest_rideshares' %>">
+    <a class="nav-link" href="/point_of_interest_rideshares">
+      <i class="fas fa-fw fa-map-pin"></i>
+      <span>Mitfahrpunkte</span>
+    </a>
+  </li>
+<% end %>
+
 <!-- Nav Item - Tours -->
 <% if visible_in_role?("role_tour") %>
   <li class="nav-item <%= 'active' if params[:controller] == 'tours' %>">

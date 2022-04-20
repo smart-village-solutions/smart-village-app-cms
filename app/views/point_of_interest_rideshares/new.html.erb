@@ -1,0 +1,11 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Mitfahrpunkt anlegen</h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <%= form_with( url: point_of_interest_rideshares_path, method: :post, local: true) do %>
+      <%= render partial: "point_of_interest_rideshares/form", locals: { point_of_interest: @point_of_interest } %>
+    <% end %>
+  </div>
+</div>

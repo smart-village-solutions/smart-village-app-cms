@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :news_items
   resources :tours
   resources :point_of_interests
+  resources :point_of_interest_rideshares
   resources :events
   resources :waste_calendar
   resources :jobs

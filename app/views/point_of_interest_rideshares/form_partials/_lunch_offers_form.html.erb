@@ -1,0 +1,41 @@
+<% fields = ["name", "price"] %>
+<% form_class ||= "nested-lunch-offer" %>
+<% list_of_lunch_offers = record.lunch_offers.presence || [OpenStruct.new] %>
+
+<div class="<%= form_class %>">
+  <% list_of_lunch_offers.each_with_index do |lunch_offer, index| %>
+    <%= form.fields_for "lunch_offers[#{index}]", lunch_offer do |flo| %>
+      <div class="nested-lunch-offer-form<%= " d-none" if empty?(lunch_offer, fields) %>">
+        <div class="card mb-4">
+          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+            <h4>Gericht</h4>
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-sm-9">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <%= flo.text_field :name, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-12 col-sm-3">
+                <div class="form-group">
+                  <label for="price">Preis</label>
+                  <%= flo.text_field :price, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "#", class: "nested-add-lunch-offer btn btn-sm btn-secondary" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Gericht hinzufügen
+<% end %>

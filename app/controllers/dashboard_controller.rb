@@ -41,6 +41,18 @@ class DashboardController < ApplicationController
       @points_of_interest = poi_results.data.points_of_interest
     end
 
+    if helpers.visible_in_role?("role_point_of_interest")
+      poi_rideshare_results = @smart_village.query <<~GRAPHQL
+        query {
+          pointsOfInterest(category: "Mitfahrpunkte") {
+            id
+          }
+        }
+      GRAPHQL
+
+      @points_of_interest_rideshare = poi_rideshare_results.data.points_of_interest
+    end
+
     if helpers.visible_in_role?("role_tour")
       tour_results = @smart_village.query <<~GRAPHQL
         query {

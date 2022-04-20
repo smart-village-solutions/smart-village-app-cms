@@ -1,0 +1,45 @@
+<div class="d-flex flex-wrap align-items-center row-gap justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold mr-3">Mitfahrpunkte</h1>
+  <%= link_to new_point_of_interest_rideshare_path, class: "btn btn-sm btn-primary shadow-sm" do %>
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Neuen Ort erstellen
+  <% end %>
+</div>
+
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Überschrift</th>
+        <th scope="col">Änderungsdatum</th>
+        <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th>Datenquelle</th>
+          <th scope="col" class="nosort">Sichtbarkeit</th>
+        <% end %>
+        <th scope="col" class="nosort">Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @points_of_interest.each do |poi| %>
+        <tr>
+          <th scope="row"><%= poi.id %></th>
+          <td><%= link_to poi.name, edit_point_of_interest_path(poi.id) %></td>
+          <td><%= toLocalDateTime(poi.updated_at) %></td>
+          <td><%= toLocalDateTime(poi.created_at) %></td>
+          <% if editor? %>
+            <td><%= poi.data_provider.try(:name) %></td>
+            <td align="center"><%= visibility_switch(poi, "PointOfInterest") %></td>
+          <% end %>
+          <td align="right" class="text-nowrap">
+            <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
+            <%= link_to point_of_interest_rideshare_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
