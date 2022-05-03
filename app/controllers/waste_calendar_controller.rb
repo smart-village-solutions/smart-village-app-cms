@@ -9,7 +9,7 @@ class WasteCalendarController < ApplicationController
   def index
     results = @smart_village.query <<~GRAPHQL
       query {
-        publicJsonFile(name: "wasteTypes") {
+        publicJsonFile(name: "wasteTypes", version: "1.0.0") {
           content
         }
       }
@@ -42,7 +42,7 @@ class WasteCalendarController < ApplicationController
   def create
     results = @smart_village.query <<~GRAPHQL
       query {
-        publicJsonFile(name: "wasteTypes") {
+        publicJsonFile(name: "wasteTypes", version: "1.0.0") {
           content
         }
       }
