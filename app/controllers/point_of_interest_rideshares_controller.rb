@@ -6,9 +6,10 @@ class PointOfInterestRidesharesController < ApplicationController
   before_action :load_category_list, only: [:edit, :new, :create]
 
   def load_category_list
+    category_id = Rails.env.development? ? 98 : 101
     results = @smart_village.query <<~GRAPHQL
       query {
-        categories(children_of: 101) {
+        categories(children_of: #{category_id}) {
           id
           name
         }
