@@ -49,11 +49,11 @@ async function handleFileChange(e) {
 // Saving this globally, because we need to rebind events
 // when a new nested form is added
 window.bindFileUploadEvents = () => {
-  $('.upload-toggle').click((e) => {
+  $('.upload-toggle').off().on('click', (e) => {
     const formIndex = e.target.dataset.index;
     $('.file-input-' + formIndex).click();
   });
-  $('.file-input').change(handleFileChange);
+  $('.file-input').off().on('change', handleFileChange);
 }
 
 $(() => {
