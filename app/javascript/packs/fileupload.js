@@ -37,10 +37,10 @@ async function handleFileChange(e) {
     $('.image-preview-' + formIndex).attr('src', fileUrl);
     $('.image-preview-wrapper-' + formIndex).show('slow');
 
-    // Put the url of the uploaded file into the url input and disable it
+    // Put the url of the uploaded file into the url input make it readonly
     $(e.target).closest('.nested-medium-form').find('.media-content-url')
       .val(fileUrl)
-      .attr('disabled', true);
+      .attr('readonly', true);
   } catch (e) {
     console.log(e);
   }
