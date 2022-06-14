@@ -89,12 +89,6 @@ $(function () {
       $container.children('.nested-medium-form').removeClass('d-none');
     },
     afterAddForm: function (_, $form) {
-      // If we only have one nested media form, we don't have to do anything
-      // becasue the index of 0 is already the right one
-      if ($('.nested-medium-form').length === 1) {
-        return;
-      }
-
       // Increment the index on all elements of the new form by 100
       let oldFormIndex = nestedMediaFormCount - 1;
       let formIndex = $('.nested-medium-form').length - 1;
