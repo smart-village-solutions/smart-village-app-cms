@@ -24,10 +24,11 @@ require('../partials/_nested_lunch_form');
 // map in forms
 require('../partials/_leaflet_map');
 
+// fileupload in forms
+require('../partials/_fileupload');
+
 // ckeditor custom build
 require('../ckeditor');
-
-require('./fileupload')
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
