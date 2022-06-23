@@ -1,294 +1,400 @@
-05334,Aachen,AC
-07131,Ahrweiler,AW
-09771,Aichach-Friedberg,AIC
-08425,Alb-Donau-Kreis,UL
-16077,Altenburger Land,ABG
-07132,Altenkirchen (Westerwald),AK
-15081,Altmarkkreis Salzwedel,SAW
-09171,Altötting,AÖ
-07331,Alzey-Worms,AZ
-09371,Amberg-Sulzbach,AS
-03451,Ammerland,WST
-15082,Anhalt-Bitterfeld,ABI
-09571,Ansbach,AN
-09671,Aschaffenburg,AB
-09772,Augsburg,A
-03452,Aurich,AUR
-07332,Bad Dürkheim,DÜW
-09672,Bad Kissingen,KG
-07133,Bad Kreuznach,KH
-09173,Bad Tölz-Wolfratshausen,TÖL
-09471,Bamberg,BA
-12060,Barnim,BAR
-14625,Bautzen,BZ
-09472,Bayreuth, BT
-09172,Berchtesgadener Land, BGL
-06431,Bergstraße, HP
-07231,Bernkastel,-WittlichWIL
-08426,Biberach, BC
-07134,Birkenfeld, BIR
-08115,Böblingen,BB
-08435,Bodenseekreis, FN
-15083,Börde,BK
-05554,Borken, BOR
-08315,Breisgau-Hochschwarzwald, FR
-15084,Burgenlandkreis,BLK
-08235,Calw, CW
-03351,Celle,CE
-09372,Cham, CHA
-03453,Cloppenburg,CLP
-09473,Coburg, CO
-07135,Cochem-Zell,COC
-05558,Coesfeld, COE
-03352,Cuxhaven, CUX
-09174,Dachau,DAH
-12061,Dahme-Spreewald,LDS
-06432,Darmstadt-Dieburg,DA
-09271,Deggendorf, DEG
-03251,Diepholz,DH
-09773,Dillingen an der Donau,DLG
-09279,Dingolfing-Landau,DGF
-01051,Dithmarschen,HEI
-09779,Donau-Ries,DON
-07333,Donnersbergkreis,KIB
-05358,Düren,DN
-09175,Ebersberg,EBE
-16061,Eichsfeld,EIC
-09176,Eichstätt,EI
-07232,Eifelkreis Bitburg-Prüm,BIT
-12062,Elbe-Elster,EE
-08316,Emmendingen,EM
-03454,Emsland,EL
-05954,Ennepe-Ruhr-Kreis,EN
-08236,Enzkreis,PF
-09177,Erding,ED
-09572,Erlangen-Höchstadt,ERH
-14521,Erzgebirgskreis,ERZ
-08116,Esslingen,ES
-05366,Euskirchen,EU
-09474,Forchheim,FO
-09178,Freising,FS
-08237,Freudenstadt,FDS
-09272,Freyung-Grafenau,FRG
-03455,Friesland,FRI
-06631,Fulda,FD
-09179,Fürstenfeldbruck,FFB
-09573,Fürth,FÜ
-09180,Garmisch-Partenkirchen,GAP
-07334,Germersheim, GER
-06531,Gießen,GI
-03151,Gifhorn,GF
-08117,Göppingen,GP
-14626,Görlitz,GR
-03153,Goslar,GS
-16067,Gotha,GTH
-03159,Göttingen,GÖ
-03456,Grafschaft Bentheim,NOH
-16076,Greiz, GRZ
-06433,Groß-Gerau,GG
-09774,Günzburg,GZ
-05754,Gütersloh,GT
-03252,Hameln-Pyrmont,HM
-03241,Hannover, H
-03353,Harburg,WL
-15085,Harz,HZ
-09674,Haßberge,HAS
-12063,Havelland,HVL
-03358,Heidekreis,HK
-08135,Heidenheim,HDH
-08125,Heilbronn,HN
-05370,Heinsberg,HS
-03154,Helmstedt,HE
-05758,Herford,HF
-06632,Hersfeld-Rotenburg,HEF
-01053,Herzogtum Lauenburg,RZ
-16069,Hildburghausen,HBN
-03254,Hildesheim,HI
-05958,Hochsauerlandkreis,HSK
-06434,Hochtaunuskreis,HG
-09475,Hof,HO
-08126,Hohenlohekreis,KÜN
-03255,Holzminden,HOL
-05762,Höxter,HX
-16070,Ilm-Kreis,IK
-15086,Jerichower Land,JL
-07335,Kaiserslautern,KL
-08215,Karlsruhe,KA
-06633,Kassel,KS
-09273,Kelheim,KEH
-09675,Kitzingen,KT
-05154,Kleve,KLE
-08335,Konstanz,KN
-09476,Kronach,KC
-09477,Kulmbach,KU
-07336,Kusel,KUS
-16065,Kyffhäuserkreis,KYF
-06532,Lahn-Dill-Kreis,LDK
-09181,Landsberg am Lech,LL
-09274,Landshut,LA
-03457,Leer,LER
-14729,Leipzig,L
-09478,Lichtenfels,LIF
-06533,Limburg-Weilburg,LM
-09776,Lindau (Bodensee),LI
-05766,Lippe, LIP
-08336,Lörrach,LÖ
-03354,Lüchow-Dannenberg,DAN
-08118,Ludwigsburg,LB
-13076,Ludwigslust-Parchim,LUP
-03355,Lüneburg,LG
-06435,Main-Kinzig-Kreis,MKK
-09677,Main-Spessart, MSP
-08128,Main-Tauber-Kreis,TBB
-06436,Main-Taunus-Kreis,MTK
-07339,Mainz-Bingen,MZ
-15087,Mansfeld-Südharz,MSH
-06534,Marburg-Biedenkopf,MR
-05962,Märkischer Kreis,MK
-12064,Märkisch-Oderland,MOL
-07137,Mayen-Koblenz,MYK
-13071,Mecklenburgische Seenplatte,MSE
-14627,Meißen,MEI
-10042,Merzig-Wadern,MZG
-05158,Mettmann,ME
-09182,Miesbach,MB
-09676,Miltenberg,MIL
-05770,Minden-Lübbecke,MI
-14522,Mittelsachsen,FG
-09183,Mühldorf am Inn,MÜ
-09184,München,M
-08225,Neckar-Odenwald-Kreis,MOS
-09775,Neu-Ulm,NU
-09185,Neuburg-Schrobenhausen,ND
-09373,Neumarkt in der Oberpfalz,NM
-10043,Neunkirchen,NK
-09575,Neustadt an der Aisch-Bad Windsheim,NEA
-09374,Neustadt an der Waldnaab,NEW
-07138,Neuwied,NR
-03256,Nienburg/Weser,NI
-01054,Nordfriesland,NF
-16062,Nordhausen,NDH
-14730,Nordsachsen,TDO
-13074,Nordwestmecklenburg,NWM
-03155,Northeim,NOM
-09574,Nürnberger Land,LAU
-09780,Oberallgäu,OA
-05374,Oberbergischer Kreis,GM
-12065,Oberhavel,OHV
-12066,Oberspreewald-Lausitz,OSL
-06437,Odenwaldkreis,ERB
-12067,Oder-Spree,LOS
-06438,Offenbach,OF
-03458,Oldenburg,OL
-05966,Olpe,OE
-08317,Ortenaukreis,OG
-03459,Osnabrück,OS
-08136,Ostalbkreis,AA
-09777,Ostallgäu,OAL
-03356,Osterholz,OHZ
-01055,Ostholstein,OH
-12068,Ostprignitz-Ruppin,OPR
-05774,Paderborn,PB
-09275,Passau,PA
-03157,Peine,PE
-09186,Pfaffenhofen an der Ilm,PAF
-01056,Pinneberg,PI
-01057,Plön,PLÖ
-12069,Potsdam-Mittelmark,PM
-12070,Prignitz,PR
-08216,Rastatt,RA
-08436,Ravensburg,RV
-05562,Recklinghausen,RE
-09276,Regen,REG
-09375,Regensburg,R
-08119,Rems-Murr-Kreis,WN
-01058,Rendsburg-Eckernförde,RD
-08415,Reutlingen,RT
-05362,Rhein-Erft-Kreis,BM
-06439,Rheingau-Taunus-Kreis,RÜD
-07140,Rhein-Hunsrück-Kreis,SIM
-05378,Rheinisch-Bergischer Kreis,GL
-05162,Rhein-Kreis Neuss,NE
-07141,Rhein-Lahn-Kreis,EMS
-08226,Rhein-Neckar-Kreis,HD
-07338,Rhein-Pfalz-Kreis,RP
-05382,Rhein-Sieg-Kreis,SU
-09673,Rhön-Grabfeld,NES
-09187,Rosenheim,RO
-13072,Rostock,LRO
-03357,Rotenburg (Wümme),ROW
-09576,Roth,RH
-09277,Rottal-Inn,PAN
-08325,Rottweil,RW
-16074,Saale-Holzland-Kreis,SHK
-15088,Saalekreis,SK
-16075,Saale-Orla-Kreis,SOK
-16073,Saalfeld-Rudolstadt,SLF
-10041,Saarbrücken, SB
-10044,Saarlouis,SLS
-10045,Saarpfalz-Kreis,HOM
-14628,Sächsische Schweiz-Osterzgebirge,PIR
-15089,Salzlandkreis,SLK
-03257,Schaumburg,SHG
-01059,Schleswig-Flensburg,SL
-16066,Schmalkalden-Meiningen,SM
-08127,Schwäbisch Hall,SHA
-06634,Schwalm-Eder-Kreis,HR
-09376,Schwandorf,SAD
-08326,Schwarzwald-Baar-Kreis,VS
-09678,Schweinfurt,SW
-01060,Segeberg,SE
-05970,Siegen-Wittgenstein,SI
-08437,Sigmaringen,SIG
-05974,Soest,SO
-16068,Sömmerda,SÖM
-16072,Sonneberg,SON
-12071,Spree-Neiße,SPN
-10046,St. Wendel,WND
-03359,Stade,STD
-09188,Starnberg,STA
-01061,Steinburg,IZ
-05566,Steinfurt,ST
-15090,Stendal,SDL
-01062,Stormarn,OD
-09278,Straubing-Bogen,SR
-07337,Südliche Weinstraße,SÜW
-07340,Südwestpfalz,PS
-12072,Teltow-Fläming,TF
-09377,Tirschenreuth,TIR
-09189,Traunstein,TS
-07235,Trier-Saarburg,TR
-08416,Tübingen,TÜ
-08327,Tuttlingen,TUT
-12073,Uckermark,UM
-03360,Uelzen,UE
-05978,Unna,UN
-16064,Unstrut-Hainich-Kreis,UH
-09778,Unterallgäu,MN
-03460,Vechta,VEC
-03361,Verden,VER
-05166,Viersen,VIE
-06535,Vogelsbergkreis,VB
-14523,Vogtlandkreis,V
-13075,Vorpommern-Greifswald,VG
-13073,Vorpommern-Rügen,VR
-07233,Vulkaneifel,DAU
-06635,Waldeck-Frankenberg,KB
-08337,Waldshut,WT
-05570,Warendorf,WAF
-16063,Wartburgkreis,WAK
-09190,Weilheim-Schongau,WM
-16071,Weimarer Land,AP
-09577,Weißenburg-Gunzenhausen,WUG
-06636,Werra-Meißner-Kreis,ESW
-05170,Wesel,WES
-03461,Wesermarsch,BRA
-07143,Westerwaldkreis,WW
-06440,Wetteraukreis,FB
-15091,Wittenberg,WB
-03462,Wittmund,WTM
-03158,Wolfenbüttel,WF
-09479,Wunsiedel im Fichtelgebirge,WUN
-09679,Würzburg,WÜ
-08417,Zollernalbkreis,BL
-14524,Zwickau,Z
+07131,Ahrweiler,Landkreis
+09771,Aichach-Friedberg,Landkreis
+16077,Altenburger Land,Landkreis
+07132,Altenkirchen (Westerwald),Landkreis
+09171,Altötting,Landkreis
+07331,Alzey-Worms,Landkreis
+09361,Amberg,Kreisfreie Stadt
+09371,Amberg-Sulzbach,Landkreis
+03451,Ammerland,Landkreis
+15082,Anhalt-Bitterfeld,Landkreis
+09571,Ansbach,Landkreis
+09561,Ansbach,Kreisfreie Stadt
+09661,Aschaffenburg,Kreisfreie Stadt
+09671,Aschaffenburg,Landkreis
+09772,Augsburg,Landkreis
+09761,Augsburg,Kreisfreie Stadt
+03452,Aurich,Landkreis
+07332,Bad Dürkheim,Landkreis
+09672,Bad Kissingen,Landkreis
+07133,Bad Kreuznach,Landkreis
+09173,Bad Tölz-Wolfratshausen,Landkreis
+08211,Baden-Baden,Stadtkreis
+09471,Bamberg,Landkreis
+09461,Bamberg,Kreisfreie Stadt
+12060,Barnim,Landkreis
+14625,Bautzen,Landkreis
+09472,Bayreuth,Landkreis
+09462,Bayreuth,Kreisfreie Stadt
+09172,Berchtesgadener Land,Landkreis
+06431,Bergstraße,Landkreis
+11000,Berlin,Kreisfreie Stadt
+07231,Bernkastel-Wittlich,Landkreis
+08426,Biberach,Landkreis
+05711,Bielefeld,Kreisfreie Stadt
+07134,Birkenfeld,Landkreis
+05911,Bochum,Kreisfreie Stadt
+05314,Bonn,Kreisfreie Stadt
+05554,Borken,Kreis
+05512,Bottrop,Kreisfreie Stadt
+12051,Brandenburg an der Havel,Kreisfreie Stadt
+03101,Braunschweig,Kreisfreie Stadt
+08315,Breisgau-Hochschwarzwald,Landkreis
+04011,Bremen,Kreisfreie Stadt
+04012,Bremerhaven,Kreisfreie Stadt
+08115,Böblingen,Landkreis
+15083,Börde,Landkreis
+08235,Calw,Landkreis
+03351,Celle,Landkreis
+09372,Cham,Landkreis
+14511,Chemnitz,Kreisfreie Stadt
+03453,Cloppenburg,Landkreis
+09463,Coburg,Kreisfreie Stadt
+09473,Coburg,Landkreis
+07135,Cochem-Zell,Landkreis
+05558,Coesfeld,Kreis
+12052,Cottbus,Kreisfreie Stadt
+03352,Cuxhaven,Landkreis
+09174,Dachau,Landkreis
+12061,Dahme-Spreewald,Landkreis
+06411,Darmstadt,Kreisfreie Stadt
+06432,Darmstadt-Dieburg,Landkreis
+09271,Deggendorf,Landkreis
+03401,Delmenhorst,Kreisfreie Stadt
+15001,Dessau-Roßlau,Kreisfreie Stadt
+03251,Diepholz,Landkreis
+09773,Dillingen a.d. Donau,Landkreis
+09279,Dingolfing-Landau,Landkreis
+01051,Dithmarschen,Kreis
+09779,Donau-Ries,Landkreis
+05913,Dortmund,Kreisfreie Stadt
+14612,Dresden,Kreisfreie Stadt
+05112,Duisburg,Kreisfreie Stadt
+05358,Düren,Kreis
+05111,Düsseldorf,Kreisfreie Stadt
+09175,Ebersberg,Landkreis
+16061,Eichsfeld,Landkreis
+09176,Eichstätt,Landkreis
+16056,Eisenach,Kreisfreie Stadt
+12062,Elbe-Elster,Landkreis
+03402,Emden,Kreisfreie Stadt
+08316,Emmendingen,Landkreis
+03454,Emsland,Landkreis
+09177,Erding,Landkreis
+16051,Erfurt,Kreisfreie Stadt
+09562,Erlangen,Kreisfreie Stadt
+09572,Erlangen-Höchstadt,Landkreis
+05113,Essen,Kreisfreie Stadt
+08116,Esslingen,Landkreis
+05366,Euskirchen,Kreis
+01001,Flensburg,Kreisfreie Stadt
+09474,Forchheim,Landkreis
+07311,Frankenthal (Pfalz),Kreisfreie Stadt
+12053,Frankfurt (Oder),Kreisfreie Stadt
+06412,Frankfurt am Main,Kreisfreie Stadt
+08311,Freiburg im Breisgau,Stadtkreis
+09178,Freising,Landkreis
+08237,Freudenstadt,Landkreis
+09272,Freyung-Grafenau,Landkreis
+03455,Friesland,Landkreis
+06631,Fulda,Landkreis
+09179,Fürstenfeldbruck,Landkreis
+09563,Fürth,Kreisfreie Stadt
+09573,Fürth,Landkreis
+09180,Garmisch-Partenkirchen,Landkreis
+05513,Gelsenkirchen,Kreisfreie Stadt
+16052,Gera,Kreisfreie Stadt
+07334,Germersheim,Landkreis
+06531,Gießen,Landkreis
+03151,Gifhorn,Landkreis
+03153,Goslar,Landkreis
+16067,Gotha,Landkreis
+03456,Grafschaft Bentheim,Landkreis
+16076,Greiz,Landkreis
+06433,Groß-Gerau,Landkreis
+08117,Göppingen,Landkreis
+14626,Görlitz,Landkreis
+03159,Göttingen,Landkreis
+09774,Günzburg,Landkreis
+05754,Gütersloh,Kreis
+05914,Hagen,Kreisfreie Stadt
+15002,Halle (Saale),Kreisfreie Stadt
+02000,Hamburg,Kreisfreie Stadt
+03252,Hameln-Pyrmont,Landkreis
+05915,Hamm,Kreisfreie Stadt
+03353,Harburg,Landkreis
+15085,Harz,Landkreis
+12063,Havelland,Landkreis
+09674,Haßberge,Landkreis
+08221,Heidelberg,Stadtkreis
+08135,Heidenheim,Landkreis
+08121,Heilbronn,Stadtkreis
+08125,Heilbronn,Landkreis
+05370,Heinsberg,Kreis
+03154,Helmstedt,Landkreis
+05758,Herford,Kreis
+05916,Herne,Kreisfreie Stadt
+06632,Hersfeld-Rotenburg,Landkreis
+01053,Herzogtum Lauenburg,Kreis
+16069,Hildburghausen,Landkreis
+03254,Hildesheim,Landkreis
+09475,Hof,Landkreis
+09464,Hof,Kreisfreie Stadt
+03255,Holzminden,Landkreis
+05762,Höxter,Kreis
+09161,Ingolstadt,Kreisfreie Stadt
+16053,Jena,Kreisfreie Stadt
+15086,Jerichower Land,Landkreis
+07312,Kaiserslautern,Kreisfreie Stadt
+07335,Kaiserslautern,Landkreis
+08212,Karlsruhe,Stadtkreis
+08215,Karlsruhe,Landkreis
+06611,Kassel,Kreisfreie Stadt
+06633,Kassel,Landkreis
+09762,Kaufbeuren,Kreisfreie Stadt
+09273,Kelheim,Landkreis
+09763,Kempten (Allgäu),Kreisfreie Stadt
+01002,Kiel,Kreisfreie Stadt
+09675,Kitzingen,Landkreis
+05154,Kleve,Kreis
+07111,Koblenz,Kreisfreie Stadt
+08335,Konstanz,Landkreis
+05114,Krefeld,Kreisfreie Stadt
+05954,Kreis Ennepe-Ruhr-Kreis,Kreis
+05958,Kreis Hochsauerlandkreis,Kreis
+05962,Kreis Märkischer Kreis,Kreis
+05374,Kreis Oberbergischer Kreis,Kreis
+05362,Kreis Rhein-Erft-Kreis,Kreis
+05162,Kreis Rhein-Kreis Neuss,Kreis
+05382,Kreis Rhein-Sieg-Kreis,Kreis
+05378,Kreis Rheinisch-Bergischer Kreis,Kreis
+05334,Kreis Städteregion Aachen,Kreis
+09476,Kronach,Landkreis
+09477,Kulmbach,Landkreis
+07336,Kusel,Landkreis
+05315,Köln,Kreisfreie Stadt
+07313,Landau in der Pfalz,Kreisfreie Stadt
+08425,Landkreis Alb-Donau-Kreis,Landkreis
+15081,Landkreis Altmarkkreis Salzwedel,Landkreis
+08435,Landkreis Bodenseekreis,Landkreis
+15084,Landkreis Burgenlandkreis,Landkreis
+07333,Landkreis Donnersbergkreis,Landkreis
+07232,Landkreis Eifelkreis Bitburg-Prüm,Landkreis
+08236,Landkreis Enzkreis,Landkreis
+14521,Landkreis Erzgebirgskreis,Landkreis
+03358,Landkreis Heidekreis,Landkreis
+06434,Landkreis Hochtaunuskreis,Landkreis
+08126,Landkreis Hohenlohekreis,Landkreis
+16070,Landkreis Ilm-Kreis,Landkreis
+16065,Landkreis Kyffhäuserkreis,Landkreis
+06532,Landkreis Lahn-Dill-Kreis,Landkreis
+06435,Landkreis Main-Kinzig-Kreis,Landkreis
+08128,Landkreis Main-Tauber-Kreis,Landkreis
+06436,Landkreis Main-Taunus-Kreis,Landkreis
+08225,Landkreis Neckar-Odenwald-Kreis,Landkreis
+06437,Landkreis Odenwaldkreis,Landkreis
+08317,Landkreis Ortenaukreis,Landkreis
+08136,Landkreis Ostalbkreis,Landkreis
+03241,Landkreis Region Hannover,Landkreis
+10041,Landkreis Regionalverband Saarbrücken,Landkreis
+08119,Landkreis Rems-Murr-Kreis,Landkreis
+07140,Landkreis Rhein-Hunsrück-Kreis,Landkreis
+07141,Landkreis Rhein-Lahn-Kreis,Landkreis
+08226,Landkreis Rhein-Neckar-Kreis,Landkreis
+07338,Landkreis Rhein-Pfalz-Kreis,Landkreis
+06439,Landkreis Rheingau-Taunus-Kreis,Landkreis
+16074,Landkreis Saale-Holzland-Kreis,Landkreis
+16075,Landkreis Saale-Orla-Kreis,Landkreis
+15088,Landkreis Saalekreis,Landkreis
+10045,Landkreis Saarpfalz-Kreis,Landkreis
+15089,Landkreis Salzlandkreis,Landkreis
+06634,Landkreis Schwalm-Eder-Kreis,Landkreis
+08326,Landkreis Schwarzwald-Baar-Kreis,Landkreis
+16064,Landkreis Unstrut-Hainich-Kreis,Landkreis
+06535,Landkreis Vogelsbergkreis,Landkreis
+14523,Landkreis Vogtlandkreis,Landkreis
+16063,Landkreis Wartburgkreis,Landkreis
+06636,Landkreis Werra-Meißner-Kreis,Landkreis
+07143,Landkreis Westerwaldkreis,Landkreis
+06440,Landkreis Wetteraukreis,Landkreis
+08417,Landkreis Zollernalbkreis,Landkreis
+09181,Landsberg am Lech,Landkreis
+09274,Landshut,Landkreis
+09261,Landshut,Kreisfreie Stadt
+03457,Leer,Landkreis
+14713,Leipzig,Kreisfreie Stadt
+14729,Leipzig,Landkreis
+05316,Leverkusen,Kreisfreie Stadt
+09478,Lichtenfels,Landkreis
+06533,Limburg-Weilburg,Landkreis
+09776,Lindau (Bodensee),Landkreis
+05766,Lippe,Kreis
+08118,Ludwigsburg,Landkreis
+07314,Ludwigshafen am Rhein,Kreisfreie Stadt
+13076,Ludwigslust-Parchim,Landkreis
+08336,Lörrach,Landkreis
+01003,Lübeck,Kreisfreie Stadt
+03354,Lüchow-Dannenberg,Landkreis
+03355,Lüneburg,Landkreis
+15003,Magdeburg,Kreisfreie Stadt
+09677,Main-Spessart,Landkreis
+07315,Mainz,Kreisfreie Stadt
+07339,Mainz-Bingen,Landkreis
+08222,Mannheim,Stadtkreis
+15087,Mansfeld-Südharz,Landkreis
+06534,Marburg-Biedenkopf,Landkreis
+07137,Mayen-Koblenz,Landkreis
+13071,Mecklenburgische Seenplatte,Landkreis
+14627,Meißen,Landkreis
+09764,Memmingen,Kreisfreie Stadt
+10042,Merzig-Wadern,Landkreis
+05158,Mettmann,Kreis
+09182,Miesbach,Landkreis
+09676,Miltenberg,Landkreis
+05770,Minden-Lübbecke,Kreis
+14522,Mittelsachsen,Landkreis
+12064,Märkisch-Oderland,Landkreis
+05116,Mönchengladbach,Kreisfreie Stadt
+09183,Mühldorf a. Inn,Landkreis
+05117,Mülheim an der Ruhr,Kreisfreie Stadt
+09184,München,Landkreis
+09162,München,Kreisfreie Stadt
+05515,Münster,Kreisfreie Stadt
+09775,Neu-Ulm,Landkreis
+09185,Neuburg-Schrobenhausen,Landkreis
+09373,Neumarkt i.d. OPf.,Landkreis
+01004,Neumünster,Kreisfreie Stadt
+10043,Neunkirchen,Landkreis
+09575,Neustadt a.d. Aisch-Bad Windsheim,Landkreis
+09374,Neustadt a.d. Waldnaab,Landkreis
+07316,Neustadt an der Weinstraße,Kreisfreie Stadt
+07138,Neuwied,Landkreis
+03256,Nienburg (Weser),Landkreis
+01054,Nordfriesland,Kreis
+16062,Nordhausen,Landkreis
+14730,Nordsachsen,Landkreis
+13074,Nordwestmecklenburg,Landkreis
+03155,Northeim,Landkreis
+09564,Nürnberg,Kreisfreie Stadt
+09574,Nürnberger Land,Landkreis
+09780,Oberallgäu,Landkreis
+05119,Oberhausen,Kreisfreie Stadt
+12065,Oberhavel,Landkreis
+12066,Oberspreewald-Lausitz,Landkreis
+12067,Oder-Spree,Landkreis
+06438,Offenbach,Landkreis
+06413,Offenbach am Main,Kreisfreie Stadt
+03458,Oldenburg,Landkreis
+03403,Oldenburg (Oldb),Kreisfreie Stadt
+05966,Olpe,Kreis
+03404,Osnabrück,Kreisfreie Stadt
+03459,Osnabrück,Landkreis
+09777,Ostallgäu,Landkreis
+03356,Osterholz,Landkreis
+01055,Ostholstein,Kreis
+12068,Ostprignitz-Ruppin,Landkreis
+05774,Paderborn,Kreis
+09262,Passau,Kreisfreie Stadt
+09275,Passau,Landkreis
+03157,Peine,Landkreis
+09186,Pfaffenhofen a.d. Ilm,Landkreis
+08231,Pforzheim,Stadtkreis
+01056,Pinneberg,Kreis
+07317,Pirmasens,Kreisfreie Stadt
+01057,Plön,Kreis
+12054,Potsdam,Kreisfreie Stadt
+12069,Potsdam-Mittelmark,Landkreis
+12070,Prignitz,Landkreis
+08216,Rastatt,Landkreis
+08436,Ravensburg,Landkreis
+05562,Recklinghausen,Kreis
+09276,Regen,Landkreis
+09375,Regensburg,Landkreis
+09362,Regensburg,Kreisfreie Stadt
+05120,Remscheid,Kreisfreie Stadt
+01058,Rendsburg-Eckernförde,Kreis
+08415,Reutlingen,Landkreis
+09673,Rhön-Grabfeld,Landkreis
+09187,Rosenheim,Landkreis
+09163,Rosenheim,Kreisfreie Stadt
+13072,Rostock,Landkreis
+13003,Rostock,Kreisfreie Stadt
+03357,Rotenburg (Wümme),Landkreis
+09576,Roth,Landkreis
+09277,Rottal-Inn,Landkreis
+08325,Rottweil,Landkreis
+16073,Saalfeld-Rudolstadt,Landkreis
+10044,Saarlouis,Landkreis
+03102,Salzgitter,Kreisfreie Stadt
+03257,Schaumburg,Landkreis
+01059,Schleswig-Flensburg,Kreis
+16066,Schmalkalden-Meiningen,Landkreis
+09565,Schwabach,Kreisfreie Stadt
+09376,Schwandorf,Landkreis
+09662,Schweinfurt,Kreisfreie Stadt
+09678,Schweinfurt,Landkreis
+13004,Schwerin,Kreisfreie Stadt
+08127,Schwäbisch Hall,Landkreis
+01060,Segeberg,Kreis
+05970,Siegen-Wittgenstein,Kreis
+08437,Sigmaringen,Landkreis
+05974,Soest,Kreis
+05122,Solingen,Kreisfreie Stadt
+16072,Sonneberg,Landkreis
+07318,Speyer,Kreisfreie Stadt
+12071,Spree-Neiße,Landkreis
+10046,St. Wendel,Landkreis
+03359,Stade,Landkreis
+09188,Starnberg,Landkreis
+01061,Steinburg,Kreis
+05566,Steinfurt,Kreis
+15090,Stendal,Landkreis
+01062,Stormarn,Kreis
+09263,Straubing,Kreisfreie Stadt
+09278,Straubing-Bogen,Landkreis
+08111,Stuttgart,Stadtkreis
+16054,Suhl,Kreisfreie Stadt
+14628,Sächsische Schweiz-Osterzgebirge,Landkreis
+16068,Sömmerda,Landkreis
+07337,Südliche Weinstraße,Landkreis
+07340,Südwestpfalz,Landkreis
+12072,Teltow-Fläming,Landkreis
+09377,Tirschenreuth,Landkreis
+09189,Traunstein,Landkreis
+07211,Trier,Kreisfreie Stadt
+07235,Trier-Saarburg,Landkreis
+08327,Tuttlingen,Landkreis
+08416,Tübingen,Landkreis
+12073,Uckermark,Landkreis
+03360,Uelzen,Landkreis
+08421,Ulm,Stadtkreis
+05978,Unna,Kreis
+09778,Unterallgäu,Landkreis
+03361,Verden,Landkreis
+05166,Viersen,Kreis
+13075,Vorpommern-Greifswald,Landkreis
+13073,Vorpommern-Rügen,Landkreis
+07233,Vulkaneifel,Landkreis
+06635,Waldeck-Frankenberg,Landkreis
+08337,Waldshut,Landkreis
+05570,Warendorf,Kreis
+09363,Weiden i.d. OPf.,Kreisfreie Stadt
+09190,Weilheim-Schongau,Landkreis
+16055,Weimar,Kreisfreie Stadt
+16071,Weimarer Land,Landkreis
+09577,Weißenburg-Gunzenhausen,Landkreis
+05170,Wesel,Kreis
+03461,Wesermarsch,Landkreis
+06414,Wiesbaden,Kreisfreie Stadt
+03405,Wilhelmshaven,Kreisfreie Stadt
+15091,Wittenberg,Landkreis
+03462,Wittmund,Landkreis
+03158,Wolfenbüttel,Landkreis
+03103,Wolfsburg,Kreisfreie Stadt
+07319,Worms,Kreisfreie Stadt
+09479,Wunsiedel i. Fichtelgebirge,Landkreis
+05124,Wuppertal,Kreisfreie Stadt
+09663,Würzburg,Kreisfreie Stadt
+09679,Würzburg,Landkreis
+07320,Zweibrücken,Kreisfreie Stadt
+14524,Zwickau,Landkreis
