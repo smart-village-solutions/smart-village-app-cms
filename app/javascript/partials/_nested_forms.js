@@ -7,7 +7,7 @@ export const defaultNestedFormsOptions = {
 };
 
 /* eslint-disable func-names */
-$(function() {
+$(function () {
   $('#nested-categories').nestedForm({
     forms: '.nested-category-form',
     adder: '#nested-add-category',
@@ -75,7 +75,6 @@ $(function() {
     }
   });
 
-
   // We need to know the amount of forms at DOM load to know which classes we have to fix,
   // see below in afterAddForm callback
   const nestedMediaFormCount = $('.nested-medium-form').length;
@@ -89,14 +88,7 @@ $(function() {
     beforeAddForm: ($container) => {
       $container.children('.nested-medium-form').removeClass('d-none');
     },
-    afterAddForm: function(_, $form) {
-
-      // If we only have one nested media form, we don't have to do anything
-      // becasue the index of 0 is already the right one
-      if ($('.nested-medium-form').length === 1) {
-        return;
-      }
-
+    afterAddForm: function (_, $form) {
       // Increment the index on all elements of the new form by 100
       let oldFormIndex = nestedMediaFormCount - 1;
       let formIndex = $('.nested-medium-form').length - 1;
@@ -111,7 +103,7 @@ $(function() {
         'upload-progress-bar',
         'image-preview-wrapper',
         'image-preview'
-      ]
+      ];
 
       classNamesToFix.forEach((className) => {
         let $el = $form.find('.' + className);
