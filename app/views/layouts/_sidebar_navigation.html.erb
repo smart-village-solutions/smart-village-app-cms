@@ -40,7 +40,7 @@
 <% end %>
 
 <!-- Nav Item - POI Rideshares -->
-<% if visible_in_role?("role_point_of_interest") %>
+<% if visible_in_role?("role_point_of_interest_rideshare") %>
   <li class="nav-item <%= 'active' if params[:controller] == 'point_of_interest_rideshares' %>">
     <a class="nav-link" href="/point_of_interest_rideshares">
       <i class="fas fa-fw fa-map-pin"></i>
