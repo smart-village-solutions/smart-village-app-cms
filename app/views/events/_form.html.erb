@@ -72,7 +72,8 @@
     </div>
   </div>
 
-  <% event.addresses.each_with_index do |address, index| %>
+  <% addresses_to_render = event.addresses.presence || [OpenStruct.new] %>
+  <% addresses_to_render.each_with_index do |address, index| %>
     <%= f.fields_for "addresses[#{index}]", address do |fadd| %>
       <%= render(
             partial: "shared/partials/address_form",
