@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 6.1.5", ">= 6.1.5.1"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 # Use Puma as the app server
@@ -14,7 +14,7 @@ gem "puma", "~> 3.12"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 5.0.8"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker", "~> 4.0"
+gem "webpacker", "~> 4.0", ">= 4.0.7"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -57,7 +57,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling "console" anywhere in the code.
   gem "listen", ">= 3.0.5", "< 3.2"
-  gem "web-console", ">= 3.3.0"
+  gem "web-console", ">= 4.0.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rb-readline"
   gem "spring"
