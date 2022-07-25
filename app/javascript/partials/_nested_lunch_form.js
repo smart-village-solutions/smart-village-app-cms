@@ -23,8 +23,7 @@ const initClassicEditor = (htmlEditor) => {
     });
 };
 
-/* eslint-disable func-names */
-$(function() {
+$(function () {
   if ($('#nested-lunches').length) {
     const initNestedLunchOffers = ($form) => {
       const timestamp = Date.now();
@@ -77,4 +76,3 @@ $(function() {
     });
   }
 });
-/* eslint-enable func-names */

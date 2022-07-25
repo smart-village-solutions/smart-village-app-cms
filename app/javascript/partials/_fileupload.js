@@ -43,7 +43,7 @@ async function handleFileChange(e) {
       .val(fileUrl)
       .attr('readonly', true);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 

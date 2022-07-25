@@ -5,21 +5,19 @@ env:
   node: true
 extends:
   - 'eslint:recommended'
-  - 'plugin:react/recommended'
+  - 'plugin:prettier/recommended'
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
   $: readonly
   ClassicEditor: readonly
   initClassicEditor: readonly
-parser: 'babel-eslint'
+parser: '@babel/eslint-parser'
 parserOptions:
   ecmaFeatures:
     jsx: true
   ecmaVersion: 2018
   sourceType: module
-plugins:
-  - react
 rules:
   arrow-parens:
     - error
@@ -30,9 +28,6 @@ rules:
   complexity:
     - error
     - 11
-  func-names:
-    - error
-    - as-needed
   indent:
     - error
     - 2
@@ -44,12 +39,11 @@ rules:
     - allow:
       - warn
       - error
+  no-unused-vars:
+    - 0
   quotes:
     - error
     - single
   semi:
     - error
     - always
-settings:
-  react:
-    version: detect

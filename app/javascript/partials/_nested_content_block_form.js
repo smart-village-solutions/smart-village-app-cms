@@ -23,8 +23,7 @@ const initClassicEditor = (htmlEditor) => {
     });
 };
 
-/* eslint-disable func-names */
-$(function() {
+$(function () {
   if ($('#nested-content-blocks').length) {
     const initNestedMediaContents = ($form) => {
       const timestamp = Date.now();
@@ -76,4 +75,3 @@ $(function() {
     });
   }
 });
-/* eslint-enable func-names */

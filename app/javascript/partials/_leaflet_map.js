@@ -1,12 +1,14 @@
 var L = require('leaflet/dist/leaflet');
 var LGH = require('leaflet-gesture-handling/dist/leaflet-gesture-handling');
 
-/* eslint-disable func-names */
 var CENTER_OF_GERMANY = [51.3127114, 9.4797461];
 var DEFAULT_ZOOM_LEVEL = 6;
 
 function initLeafletMap(id) {
-  var $parentRow = $('#' + id).parent().parent().parent();
+  var $parentRow = $('#' + id)
+    .parent()
+    .parent()
+    .parent();
   var $geoLocationLatitude = $parentRow.find('[id$="geo_location_latitude"]');
   var $geoLocationLongitude = $parentRow.find('[id$="geo_location_longitude"]');
 
@@ -40,7 +42,7 @@ function initLeafletMap(id) {
     marker = L.marker(center, { icon: icon }).addTo(map);
   }
 
-  map.on('click', function(e) {
+  map.on('click', function (e) {
     var lat = e.latlng.lat;
     var lng = e.latlng.lng;
 
@@ -62,12 +64,11 @@ function initLeafletMap(id) {
   }).addTo(map);
 }
 
-$(function() {
+$(function () {
   // Check if map exists on page after a short timeout being rendered and init maps in a loop
-  setTimeout(function() {
-    $('.leafletMap').each(function() {
+  setTimeout(function () {
+    $('.leafletMap').each(function () {
       initLeafletMap(this.id);
     });
   }, 500);
 });
-/* eslint-ensable func-names */

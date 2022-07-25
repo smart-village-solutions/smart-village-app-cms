@@ -6,7 +6,6 @@ export const defaultNestedFormsOptions = {
   }
 };
 
-/* eslint-disable func-names */
 $(function () {
   $('#nested-categories').nestedForm({
     forms: '.nested-category-form',
@@ -115,4 +114,3 @@ $(function () {
     }
   });
 });
-/* eslint-enable func-names */
