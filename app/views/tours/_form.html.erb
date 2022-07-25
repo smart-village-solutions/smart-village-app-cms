@@ -48,6 +48,15 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Tourenverlauf</label>
+        <%= render partial: "tours/form_partials/tour_path", locals: { record: tour, form: f }  %>
+      </div>
+    </div>
+  </div>
+
   <hr />
 
   <div class="row">

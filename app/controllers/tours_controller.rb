@@ -114,6 +114,10 @@ class ToursController < ApplicationController
           dataProvider {
             name
           }
+          geometryTourData {
+            latitude
+            longitude
+          }
         }
       }
     GRAPHQL
