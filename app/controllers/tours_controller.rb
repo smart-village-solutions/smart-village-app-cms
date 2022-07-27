@@ -112,17 +112,31 @@ class ToursController < ApplicationController
             }
           }
           dataProvider {
+            id
             name
           }
           geometryTourData {
             latitude
             longitude
           }
+          tourStops {
+            id
+            name
+            description
+            payload
+            location {
+              geoLocation {
+                latitude
+                longitude
+              }
+            }
+          }
         }
       }
     GRAPHQL
 
     @tour = results.data.tour
+    @data_provider_id = @tour.data_provider.id
   rescue Graphlient::Errors::GraphQLError
     flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
     redirect_to tours_path
@@ -274,6 +288,29 @@ class ToursController < ApplicationController
         unless nested_values?(@tour_params["operating_company"].to_h).include?(true)
           @tour_params.delete :operating_company
         end
+      end
+
+      # Convert has_many tour_stops
+      if @tour_params["tour_stops"].present?
+        tour_stops = []
+        @tour_params["tour_stops"].each do |_key, tour_stop|
+          next if tour_stop.blank?
+          next if tour_stop["name"].blank?
+
+          if tour_stop["payload"]["downloadable_uris"].present?
+            downloadable_uris = []
+            tour_stop["payload"]["downloadable_uris"].each do |_key, downloadable_uri|
+              next if downloadable_uri.blank?
+              next unless nested_values?(downloadable_uri.to_h).include?(true)
+
+              downloadable_uris << downloadable_uri
+            end
+            tour_stop["payload"]["downloadable_uris"] = downloadable_uris
+          end
+
+          tour_stops << tour_stop
+        end
+        @tour_params["tour_stops"] = tour_stops
       end
     end
 end

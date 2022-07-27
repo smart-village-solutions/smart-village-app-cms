@@ -74,6 +74,22 @@ $(function () {
     }
   });
 
+  $('#nested-tour-stops').nestedForm({
+    forms: '.nested-tour-stop-form',
+    adder: '#nested-add-tour-stop',
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($container) => {
+      $container.children('.nested-tour-stop-form').removeClass('d-none');
+    },
+    afterAddForm: (_$container, $form) => {
+      // init html editors for content block fields body and intro
+      $form
+        .get('0')
+        .querySelectorAll('.html-editor')
+        .forEach((htmlEditor) => initClassicEditor(htmlEditor));
+    }
+  });
+
   // We need to know the amount of forms at DOM load to know which classes we have to fix,
   // see below in afterAddForm callback
   const nestedMediaFormCount = $('.nested-medium-form').length;
