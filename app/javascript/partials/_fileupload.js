@@ -26,7 +26,7 @@ async function upload(file, signedUrl, formIndex) {
   });
 }
 
-async function handleFileChange(e) {
+async function handleImageChange(e) {
   try {
     // Get upload URL
     const file = e.target.files[0];
@@ -44,9 +44,9 @@ async function handleFileChange(e) {
 
     // Put the url of the uploaded file into the url input make it readonly
     $(e.target)
-      .closest('.file-upload-wrapper')
+      .closest('.image-upload-wrapper')
       .parent()
-      .find('.file-upload-url')
+      .find('.image-upload-url')
       .val(fileUrl)
       .attr('readonly', true);
   } catch (e) {
@@ -55,18 +55,16 @@ async function handleFileChange(e) {
 }
 
 // Saving this globally, because we need to rebind events when a new nested form is added
-window.bindFileUploadEvents = () => {
-  $('.upload-toggle')
+window.bindImageUploadEvents = () => {
+  $('.image-upload-toggle')
     .off()
     .on('click', (e) => {
-      const formIndex = e.target.dataset.index;
-
-      $('.file-input-' + formIndex).click();
+      $('.image-input-' + e.target.dataset.index).click();
     });
 
-  $('.file-input').off().on('change', handleFileChange);
+  $('.image-input').off().on('change', handleImageChange);
 };
 
 $(() => {
-  window.bindFileUploadEvents();
+  window.bindImageUploadEvents();
 });

@@ -39,10 +39,10 @@
                       Es wird dringend empfohlen, nach dem Speichern der Datensätze die Darstellung
                       in der mobilen App zu überprüfen und gegebenenfalls anzupassen!
                     </label>
-                    <%= fu.text_field :url, class: "form-control file-upload-url" %>
+                    <%= fu.text_field :url, class: "form-control image-upload-url" %>
                   </div>
 
-                  <%= render partial: "shared/partials/fileupload", locals: { index: index } %>
+                  <%= render partial: "shared/partials/image_upload", locals: { index: index } %>
 
                   <% image_url = "" %>
                   <% if media_content.try(:source_url).try(:url).present? %>

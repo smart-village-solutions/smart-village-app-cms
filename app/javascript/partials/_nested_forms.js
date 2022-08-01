@@ -1,25 +1,3 @@
-const incrementIndexesOfUploadElements = ($container, $form, elementsCountAtDomLoad) => {
-  const oldFormIndex = elementsCountAtDomLoad - 1;
-  const newFormIndex = $container.children().length - 1;
-  const classNamesToFix = [
-    'file-input',
-    'upload-progress',
-    'upload-progress-bar',
-    'image-preview-wrapper',
-    'image-preview'
-  ];
-
-  $form.find('[data-index]').attr('data-index', newFormIndex);
-
-  classNamesToFix.forEach((className) => {
-    const $el = $form.find('.' + className);
-    $el.removeClass(className + '-' + oldFormIndex);
-    $el.addClass(className + '-' + newFormIndex);
-  });
-
-  window.bindFileUploadEvents();
-};
-
 export const defaultNestedFormsOptions = {
   remover: '.remove',
   postfixes: '',
@@ -136,8 +114,30 @@ $(function () {
   });
 
   // We need to know the amount of forms at DOM load to know which classes we have to fix,
-  // see in `incrementIndexesOfUploadElements`
+  // see in `incrementIndexesOfImageUploadElements`
   const nestedMediaFormElementsCountAtDomLoad = $('.nested-medium-form').length;
+
+  const incrementIndexesOfImageUploadElements = ($container, $form, elementsCountAtDomLoad) => {
+    const oldFormIndex = elementsCountAtDomLoad - 1;
+    const newFormIndex = $container.children().length - 1;
+    const classNamesToFix = [
+      'image-input',
+      'upload-progress',
+      'upload-progress-bar',
+      'image-preview-wrapper',
+      'image-preview'
+    ];
+
+    $form.find('[data-index]').attr('data-index', newFormIndex);
+
+    classNamesToFix.forEach((className) => {
+      const $el = $form.find('.' + className);
+      $el.removeClass(className + '-' + oldFormIndex);
+      $el.addClass(className + '-' + newFormIndex);
+    });
+
+    window.bindImageUploadEvents();
+  };
 
   // media not nested in a content block, for example in events.
   // everything with classes here, because in content blocks nested-media will appear multiple times
@@ -149,7 +149,11 @@ $(function () {
       $container.children('.nested-medium-form').removeClass('d-none');
     },
     afterAddForm: ($container, $form) => {
-      incrementIndexesOfUploadElements($container, $form, nestedMediaFormElementsCountAtDomLoad);
+      incrementIndexesOfImageUploadElements(
+        $container,
+        $form,
+        nestedMediaFormElementsCountAtDomLoad
+      );
 
       // reset image preview
       $form.find('.image-preview-wrapper > label').css('display', 'none');
