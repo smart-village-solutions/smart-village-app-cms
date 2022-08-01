@@ -7,6 +7,9 @@ async function getSignedUrl(filename) {
 }
 
 async function upload(file, signedUrl, formIndex) {
+  $('.upload-progress-bar-' + formIndex)
+    .attr('aria-valuenow', 0)
+    .css('width', '0%');
   $('.upload-progress-' + formIndex).show('slow');
 
   await axios.put(signedUrl, file, {
@@ -37,11 +40,13 @@ async function handleFileChange(e) {
 
     $('.image-preview-' + formIndex).attr('src', fileUrl);
     $('.image-preview-wrapper-' + formIndex).show('slow');
+    $('.image-preview-wrapper-' + formIndex + '> label').show();
 
     // Put the url of the uploaded file into the url input make it readonly
     $(e.target)
-      .closest('.nested-medium-form')
-      .find('.media-content-url')
+      .closest('.file-upload-wrapper')
+      .parent()
+      .find('.file-upload-url')
       .val(fileUrl)
       .attr('readonly', true);
   } catch (e) {

@@ -2,7 +2,6 @@ const incrementIndexesOfUploadElements = ($container, $form, elementsCountAtDomL
   const oldFormIndex = elementsCountAtDomLoad - 1;
   const newFormIndex = $container.children().length - 1;
   const classNamesToFix = [
-    'file-upload-collapse',
     'file-input',
     'upload-progress',
     'upload-progress-bar',
@@ -10,7 +9,6 @@ const incrementIndexesOfUploadElements = ($container, $form, elementsCountAtDomL
     'image-preview'
   ];
 
-  $form.find('.upload-toggle').attr('data-target', '.file-upload-collapse-' + newFormIndex);
   $form.find('[data-index]').attr('data-index', newFormIndex);
 
   classNamesToFix.forEach((className) => {
@@ -152,6 +150,10 @@ $(function () {
     },
     afterAddForm: ($container, $form) => {
       incrementIndexesOfUploadElements($container, $form, nestedMediaFormElementsCountAtDomLoad);
+
+      // reset image preview
+      $form.find('.image-preview-wrapper > label').css('display', 'none');
+      $form.find('.image-preview-wrapper > .image-preview').attr('src', '');
     }
   });
 });

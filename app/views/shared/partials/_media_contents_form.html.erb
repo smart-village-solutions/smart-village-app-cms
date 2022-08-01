@@ -18,8 +18,6 @@
           </div>
 
           <div class="card-body">
-            <%= render partial: "shared/partials/fileupload", locals: { index: index } %>
-
             <%= fmc.fields_for :source_url, media_content.source_url do |fu| %>
               <div class="row">
                 <div class="col">
@@ -41,7 +39,20 @@
                       Es wird dringend empfohlen, nach dem Speichern der Datensätze die Darstellung
                       in der mobilen App zu überprüfen und gegebenenfalls anzupassen!
                     </label>
-                    <%= fu.text_field :url, class: "form-control media-content-url" %>
+                    <%= fu.text_field :url, class: "form-control file-upload-url" %>
+                  </div>
+
+                  <%= render partial: "shared/partials/fileupload", locals: { index: index } %>
+
+                  <% image_url = "" %>
+                  <% if media_content.try(:source_url).try(:url).present? %>
+                    <% is_image = "image" === MIME::Types.type_for(media_content.source_url.url).try(:first).try(:media_type) %>
+                    <% image_url = media_content.source_url.url if is_image %>
+                  <% end %>
+
+                  <div class="image-preview-wrapper image-preview-wrapper-<%= index %> mt-2 mb-3">
+                    <label style="<%= "display: none;" unless image_url.present? %>"><u>Bildvorschau:</u></label>
+                    <img src="<%= image_url %>" class="image-preview image-preview-<%= index %>" %>
                   </div>
                 </div>
               </div>
