@@ -1,3 +1,27 @@
+const incrementIndexesOfUploadElements = ($container, $form, elementsCountAtDomLoad) => {
+  const oldFormIndex = elementsCountAtDomLoad - 1;
+  const newFormIndex = $container.children().length - 1;
+  const classNamesToFix = [
+    'file-upload-collapse',
+    'file-input',
+    'upload-progress',
+    'upload-progress-bar',
+    'image-preview-wrapper',
+    'image-preview'
+  ];
+
+  $form.find('.upload-toggle').attr('data-target', '.file-upload-collapse-' + newFormIndex);
+  $form.find('[data-index]').attr('data-index', newFormIndex);
+
+  classNamesToFix.forEach((className) => {
+    const $el = $form.find('.' + className);
+    $el.removeClass(className + '-' + oldFormIndex);
+    $el.addClass(className + '-' + newFormIndex);
+  });
+
+  window.bindFileUploadEvents();
+};
+
 export const defaultNestedFormsOptions = {
   remover: '.remove',
   postfixes: '',
@@ -92,7 +116,7 @@ $(function () {
     beforeAddForm: ($container) => {
       $container.children('.nested-opening-hour-form').removeClass('d-none');
     },
-    afterAddForm: (_, $form) => {
+    afterAddForm: (_$container, $form) => {
       $form.find('[id$="open"]').prop('checked', true);
     }
   });
@@ -114,8 +138,8 @@ $(function () {
   });
 
   // We need to know the amount of forms at DOM load to know which classes we have to fix,
-  // see below in afterAddForm callback
-  const nestedMediaFormCount = $('.nested-medium-form').length;
+  // see in `incrementIndexesOfUploadElements`
+  const nestedMediaFormElementsCountAtDomLoad = $('.nested-medium-form').length;
 
   // media not nested in a content block, for example in events.
   // everything with classes here, because in content blocks nested-media will appear multiple times
@@ -126,30 +150,8 @@ $(function () {
     beforeAddForm: ($container) => {
       $container.children('.nested-medium-form').removeClass('d-none');
     },
-    afterAddForm: function (_, $form) {
-      // Increment the index on all elements of the new form by 100
-      let oldFormIndex = nestedMediaFormCount - 1;
-      let formIndex = $('.nested-medium-form').length - 1;
-
-      $form.find('.upload-toggle').attr('data-target', '.file-upload-collapse-' + formIndex);
-      $form.find('[data-index]').attr('data-index', formIndex);
-
-      const classNamesToFix = [
-        'file-upload-collapse',
-        'file-input',
-        'upload-progress',
-        'upload-progress-bar',
-        'image-preview-wrapper',
-        'image-preview'
-      ];
-
-      classNamesToFix.forEach((className) => {
-        let $el = $form.find('.' + className);
-        $el.removeClass(className + '-' + oldFormIndex);
-        $el.addClass(className + '-' + formIndex);
-      });
-
-      window.bindFileUploadEvents();
+    afterAddForm: ($container, $form) => {
+      incrementIndexesOfUploadElements($container, $form, nestedMediaFormElementsCountAtDomLoad);
     }
   });
 });

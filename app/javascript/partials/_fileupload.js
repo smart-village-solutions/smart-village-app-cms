@@ -1,7 +1,8 @@
 const axios = require('axios');
 
 async function getSignedUrl(filename) {
-  let response = await axios.get('/minio/signed_url.json?filename=' + filename);
+  const response = await axios.get('/minio/signed_url.json?filename=' + filename);
+
   return response.data.signedUrl;
 }
 
@@ -13,7 +14,8 @@ async function upload(file, signedUrl, formIndex) {
       'Content-Type': file.type
     },
     onUploadProgress: (e) => {
-      let percentCompleted = Math.round((e.loaded * 100) / e.total);
+      const percentCompleted = Math.round((e.loaded * 100) / e.total);
+
       $('.upload-progress-bar-' + formIndex)
         .attr('aria-valuenow', percentCompleted)
         .css('width', percentCompleted + '%');
@@ -47,15 +49,16 @@ async function handleFileChange(e) {
   }
 }
 
-// Saving this globally, because we need to rebind events
-// when a new nested form is added
+// Saving this globally, because we need to rebind events when a new nested form is added
 window.bindFileUploadEvents = () => {
   $('.upload-toggle')
     .off()
     .on('click', (e) => {
       const formIndex = e.target.dataset.index;
+
       $('.file-input-' + formIndex).click();
     });
+
   $('.file-input').off().on('change', handleFileChange);
 };
 
