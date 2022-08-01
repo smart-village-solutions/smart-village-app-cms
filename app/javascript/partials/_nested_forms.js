@@ -6,6 +6,29 @@ export const defaultNestedFormsOptions = {
   }
 };
 
+export const initClassicEditor = (htmlEditor) => {
+  ClassicEditor.create(htmlEditor, {
+    toolbar: [
+      'heading',
+      '|',
+      'bulletedList',
+      'numberedList',
+      'link',
+      'bold',
+      'italic',
+      '|',
+      'undo',
+      'redo'
+    ]
+  })
+    .then((editor) => {
+      // console.log(Array.from(editor.ui.componentFactory.names()));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 $(function () {
   $('#nested-categories').nestedForm({
     forms: '.nested-category-form',
