@@ -84,6 +84,8 @@
                 class: "form-control",
                 name: "tour[tour_stops][#{index}][payload][downloadable_uris][#{downloadable_uri_index}][uri]"
               )%>
+
+          <%= render partial: "tours/form_partials/ar_file_upload" %>
         </div>
       </div>
     </div>

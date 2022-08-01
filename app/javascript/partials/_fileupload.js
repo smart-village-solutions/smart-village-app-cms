@@ -6,11 +6,10 @@ async function getSignedUrl(filename) {
   return response.data.signedUrl;
 }
 
-async function upload(file, signedUrl, formIndex) {
-  $('.upload-progress-bar-' + formIndex)
-    .attr('aria-valuenow', 0)
-    .css('width', '0%');
-  $('.upload-progress-' + formIndex).show('slow');
+async function upload(file, signedUrl, progressBarWrapper) {
+  $(progressBarWrapper).show('slow');
+  const $progressBar = $(progressBarWrapper).find('.upload-progress-bar');
+  $progressBar.attr('aria-valuenow', 0).css('width', '0%');
 
   await axios.put(signedUrl, file, {
     headers: {
@@ -19,9 +18,7 @@ async function upload(file, signedUrl, formIndex) {
     onUploadProgress: (e) => {
       const percentCompleted = Math.round((e.loaded * 100) / e.total);
 
-      $('.upload-progress-bar-' + formIndex)
-        .attr('aria-valuenow', percentCompleted)
-        .css('width', percentCompleted + '%');
+      $progressBar.attr('aria-valuenow', percentCompleted).css('width', percentCompleted + '%');
     }
   });
 }
@@ -30,25 +27,41 @@ async function handleImageChange(e) {
   try {
     // Get upload URL
     const file = e.target.files[0];
-    // There might be multiple forms on the page
-    const formIndex = e.target.dataset.index;
     const signedUrl = await getSignedUrl(file.name);
     const fileUrl = signedUrl.split('?')[0];
+    const formIndex = e.target.dataset.index; // There might be multiple forms on the page
 
     // Upload the file
-    await upload(file, signedUrl, formIndex);
+    await upload(file, signedUrl, e.target.nextElementSibling);
 
     $('.image-preview-' + formIndex).attr('src', fileUrl);
     $('.image-preview-wrapper-' + formIndex).show('slow');
     $('.image-preview-wrapper-' + formIndex + '> label').show();
 
-    // Put the url of the uploaded file into the url input make it readonly
+    // Put the url of the uploaded file into the corresponding url input and make it readonly
     $(e.target)
       .closest('.image-upload-wrapper')
       .parent()
       .find('.image-upload-url')
       .val(fileUrl)
       .attr('readonly', true);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function handleArFileChange(e) {
+  try {
+    // Get upload URL
+    const file = e.target.files[0];
+    const signedUrl = await getSignedUrl(file.name);
+    const fileUrl = signedUrl.split('?')[0];
+
+    // Upload the file
+    await upload(file, signedUrl, e.target.nextElementSibling);
+
+    // Put the url of the uploaded file into the corresponding url input and make it readonly
+    $(e.target.previousElementSibling.previousElementSibling).val(fileUrl).attr('readonly', true);
   } catch (e) {
     console.error(e);
   }
@@ -65,6 +78,17 @@ window.bindImageUploadEvents = () => {
   $('.image-input').off().on('change', handleImageChange);
 };
 
+window.bindArFileUploadEvents = () => {
+  $('.ar-file-upload-toggle')
+    .off()
+    .on('click', (e) => {
+      e.target.nextElementSibling.click();
+    });
+
+  $('.ar-file-input').off().on('change', handleArFileChange);
+};
+
 $(() => {
   window.bindImageUploadEvents();
+  window.bindArFileUploadEvents();
 });

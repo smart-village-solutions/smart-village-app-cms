@@ -110,6 +110,8 @@ $(function () {
         .get('0')
         .querySelectorAll('.html-editor')
         .forEach((htmlEditor) => initClassicEditor(htmlEditor));
+
+      window.bindArFileUploadEvents();
     }
   });
 
