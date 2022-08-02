@@ -1,83 +1,85 @@
 <% fields = ["name", "description", "payload"] %>
 <% list_of_tour_stops = record.tour_stops.presence || [OpenStruct.new] %>
 
-<div class="row">
-  <div class="col">
-    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
-      Tourstopps
-    </h3>
+<div class="<%= !visible_in_role?("role_tour_stops") ? "d-none" : "" %>">
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Tourstopps
+      </h3>
+    </div>
   </div>
-</div>
 
-<div id="nested-tour-stops">
-  <% list_of_tour_stops.each_with_index do |tour_stop, index| %>
-    <%= form.fields_for "tour_stops[#{index}]", tour_stop do |fts| %>
-      <div class="nested-tour-stop-form<%= " d-none" if empty?(tour_stop, fields) %>">
-        <div class="card mb-4">
-          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
-            <h4>
-              Tourstopp
-            </h4>
-            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
-              <i class="fa fa-trash text-white"></i>
-            <% end %>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <%= fts.label :name, "Name *" %>
-                  <%= fts.text_field :name, class: "form-control" %>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <%= fts.label :description, "Beschreibung" %>
-                  <%= fts.text_area :description, class: "form-control html-editor" %>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <h5>Geo-Koordinaten</h5>
-              </div>
-            </div>
-
-            <%= fts.fields_for :location, tour_stop.try(:location) || OpenStruct.new do |fl| %>
-              <%= fl.fields_for :geo_location, tour_stop.try(:location).try(:geo_location) || OpenStruct.new do |fgeo| %>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <%= fgeo.label :latitude, "Latitude" %>
-                      <%= fgeo.text_field :latitude, class: "form-control" %>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <%= fgeo.label :longitude, "Longitude" %>
-                      <%= fgeo.text_field :longitude, class: "form-control" %>
-                    </div>
-                  </div>
-                </div>
+  <div id="nested-tour-stops">
+    <% list_of_tour_stops.each_with_index do |tour_stop, index| %>
+      <%= form.fields_for "tour_stops[#{index}]", tour_stop do |fts| %>
+        <div class="nested-tour-stop-form<%= " d-none" if empty?(tour_stop, fields) %>">
+          <div class="card mb-4">
+            <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+              <h4>
+                Tourstopp
+              </h4>
+              <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+                <i class="fa fa-trash text-white"></i>
               <% end %>
-            <% end %>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <%= fts.label :name, "Name *" %>
+                    <%= fts.text_field :name, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
 
-            <%= render partial: "tours/form_partials/tour_stop_ar_form", locals: { record: tour_stop, form: fts, index: index } %>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <%= fts.label :description, "Beschreibung" %>
+                    <%= fts.text_area :description, class: "form-control html-editor" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <h5>Geo-Koordinaten</h5>
+                </div>
+              </div>
+
+              <%= fts.fields_for :location, tour_stop.try(:location) || OpenStruct.new do |fl| %>
+                <%= fl.fields_for :geo_location, tour_stop.try(:location).try(:geo_location) || OpenStruct.new do |fgeo| %>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <%= fgeo.label :latitude, "Latitude" %>
+                        <%= fgeo.text_field :latitude, class: "form-control" %>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <%= fgeo.label :longitude, "Longitude" %>
+                        <%= fgeo.text_field :longitude, class: "form-control" %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+
+              <%= render partial: "tours/form_partials/tour_stop_ar_form", locals: { record: tour_stop, form: fts, index: index } %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
+  </div>
+
+  <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-tour-stop" do %>
+    <i class="fas fa-plus text-white mr-2"></i>
+    Tourstopp hinzufügen
   <% end %>
+
+  <hr />
 </div>
-
-<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-tour-stop" do %>
-  <i class="fas fa-plus text-white mr-2"></i>
-  Tourstopp hinzufügen
-<% end %>
-
-<hr />
