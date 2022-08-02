@@ -299,12 +299,25 @@ class ToursController < ApplicationController
             downloadable_uris = []
             tour_stop["payload"]["downloadable_uris"].each do |_key, downloadable_uri|
               next if downloadable_uri.blank?
-              next unless nested_values?(downloadable_uri.to_h).include?(true)
+              # id and type are always something (e.g. type: "texture"), so we need to check all
+              # values except that to know, if the object is an empty one
+              next unless nested_values?(downloadable_uri.except(:id, :type).to_h).include?(true)
 
               downloadable_uris << downloadable_uri
             end
             tour_stop["payload"]["downloadable_uris"] = downloadable_uris
           end
+
+          # convert total size to integer
+          tour_stop["payload"]["total_size"] = tour_stop["payload"]["total_size"].to_i
+
+          # set other defaults in payload
+          tour_stop["payload"]["progress"] = 0
+          tour_stop["payload"]["progressSize"] = 0
+          tour_stop["payload"]["size"] = 0
+          tour_stop["payload"]["type_format"] = "VRX"
+          tour_stop["payload"]["download_type"] = "downloadable"
+          tour_stop["payload"]["local_uris"] = []
 
           tour_stops << tour_stop
         end

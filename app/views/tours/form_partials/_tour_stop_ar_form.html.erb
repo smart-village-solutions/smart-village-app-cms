@@ -60,13 +60,6 @@
     </div>
   </div>
 
-  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][progress]", 0 %>
-  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][progressSize]", 0 %>
-  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][size]", 0 %>
-  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][type_format]", "VRX" %>
-  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][download_type]", "downloadable" %>
-  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][local_uris]", "[]" %>
-
   <% downloadable_uri_types.each_with_index do |downloadable_uri_type, downloadable_uri_index| %>
     <div class="row">
       <div class="col">
