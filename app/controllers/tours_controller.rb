@@ -112,7 +112,6 @@ class ToursController < ApplicationController
             }
           }
           dataProvider {
-            id
             name
           }
           geometryTourData {
@@ -136,7 +135,6 @@ class ToursController < ApplicationController
     GRAPHQL
 
     @tour = results.data.tour
-    @data_provider_id = @tour.data_provider.id
   rescue Graphlient::Errors::GraphQLError
     flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
     redirect_to tours_path

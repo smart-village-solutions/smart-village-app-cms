@@ -11,8 +11,7 @@
 
 <div id="nested-tour-stops">
   <% list_of_tour_stops.each_with_index do |tour_stop, index| %>
-    <%= fields_for "tour[tour_stops][#{index}]", tour_stop do |fts| %>
-
+    <%= form.fields_for "tour_stops[#{index}]", tour_stop do |fts| %>
       <div class="nested-tour-stop-form<%= " d-none" if empty?(tour_stop, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
@@ -24,8 +23,6 @@
             <% end %>
           </div>
           <div class="card-body">
-            <%= fts.hidden_field :data_provider_id, value: @data_provider_id %>
-
             <div class="row">
               <div class="col">
                 <div class="form-group">
