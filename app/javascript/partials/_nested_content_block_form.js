@@ -1,27 +1,4 @@
-import { defaultNestedFormsOptions } from './_nested_forms';
-
-const initClassicEditor = (htmlEditor) => {
-  ClassicEditor.create(htmlEditor, {
-    toolbar: [
-      'heading',
-      '|',
-      'bulletedList',
-      'numberedList',
-      'link',
-      'bold',
-      'italic',
-      '|',
-      'undo',
-      'redo'
-    ]
-  })
-    .then((editor) => {
-      // console.log(Array.from(editor.ui.componentFactory.names()));
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+import { defaultNestedFormsOptions, initClassicEditor } from './_nested_forms';
 
 $(function () {
   if ($('#nested-content-blocks').length) {
