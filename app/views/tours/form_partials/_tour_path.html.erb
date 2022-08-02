@@ -1,11 +1,19 @@
 <% geometry_tour_data ||= record.try(:geometry_tour_data) %>
+
 <% if geometry_tour_data.present? %>
   <% tour_coordinates = geometry_tour_data.map { |gtd| { lng: gtd.longitude, lat: gtd.latitude} } %>
 <% end %>
 
 <% if tour_coordinates %>
-  <div class="form-group">
-    <span hidden="tour-coordinates"><%= tour_coordinates.to_json %></span>
-    <div id="leafletMapTour" class="leafletMap leafletMapTour"></div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Tourenverlauf</label>
+      </div>
+      <div class="form-group">
+        <span hidden="tour-coordinates"><%= tour_coordinates.to_json %></span>
+        <div id="leafletMapTour" class="leafletMap leafletMapTour"></div>
+      </div>
+    </div>
   </div>
 <% end %>
