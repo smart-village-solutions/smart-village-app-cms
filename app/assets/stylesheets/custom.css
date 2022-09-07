@@ -210,3 +210,37 @@ h1 {
 .file-upload-collapse {
   margin-bottom: 1em;
 }
+
+.matrix-checkbox{
+  -webkit-appearance: none;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  padding: 0px;
+  pargin: 0px;
+}
+
+.matrix-checkbox::before {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  border: 1px solid #11223f;
+  background-color: #fff;
+  display: block;
+  content: "";
+  float: left;
+  margin-right: 5px;
+  z-index: 5;
+  position: relative;
+}
+
+.matrix-checkbox:checked::before{
+  box-shadow: inset 0px 0px 2px 2px #fff;
+  text-align: left;
+  align-content: left;
+  background-color: #11223f;
+}
+
+.matrix-header{
+
+}

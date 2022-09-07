@@ -1,0 +1,65 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Tour <%= @tour.title %> (<%= @waste_types[@tour.waste_type]["label"] %>) bearbeiten</h1>
+  <%= form_with(url: tour_dates_waste_calendar_index_path(), method: :get, local: true) do |f| %>
+    <%= hidden_field_tag :id, @tour.id %>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2">
+        <div class="form-group">
+          <%= select_tag :year, options_for_select( (Date.today.year-1 .. Date.today.year+5).to_a, @edit_year), class: "form-control custom-select" %>
+        </div>
+      </div>
+      <div class="col col-lg-1">
+        <%= f.submit "Jahr wechseln", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"] %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <p>
+      Hier können Abholzeiten einer Tour planen. Zu einer Tour gehören mehrere Abholtage.
+    </p>
+
+    <%= form_with(url: "/waste_calendar/update_tour_dates", method: :post, local: true) do |f| %>
+      <%= hidden_field_tag :id, @tour.id %>
+      <%= hidden_field_tag :year, @edit_year %>
+
+      <table class="table table-striped table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th>KW</th>
+            <% weekdays.each do |weekday| %>
+              <th><%= weekday %></th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <% current_date = @beginning_of_year.beginning_of_week %>
+        <% while current_date < @end_of_year do %>
+          <tr>
+            <td><%= current_date.cweek %></td>
+            <% 7.times do |number_of_weekday| %>
+              <td>
+                <% if current_date.year == @edit_year %>
+                  <%= hidden_field_tag "tour_dates[#{current_date}]", false %>
+                  <%= check_box_tag "tour_dates[#{current_date}]", true, @pickup_dates.include?(current_date.strftime("%Y-%m-%d")), class: "matrix-checkbox" %>
+                  <%= current_date.strftime("%d.%m.%y")%>
+                <% end %>
+              </td>
+              <% current_date = current_date + 1.day %>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+
+      <div class="row justify-content-center pb-4">
+        <%= f.submit "Tour-Daten speichern", class: "btn btn-primary" %>
+        <%= link_to "abbrechen", new_waste_calendar_path, class: "btn" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

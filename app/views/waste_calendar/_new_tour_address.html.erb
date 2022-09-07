@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col">
+    <div class="jumbotron p-3 <%= @edit_location_id.present? ? "bg-info" : "" %>">
+      <h3><%= @edit_location_id.present? ? "Adresse bearbeiten" : "Neue Adresse anlegen" %></h3>
+      <%= form_with(url: create_location_waste_calendar_index_path, method: :post, local: true) do |l| %>
+        <%= l.fields_for :waste_location, @location do |f|%>
+          <div class="form-group">
+            <%= f.hidden_field :id %>
+          </div>
+          <div class="form-group">
+            <label for="street">Straße</label>
+            <%= f.text_field :street, class: "form-control" %>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="zip">PLZ</label>
+                <%= f.text_field :zip, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="city">Stadt</label>
+                <%= f.text_field :city, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="row justify-content-center pb-4">
+          <%= l.submit  "#{@edit_location_id.present? ? "Adresse speichern" : "Neue Adresse hinzufügen"}", class: "btn btn-primary" %>
+          <% if @edit_location_id.present? %>
+            &nbsp;
+            <%= link_to "Abbrechen", new_waste_calendar_path, class: "btn btn-info" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="jumbotron p-3 <%= @edit_tour_id.present? ? "bg-info" : "" %>">
+      <h3><%= @edit_tour_id.present? ? "Tour bearbeiten" : "Neue Tour anlegen" %></h3>
+      <%= form_with(url: create_tour_waste_calendar_index_path(), method: :post, local: true) do |t| %>
+        <%= t.fields_for :waste_tour, @waste_tours.select {|tour| tour.id == @edit_tour_id }.first do |f|%>
+          <div class="form-group">
+            <%= f.hidden_field :id %>
+          </div>
+          <div class="form-group">
+            <label for="title">Name</label>
+            <%= f.text_field :title, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <label for="waste_type">Abfallart</label>
+            <%= f.select :waste_type, @waste_types, {}, class: "form-control custom-select" %>
+          </div>
+        <% end %>
+        <div class="row justify-content-center pb-4">
+          <%= t.submit  "#{@edit_tour_id.present? ? "Tour speichern" : "Neue Tour erstellen"}", class: "btn btn-primary" %>
+          <% if @edit_tour_id.present? %>
+            &nbsp;
+            <%= link_to "Abbrechen", new_waste_calendar_path, class: "btn btn-info" %>
+            &nbsp;
+            <%= link_to "Abholtage definieren", tour_dates_waste_calendar_index_path(id: @edit_tour_id), class: "btn btn-secondary" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
