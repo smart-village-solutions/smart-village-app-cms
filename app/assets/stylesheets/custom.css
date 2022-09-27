@@ -217,7 +217,7 @@ h1 {
   border: none;
   cursor: pointer;
   padding: 0px;
-  pargin: 0px;
+  margin: 0px;
 }
 
 .matrix-checkbox::before {
@@ -230,7 +230,7 @@ h1 {
   content: "";
   float: left;
   margin-right: 5px;
-  z-index: 5;
+  /* z-index: 5; */
   position: relative;
 }
 
@@ -241,6 +241,7 @@ h1 {
   background-color: #11223f;
 }
 
-.matrix-header{
-
+.sticky-column{
+  z-index: 2;
+  background-color: #eaecf4;
 }

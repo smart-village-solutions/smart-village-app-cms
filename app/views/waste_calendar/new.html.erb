@@ -11,49 +11,50 @@
 
     <%= render partial: "waste_calendar/new_tour_address" %>
 
-    <%= form_with(url: "/waste_calendar/create_street_tour_matrix", method: :post, local: true) do |f| %>
+    <% if @waste_locations && @waste_locations.any? %>
+      <%= form_with(url: "/waste_calendar/create_street_tour_matrix", method: :post, local: true) do |f| %>
 
-      <table class="table table-striped table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th>Adresse</th>
-            <% @waste_tours.each do |tour| %>
-              <th class="matrix-header" align="left">
-                  <%= link_to tour.title, edit_tour_waste_calendar_index_path(tour_id: tour.id) %>
-                  <%= link_to remove_tour_waste_calendar_index_path(id: tour.id), class: "close", "data-confirm": "Tour löschen?" do %>
-                    <span aria-hidden="true">&times;</span>
-                  <% end %>
-                  <br>
-                  (<%= @waste_types[tour.waste_type]["label"] %>)
-                </div>
-              </th>
-            <% end %>
-          </tr>
-        </thead>
-        <% @waste_locations.each do |location| %>
-          <tr>
-            <td>
-              <%= link_to location.street, edit_location_waste_calendar_index_path(location_id: location.id) %>
-              <em class="small">(<%= location.zip %> <%= location.city %>)</em>
-              <%= link_to remove_location_waste_calendar_index_path(id: location.id), class: "close", "data-confirm": "Adresse löschen?" do %>
-                <span aria-hidden="true">&times;</span>
+        <table class="table table-hover table-striped table-sm data_table_matrix nowrap">
+          <thead class="thead-light">
+            <tr>
+              <th class="sticky-column">Adresse</th>
+              <% @waste_tours.each do |tour| %>
+                <th class="matrix-header nosort" align="left">
+                    <%= link_to tour.title, edit_tour_waste_calendar_index_path(tour_id: tour.id) %>
+                    <%= link_to remove_tour_waste_calendar_index_path(id: tour.id), class: "close", "data-confirm": "Tour löschen?" do %>
+                      <span aria-hidden="true">&times;</span>
+                    <% end %>
+                    <br>
+                    (<%= @waste_types[tour.waste_type]["label"] %>)
+                  </div>
+                </th>
               <% end %>
-            </td>
-            <% selected_tour_ids = location.waste_location_types.map(&:waste_tour).compact.map(&:id).compact %>
-            <% @waste_tours.each do |tour| %>
-              <td>
-                <%= hidden_field_tag "location_tour[#{location.id}][#{tour.id}]", false %>
-                <%= check_box_tag "location_tour[#{location.id}][#{tour.id}]", true, selected_tour_ids.include?(tour.id), class: "matrix-checkbox" %>
+            </tr>
+          </thead>
+          <% @waste_locations.each do |location| %>
+            <tr>
+              <td class="sticky-column">
+                <%= link_to location["street"], edit_location_waste_calendar_index_path(location_id: location["id"]) %>
+                <em class="small">(<%= location["zip"] %> <%= location["city"] %>)</em>
+                <%= link_to remove_location_waste_calendar_index_path(id: location["id"]), class: "close", "data-confirm": "Adresse löschen?" do %>
+                  <span aria-hidden="true">&times;</span>
+                <% end %>
               </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
+              <% selected_tour_ids = location.fetch("wasteLocationTypes", []).map{ |a| a["wasteTour"]}.compact.map{|a| a["id"]}.compact %>
+              <% @waste_tours.each do |tour| %>
+                <td>
+                  <%= hidden_field_tag "location_tour[#{location["id"]}][#{tour.id}]", false %>
+                  <%= check_box_tag "location_tour[#{location["id"]}][#{tour.id}]", true, selected_tour_ids.include?(tour.id), class: "matrix-checkbox" %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
 
-      <div class="row justify-content-center pb-4">
-        <%= f.submit "Tour-Matrix speichern", class: "btn btn-primary" %>
-      </div>
+        <div class="row justify-content-center pb-4">
+          <%= f.submit "Tour-Matrix speichern", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     <% end %>
-
   </div>
 </div>

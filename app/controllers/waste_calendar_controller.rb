@@ -6,10 +6,12 @@ class WasteCalendarController < ApplicationController
   before_action :verify_current_user
   before_action :init_graphql_client
   before_action :determine_waste_types, only: %i[index new edit_tour edit_location tour_dates]
-  before_action :determine_waste_locations, only: %i[new edit_tour edit_location]
+  before_action :determine_waste_locations, only: %i[new]
   before_action :determine_tour_list, only: %i[new edit_tour edit_location tour_dates update_tour_dates]
 
   def index
+    Rails.cache.delete("waste_locations")
+
     results = @smart_village.query <<~GRAPHQL
       query {
         publicJsonFile(name: "wasteTypes", version: "1.0.0") {
@@ -46,6 +48,8 @@ class WasteCalendarController < ApplicationController
   end
 
   def create_street_tour_matrix
+    Rails.cache.delete("waste_locations")
+
     location_tour_matrix = params[:location_tour]
     location_tour_matrix.each do |address_id, tour_ids|
       tour_ids.each do |tour_id, tour_value|
@@ -61,6 +65,8 @@ class WasteCalendarController < ApplicationController
   end
 
   def create_location
+    Rails.cache.delete("waste_locations")
+
     query = Converter::Base.new.build_mutation("createWasteLocation", waste_location_params, waste_location_params.include?(:id))
     results = @smart_village.query query
 
@@ -85,6 +91,8 @@ class WasteCalendarController < ApplicationController
   end
 
   def remove_location
+    Rails.cache.delete("waste_locations")
+
     @smart_village.query <<~GRAPHQL
       mutation {
         destroyRecord(
@@ -262,6 +270,13 @@ class WasteCalendarController < ApplicationController
     end
 
     def determine_waste_locations
+      # Read from cache
+      if Rails.cache.exist?("waste_locations")
+        @waste_locations = Rails.cache.read("waste_locations")
+        return
+      end
+
+      # Write to cache if not exist
       location_query = @smart_village.query <<~GRAPHQL
         query {
           wasteAddresses(order: street_ASC) {
@@ -282,7 +297,10 @@ class WasteCalendarController < ApplicationController
           }
         }
       GRAPHQL
+
       @waste_locations = location_query.data.waste_addresses
+      @waste_locations = Array(@waste_locations).to_a.map(&:to_h)
+      Rails.cache.write("waste_locations", @waste_locations)
     end
 
     # return true, if there is at least one assignment made
