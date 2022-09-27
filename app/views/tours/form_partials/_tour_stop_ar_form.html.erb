@@ -1,17 +1,19 @@
-<% downloadable_uri_types = [
-  "vrx",
-  "target",
-  "mp3",
-  "texture",
-  "texture",
-  "texture",
-  "texture",
-  "texture",
-  "texture",
-  "texture",
-  "texture",
-  "texture",
-  "texture"
+<% downloadable_uris = [
+  ["vrx", ["position", "scale", "rotation"]],
+  ["target", ["physical_width"]],
+  ["mp3", ["is_spatial_sound", "min_distance", "max_distance", "position", "rolloff_model"]],
+  ["mp4", ["position", "scale", "rotation", "chroma_key_filtered_video"]],
+  ["image", ["position", "scale", "rotation"]],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil],
+  ["texture", nil]
 ] %>
 
 <div class="row">
@@ -59,7 +61,9 @@
   </div>
 </div>
 
-<% downloadable_uri_types.each_with_index do |downloadable_uri_type, downloadable_uri_index| %>
+<% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
+  <% downloadable_uri_type, downloadable_uri_type_fields = downloadable_uri %>
+
   <div class="row">
     <div class="col">
       <b><%= downloadable_uri_type.upcase %></b>
@@ -95,4 +99,22 @@
       </div>
     </div>
   </div>
+
+  <% if downloadable_uri_type_fields.present? %>
+    <div class="row">
+      <% downloadable_uri_type_fields.each do |downloadable_uri_type_field| %>
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
+            <%= text_field_tag(
+                  "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}",
+                  (record.payload || {}).dig("downloadableUris", downloadable_uri_index, downloadable_uri_type_field.camelize(:lower)),
+                  class: "form-control",
+                  name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][#{downloadable_uri_type_field}]"
+                )%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

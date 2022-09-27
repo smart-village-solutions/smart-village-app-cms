@@ -304,6 +304,27 @@ class ToursController < ApplicationController
                 # values except that to know, if the object is an empty one
                 next unless nested_values?(downloadable_uri.except(:id, :type).to_h).include?(true)
 
+                # converts to float
+                if downloadable_uri["min_distance"].present?
+                  downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f
+                end
+                if downloadable_uri["max_distance"].present?
+                  downloadable_uri["max_distance"] = downloadable_uri["max_distance"].to_f
+                end
+                if downloadable_uri["physical_width"].present?
+                  downloadable_uri["physical_width"] = downloadable_uri["physical_width"].to_f
+                end
+                # converts to array
+                if downloadable_uri["position"].present?
+                  downloadable_uri["position"] = JSON.parse(downloadable_uri["position"])
+                end
+                if downloadable_uri["scale"].present?
+                  downloadable_uri["scale"] = JSON.parse(downloadable_uri["scale"])
+                end
+                if downloadable_uri["rotation"].present?
+                  downloadable_uri["rotation"] = JSON.parse(downloadable_uri["rotation"])
+                end
+
                 downloadable_uris << downloadable_uri
               end
               tour_stop["payload"]["downloadable_uris"] = downloadable_uris
@@ -314,7 +335,7 @@ class ToursController < ApplicationController
 
             # set other defaults in payload
             tour_stop["payload"]["progress"] = 0
-            tour_stop["payload"]["progressSize"] = 0
+            tour_stop["payload"]["progress_size"] = 0
             tour_stop["payload"]["size"] = 0
             tour_stop["payload"]["type_format"] = "VRX"
             tour_stop["payload"]["download_type"] = "downloadable"
