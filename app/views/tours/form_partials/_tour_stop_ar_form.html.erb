@@ -108,7 +108,7 @@
             <%= label_tag "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
             <%= text_field_tag(
                   "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}",
-                  (record.payload || {}).dig("downloadableUris", downloadable_uri_index, downloadable_uri_type_field.camelize(:lower)),
+                  (record.payload || {}).dig("downloadableUris", downloadable_uri_index, downloadable_uri_type_field.camelize(:lower)).to_s,
                   class: "form-control",
                   name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][#{downloadable_uri_type_field}]"
                 )%>
