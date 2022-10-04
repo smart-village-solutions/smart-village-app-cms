@@ -324,6 +324,10 @@ class ToursController < ApplicationController
                 if downloadable_uri["rotation"].present?
                   downloadable_uri["rotation"] = JSON.parse(downloadable_uri["rotation"])
                 end
+                # converts to boolean
+                if downloadable_uri["is_spatial_sound"].present?
+                  downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
+                end
 
                 downloadable_uris << downloadable_uri
               end
