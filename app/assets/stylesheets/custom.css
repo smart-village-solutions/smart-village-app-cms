@@ -212,7 +212,7 @@ h1 {
 }
 
 .matrix-checkbox{
-  -webkit-appearance: none;
+  appearance: none;
   position: relative;
   border: none;
   cursor: pointer;
