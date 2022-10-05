@@ -76,7 +76,11 @@ class WasteCalendarController < ApplicationController
     @edit_location_id = params[:location_id]
     results = @smart_village.query <<~GRAPHQL
       query {
-        wasteAddresses(ids: [#{@edit_location_id}] ) {
+        wasteAddresses(
+          ids: [
+            #{@edit_location_id}
+          ]
+        ) {
           id
           street
           city
@@ -130,7 +134,9 @@ class WasteCalendarController < ApplicationController
 
     results = @smart_village.query <<~GRAPHQL
       query {
-        wasteTourDates(tourId: #{tour_id}) {
+        wasteTourDates(
+          tourId: #{tour_id}
+        ) {
           id
           pickupDate
         }
