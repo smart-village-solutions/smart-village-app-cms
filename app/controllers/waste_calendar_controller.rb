@@ -68,8 +68,7 @@ class WasteCalendarController < ApplicationController
     Rails.cache.delete("waste_locations")
 
     query = Converter::Base.new.build_mutation("createWasteLocation", waste_location_params, waste_location_params.include?(:id))
-    results = @smart_village.query query
-
+    @smart_village.query query
     redirect_to action: :new
   end
 
@@ -110,7 +109,7 @@ class WasteCalendarController < ApplicationController
 
   def create_tour
     query = Converter::Base.new.build_mutation("createWasteTour", waste_tour_params, waste_tour_params.include?(:id))
-    results = @smart_village.query query
+    @smart_village.query query
     redirect_to action: :new
   end
 
