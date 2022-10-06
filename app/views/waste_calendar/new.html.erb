@@ -26,7 +26,7 @@
                       <span aria-hidden="true">&times;</span>
                     <% end %>
                     <br>
-                    (<%= @waste_types[tour.waste_type]["label"] %>)
+                    (<%= @waste_types.fetch(tour.waste_type, {}).fetch("label", "") %>)
                   </div>
                 </th>
               <% end %>
