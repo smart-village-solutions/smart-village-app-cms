@@ -10,7 +10,8 @@ class WasteCalendarController < ApplicationController
   before_action :determine_tour_list, only: %i[new edit_tour edit_location tour_dates update_tour_dates]
 
   def index
-    Rails.cache.delete("waste_locations")
+    # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
+    # Rails.cache.delete("waste_locations")
 
     results = @smart_village.query <<~GRAPHQL
       query {
@@ -48,7 +49,8 @@ class WasteCalendarController < ApplicationController
   end
 
   def create_street_tour_matrix
-    Rails.cache.delete("waste_locations")
+    # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
+    # Rails.cache.delete("waste_locations")
 
     location_tour_matrix = params[:location_tour]
     location_tour_matrix.each do |address_id, tour_ids|
@@ -65,7 +67,8 @@ class WasteCalendarController < ApplicationController
   end
 
   def create_location
-    Rails.cache.delete("waste_locations")
+    # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
+    # Rails.cache.delete("waste_locations")
 
     query = Converter::Base.new.build_mutation("createWasteLocation", waste_location_params, waste_location_params.include?(:id))
     @smart_village.query query
@@ -94,7 +97,8 @@ class WasteCalendarController < ApplicationController
   end
 
   def remove_location
-    Rails.cache.delete("waste_locations")
+    # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
+    # Rails.cache.delete("waste_locations")
 
     @smart_village.query <<~GRAPHQL
       mutation {
@@ -276,10 +280,11 @@ class WasteCalendarController < ApplicationController
 
     def determine_waste_locations
       # Read from cache
-      if Rails.cache.exist?("waste_locations")
-        @waste_locations = Rails.cache.read("waste_locations")
-        return
-      end
+      # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
+      # if Rails.cache.exist?("waste_locations")
+      #   @waste_locations = Rails.cache.read("waste_locations")
+      #   return
+      # end
 
       # Write to cache if not exist
       location_query = @smart_village.query <<~GRAPHQL
@@ -305,7 +310,9 @@ class WasteCalendarController < ApplicationController
 
       @waste_locations = location_query.data.waste_addresses
       @waste_locations = Array(@waste_locations).to_a.map(&:to_h)
-      Rails.cache.write("waste_locations", @waste_locations)
+
+      # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
+      # Rails.cache.write("waste_locations", @waste_locations)
     end
 
     # return true, if there is at least one assignment made
