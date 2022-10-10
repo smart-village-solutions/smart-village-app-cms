@@ -1025,6 +1025,11 @@
   resolved "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
+"@fortawesome/fontawesome-free@5.15.3":
+  version "5.15.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.3.tgz#c36ffa64a2a239bf948541a97b6ae8d729e09a9a"
+  integrity sha512-rFnSUN/QOtnOAgqFRooTA3H57JLDm0QEG/jPdk+tLQNL/eWd+Aok8g3qCI+Q1xuDPWpGW/i9JySpJVsq8Q0s9w==
+
 "@fortawesome/fontawesome-free@5.9.0":
   version "5.9.0"
   resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.9.0.tgz"
@@ -1118,6 +1123,11 @@
     webpack-assets-manifest "^3.1.1"
     webpack-cli "^3.3.12"
     webpack-sources "^1.4.3"
+
+"@snyk/protect@^1.1026.0":
+  version "1.1026.0"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1026.0.tgz#d89f68162c79322c3907c3e567c0cc299259f14d"
+  integrity sha512-cVoNRytTBCMdnU4tgO7Gu0FYVFN2pEXgNXPqJAFmsGui1OfLGqmfzA4wsitF7F6AweA2kSVpae4tzMmvWps0Qw==
 
 "@types/events@*":
   version "3.0.0"
@@ -1782,10 +1792,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@4.3.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-4.3.1.tgz"
-  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
+bootstrap@4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.0.tgz#97b9f29ac98f98dfa43bf7468262d84392552fd7"
+  integrity sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==
 
 bootstrap@^4.6.0:
   version "4.6.1"
@@ -2090,10 +2100,10 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chart.js@2.8.0:
-  version "2.8.0"
-  resolved "https://registry.npmjs.org/chart.js/-/chart.js-2.8.0.tgz"
-  integrity sha512-Di3wUL4BFvqI5FB5K26aQ+hvWh8wnP9A3DWGvXHVkO13D3DSnaSsdZx29cXlEsYKVkn1E2az+ZYFS4t0zi8x0w==
+chart.js@2.9.4:
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.9.4.tgz#0827f9563faffb2dc5c06562f8eb10337d5b9684"
+  integrity sha512-B07aAzxcrikjAPyV+01j7BmOpxtQETxTSlQ26BEYJ+3iUkbNKaOJ/nDbT6JjyqYxseM0ON12COHYdU2cTIjC7A==
   dependencies:
     chartjs-color "^2.1.0"
     moment "^2.10.2"
@@ -2717,12 +2727,12 @@ datatable@^2.0.2:
   dependencies:
     underscore "1.4.x"
 
-datatables.net-bs4@1.10.19:
-  version "1.10.19"
-  resolved "https://registry.npmjs.org/datatables.net-bs4/-/datatables.net-bs4-1.10.19.tgz"
-  integrity sha512-pgeP17w4aPR7HIxIwuJghfqXULjdg1K6xMUUKDyCERJRSNNK4MRToFfELtIsluLNN555YBK4Kx8nihX5/ZT1Fw==
+datatables.net-bs4@1.10.24:
+  version "1.10.24"
+  resolved "https://registry.yarnpkg.com/datatables.net-bs4/-/datatables.net-bs4-1.10.24.tgz#4b2ca1717e6dc06fd5b53a20015151f381473eb3"
+  integrity sha512-NgjQMqCo5pg49c5TWsc78UYhcvWPAFkZ7qH4yKAb1e0eLNCAo+TLeaIsDiAPpcWwP7xpjdAmZIIbXDpspNTCkg==
   dependencies:
-    datatables.net "1.10.19"
+    datatables.net "1.10.24"
     jquery ">=1.7"
 
 datatables.net-fixedcolumns@^4.1.0:
@@ -2733,14 +2743,14 @@ datatables.net-fixedcolumns@^4.1.0:
     datatables.net ">=1.11.3"
     jquery ">=1.7"
 
-datatables.net@1.10.19, datatables.net@^1.10.19:
-  version "1.10.19"
-  resolved "https://registry.npmjs.org/datatables.net/-/datatables.net-1.10.19.tgz"
-  integrity sha512-+ljXcI6Pj3PTGy5pesp3E5Dr3x3AV45EZe0o1r0gKENN2gafBKXodVnk2ypKwl2tTmivjxbkiqoWnipTefyBTA==
+datatables.net@1.10.24:
+  version "1.10.24"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.24.tgz#370e02f1e201de8334fdc92e7515c1624191573c"
+  integrity sha512-CwXixvOdinvBCLXvcTloDinWiEM7Geaz+GwyjPrZL+MXIGPcLv4Op1bbWn8ErsI1JWMIWC8Cuf1rnDU2RrFV5w==
   dependencies:
     jquery ">=1.7"
 
-datatables.net@>=1.11.3:
+datatables.net@>=1.11.3, datatables.net@^1.11.3:
   version "1.12.1"
   resolved "https://registry.npmjs.org/datatables.net/-/datatables.net-1.12.1.tgz"
   integrity sha512-e6XAMUoV41JdQPS/r9YRfRcmTPcCVvyZbWI+xog1Zg+kjVliMQbEkvWK5XFItmi64Cvwg+IqsZbTUJ1KSY3umA==
@@ -4764,10 +4774,20 @@ jquery.easing@^1.4.1:
   resolved "https://registry.npmjs.org/jquery.easing/-/jquery.easing-1.4.1.tgz"
   integrity sha1-R5gsWDa9dY/UhJSSPEoQHvbpPjs=
 
-jquery@3.4.1, jquery@>=1.7, jquery@^3.3.1, jquery@^3.4.1:
+jquery@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
+jquery@>=1.7, jquery@^3.3.1:
   version "3.4.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
   integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
+
+jquery@^3.5.0:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.1.tgz#fab0408f8b45fc19f956205773b62b292c147a16"
+  integrity sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -5348,6 +5368,11 @@ moment@^2.22.1:
   version "2.29.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7721,16 +7746,16 @@ stable@^0.1.8:
   resolved "https://registry.npmjs.org/stable/-/stable-0.1.8.tgz"
   integrity sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
 
-startbootstrap-sb-admin-2@^4.0.6:
-  version "4.0.6"
-  resolved "https://registry.npmjs.org/startbootstrap-sb-admin-2/-/startbootstrap-sb-admin-2-4.0.6.tgz"
-  integrity sha512-mFM5lsAFtfZXZBw860KaOaU470DZXd1pWj+wPzBffmNhK6yKNe9bg8XBWetI2wuKtkE1mr0PTtj/qNHc3cEDbg==
+startbootstrap-sb-admin-2@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/startbootstrap-sb-admin-2/-/startbootstrap-sb-admin-2-4.1.4.tgz#9d5824798a195aa92b767ab4401bfc944abcef7f"
+  integrity sha512-Zr0JNu4tRD4EJVDwVLETKWfMniFx4Dy3qAnJ96ucqUqIZ8Ns4/H5a6Y0E44/K5lxO05EBQwi24hPxaLEz+2IhA==
   dependencies:
-    "@fortawesome/fontawesome-free" "5.9.0"
-    bootstrap "4.3.1"
-    chart.js "2.8.0"
-    datatables.net-bs4 "1.10.19"
-    jquery "3.4.1"
+    "@fortawesome/fontawesome-free" "5.15.3"
+    bootstrap "4.6.0"
+    chart.js "2.9.4"
+    datatables.net-bs4 "1.10.24"
+    jquery "3.6.0"
     jquery.easing "^1.4.1"
 
 static-extend@^0.1.1:
