@@ -1,0 +1,65 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Schritt 1: Daten für Abfallkalender importieren</h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <p>
+      Die Abfalldaten bestehen aus 2 Informationsquellen,
+      den <strong>Adressen</strong> und dem <strong>Tourplan</strong>.
+    </p>
+
+    <p>Der Import selbst erfolgt dabei in 2 Schritten:</p>
+    <ul>
+      <li>zuerst laden Sie zu beiden Informationsquellen alle relevanten Daten als CSV hoch</li>
+      <li>
+        anschließend müssen die Spalten aus beiden CSV-Quellen den Feldern aus dem Abfallkalender
+        zugewiesen werden
+      </li>
+    </ul>
+    <%= form_with(url: "/waste_calendar", method: :post, local: true) do |f| %>
+      <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+            Adressdaten
+          </h2>
+          <p>
+            Bitte kopieren Sie die CSV-Daten der Adressen hinein.<br /><br />
+            <%= image_tag("example_address_data.png", class: "img-fluid") %><br /><br />
+            Per Komma oder Semikolon getrennte Werte mit mindestens folgenden Spalten:
+            <strong>PLZ, ORT, Strasse, pro Abfallart eine ID der Tour</strong>.
+          <p>
+          <div class="form-group">
+            <label for="description">Adressdaten als CSV:</label>
+            <%= f.text_area :address_data, class: "form-control", rows: 8 %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+            Tourdaten
+          </h2>
+          <p>
+            Bitte kopieren Sie die CSV-Daten der Touren aller Abfallarten hinein.<br /><br />
+            <%= image_tag("example_pick_up_times.png", class: "img-fluid") %><br /><br />
+            Per Komma oder Semikolon getrennte Werte mit mindestens folgenden Spalten:
+            <strong>Datum, ORT, Strasse, pro Abfallart eine ID der Tour</strong>.
+            <br />
+            Das Datum sollte bitte folgendermaßen formatiert sein:
+            <strong>dd.mm.yyyy</strong> oder <strong>yyyy-mm-dd</strong>.
+          <p>
+          <div class="form-group">
+            <label for="description">Tourdaten als CSV:</label>
+            <%= f.text_area :tour_data, class: "form-control", rows: 8 %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center pb-4">
+        <%= f.submit "Daten hochladen", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -5,7 +5,20 @@ Rails.application.routes.draw do
   resources :tours
   resources :point_of_interests
   resources :events
-  resources :waste_calendar
+  resources :waste_calendar do
+    collection do
+      get :import
+      post :create_location
+      get :edit_location
+      get :remove_location
+      post :create_tour
+      get :edit_tour
+      get :remove_tour
+      get :tour_dates
+      post :update_tour_dates
+      post :create_street_tour_matrix
+    end
+  end
   resources :jobs
   resources :offers
   resources :constructions
