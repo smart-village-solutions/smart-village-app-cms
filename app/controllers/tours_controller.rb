@@ -300,9 +300,6 @@ class ToursController < ApplicationController
               downloadable_uris = []
               tour_stop["payload"]["downloadable_uris"].each do |_key, downloadable_uri|
                 next if downloadable_uri.blank?
-                # id and type are always something (e.g. type: "texture"), so we need to check all
-                # values except that to know, if the object is an empty one
-                next unless nested_values?(downloadable_uri.except(:id, :type).to_h).include?(true)
 
                 # converts to float
                 if downloadable_uri["min_distance"].present?
@@ -317,17 +314,21 @@ class ToursController < ApplicationController
                 # converts to array
                 if downloadable_uri["position"].present?
                   downloadable_uri["position"] = JSON.parse(downloadable_uri["position"])
+                else
+                  downloadable_uri["position"] = [0,0,0]
                 end
                 if downloadable_uri["scale"].present?
                   downloadable_uri["scale"] = JSON.parse(downloadable_uri["scale"])
+                else
+                  downloadable_uri["scale"] = [1,1,1]
                 end
                 if downloadable_uri["rotation"].present?
                   downloadable_uri["rotation"] = JSON.parse(downloadable_uri["rotation"])
+                else
+                  downloadable_uri["rotation"] = [0,0,0]
                 end
                 # converts to boolean
-                if downloadable_uri["is_spatial_sound"].present?
-                  downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
-                end
+                downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
 
                 downloadable_uris << downloadable_uri
               end

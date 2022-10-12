@@ -15,6 +15,8 @@
   ["texture", nil],
   ["texture", nil]
 ] %>
+<% payload = record.payload || {} %>
+<% payload_downloadable_uris = payload.dig("downloadableUris") || [] %>
 
 <div class="row">
   <div class="col">
@@ -28,7 +30,7 @@
       <%= label_tag "tour_tour_stops_#{index}_payload_location_info", "Kurzinfo zum Stopp" %>
       <%= text_field_tag(
             "tour_tour_stops_#{index}_payload_location_info",
-            (record.payload || {})["locationInfo"],
+            payload["locationInfo"],
             class: "form-control",
             name: "tour[tour_stops[#{index}]][payload][location_info]"
           )%>
@@ -38,7 +40,7 @@
       <%= label_tag "tour_tour_stops_#{index}_payload_animation_name", "Name der Animation" %>
       <%= text_field_tag(
             "tour_tour_stops_#{index}_payload_animation_name",
-            (record.payload || {})["animationName"],
+            payload["animationName"],
             class: "form-control",
             name: "tour[tour_stops[#{index}]][payload][animation_name]"
           )%>
@@ -49,11 +51,10 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="form-group">
-      <%= label_tag "tour_tour_stops_#{index}_payload_total_size", "Paketgröße" %>
+      <%= label_tag "tour_tour_stops_#{index}_payload_total_size", "Paketgröße (in Bytes)" %>
       <%= text_field_tag(
             "tour_tour_stops_#{index}_payload_total_size",
-            (record.payload || {})["totalSize"],
-            placeholder: "in Bytes",
+            payload["totalSize"],
             class: "form-control",
             name: "tour[tour_stops[#{index}]][payload][total_size]"
           )%>
@@ -79,7 +80,7 @@
         <%= label_tag "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_title", "Bezeichnung" %>
         <%= text_field_tag(
               "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_title",
-              (record.payload || {}).dig("downloadableUris", downloadable_uri_index, "title"),
+              payload_downloadable_uris.dig(downloadable_uri_index, "title"),
               class: "form-control",
               name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][title]"
             )%>
@@ -90,7 +91,7 @@
         <%= label_tag "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_uri", "Url" %>
         <%= text_field_tag(
               "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_uri",
-              (record.payload || {}).dig("downloadableUris", downloadable_uri_index, "uri"),
+              payload_downloadable_uris.dig(downloadable_uri_index, "uri"),
               class: "form-control",
               name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][uri]"
             )%>
@@ -108,7 +109,7 @@
             <%= label_tag "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
             <%= text_field_tag(
                   "tour_tour_stops_#{index}_payload_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}",
-                  (record.payload || {}).dig("downloadableUris", downloadable_uri_index, downloadable_uri_type_field.camelize(:lower)).to_s,
+                  payload_downloadable_uris.dig(downloadable_uri_index, downloadable_uri_type_field.camelize(:lower)).to_s,
                   class: "form-control",
                   name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][#{downloadable_uri_type_field}]"
                 )%>
