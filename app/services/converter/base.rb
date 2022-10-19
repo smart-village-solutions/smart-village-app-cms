@@ -10,7 +10,7 @@ module Converter
       # remove leading and tailing curly braces
       data = data.gsub(/^\{/, "").gsub(/\}$/, "")
 
-      "mutation { #{name} (forceCreate: true, #{data}) { #{return_keys} } }"
+      safe_parse("mutation { #{name} (forceCreate: true, #{data}) { #{return_keys} } }")
     end
 
     def cleanup(data)
@@ -42,13 +42,16 @@ module Converter
       data
     end
 
-    def send_mutation(mutation, token)
-      url = Rails.application.credentials.target_server[:url]
-      response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
+    private
 
-      Rails.logger.error '#' * 30
-      Rails.logger.error mutation
-      Rails.logger.error '#' * 30
-    end
+      # in https://github.com/github/graphql-client/blob/v0.15.0/lib/graphql/client.rb#L123-L167
+      # there occur some errors when parsing strings with a certain regex, so we need to append
+      # a space after "..." in the matched string
+      def safe_parse(str)
+        str.gsub(/(\.\.\.)([a-zA-Z0-9_]+(::[a-zA-Z0-9_]+)*)/) do
+          match = Regexp.last_match
+          "#{match[1]} #{match[2]}"
+        end
+      end
   end
 end
