@@ -1291,10 +1291,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kanety/jquery-nested-form@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/@kanety/jquery-nested-form/-/jquery-nested-form-0.2.0.tgz"
-  integrity sha512-+DVVwXpH5LqjmuDl8NZ9MZ/6di/0gfEUOe4Cocf3e2mSUJR4llQW7yiTk9tWUyzEqAgrg+Vn8Qe3vXuJ8C8UcQ==
+"@kanety/jquery-nested-form@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@kanety/jquery-nested-form/-/jquery-nested-form-0.3.0.tgz#3ee076d377b27073b7c669d2f886761258c9e9de"
+  integrity sha512-M+jWvXwt0r7yEXNozmf/zwwuHq+Q2rQ6Pa9pzyIzOQbJIb/h0FPnxK3AgaGzjdyR5lGzk8RMLzRNqhiM+ND2Dg==
   dependencies:
     jquery "^3.3.1"
 
