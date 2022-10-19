@@ -21,6 +21,7 @@ require('../partials/_nested_forms');
 // special multi nested forms:
 require('../partials/_nested_content_block_form');
 require('../partials/_nested_lunch_form');
+require('../partials/_nested_tour_stop_form');
 
 // map in forms
 require('../partials/_leaflet_map');
