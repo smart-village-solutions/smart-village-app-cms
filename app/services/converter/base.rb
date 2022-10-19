@@ -42,15 +42,6 @@ module Converter
       data
     end
 
-    def send_mutation(mutation, token)
-      url = Rails.application.credentials.target_server[:url]
-      response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
-
-      Rails.logger.error '#' * 30
-      Rails.logger.error mutation
-      Rails.logger.error '#' * 30
-    end
-
     private
 
       # in https://github.com/github/graphql-client/blob/v0.15.0/lib/graphql/client.rb#L123-L167
