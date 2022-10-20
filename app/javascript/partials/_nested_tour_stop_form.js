@@ -15,7 +15,10 @@ $(function () {
         ...defaultNestedFormsOptions,
         remover: '.removeTexture',
         associations: 'downloadable_uris', // needed to correctly increment ids of added sections
-        startIndex: 5
+        startIndex: 5,
+        afterAddForm: (_$container, $form) => {
+          window.bindArFileUploadEvents();
+        }
       });
     };
 
