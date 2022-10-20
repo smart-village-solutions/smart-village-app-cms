@@ -57,6 +57,7 @@ async function handleArFileChange(e) {
     const signedUrl = await getSignedUrl(file.name);
     const fileUrl = signedUrl.split('?')[0];
     const fileName = file.name.split('.').slice(0, -1).join();
+    const fileSize = file.size;
 
     // Upload the file
     await upload(file, signedUrl, e.target.nextElementSibling);
@@ -64,13 +65,17 @@ async function handleArFileChange(e) {
     // Put the url of the uploaded file into the corresponding url input and make it readonly
     $(e.target.previousElementSibling.previousElementSibling).val(fileUrl).attr('readonly', true);
 
+    const $closestRow = $(e.target).closest('.row');
+
     // Put the url of the uploaded file into the corresponding url input and make it readonly,
     // if it is a texture
-    const $closestRow = $(e.target).closest('.row');
     $closestRow
       .find('input[name*="[title]"]')
       .val(fileName)
       .attr('readonly', $closestRow.hasClass('texture'));
+
+    // Store the file size in the corresponding input
+    $closestRow.prev('input[name*="[size]"]').val(fileSize);
   } catch (e) {
     console.error(e);
   }

@@ -298,6 +298,8 @@ class ToursController < ApplicationController
           if tour_stop["payload"].present?
             if tour_stop["payload"]["downloadable_uris"].present?
               downloadable_uris = []
+              total_size_calculated_from_downloadable_uris = 0
+
               tour_stop["payload"]["downloadable_uris"].each do |_key, downloadable_uri|
                 next if downloadable_uri.blank?
 
@@ -329,14 +331,23 @@ class ToursController < ApplicationController
                 end
                 # converts to boolean
                 downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
+                # converts to integer
+                if downloadable_uri["size"].present?
+                  downloadable_uri["size"] = downloadable_uri["size"].to_i
+                end
+
+                # calculate total size
+                if downloadable_uri["size"].present?
+                  total_size_calculated_from_downloadable_uris += downloadable_uri["size"]
+                end
 
                 downloadable_uris << downloadable_uri
               end
               tour_stop["payload"]["downloadable_uris"] = downloadable_uris
             end
 
-            # convert total size to integer
-            tour_stop["payload"]["total_size"] = tour_stop["payload"]["total_size"].to_i
+            # set total size
+            tour_stop["payload"]["total_size"] = total_size_calculated_from_downloadable_uris
 
             # set other defaults in payload
             tour_stop["payload"]["progress"] = 0

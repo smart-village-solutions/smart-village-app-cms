@@ -38,19 +38,7 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-6">
-    <div class="form-group">
-      <%= label_tag "tour_tour_stops_#{index}__payload_total_size", "Paketgröße (in Bytes)" %>
-      <%= text_field_tag(
-            "tour_tour_stops_#{index}__payload_total_size",
-            payload["totalSize"],
-            class: "form-control",
-            name: "tour[tour_stops[#{index}]][payload][total_size]"
-          )%>
-    </div>
-  </div>
-</div>
+<%= hidden_field_tag "tour[tour_stops[#{index}]][payload][total_size]", payload["totalSize"], { id: "tour_tour_stops_#{index}__payload_total_size" } %>
 
 <% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
   <% downloadable_uri_type, downloadable_uri_type_fields = downloadable_uri %>
@@ -65,6 +53,7 @@
 
   <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][id]", downloadable_uri_index, { id: "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uri_index}_id" } %>
   <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][type]", downloadable_uri_type, { id: "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uri_index}_type" } %>
+  <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uri_index}][size]", payload_downloadable_uris.dig(downloadable_uri_index, "size"), { id: "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uri_index}_size" } %>
 
   <div class="row">
     <div class="col-6">
@@ -135,8 +124,9 @@
         </div>
       </div>
 
-      <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][id]", downloadable_uris_texture_index %>
-      <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][type]", "texture" %>
+      <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][id]", downloadable_uris_texture_index, { id: "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uris_texture_index}_id" } %>
+      <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][type]", "texture", { id: "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uris_texture_index}_type" } %>
+      <%= hidden_field_tag "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][size]", payload_downloadable_uris.dig(downloadable_uris_texture_index, "size"), { id: "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uris_texture_index}_size" } %>
 
       <div class="row texture">
         <div class="col-6">
@@ -146,7 +136,8 @@
                   "tour_tour_stops_#{index}__payload_downloadable_uris_#{downloadable_uris_texture_index}_title",
                   payload_downloadable_uris.dig(downloadable_uris_texture_index, "title"),
                   class: "form-control",
-                  name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][title]"
+                  name: "tour[tour_stops[#{index}]][payload][downloadable_uris][#{downloadable_uris_texture_index}][title]",
+                  readonly: payload_downloadable_uris.dig(downloadable_uris_texture_index, "uri").present?
                 )%>
           </div>
         </div>
