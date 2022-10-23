@@ -45,7 +45,7 @@ gem "nested_form_fields"
 gem "unicorn"
 
 gem "nokogiri", ">= 1.13.9"
-gem "rack", "~> 2.1.4"
+gem "rack", "~> 3.0.0"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
