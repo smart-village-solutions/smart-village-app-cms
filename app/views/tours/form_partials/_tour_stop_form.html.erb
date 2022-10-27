@@ -11,8 +11,8 @@
   </div>
 
   <div id="nested-tour-stops">
-    <% list_of_tour_stops.each_with_index do |tour_stop, index| %>
-      <%= form.fields_for "tour_stops[#{index}]", tour_stop do |fts| %>
+    <% list_of_tour_stops.each_with_index do |tour_stop, tour_stop_index| %>
+      <%= form.fields_for "tour_stops[#{tour_stop_index}]", tour_stop do |fts| %>
         <div class="nested-tour-stop-form<%= " d-none" if empty?(tour_stop, fields) %>">
           <div class="card mb-4">
             <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
@@ -68,7 +68,7 @@
                 <% end %>
               <% end %>
 
-              <%= render partial: "tours/form_partials/tour_stop_ar_form", locals: { record: tour_stop, form: fts, index: index } %>
+              <%= render partial: "tours/form_partials/tour_stop_ar_form", locals: { form: fts, tour_stop: tour_stop, tour_stop_index: tour_stop_index } %>
             </div>
           </div>
         </div>

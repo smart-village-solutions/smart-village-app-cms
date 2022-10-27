@@ -296,54 +296,93 @@ class ToursController < ApplicationController
           next if tour_stop["name"].blank?
 
           if tour_stop["payload"].present?
-            if tour_stop["payload"]["downloadable_uris"].present?
-              downloadable_uris = []
+            if tour_stop["payload"]["scenes"].present?
+              scenes = []
               total_size_calculated_from_downloadable_uris = 0
 
-              tour_stop["payload"]["downloadable_uris"].each do |_key, downloadable_uri|
-                next if downloadable_uri.blank?
+              tour_stop["payload"]["scenes"].each do |_key, scene|
+                next if scene.blank?
 
-                # converts to float
-                if downloadable_uri["min_distance"].present?
-                  downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f
-                end
-                if downloadable_uri["max_distance"].present?
-                  downloadable_uri["max_distance"] = downloadable_uri["max_distance"].to_f
-                end
-                if downloadable_uri["physical_width"].present?
-                  downloadable_uri["physical_width"] = downloadable_uri["physical_width"].to_f
-                end
-                # converts to array
-                if downloadable_uri["position"].present?
-                  downloadable_uri["position"] = JSON.parse(downloadable_uri["position"])
-                else
-                  downloadable_uri["position"] = [0,0,0]
-                end
-                if downloadable_uri["scale"].present?
-                  downloadable_uri["scale"] = JSON.parse(downloadable_uri["scale"])
-                else
-                  downloadable_uri["scale"] = [1,1,1]
-                end
-                if downloadable_uri["rotation"].present?
-                  downloadable_uri["rotation"] = JSON.parse(downloadable_uri["rotation"])
-                else
-                  downloadable_uri["rotation"] = [0,0,0]
-                end
-                # converts to boolean
-                downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
-                # converts to integer
-                if downloadable_uri["size"].present?
-                  downloadable_uri["size"] = downloadable_uri["size"].to_i
+                if scene["downloadable_uris"].present?
+                  downloadable_uris = []
+
+                  scene["downloadable_uris"].each do |_key, downloadable_uri|
+                    next if downloadable_uri.blank?
+
+                    # converts to float
+                    if downloadable_uri["min_distance"].present?
+                      downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f
+                    end
+                    if downloadable_uri["max_distance"].present?
+                      downloadable_uri["max_distance"] = downloadable_uri["max_distance"].to_f
+                    end
+
+                    # converts to array or set default value
+                    if downloadable_uri.keys.include?("position")
+                      downloadable_uri["position"] = if downloadable_uri["position"].present?
+                                                       JSON.parse(downloadable_uri["position"])
+                                                     else
+                                                       [0, 0, 0]
+                                                     end
+                    end
+                    if downloadable_uri.keys.include?("scale")
+                      downloadable_uri["scale"] = if downloadable_uri["scale"].present?
+                                                    JSON.parse(downloadable_uri["scale"])
+                                                  else
+                                                    [1, 1, 1]
+                                                  end
+                    end
+                    if downloadable_uri.keys.include?("rotation")
+                      downloadable_uri["rotation"] = if downloadable_uri["rotation"].present?
+                                                       JSON.parse(downloadable_uri["rotation"])
+                                                     else
+                                                       [0, 0, 0]
+                                                     end
+                    end
+
+                    # converts to boolean
+                    if downloadable_uri.keys.include?("is_spatial_sound")
+                      downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
+                    end
+
+                    # set default values
+                    if downloadable_uri.keys.include?("color")
+                      downloadable_uri["color"] = downloadable_uri["color"].presence || "#ffffff"
+                    end
+                    if downloadable_uri.keys.include?("temperature")
+                      downloadable_uri["temperature"] = downloadable_uri["temperature"].presence || "6500"
+                    end
+                    if downloadable_uri.keys.include?("intensity")
+                      downloadable_uri["intensity"] = downloadable_uri["intensity"].presence || "1000"
+                    end
+
+                    # converts to integer
+                    if downloadable_uri["size"].present?
+                      downloadable_uri["size"] = downloadable_uri["size"].to_i
+                    end
+                    if downloadable_uri["temperature"].present?
+                      downloadable_uri["temperature"] = downloadable_uri["temperature"].to_i
+                    end
+                    if downloadable_uri["intensity"].present?
+                      downloadable_uri["intensity"] = downloadable_uri["intensity"].to_i
+                    end
+
+                    # calculate total size
+                    if downloadable_uri["size"].present?
+                      total_size_calculated_from_downloadable_uris += downloadable_uri["size"]
+                    end
+
+                    downloadable_uris << downloadable_uri
+                  end
+
+                  scene["downloadable_uris"] = downloadable_uris
                 end
 
-                # calculate total size
-                if downloadable_uri["size"].present?
-                  total_size_calculated_from_downloadable_uris += downloadable_uri["size"]
-                end
-
-                downloadable_uris << downloadable_uri
+                scene["local_uris"] = []
+                scenes << scene
               end
-              tour_stop["payload"]["downloadable_uris"] = downloadable_uris
+
+              tour_stop["payload"]["scenes"] = scenes
             end
 
             # set total size
@@ -355,7 +394,6 @@ class ToursController < ApplicationController
             tour_stop["payload"]["size"] = 0
             tour_stop["payload"]["type_format"] = "VRX"
             tour_stop["payload"]["download_type"] = "downloadable"
-            tour_stop["payload"]["local_uris"] = []
           end
 
           tour_stops << tour_stop

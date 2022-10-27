@@ -15,8 +15,48 @@ $(function () {
         ...defaultNestedFormsOptions,
         remover: '.removeTexture',
         associations: 'downloadable_uris', // needed to correctly increment ids of added sections
-        startIndex: 5,
+        startIndex: 6,
         afterAddForm: (_$container, $form) => {
+          initNestedTextures($form);
+
+          window.bindArFileUploadEvents();
+        }
+      });
+    };
+
+    const initNestedScenes = ($form) => {
+      const timestamp = Date.now();
+
+      $form.find('.nested-tour-stop-scenes').addClass(`nested-tour-stop-scenes-${timestamp}`);
+      $form
+        .find('.nested-tour-stop-scene-form')
+        .addClass(`nested-tour-stop-scene-form-${timestamp}`);
+      $form.find('.nested-add-tour-stop-scene').addClass(`nested-add-tour-stop-scene-${timestamp}`);
+
+      $form.find(`.nested-tour-stop-scenes-${timestamp}`).nestedForm({
+        forms: `.nested-tour-stop-scene-form-${timestamp}`,
+        adder: `.nested-add-tour-stop-scene-${timestamp}`,
+        ...defaultNestedFormsOptions,
+        remover: '.removeScene',
+        associations: 'scenes', // needed to correctly increment ids of added sections
+        afterInitialize: () => {
+          const $initialForms = $('.nested-tour-stop-scene-form');
+
+          $initialForms.each((index, form) => {
+            initNestedTextures($(form));
+          });
+        },
+        beforeAddForm: ($container, $form) => {
+          // we only want one initialized texture, so remove eventually created others
+          $form.find('.nested-texture-form').each((index, form) => {
+            if (index > 0) {
+              $(form).remove();
+            }
+          });
+        },
+        afterAddForm: (_$container, $form) => {
+          initNestedTextures($form);
+
           window.bindArFileUploadEvents();
         }
       });
@@ -30,21 +70,14 @@ $(function () {
         const $initialForms = $('.nested-tour-stop-form');
 
         $initialForms.each((index, form) => {
-          initNestedTextures($(form));
+          initNestedScenes($(form));
         });
       },
       beforeAddForm: ($container, $form) => {
         $container.children('.nested-tour-stop-form').removeClass('d-none');
-
-        // we only want one initialized texture, so remove eventually created others
-        $form.find('.nested-texture-form').each((index, form) => {
-          if (index > 0) {
-            $(form).remove();
-          }
-        });
       },
       afterAddForm: (_$container, $form) => {
-        initNestedTextures($form);
+        initNestedScenes($form);
 
         // init html editors for name and description
         $form
