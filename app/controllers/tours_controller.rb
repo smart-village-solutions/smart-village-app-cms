@@ -309,6 +309,12 @@ class ToursController < ApplicationController
                   scene["downloadable_uris"].each do |_key, downloadable_uri|
                     next if downloadable_uri.blank?
 
+                    # skip entries with empty url but set a nil element to keep indexes in order
+                    if downloadable_uri.keys.include?("uri") && downloadable_uri["uri"].blank?
+                      downloadable_uris << nil
+                      next
+                    end
+
                     # converts to float
                     if downloadable_uri["min_distance"].present?
                       downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f

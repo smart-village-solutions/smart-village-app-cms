@@ -76,7 +76,7 @@
 <%# TEXTURES #%>
 <%############%>
 
-<% downloadable_uris_textures = scene_downloadable_uris.select do |payload_downloadable_uri|
+<% downloadable_uris_textures = scene_downloadable_uris.compact.select do |payload_downloadable_uri|
      payload_downloadable_uri["type"] === "texture"
    end.presence || [OpenStruct.new] %>
 <% downloadable_uris_texture_index = downloadable_uris.count %>
