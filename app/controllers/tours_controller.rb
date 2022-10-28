@@ -309,9 +309,9 @@ class ToursController < ApplicationController
                   scene["downloadable_uris"].each do |_key, downloadable_uri|
                     next if downloadable_uri.blank?
 
-                    # skip entries with empty url but set a nil element to keep indexes in order
+                    # skip entries with empty url but set an empty object to keep indexes in order
                     if downloadable_uri.keys.include?("uri") && downloadable_uri["uri"].blank?
-                      downloadable_uris << nil
+                      downloadable_uris << {}
                       next
                     end
 
