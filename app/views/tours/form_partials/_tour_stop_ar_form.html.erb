@@ -31,6 +31,30 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_time_period_in_days", "Zeitspanne in Tagen" %>
+      <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_time_period_in_days",
+            payload["timePeriodInDays"],
+            class: "form-control",
+            name: "tour[tour_stops[#{tour_stop_index}]][payload][time_period_in_days]"
+          )%>
+    </div>
+  </div><div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_start_date", "Startdatum" %>
+      <%= date_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_start_date",
+            payload["startDate"],
+            class: "form-control",
+            name: "tour[tour_stops[#{tour_stop_index}]][payload][start_date]"
+          ) %>
+    </div>
+  </div>
+</div>
+
 <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][total_size]", payload["totalSize"], { id: "tour_tour_stops_#{tour_stop_index}__payload_total_size" } %>
 
 <div class="nested-tour-stop-scenes">

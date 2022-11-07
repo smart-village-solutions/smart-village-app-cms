@@ -389,6 +389,11 @@ class ToursController < ApplicationController
               end
 
               tour_stop["payload"]["scenes"] = scenes
+
+              # converts to integer
+              if tour_stop["payload"]["time_period_in_days"].present?
+                tour_stop["payload"]["time_period_in_days"] = tour_stop["payload"]["time_period_in_days"].to_i
+              end
             end
 
             # set total size
