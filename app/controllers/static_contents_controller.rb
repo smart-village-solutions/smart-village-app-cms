@@ -2,6 +2,7 @@
 
 class StaticContentsController < ApplicationController
   before_action :verify_current_user
+  before_action { verify_current_user_role("role_static_contents") }
   before_action :init_graphql_client
 
   def index

@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     @current_user = User.new(user_data)
   end
 
+  def verify_current_user_role(role)
+    return redirect_to root_path unless helpers.visible_in_role?(role)
+  end
+
   def init_graphql_client
     @smart_village = SmartVillageApi.new(user: @current_user).client
   end

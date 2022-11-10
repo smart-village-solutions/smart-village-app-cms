@@ -1,5 +1,6 @@
 class EncountersSupportsController < ApplicationController
   before_action :verify_current_user
+  before_action { verify_current_user_role("role_encounter_support") }
 
   # display form to enter support ID
   def index
