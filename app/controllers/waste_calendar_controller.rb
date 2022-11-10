@@ -4,6 +4,7 @@ require "csv"
 
 class WasteCalendarController < ApplicationController
   before_action :verify_current_user
+  before_action { verify_current_user_role("role_waste_calendar") }
   before_action :init_graphql_client
   before_action :determine_waste_types, only: %i[index new edit_tour edit_location tour_dates]
   before_action :determine_waste_locations, only: %i[new]
