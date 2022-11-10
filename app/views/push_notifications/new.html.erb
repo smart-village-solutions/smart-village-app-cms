@@ -1,0 +1,35 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">Push-Notification erstellen</h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <%= form_with(url: push_notifications_path, method: :post, local: true) do %>
+      <%= fields_for :push_notification, @push_notification do |f|  %>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :title, "Titel *" %>
+              <%= f.text_field :title, class: "form-control", required: true %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :body, "Nachricht" %>
+              <%= f.text_field :body, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row justify-content-center pb-4">
+          <%= f.submit "Senden", class: "btn btn-primary btn--big" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
