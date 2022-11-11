@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get "dashboard/index"
   resources :static_contents, except: :destroy, param: :name
   delete "/static_contents/:id", to: "static_contents#destroy"
+  resources :deadlines
 
   get "/minio/signed_url", to: "minio#signed_url"
 

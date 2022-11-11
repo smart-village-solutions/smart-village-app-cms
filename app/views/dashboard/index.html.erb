@@ -293,4 +293,29 @@
       </div>
     </div>
   <% end %>
+
+  <% if visible_in_role?("role_deadlines") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-file-signature"></i> Fristen- und Aktionsmelder
+        </h4>
+        <h5>
+          <%= @deadlines.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/deadlines", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+
+        <%= link_to new_deadline_path, class: "btn btn-sm btn-secondary shadow-sm ml-3" do %>
+          Neu anlegen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

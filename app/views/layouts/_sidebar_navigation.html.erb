@@ -132,6 +132,16 @@
   </li>
 <% end %>
 
+<!-- Nav Item - Deadlines -->
+<% if visible_in_role?("role_deadlines") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'deadlines' %>">
+    <a class="nav-link" href="/deadlines">
+      <i class="fas fa-fw fa-file-signature"></i>
+      <span>Fristen- und Aktionsmelder</span>
+    </a>
+  </li>
+<% end %>
+
 <!-- Divider -->
 <hr class="sidebar-divider my-0" />
 
