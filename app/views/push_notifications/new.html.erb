@@ -1,3 +1,6 @@
+<% data_providers_for_select = @data_providers.map { |dp| [dp.name, dp.id] }
+                                              .sort_by { |dp| dp[0].downcase } %>
+
 <div class="text-center">
   <h1 class="h3 mb-0 font-weight-bold">Push-Notification erstellen</h1>
 </div>
@@ -23,6 +26,20 @@
             </div>
           </div>
         </div>
+
+        <%= f.fields_for :data do |fd|  %>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <%= fd.label :data_provider_id, "Data-Provider-ID" %>
+                <%= fd.select :data_provider_id,
+                      options_for_select(data_providers_for_select),
+                      { include_blank: true },
+                      class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
         <hr />
 

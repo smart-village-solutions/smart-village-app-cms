@@ -6,6 +6,16 @@ class PushNotificationsController < ApplicationController
   before_action :init_graphql_client
 
   def new
+    results = @smart_village.query <<~GRAPHQL
+      query {
+        dataProviders: newsItemsDataProviders {
+          id
+          name
+        }
+      }
+    GRAPHQL
+
+    @data_providers = results.data.data_providers
     @push_notification = new_push_notification
   end
 
@@ -28,7 +38,10 @@ class PushNotificationsController < ApplicationController
     def new_push_notification
       OpenStruct.new(
         title: "",
-        body: ""
+        body: "",
+        data: OpenStruct.new(
+          data_provider_id: nil
+        )
       )
     end
 
