@@ -20,15 +20,17 @@
     </div>
   </div>
 
-  <hr />
-
+  <% list_of_content_blocks = offer.content_blocks.presence || [OpenStruct.new] %>
   <div class="row">
     <div class="col">
-      <h2 class="d-sm-flex align-items-center justify-content-between my-4">
-        Inhalt
-      </h2>
-
-      <%= render partial: "shared/partials/content_blocks_form", locals: { record: offer, form: f, fields: ['body']  } %>
+      <div class="form-group">
+        <label for="description">Inhalt</label>
+        <% list_of_content_blocks.each_with_index do |content_block, index| %>
+          <%= f.fields_for "content_blocks[#{index}]", content_block do |fcb| %>
+            <%= fcb.text_area :body, class: "form-control html-editor html-editor-text", rows: 10 %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 

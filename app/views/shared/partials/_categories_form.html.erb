@@ -1,10 +1,11 @@
 <% fields = ["name"] %>
+<% force_visibility ||= false %>
 <% list_of_categories = record.categories.presence || [OpenStruct.new] %>
 
 <div id="nested-categories">
   <% list_of_categories.each_with_index do |category, index| %>
     <%= form.fields_for "categories[#{index}]", category do |fcb| %>
-      <div class="nested-category-form<%= " d-none" if record_type != "news_item" && empty?(category, fields) %>">
+      <div class="nested-category-form<%= " d-none" if record_type != "news_item" && !force_visibility && empty?(category, fields) %>">
         <div class="card mb-4">
           <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
             <h4>

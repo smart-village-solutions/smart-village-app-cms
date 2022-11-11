@@ -1,0 +1,72 @@
+<%= fields_for :deadline, deadline do |f| %>
+  <%= hidden_field_tag "deadline[id]", f.object.id if f.object.id.present? %>
+  <%= hidden_field_tag "deadline[generic_type]", deadline.generic_type %>
+
+  <div class="row">
+    <div class="col">
+      <%= render(
+            partial: "shared/partials/categories_form",
+            locals: {
+              record: deadline,
+              record_type: "deadline",
+              form: f,
+              force_visibility: true
+          }) %>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Titel *</label>
+        <%= f.text_field :title, required: true, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(
+        partial: "shared/partials/dates_form",
+        locals: {
+          record: deadline,
+          form: f,
+          fields: ["date_start"],
+          requireds: ["date_start"],
+          labels: { date_start: "Termin" },
+          values: { date_start: Time.now.to_date },
+          force_visibility: true
+      }) %>
+
+  <% list_of_content_blocks = deadline.content_blocks.presence || [OpenStruct.new] %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <% list_of_content_blocks.each_with_index do |content_block, index| %>
+          <%= f.fields_for "content_blocks[#{index}]", content_block do |fcb| %>
+            <%= fcb.text_area :body, class: "form-control html-editor html-editor-text", rows: 10 %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Dateien
+      </h3>
+    </div>
+  </div>
+
+  <%= render partial: "shared/partials/media_contents_form", locals: { record: deadline, form: f } %>
+
+  <hr />
+
+  <div class="row justify-content-center pb-4">
+    <%= f.submit "Speichern", class: "btn btn-primary btn--big" %>
+  </div>
+<% end %>
