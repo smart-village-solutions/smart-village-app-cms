@@ -1,0 +1,158 @@
+<% fields = ["once_at", "recurring", "title", "body"] %>
+<% list_of_push_notifications = record.push_notifications.presence || [OpenStruct.new] %>
+
+<div class="row">
+  <div class="col">
+    <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+      Push-Notifications
+    </h3>
+  </div>
+</div>
+
+<div id="nested-push-notifications">
+  <% list_of_push_notifications.each_with_index do |push_notification, index| %>
+    <%= form.fields_for "push_notifications[#{index}]", push_notification do |fpn| %>
+      <div class="nested-push-notification-form<%= " d-none" if empty?(push_notification, fields) %>">
+        <div class="card mb-4">
+          <div class="d-flex flex-wrap justify-content-between card-header py-3 bg-dark text-white">
+            <h4>Push-Notification</h4>
+            <%= link_to "#", class: "remove btn btn-sm btn-danger" do %>
+              <i class="fa fa-trash text-white"></i>
+            <% end %>
+          </div>
+
+          <div class="card-body">
+            <div class="row collapse recurring-collapse <%= fpn.object.recurring.try(:zero?) ? "show" : "" %>">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :once_at %>
+                  <%= fpn.datetime_field(
+                        :once_at,
+                        class: "form-control",
+                        value: fpn.object.once_at.try(:to_datetime).try(:strftime, "%Y-%m-%dT%H:%M")
+                      ) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <%= fpn.check_box(
+                        :recurring,
+                        { data: { toggle: "collapse", target: ".recurring-collapse" } },
+                        1,
+                        0
+                      ) %>
+                  <%= fpn.label :recurring %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row collapse recurring-collapse <%= fpn.object.recurring.try(:positive?) ? "show" : "" %>">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :monday_at %>
+                  <%= fpn.time_field(
+                        :monday_at,
+                        class: "form-control",
+                        value: fpn.object.monday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :tuesday_at %>
+                  <%= fpn.time_field(
+                        :tuesday_at,
+                        class: "form-control",
+                        value: fpn.object.tuesday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :wednesday_at %>
+                  <%= fpn.time_field(
+                        :wednesday_at,
+                        class: "form-control",
+                        value: fpn.object.wednesday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :thursday_at %>
+                  <%= fpn.time_field(
+                        :thursday_at,
+                        class: "form-control",
+                        value: fpn.object.thursday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :friday_at %>
+                  <%= fpn.time_field(
+                        :friday_at,
+                        class: "form-control",
+                        value: fpn.object.friday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :saturday_at %>
+                  <%= fpn.time_field(
+                        :saturday_at,
+                        class: "form-control",
+                        value: fpn.object.saturday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <%= fpn.label :sunday_at %>
+                  <%= fpn.time_field(
+                        :sunday_at,
+                        class: "form-control",
+                        value: fpn.object.sunday_at.try(:to_time).try(:strftime, "%H:%M")
+                      ) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <%= fpn.label :title %>
+                  <%= fpn.text_field :title, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <%= fpn.label :body %>
+                  <%= fpn.text_area :body, class: "form-control", rows: 10 %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-push-notification" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Push-Notification hinzufügen
+<% end %>

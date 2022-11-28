@@ -66,6 +66,10 @@
 
   <hr />
 
+  <%= render partial: "shared/partials/push_notifications_form", locals: { record: deadline, form: f } %>
+
+  <hr />
+
   <div class="row justify-content-center pb-4">
     <%= f.submit "Speichern", class: "btn btn-primary btn--big" %>
   </div>

@@ -53,6 +53,15 @@ $(function () {
     }
   });
 
+  $('#nested-push-notifications').nestedForm({
+    forms: '.nested-push-notification-form',
+    adder: '#nested-add-push-notification',
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($container) => {
+      $container.children('.nested-push-notification-form').removeClass('d-none');
+    }
+  });
+
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
