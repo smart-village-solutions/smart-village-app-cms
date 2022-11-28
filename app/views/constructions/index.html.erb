@@ -27,8 +27,8 @@
         <tr>
           <th scope="row"><%= construction.id %></th>
           <td><%= link_to construction.title, edit_construction_path(construction.id) %></td>
-          <td><%= toLocalDateTime(construction.dates.try(:first).try(:date_start)) %></td>
-          <td><%= toLocalDateTime(construction.dates.try(:first).try(:date_end)) %></td>
+          <td><%= toLocalDate(construction.dates.try(:first).try(:date_start)) %></td>
+          <td><%= toLocalDate(construction.dates.try(:first).try(:date_end)) %></td>
           <td><%= toLocalDateTime(construction.updated_at) %></td>
           <td><%= toLocalDateTime(construction.created_at) %></td>
           <% if editor? %>

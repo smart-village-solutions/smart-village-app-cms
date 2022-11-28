@@ -78,7 +78,7 @@ class DashboardController < ApplicationController
     end
 
     if helpers.visible_in_role?("role_constuction_site")
-      construction = @smart_village.query <<~GRAPHQL
+      construction_results = @smart_village.query <<~GRAPHQL
         query {
           genericItems(genericType: "ConstructionSite") {
             id
@@ -86,7 +86,7 @@ class DashboardController < ApplicationController
         }
       GRAPHQL
 
-      @constructions = construction.data.generic_items
+      @constructions = construction_results.data.generic_items
     end
 
     if helpers.visible_in_role?("role_waste_calendar")
@@ -123,6 +123,18 @@ class DashboardController < ApplicationController
       GRAPHQL
 
       @static_contents = static_content_results.data.static_contents
+    end
+
+    if helpers.visible_in_role?("role_deadlines")
+      deadline_results = @smart_village.query <<~GRAPHQL
+        query {
+          genericItems(genericType: "Deadline") {
+            id
+          }
+        }
+      GRAPHQL
+
+      @deadlines = deadline_results.data.generic_items
     end
   end
 

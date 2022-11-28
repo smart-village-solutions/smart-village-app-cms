@@ -14,9 +14,10 @@ class WasteCalendarController < ApplicationController
     # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
     # Rails.cache.delete("waste_locations")
 
+    latest = 9_999_999_999 # very high number to always match the latest version
     results = @smart_village.query <<~GRAPHQL
       query {
-        publicJsonFile(name: "wasteTypes", version: "1.0.0") {
+        publicJsonFile(name: "wasteTypes", version: "#{latest}") {
           content
         }
       }

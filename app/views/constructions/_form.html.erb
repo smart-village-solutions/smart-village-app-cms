@@ -131,13 +131,19 @@
         locals: {
           record: construction,
           form: f,
-          requireds: ['date_start', 'date_end'],
+          requireds: ["date_start", "date_end"],
           values: {
-            date_start: (Time.now).to_date,
-            date_end: (Time.now).to_date
+            date_start: Time.now.to_date,
+            date_end: Time.now.to_date
           },
           force_visibility: true
       }) %>
+
+  <script type="text/javascript">
+    $('#construction_dates_0__date_start').change(function() {
+      $('#construction_dates_0__date_end').val($('#construction_dates_0__date_start').val())
+    });
+  </script>
 
   <hr />
 

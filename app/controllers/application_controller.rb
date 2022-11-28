@@ -37,6 +37,25 @@ class ApplicationController < ActionController::Base
     @categories = results.data.categories
   end
 
+  def load_filtered_category_list(ids)
+    results = @smart_village.query <<~GRAPHQL
+      query {
+        categories(
+          ids: #{ids}
+        ) {
+          id
+          name
+          children {
+            id
+            name
+          }
+        }
+      }
+    GRAPHQL
+
+    @categories = results.data.categories
+  end
+
   private
 
     # check for present values recursively

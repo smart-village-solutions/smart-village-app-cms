@@ -1,24 +1,23 @@
 # frozen_string_literal: true
 
-class ConstructionsController < ApplicationController
+class DeadlinesController < ApplicationController
   before_action :verify_current_user
-  before_action { verify_current_user_role("role_constuction_site") }
+  before_action { verify_current_user_role("role_deadlines") }
   before_action :init_graphql_client
-  before_action :load_category_list, only: [:edit, :new, :create]
+  before_action :load_deadline_category_list, only: %i[edit new create]
 
   def index
     results = @smart_village.query <<~GRAPHQL
       query {
-        genericItems(genericType: "ConstructionSite") {
+        genericItems(genericType: "Deadline") {
           id
           title
-          payload
           dataProvider {
             name
           }
           dates {
             dateStart
-            dateEnd
+            timeStart
           }
           updatedAt
           createdAt
@@ -26,14 +25,14 @@ class ConstructionsController < ApplicationController
       }
     GRAPHQL
 
-    @constructions = results.data.generic_items
+    @deadlines = results.data.generic_items
   end
 
   def show
   end
 
   def new
-    @construction = new_generic_item
+    @deadline = new_generic_item
   end
 
   def edit
@@ -45,7 +44,6 @@ class ConstructionsController < ApplicationController
           id
           title
           genericType
-          payload
           categories {
             id
             name
@@ -67,23 +65,16 @@ class ConstructionsController < ApplicationController
           }
           dates {
             dateStart
-            dateEnd
-          }
-          locations {
-            name
-            geoLocation {
-              latitude
-              longitude
-            }
+            timeStart
           }
         }
       }
     GRAPHQL
 
-    @construction = results.data.generic_item
+    @deadline = results.data.generic_item
   rescue Graphlient::Errors::GraphQLError
     flash[:error] = "Die angeforderte Ressource ist leider nicht verfügbar"
-    redirect_to constructions_path
+    redirect_to deadlines_path
   end
 
   def create
@@ -92,17 +83,17 @@ class ConstructionsController < ApplicationController
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
-      @construction = new_generic_item
+      @deadline = new_generic_item
       render :new
       return
     end
     new_id = results.data.create_generic_item.id
-    flash[:notice] = "Baustelle wurde erstellt"
-    redirect_to edit_construction_path(new_id)
+    flash[:notice] = "Eintrag wurde erstellt"
+    redirect_to edit_deadline_path(new_id)
   end
 
   def update
-    construction_id = params[:id]
+    deadline_id = params[:id]
 
     query = create_or_update_mutation(true)
     # logger.warn(query)
@@ -113,7 +104,7 @@ class ConstructionsController < ApplicationController
       flash[:error] = e.errors.messages["data"].to_s
     end
 
-    redirect_to edit_construction_path(construction_id)
+    redirect_to edit_deadline_path(deadline_id)
   end
 
   def destroy
@@ -130,23 +121,42 @@ class ConstructionsController < ApplicationController
       }
     GRAPHQL
 
-    if results.try(:data).try(:destroy_record).try(:status_code) == 200
-      flash["notice"] = "Eintrag wurde gelöscht"
-    else
-      flash["notice"] = "Fehler: #{results.errors.inspect}"
-    end
-    redirect_to constructions_path
+    flash["notice"] = if results.try(:data).try(:destroy_record).try(:status_code) == 200
+                        "Eintrag wurde gelöscht"
+                      else
+                        "Fehler: #{results.errors.inspect}"
+                      end
+    redirect_to deadlines_path
   end
 
   private
 
-    def construction_params
-      params.require(:construction).permit!
+    def deadline_params
+      params.require(:deadline).permit!
+    end
+
+    def load_deadline_category_list
+      latest = 9_999_999_999 # very high number to always match the latest version
+      results = @smart_village.query <<~GRAPHQL
+        query {
+          publicJsonFile(name: "globalSettings", version: "#{latest}") {
+            content
+          }
+        }
+      GRAPHQL
+
+      global_settings = results.data.public_json_file.content
+      deadlines_category_id = global_settings.dig("settings", "deadlines", "categoryId")
+
+      load_filtered_category_list(deadlines_category_id)
+
+      @categories = @categories.try(:first).try(:children) || []
+      @categories = @categories.sort_by(&:name)
     end
 
     def new_generic_item
       OpenStruct.new(
-        generic_type: "ConstructionSite",
+        generic_type: "Deadline",
         content_blocks: [OpenStruct.new],
         media_contents: [OpenStruct.new(source_url: OpenStruct.new)],
         dates: [OpenStruct.new]
@@ -154,25 +164,25 @@ class ConstructionsController < ApplicationController
     end
 
     def create_or_update_mutation(update = false)
-      @construction_params = construction_params
+      @deadline_params = deadline_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createGenericItem", @construction_params, update)
+      Converter::Base.new.build_mutation("createGenericItem", @deadline_params, update)
     end
 
     def convert_params_for_graphql
       # Convert has_many categories
-      if @construction_params["categories"].present?
+      if @deadline_params["categories"].present?
         categories = []
-        @construction_params["categories"].each do |_key, category|
+        @deadline_params["categories"].each do |_key, category|
           next if category.blank?
 
           categories << category
         end
-        @construction_params["categories"] = categories
+        @deadline_params["categories"] = categories
       end
 
       # Convert has_many content_blocks
-      content_block_params = @construction_params["content_blocks"]
+      content_block_params = @deadline_params["content_blocks"]
       return unless content_block_params.present?
 
       content_blocks = []
@@ -182,12 +192,12 @@ class ConstructionsController < ApplicationController
 
         content_blocks << content_block
       end
-      @construction_params["content_blocks"] = content_blocks
+      @deadline_params["content_blocks"] = content_blocks
 
       # Convert has_many media_contents
-      if @construction_params["media_contents"].present?
+      if @deadline_params["media_contents"].present?
         media_contents = []
-        @construction_params["media_contents"].each do |_key, media_content|
+        @deadline_params["media_contents"].each do |_key, media_content|
           next if media_content.blank?
           # content_type is always something (default: `image`), so we need to check all values
           # except that to know, if the object is an empty one
@@ -196,46 +206,19 @@ class ConstructionsController < ApplicationController
           media_content["source_url"] = media_content.dig("source_url", "url").present? ? media_content["source_url"] : nil
           media_contents << media_content
         end
-        @construction_params["media_contents"] = media_contents
-      end
-
-      # Convert has_many restrictions
-      if @construction_params["payload"]["restrictions"].present?
-        restrictions = []
-        @construction_params["payload"]["restrictions"].each do |_key, value|
-          next if value.blank?
-          next if value["description"].blank?
-
-          restrictions << value
-        end
-        @construction_params["payload"]["restrictions"] = restrictions
-      end
-
-      # Convert string to float for location options
-      if @construction_params["locations"].present?
-        geo_locations = []
-        @construction_params["locations"].each do |_key, location|
-          next if location.blank?
-          next if location["geo_location"].blank?
-
-          location["geoLocation"] = {}
-          location["geoLocation"]["latitude"] = location["geo_location"]["latitude"].to_f if location["geo_location"]["latitude"].present?
-          location["geoLocation"]["longitude"] = location["geo_location"]["longitude"].to_f if location["geo_location"]["longitude"].present?
-          geo_locations << location
-        end
-        @construction_params["locations"] = geo_locations
+        @deadline_params["media_contents"] = media_contents
       end
 
       # Convert has_many dates
-      if @construction_params["dates"].present?
+      if @deadline_params["dates"].present?
         dates = []
-        @construction_params["dates"].each do |_key, date|
+        @deadline_params["dates"].each do |_key, date|
           next if date.blank?
           next unless nested_values?(date.to_h).include?(true)
 
           dates << date
         end
-        @construction_params["dates"] = dates
+        @deadline_params["dates"] = dates
       end
     end
 end

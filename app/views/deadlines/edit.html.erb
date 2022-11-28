@@ -1,0 +1,13 @@
+<div class="text-center">
+  <h1 class="h3 mb-0 font-weight-bold">
+    Frist- oder Aktionsmeldung bearbeiten
+  </h1>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <%= form_with(url: deadline_path(@deadline.id), method: :patch, local: true) do %>
+      <%= render partial: "deadlines/form", locals: { deadline: @deadline } %>
+    <% end %>
+  </div>
+</div>
