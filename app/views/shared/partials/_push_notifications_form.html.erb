@@ -25,7 +25,7 @@
             <div class="row collapse recurring-collapse <%= fpn.object.recurring.try(:zero?) ? "show" : "" %>">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :once_at %>
+                  <%= fpn.label :once_at, "Einmalig am/um" %>
                   <%= fpn.datetime_field(
                         :once_at,
                         class: "form-control",
@@ -44,7 +44,7 @@
                         1,
                         0
                       ) %>
-                  <%= fpn.label :recurring %>
+                  <%= fpn.label :recurring, "wiederkehrend?" %>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="row collapse recurring-collapse <%= fpn.object.recurring.try(:positive?) ? "show" : "" %>">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :monday_at %>
+                  <%= fpn.label :monday_at, "Montags um" %>
                   <%= fpn.time_field(
                         :monday_at,
                         class: "form-control",
@@ -63,7 +63,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :tuesday_at %>
+                  <%= fpn.label :tuesday_at, "Dienstags um" %>
                   <%= fpn.time_field(
                         :tuesday_at,
                         class: "form-control",
@@ -74,7 +74,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :wednesday_at %>
+                  <%= fpn.label :wednesday_at, "Mittwochs um" %>
                   <%= fpn.time_field(
                         :wednesday_at,
                         class: "form-control",
@@ -85,7 +85,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :thursday_at %>
+                  <%= fpn.label :thursday_at, "Donnerstags um" %>
                   <%= fpn.time_field(
                         :thursday_at,
                         class: "form-control",
@@ -96,7 +96,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :friday_at %>
+                  <%= fpn.label :friday_at, "Freitags um" %>
                   <%= fpn.time_field(
                         :friday_at,
                         class: "form-control",
@@ -107,7 +107,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :saturday_at %>
+                  <%= fpn.label :saturday_at, "Samstags um" %>
                   <%= fpn.time_field(
                         :saturday_at,
                         class: "form-control",
@@ -118,7 +118,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= fpn.label :sunday_at %>
+                  <%= fpn.label :sunday_at, "Sonntags um" %>
                   <%= fpn.time_field(
                         :sunday_at,
                         class: "form-control",
@@ -131,7 +131,7 @@
             <div class="row">
               <div class="col">
                 <div class="form-group">
-                  <%= fpn.label :title %>
+                  <%= fpn.label :title, "Titel" %>
                   <%= fpn.text_field :title, class: "form-control" %>
                 </div>
               </div>
@@ -140,7 +140,7 @@
             <div class="row">
               <div class="col">
                 <div class="form-group">
-                  <%= fpn.label :body %>
+                  <%= fpn.label :body, "Mitteilung" %>
                   <%= fpn.text_area :body, class: "form-control", rows: 10 %>
                 </div>
               </div>
