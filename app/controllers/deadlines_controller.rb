@@ -67,6 +67,24 @@ class DeadlinesController < ApplicationController
             dateStart
             timeStart
           }
+          pushNotifications {
+            onceAt
+            mondayAt
+            tuesdayAt
+            wednesdayAt
+            thursdayAt
+            fridayAt
+            saturdayAt
+            sundayAt
+            recurring
+            title
+            body
+            data {
+              id
+              queryType
+              dataProviderId
+            }
+          }
         }
       }
     GRAPHQL
@@ -81,6 +99,7 @@ class DeadlinesController < ApplicationController
     query = create_or_update_mutation
     begin
       results = @smart_village.query query
+      schedule_push_notifications_queries
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
       @deadline = new_generic_item
@@ -100,6 +119,7 @@ class DeadlinesController < ApplicationController
 
     begin
       @smart_village.query query
+      schedule_push_notifications_queries
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
     end
@@ -219,6 +239,36 @@ class DeadlinesController < ApplicationController
           dates << date
         end
         @deadline_params["dates"] = dates
+      end
+
+      # Take push notification params for scheduling in separate mutation
+      @push_notifications = @deadline_params.delete :push_notifications
+    end
+
+    def schedule_push_notifications_queries
+      if @push_notifications.present?
+        @push_notifications.each do |_key, push_notification|
+          next unless nested_values?(push_notification.to_h).include?(true)
+
+          push_notification["notification_pushable_type"] = "GenericItem"
+          push_notification["notification_pushable_id"] = @deadline_params["id"].to_i
+          push_notification["recurring"] = push_notification["recurring"].to_i
+
+          # Cleanup depending on recurring
+          if push_notification["recurring"].zero?
+            push_notification.delete :monday_at
+            push_notification.delete :tuesday_at
+            push_notification.delete :wednesday_at
+            push_notification.delete :thursday_at
+            push_notification.delete :friday_at
+            push_notification.delete :saturday_at
+            push_notification.delete :sunday_at
+          end
+          push_notification.delete :once_at if push_notification["recurring"].positive?
+
+          query = Converter::Base.new.build_mutation("schedulePushNotification", push_notification)
+          @smart_village.query query
+        end
       end
     end
 end

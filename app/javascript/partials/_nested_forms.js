@@ -53,6 +53,23 @@ $(function () {
     }
   });
 
+  $('#nested-push-notifications').nestedForm({
+    forms: '.nested-push-notification-form',
+    adder: '#nested-add-push-notification',
+    ...defaultNestedFormsOptions,
+    beforeAddForm: ($container) => {
+      $container.children('.nested-push-notification-form').removeClass('d-none');
+    },
+    afterAddForm: (_, $form) => {
+      // clear date and time inputs because normally just texts and textareas are cleared
+      $form.find('input[type="time"], input[type="datetime-local"]').val('');
+      // adjust initial visible fields to have `once_at` visible and the weekdays need to be
+      // "opened" per `recurring` checkbox
+      $form.find('.collapse').first().addClass('show');
+      $form.find('.collapse').last().removeClass('show');
+    }
+  });
+
   $('#nested-web-urls').nestedForm({
     forms: '.nested-web-url-form',
     adder: '#nested-add-web-urls',
