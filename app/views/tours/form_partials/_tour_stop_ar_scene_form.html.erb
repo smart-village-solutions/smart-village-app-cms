@@ -108,6 +108,14 @@
                   name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][title]",
                   readonly: scene_downloadable_uris.dig(downloadable_uris_texture_index, "uri").present?
                 )%>
+            <br />
+            <%= check_box_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_stable",
+                  true,
+                  scene_downloadable_uris.dig(downloadable_uris_texture_index, "stable").to_s === "true",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][stable]"
+                )%>
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_stable", "stable?" %>
           </div>
         </div>
         <div class="col-6">
