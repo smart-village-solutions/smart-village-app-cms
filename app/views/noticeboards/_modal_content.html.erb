@@ -1,0 +1,15 @@
+<div class="modal fade" id="content_<%= noticeboard.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <%= noticeboard.content_blocks.first.try(:title) %>
+        </h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"><%= noticeboard.content_blocks.first.try(:body) %></div>
+    </div>
+  </div>
+</div>

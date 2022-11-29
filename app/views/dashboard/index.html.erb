@@ -318,4 +318,25 @@
       </div>
     </div>
   <% end %>
+
+  <% if visible_in_role?("role_noticeboard") %>
+    <div
+      class="d-flex flex-column col-12 col-lg-5 justify-content-between jumbotron p-0 bg-white shadow mr-lg-4"
+    >
+      <div class="d-flex justify-content-between align-items-center py-5 px-4">
+        <h4>
+          <i class="fas fa-fw fa-clipboard-list"></i> Schwarzes Brett
+        </h4>
+        <h5>
+          <%= @noticeboards.count %>
+        </h5>
+      </div>
+
+      <div class="button-banner">
+        <%= link_to "/noticeboards", class: "btn btn-sm btn-primary shadow-sm" do %>
+          Alle anzeigen
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

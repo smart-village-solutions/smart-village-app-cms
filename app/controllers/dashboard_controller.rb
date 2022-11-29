@@ -136,6 +136,18 @@ class DashboardController < ApplicationController
 
       @deadlines = deadline_results.data.generic_items
     end
+
+    if helpers.visible_in_role?("role_noticeboard")
+      noticeboard_results = @smart_village.query <<~GRAPHQL
+        query {
+          genericItems(genericType: "Noticeboard") {
+            id
+          }
+        }
+      GRAPHQL
+
+      @noticeboards = noticeboard_results.data.generic_items
+    end
   end
 
 end
