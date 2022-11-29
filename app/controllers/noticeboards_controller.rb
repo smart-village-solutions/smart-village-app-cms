@@ -10,6 +10,9 @@ class NoticeboardsController < ApplicationController
       query {
         genericItems(genericType: "Noticeboard") {
           id
+          categories {
+            name
+          }
           contentBlocks {
             title
             body

@@ -9,6 +9,7 @@
         <th scope="col">ID</th>
         <th scope="col">Titel</th>
         <th scope="col" class="nosort">Inhalt</th>
+        <th scope="col">Kategorie</th>
         <th scope="col">Nachrichten</th>
         <th scope="col">Startdatum</th>
         <th scope="col">Enddatum</th>
@@ -39,6 +40,7 @@
                   locals: { noticeboard: noticeboard }
                 ) %>
           </td>
+          <td><%= noticeboard.categories.first.try(:name) || "" %></td>
           <td><%= noticeboard.generic_item_messages.count %></td>
           <td><%= toLocalDate(noticeboard.dates.try(:first).try(:date_start)) %></td>
           <td><%= toLocalDate(noticeboard.dates.try(:first).try(:date_end)) %></td>
