@@ -142,6 +142,16 @@
   </li>
 <% end %>
 
+<!-- Nav Item - Noticeboards -->
+<% if visible_in_role?("role_noticeboard") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'noticeboards' %>">
+    <a class="nav-link" href="/noticeboards">
+      <i class="fas fa-fw fa-clipboard-list"></i>
+      <span>Schwarzes Brett</span>
+    </a>
+  </li>
+<% end %>
+
 <!-- Divider -->
 <hr class="sidebar-divider my-0" />
 

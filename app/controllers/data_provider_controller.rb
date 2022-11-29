@@ -61,6 +61,7 @@ class DataProviderController < ApplicationController
     def visibility_record_type(params)
       return "Survey::Poll" if params[:item_type] === "Survey"
       return "Survey::Comment" if params[:item_type] === "Survey_Comment"
+      return "GenericItem" if params[:item_type] === "Noticeboard"
 
       params[:item_type]
     end
