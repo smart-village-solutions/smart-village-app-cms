@@ -22,7 +22,7 @@
           </div>
 
           <div class="card-body">
-            <div class="row collapse recurring-collapse <%= fpn.object.recurring.try(:zero?) ? "show" : "" %>">
+            <div class="row collapse recurring-collapse <%= fpn.object.recurring.blank? || fpn.object.recurring.try(:zero?) ? "show" : "" %>">
               <div class="col-lg-6">
                 <div class="form-group">
                   <%= fpn.label :once_at, "Einmalig am/um" %>

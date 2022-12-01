@@ -248,7 +248,7 @@ class DeadlinesController < ApplicationController
     def schedule_push_notifications_queries
       if @push_notifications.present?
         @push_notifications.each do |_key, push_notification|
-          next unless nested_values?(push_notification.to_h).include?(true)
+          next unless nested_values?(push_notification.except(:recurring).to_h).include?(true)
 
           push_notification["notification_pushable_type"] = "GenericItem"
           push_notification["notification_pushable_id"] = @deadline_params["id"].to_i
