@@ -26,18 +26,6 @@
     </div>
   </div>
 
-  <%= render(
-        partial: "shared/partials/dates_form",
-        locals: {
-          record: deadline,
-          form: f,
-          fields: ["date_start"],
-          requireds: ["date_start"],
-          labels: { date_start: "Termin" },
-          values: { date_start: Time.now.to_date },
-          force_visibility: true
-      }) %>
-
   <% list_of_content_blocks = deadline.content_blocks.presence || [OpenStruct.new] %>
   <div class="row">
     <div class="col">
@@ -51,6 +39,23 @@
       </div>
     </div>
   </div>
+
+  <%= render(
+        partial: "shared/partials/dates_form",
+        locals: {
+          record: deadline,
+          form: f,
+          fields: ["date_start"],
+          requireds: [],
+          labels: { date_start: "Termin" },
+          values: { date_start: Time.now.to_date },
+          force_visibility: true
+      }) %>
+
+  <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-dates" do %>
+    <i class="fas fa-plus text-white mr-2"></i>
+    Termin hinzufügen
+  <% end %>
 
   <hr />
 
