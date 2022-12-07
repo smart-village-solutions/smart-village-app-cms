@@ -6,9 +6,6 @@
 
 <div class="row justify-content-center">
   <div class="col-lg-8">
-    <% if @event.category.present? %>
-      <p class="lead">in der Kategorie <%= @event.category.name %></p>
-    <% end %>
     <%= form_with( url: event_path(@event.id), method: :patch, local: true) do %>
       <%= render partial: "events/form", locals: { event: @event } %>
     <% end %>

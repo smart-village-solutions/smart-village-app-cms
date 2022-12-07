@@ -263,6 +263,8 @@ class NewsItemsController < ApplicationController
 
     # return true, if there is at least one category selected
     def category_present?(params)
+      return false if params["categories"].blank?
+
       params["categories"].each do |_key, category|
         next if category.blank?
         next unless nested_values?(category.to_h).include?(true)

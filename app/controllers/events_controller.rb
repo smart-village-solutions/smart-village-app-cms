@@ -12,6 +12,9 @@ class EventsController < ApplicationController
         eventRecords {
           id
           title
+          categories {
+            name
+          }
           visible
           dataProvider {
             name
@@ -44,7 +47,8 @@ class EventsController < ApplicationController
         ) {
           id
           title
-          category {
+          categories {
+            id
             name
           }
           parentId
@@ -276,6 +280,18 @@ class EventsController < ApplicationController
     end
 
     def convert_params_for_graphql
+      # Convert has_many categories
+      if @event_params["categories"].present?
+        categories = []
+        @event_params["categories"].each do |_key, category|
+          next if category.blank?
+          next unless nested_values?(category.to_h).include?(true)
+
+          categories << category
+        end
+        @event_params["categories"] = categories
+      end
+
       # Convert has_many addresses
       if @event_params["addresses"].present?
         addresses = []

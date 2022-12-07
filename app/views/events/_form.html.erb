@@ -1,12 +1,11 @@
 <%= fields_for :event, event do |f| %>
   <%= hidden_field_tag "event[id]", f.object.id if f.object.id.present? %>
-  <%= hidden_field_tag "event[category_name]", @event.category.name if @event.category.present? %>
 
   <div class="row">
     <div class="col">
       <div class="form-group">
         <label for="description">Veranstaltungsname *</label>
-        <%= f.text_field :title, class: "form-control" %>
+        <%= f.text_field :title, class: "form-control", required: true %>
       </div>
     </div>
   </div>
@@ -46,6 +45,26 @@
       </div>
     </div>
   -->
+
+  <div class="row">
+    <div class="col">
+      <h2 class="d-sm-flex align-items-center justify-content-between my-4">
+        Kategorien
+      </h2>
+      <p>
+        Jede Veranstaltung kann in einer oder mehreren Kategorien abgelegt werden.
+      <p>
+
+      <%= render partial: "shared/partials/categories_form", locals: { record: event, record_type: "event", form: f } %>
+
+      <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-category" do %>
+        <i class="fas fa-plus text-white mr-2"></i>
+        Kategorie hinzufügen
+      <% end %>
+    </div>
+  </div>
+
+  <hr />
 
   <div class="row">
     <div class="col">

@@ -12,6 +12,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
+        <th scope="col">Kategorie</th>
         <th scope="col">Termine</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
@@ -27,6 +28,7 @@
         <tr>
           <th scope="row"><%= event.id %></th>
           <td><%= link_to event.title, edit_event_path(event.id) %></td>
+          <td><%= event.categories.first.try(:name) %></td>
           <td><%= event.dates.map { |date| "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" }.join("<br />").html_safe %></td>
           <td><%= toLocalDateTime(event.updated_at) %></td>
           <td><%= toLocalDateTime(event.created_at) %></td>
