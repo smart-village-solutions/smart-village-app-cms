@@ -17,6 +17,10 @@ class NoticeboardsController < ApplicationController
             title
             body
           }
+          contacts {
+            email
+            firstName
+          }
           dataProvider {
             name
           }

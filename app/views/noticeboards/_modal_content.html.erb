@@ -10,6 +10,20 @@
         </button>
       </div>
       <div class="modal-body"><%= noticeboard.content_blocks.first.try(:body) %></div>
+      <div class="modal-footer">
+        <div class="mr-auto">
+          Name: <%= noticeboard.contacts.first.try(:first_name) %>
+          <br />
+          E-Mail:
+          <a
+            href="mailto:<%= noticeboard.contacts.first.try(:email) %>"
+            title="mail to <%= noticeboard.contacts.first.try(:email) %>"
+            target="_blank"
+          >
+            <%= noticeboard.contacts.first.try(:email) %>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
