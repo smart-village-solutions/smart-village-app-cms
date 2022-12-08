@@ -239,6 +239,7 @@ class DeadlinesController < ApplicationController
           dates << date
         end
         @deadline_params["dates"] = dates
+        @deadline_params["publication_date"] = dates.first.dig(:date_start) if dates.present?
       end
 
       # Take push notification params for scheduling in separate mutation
