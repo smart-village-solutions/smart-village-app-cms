@@ -28,6 +28,12 @@ function initLeafletMap(id) {
     gestureHandling: true
   });
 
+  var mapInModal = $('#' + id).data('map-in-modal') !== undefined ? $('#' + id).data('map-in-modal') : false;
+  if (mapInModal) {
+    window.map = window.map || {};
+    window.map[id] = map;
+  }
+
   var icon = L.icon({
     iconUrl: '/marker.svg',
     iconSize: [30, 30],
@@ -40,21 +46,24 @@ function initLeafletMap(id) {
     marker = L.marker(center, { icon: icon }).addTo(map);
   }
 
-  map.on('click', function(e) {
-    var lat = e.latlng.lat;
-    var lng = e.latlng.lng;
+  var mapClick = $('#' + id).data('map-click') !== undefined ? $('#' + id).data('map-click') : true;
+  if (mapClick) {
+    map.on('click', function(e) {
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
 
-    // Clear existing marker before setting a new one
-    if (marker != undefined) {
-      map.removeLayer(marker);
-    }
+      // Clear existing marker before setting a new one
+      if (marker != undefined) {
+        map.removeLayer(marker);
+      }
 
-    // Set the new marker on clicked position
-    marker = L.marker([lat, lng], { icon: icon }).addTo(map);
+      // Set the new marker on clicked position
+      marker = L.marker([lat, lng], { icon: icon }).addTo(map);
 
-    $geoLocationLatitude.val(lat);
-    $geoLocationLongitude.val(lng);
-  });
+      $geoLocationLatitude.val(lat);
+      $geoLocationLongitude.val(lng);
+    });
+  }
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:

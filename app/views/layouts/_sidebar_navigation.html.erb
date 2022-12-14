@@ -152,6 +152,16 @@
   </li>
 <% end %>
 
+<!-- Nav Item - DefectReports -->
+<% if visible_in_role?("role_defect_report") %>
+  <li class="nav-item <%= 'active' if params[:controller] == 'defect_reports' %>">
+    <a class="nav-link" href="/defect_reports">
+      <i class="fas fa-fw fa-exclamation-triangle"></i>
+      <span>Mängelmelder</span>
+    </a>
+  </li>
+<% end %>
+
 <!-- Divider -->
 <hr class="sidebar-divider my-0" />
 

@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   delete "/static_contents/:id", to: "static_contents#destroy"
   resources :deadlines
   resources :noticeboards, only: %i[index destroy]
+  resources :defect_reports, only: %i[index destroy]
 
   get "/minio/signed_url", to: "minio#signed_url"
 
