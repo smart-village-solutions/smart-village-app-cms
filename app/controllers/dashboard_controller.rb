@@ -148,6 +148,18 @@ class DashboardController < ApplicationController
 
       @noticeboards = noticeboard_results.data.generic_items
     end
+
+    if helpers.visible_in_role?("role_defect_report")
+      defect_report_results = @smart_village.query <<~GRAPHQL
+        query {
+          genericItems(genericType: "DefectReport") {
+            id
+          }
+        }
+      GRAPHQL
+
+      @defect_reports = defect_report_results.data.generic_items
+    end
   end
 
 end

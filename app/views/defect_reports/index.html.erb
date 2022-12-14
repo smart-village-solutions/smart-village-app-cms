@@ -1,0 +1,56 @@
+<div class="d-flex flex-wrap align-items-center row-gap justify-content-between mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold mr-3">Mängelmelder</h1>
+</div>
+
+<div class="table-responsive pb-4">
+  <table class="table data_table bg-white">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titel</th>
+        <th scope="col" class="nosort">Inhalt</th>
+        <th scope="col">Kategorie</th>
+        <th scope="col">Änderungsdatum</th>
+        <th scope="col">Erstellungsdatum</th>
+        <% if editor? %>
+          <th>Datenquelle</th>
+          <th scope="col" class="nosort">Sichtbarkeit</th>
+        <% end %>
+        <th scope="col" class="nosort">Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @defect_reports.each do |defect_report| %>
+        <tr>
+          <th scope="row"><%= defect_report.id %></th>
+          <td>
+            <%= defect_report.content_blocks.first.try(:title) || "" %>
+          </td>
+          <td>
+            <%= link_to(
+                  (defect_report.content_blocks.first.try(:body) || "").truncate(30),
+                  "#",
+                  data: { toggle: "modal", target: "#content_#{defect_report.id}" }
+                ) %>
+            <%= render(
+                  partial: "defect_reports/modal_content",
+                  locals: { defect_report: defect_report }
+                ) %>
+          </td>
+          <td><%= defect_report.categories.first.try(:name) || "" %></td>
+          <td><%= toLocalDateTime(defect_report.updated_at) %></td>
+          <td><%= toLocalDateTime(defect_report.created_at) %></td>
+          <% if editor? %>
+            <td><%= defect_report.data_provider.try(:name) %></td>
+            <td align="center"><%= visibility_switch(defect_report, "defect_report") %></td>
+          <% end %>
+          <td align="right" class="text-nowrap">
+            <%= link_to defect_report_path(defect_report.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
