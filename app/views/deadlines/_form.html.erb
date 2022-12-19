@@ -1,6 +1,7 @@
 <%= fields_for :deadline, deadline do |f| %>
   <%= hidden_field_tag "deadline[id]", f.object.id if f.object.id.present? %>
   <%= hidden_field_tag "deadline[generic_type]", deadline.generic_type %>
+  <%= hidden_field_tag "deadline[publication_date]", deadline.publication_date.try(:to_date) || Time.now.to_date %>
 
   <div class="row">
     <div class="col">
