@@ -246,7 +246,7 @@ class DeadlinesController < ApplicationController
       @push_notifications = @deadline_params.delete :push_notifications
     end
 
-    def schedule_push_notifications_queries(id)
+    def schedule_push_notifications_queries(id = nil)
       if @push_notifications.present?
         @push_notifications.each do |_key, push_notification|
           next unless nested_values?(push_notification.except(:recurring).to_h).include?(true)
