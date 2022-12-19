@@ -100,7 +100,7 @@ class DeadlinesController < ApplicationController
     query = create_or_update_mutation
     begin
       results = @smart_village.query query
-      schedule_push_notifications_queries
+      schedule_push_notifications_queries(results.data.create_generic_item.id)
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
       @deadline = new_generic_item
@@ -246,13 +246,13 @@ class DeadlinesController < ApplicationController
       @push_notifications = @deadline_params.delete :push_notifications
     end
 
-    def schedule_push_notifications_queries
+    def schedule_push_notifications_queries(id)
       if @push_notifications.present?
         @push_notifications.each do |_key, push_notification|
           next unless nested_values?(push_notification.except(:recurring).to_h).include?(true)
 
           push_notification["notification_pushable_type"] = "GenericItem"
-          push_notification["notification_pushable_id"] = @deadline_params["id"].to_i
+          push_notification["notification_pushable_id"] = (id || @deadline_params["id"]).to_i
           push_notification["recurring"] = push_notification["recurring"].to_i
 
           # Cleanup depending on recurring
