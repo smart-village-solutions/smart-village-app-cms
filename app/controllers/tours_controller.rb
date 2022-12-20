@@ -388,6 +388,32 @@ class ToursController < ApplicationController
                 scenes << scene
               end
 
+              # add target, mp3 and light to the first scene in order to have them at the correct
+              # place in the object for the mobile app
+              if scenes.count.positive?
+                scene = scenes.first
+                scene_downloadable_uris = scene["downloadable_uris"]
+
+                if tour_stop["payload"]["target"].present?
+                  target = tour_stop["payload"]["target"]
+                  target["id"] = -1
+
+                  scene_downloadable_uris.unshift(target)
+                end
+                if tour_stop["payload"]["mp3"].present?
+                  mp3 = tour_stop["payload"]["mp3"]
+                  mp3["id"] = -2
+
+                  scene_downloadable_uris.unshift(mp3)
+                end
+                if tour_stop["payload"]["light"].present?
+                  light = tour_stop["payload"]["light"]
+                  light["id"] = -3
+
+                  scene_downloadable_uris.unshift(light)
+                end
+              end
+
               tour_stop["payload"]["scenes"] = scenes
 
               # converts to integer

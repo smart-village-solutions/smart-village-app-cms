@@ -72,6 +72,8 @@
     </div>
   </div>
 
+  <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][type]", downloadable_uri_type, { id: "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_type" } %>
+
   <% if downloadable_uri_has_upload %>
     <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][size]", payload.dig(downloadable_uri_type, "size"), { id: "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_size" } %>
 
