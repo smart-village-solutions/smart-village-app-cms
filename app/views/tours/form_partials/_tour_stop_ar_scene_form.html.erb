@@ -1,10 +1,7 @@
 <% downloadable_uris = [
   ["vrx", true, ["position", "scale", "rotation"]],
-  ["target", true],
-  ["mp3", true, ["is_spatial_sound", "min_distance", "max_distance", "position", "rolloff_model"]],
   ["mp4", true, ["position", "scale", "rotation", "chroma_key_filtered_video"]],
   ["image", true, ["position", "scale", "rotation"]],
-  ["light", false, ["color", "temperature", "intensity"]]
 ] %>
 <% scene_downloadable_uris = scene.dig("downloadableUris") || [] %>
 

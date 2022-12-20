@@ -55,6 +55,75 @@
   </div>
 </div>
 
+<hr />
+
+<% downloadable_uris = [
+  ["target", true],
+  ["mp3", true, ["is_spatial_sound", "min_distance", "max_distance", "position", "rolloff_model"]],
+  ["light", false, ["color", "temperature", "intensity"]]
+] %>
+
+<% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
+  <% downloadable_uri_type, downloadable_uri_has_upload, downloadable_uri_type_fields = downloadable_uri %>
+
+  <div class="row">
+    <div class="col">
+      <b><%= downloadable_uri_type.upcase %></b>
+    </div>
+  </div>
+
+  <% if downloadable_uri_has_upload %>
+    <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][size]", payload.dig(downloadable_uri_type, "size"), { id: "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_size" } %>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_title", "Bezeichnung" %>
+          <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_title",
+                payload.dig(downloadable_uri_type, "title"),
+                class: "form-control",
+                name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][title]"
+              )%>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_uri", "Url" %>
+          <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_uri",
+                payload.dig(downloadable_uri_type, "uri"),
+                class: "form-control",
+                name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][uri]"
+              )%>
+
+          <%= render partial: "tours/form_partials/ar_file_upload" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if downloadable_uri_type_fields.present? %>
+    <div class="row">
+      <% downloadable_uri_type_fields.each do |downloadable_uri_type_field| %>
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
+            <%= text_field_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_#{downloadable_uri_type_field}",
+                  payload.dig(downloadable_uri_type, downloadable_uri_type_field.camelize(:lower)).to_s,
+                  class: "form-control",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][#{downloadable_uri_type_field}]"
+                )%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <hr />
+<% end %>
+
 <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][total_size]", payload["totalSize"], { id: "tour_tour_stops_#{tour_stop_index}__payload_total_size" } %>
 
 <div class="nested-tour-stop-scenes">
