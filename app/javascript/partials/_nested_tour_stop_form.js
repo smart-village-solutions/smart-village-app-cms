@@ -75,6 +75,13 @@ $(function () {
       },
       beforeAddForm: ($container, $form) => {
         $container.children('.nested-tour-stop-form').removeClass('d-none');
+
+        // we only want one initialized scene, so remove eventually created others
+        $form.find('.nested-tour-stop-scene-form').each((index, form) => {
+          if (index > 0) {
+            $(form).remove();
+          }
+        });
       },
       afterAddForm: (_$container, $form) => {
         initNestedScenes($form);
