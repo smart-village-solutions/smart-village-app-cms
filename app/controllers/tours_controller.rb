@@ -397,19 +397,19 @@ class ToursController < ApplicationController
 
                 if tour_stop["payload"]["target"].present?
                   target = tour_stop["payload"]["target"]
-                  target["id"] = -1
+                  target["id"] = "-1"
 
                   scene_downloadable_uris.unshift(target)
                 end
                 if tour_stop["payload"]["mp3"].present?
                   mp3 = tour_stop["payload"]["mp3"]
-                  mp3["id"] = -2
+                  mp3["id"] = "-2"
 
                   scene_downloadable_uris.unshift(mp3)
                 end
                 if tour_stop["payload"]["light"].present?
                   light = tour_stop["payload"]["light"]
-                  light["id"] = -3
+                  light["id"] = "-3"
 
                   scene_downloadable_uris.unshift(light)
                 end
