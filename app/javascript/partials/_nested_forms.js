@@ -6,7 +6,29 @@ export const defaultNestedFormsOptions = {
   }
 };
 
-/* eslint-disable func-names */
+export const initClassicEditor = (htmlEditor) => {
+  ClassicEditor.create(htmlEditor, {
+    toolbar: [
+      'heading',
+      '|',
+      'bulletedList',
+      'numberedList',
+      'link',
+      'bold',
+      'italic',
+      '|',
+      'undo',
+      'redo'
+    ]
+  })
+    .then((editor) => {
+      // console.log(Array.from(editor.ui.componentFactory.names()));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 $(function () {
   $('#nested-categories').nestedForm({
     forms: '.nested-category-form',
@@ -87,14 +109,36 @@ $(function () {
     beforeAddForm: ($container) => {
       $container.children('.nested-opening-hour-form').removeClass('d-none');
     },
-    afterAddForm: (_, $form) => {
+    afterAddForm: (_$container, $form) => {
       $form.find('[id$="open"]').prop('checked', true);
     }
   });
 
   // We need to know the amount of forms at DOM load to know which classes we have to fix,
-  // see below in afterAddForm callback
-  const nestedMediaFormCount = $('.nested-medium-form').length;
+  // see in `incrementIndexesOfImageUploadElements`
+  const nestedMediaFormElementsCountAtDomLoad = $('.nested-medium-form').length;
+
+  const incrementIndexesOfImageUploadElements = ($container, $form, elementsCountAtDomLoad) => {
+    const oldFormIndex = elementsCountAtDomLoad - 1;
+    const newFormIndex = $container.children().length - 1;
+    const classNamesToFix = [
+      'image-input',
+      'upload-progress',
+      'upload-progress-bar',
+      'image-preview-wrapper',
+      'image-preview'
+    ];
+
+    $form.find('[data-index]').attr('data-index', newFormIndex);
+
+    classNamesToFix.forEach((className) => {
+      const $el = $form.find('.' + className);
+      $el.removeClass(className + '-' + oldFormIndex);
+      $el.addClass(className + '-' + newFormIndex);
+    });
+
+    window.bindImageUploadEvents();
+  };
 
   // media not nested in a content block, for example in events.
   // everything with classes here, because in content blocks nested-media will appear multiple times
@@ -105,31 +149,16 @@ $(function () {
     beforeAddForm: ($container) => {
       $container.children('.nested-medium-form').removeClass('d-none');
     },
-    afterAddForm: function (_, $form) {
-      // Increment the index on all elements of the new form by 100
-      let oldFormIndex = nestedMediaFormCount - 1;
-      let formIndex = $('.nested-medium-form').length - 1;
+    afterAddForm: ($container, $form) => {
+      incrementIndexesOfImageUploadElements(
+        $container,
+        $form,
+        nestedMediaFormElementsCountAtDomLoad
+      );
 
-      $form.find('.upload-toggle').attr('data-target', '.file-upload-collapse-' + formIndex);
-      $form.find('[data-index]').attr('data-index', formIndex);
-
-      const classNamesToFix = [
-        'file-upload-collapse',
-        'file-input',
-        'upload-progress',
-        'upload-progress-bar',
-        'image-preview-wrapper',
-        'image-preview'
-      ];
-
-      classNamesToFix.forEach((className) => {
-        let $el = $form.find('.' + className);
-        $el.removeClass(className + '-' + oldFormIndex);
-        $el.addClass(className + '-' + formIndex);
-      });
-
-      window.bindFileUploadEvents();
+      // reset image preview
+      $form.find('.image-preview-wrapper > label').css('display', 'none');
+      $form.find('.image-preview-wrapper > .image-preview').attr('src', '');
     }
   });
 });
-/* eslint-enable func-names */

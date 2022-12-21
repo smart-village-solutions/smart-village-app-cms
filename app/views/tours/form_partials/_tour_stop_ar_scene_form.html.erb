@@ -1,0 +1,145 @@
+<% downloadable_uris = [
+  ["vrx", true, ["position", "scale", "rotation"]],
+  ["mp4", true, ["position", "scale", "rotation", "chroma_key_filtered_video"]],
+  ["image", true, ["position", "scale", "rotation"]],
+] %>
+<% scene_downloadable_uris = scene.dig("downloadableUris") || [] %>
+
+<% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
+  <% downloadable_uri_type, downloadable_uri_has_upload, downloadable_uri_type_fields = downloadable_uri %>
+
+  <div class="row">
+    <div class="col">
+      <b><%= downloadable_uri_type.upcase %></b>
+    </div>
+  </div>
+
+  <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uri_index}][id]", downloadable_uri_index, { id: "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_id" } %>
+  <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uri_index}][type]", downloadable_uri_type, { id: "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_type" } %>
+
+  <% if downloadable_uri_has_upload %>
+    <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uri_index}][size]", scene_downloadable_uris.dig(downloadable_uri_index, "size"), { id: "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_size" } %>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_title", "Bezeichnung" %>
+          <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_title",
+                scene_downloadable_uris.dig(downloadable_uri_index, "title"),
+                class: "form-control",
+                name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uri_index}][title]"
+              )%>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_uri", "Url" %>
+          <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_uri",
+                scene_downloadable_uris.dig(downloadable_uri_index, "uri"),
+                class: "form-control",
+                name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uri_index}][uri]"
+              )%>
+
+          <%= render partial: "tours/form_partials/ar_file_upload" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if downloadable_uri_type_fields.present? %>
+    <div class="row">
+      <% downloadable_uri_type_fields.each do |downloadable_uri_type_field| %>
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
+            <%= text_field_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uri_index}_#{downloadable_uri_type_field}",
+                  scene_downloadable_uris.dig(downloadable_uri_index, downloadable_uri_type_field.camelize(:lower)).to_s,
+                  class: "form-control",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uri_index}][#{downloadable_uri_type_field}]"
+                )%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <hr />
+<% end %>
+
+<%############%>
+<%# TEXTURES #%>
+<%############%>
+
+<% downloadable_uris_textures = scene_downloadable_uris.compact.select do |payload_downloadable_uri|
+     payload_downloadable_uri["type"] === "texture"
+   end.presence || [OpenStruct.new] %>
+<% downloadable_uris_texture_index = downloadable_uris.count %>
+
+<div class="nested-textures">
+  <% downloadable_uris_textures.each do %>
+    <div class="nested-texture-form">
+      <div class="row">
+        <div class="col d-flex flex-wrap justify-content-between">
+          <b>TEXTURE</b>
+          <%= link_to "#", class: "removeTexture btn btn-sm btn-danger" do %>
+            <i class="fa fa-trash text-white"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][id]", downloadable_uris_texture_index, { id: "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_id" } %>
+      <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][type]", "texture", { id: "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_type" } %>
+      <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][size]", scene_downloadable_uris.dig(downloadable_uris_texture_index, "size"), { id: "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_size" } %>
+
+      <div class="row texture">
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_title", "Bezeichnung" %>
+            <%= text_field_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_title",
+                  scene_downloadable_uris.dig(downloadable_uris_texture_index, "title"),
+                  class: "form-control",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][title]",
+                  readonly: scene_downloadable_uris.dig(downloadable_uris_texture_index, "uri").present?
+                )%>
+            <br />
+            <%= check_box_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_stable",
+                  true,
+                  scene_downloadable_uris.dig(downloadable_uris_texture_index, "stable").to_s === "true",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][stable]"
+                )%>
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_stable", "stable?" %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_uri", "Url" %>
+            <%= text_field_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_scenes_#{scene_index}_downloadable_uris_#{downloadable_uris_texture_index}_uri",
+                  scene_downloadable_uris.dig(downloadable_uris_texture_index, "uri"),
+                  class: "form-control",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][scenes[#{scene_index}]][downloadable_uris][#{downloadable_uris_texture_index}][uri]"
+                )%>
+
+            <%= render partial: "tours/form_partials/ar_file_upload" %>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+    </div>
+
+    <% downloadable_uris_texture_index += 1 %>
+  <% end %>
+</div>
+
+<%= link_to "#", class: "nested-add-texture btn btn-sm btn-secondary" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  Texture hinzufügen
+<% end %>
+
+<hr />

@@ -21,15 +21,13 @@ require('../partials/_nested_forms');
 // special multi nested forms:
 require('../partials/_nested_content_block_form');
 require('../partials/_nested_lunch_form');
+require('../partials/_nested_tour_stop_form');
 
 // map in forms
 require('../partials/_leaflet_map');
 
 // fileupload in forms
 require('../partials/_fileupload');
-
-// ckeditor custom build
-require('../ckeditor');
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -70,7 +68,6 @@ const initClassicEditor = (htmlEditor, rich = false) => {
     });
 };
 
-/* eslint-disable func-names */
 $(function () {
   document.querySelectorAll('.html-editor').forEach((htmlEditor) => initClassicEditor(htmlEditor));
   document
@@ -185,4 +182,3 @@ $(function () {
     e.preventDefault();
   });
 });
-/* eslint-enable func-names */

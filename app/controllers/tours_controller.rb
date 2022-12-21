@@ -115,6 +115,22 @@ class ToursController < ApplicationController
           dataProvider {
             name
           }
+          geometryTourData {
+            latitude
+            longitude
+          }
+          tourStops {
+            id
+            name
+            description
+            payload
+            location {
+              geoLocation {
+                latitude
+                longitude
+              }
+            }
+          }
         }
       }
     GRAPHQL
@@ -271,6 +287,156 @@ class ToursController < ApplicationController
         unless nested_values?(@tour_params["operating_company"].to_h).include?(true)
           @tour_params.delete :operating_company
         end
+      end
+
+      # Convert has_many tour_stops
+      if @tour_params["tour_stops"].present?
+        tour_stops = []
+        @tour_params["tour_stops"].each do |_key, tour_stop|
+          next if tour_stop.blank?
+          next if tour_stop["name"].blank?
+
+          if tour_stop["payload"].present?
+            if tour_stop["payload"]["scenes"].present?
+              scenes = []
+              total_size_calculated_from_downloadable_uris = 0
+
+              tour_stop["payload"]["scenes"].each do |_key, scene|
+                next if scene.blank?
+
+                if scene["downloadable_uris"].present?
+                  downloadable_uris = []
+
+                  scene["downloadable_uris"].each do |_key, downloadable_uri|
+                    next if downloadable_uri.blank?
+
+                    # skip entries with empty url but set an empty object to keep indexes in order
+                    if downloadable_uri.keys.include?("uri") && downloadable_uri["uri"].blank?
+                      downloadable_uris << {}
+                      next
+                    end
+
+                    # converts to float
+                    if downloadable_uri["min_distance"].present?
+                      downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f
+                    end
+                    if downloadable_uri["max_distance"].present?
+                      downloadable_uri["max_distance"] = downloadable_uri["max_distance"].to_f
+                    end
+
+                    # converts to array or set default value
+                    if downloadable_uri.keys.include?("position")
+                      downloadable_uri["position"] = if downloadable_uri["position"].present?
+                                                       JSON.parse(downloadable_uri["position"])
+                                                     else
+                                                       [0, 0, 0]
+                                                     end
+                    end
+                    if downloadable_uri.keys.include?("scale")
+                      downloadable_uri["scale"] = if downloadable_uri["scale"].present?
+                                                    JSON.parse(downloadable_uri["scale"])
+                                                  else
+                                                    [1, 1, 1]
+                                                  end
+                    end
+                    if downloadable_uri.keys.include?("rotation")
+                      downloadable_uri["rotation"] = if downloadable_uri["rotation"].present?
+                                                       JSON.parse(downloadable_uri["rotation"])
+                                                     else
+                                                       [0, 0, 0]
+                                                     end
+                    end
+
+                    # converts to boolean
+                    if downloadable_uri.keys.include?("is_spatial_sound")
+                      downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
+                    end
+
+                    # set default values
+                    if downloadable_uri.keys.include?("color")
+                      downloadable_uri["color"] = downloadable_uri["color"].presence || "#ffffff"
+                    end
+                    if downloadable_uri.keys.include?("temperature")
+                      downloadable_uri["temperature"] = downloadable_uri["temperature"].presence || "6500"
+                    end
+                    if downloadable_uri.keys.include?("intensity")
+                      downloadable_uri["intensity"] = downloadable_uri["intensity"].presence || "1000"
+                    end
+
+                    # converts to integer
+                    if downloadable_uri["size"].present?
+                      downloadable_uri["size"] = downloadable_uri["size"].to_i
+                    end
+                    if downloadable_uri["temperature"].present?
+                      downloadable_uri["temperature"] = downloadable_uri["temperature"].to_i
+                    end
+                    if downloadable_uri["intensity"].present?
+                      downloadable_uri["intensity"] = downloadable_uri["intensity"].to_i
+                    end
+
+                    # calculate total size
+                    if downloadable_uri["size"].present?
+                      total_size_calculated_from_downloadable_uris += downloadable_uri["size"]
+                    end
+
+                    downloadable_uris << downloadable_uri
+                  end
+
+                  scene["downloadable_uris"] = downloadable_uris
+                end
+
+                scene["local_uris"] = []
+                scenes << scene
+              end
+
+              # add target, mp3 and light to the first scene in order to have them at the correct
+              # place in the object for the mobile app
+              if scenes.count.positive?
+                scene = scenes.first
+                scene_downloadable_uris = scene["downloadable_uris"]
+
+                if tour_stop["payload"]["target"].present?
+                  target = tour_stop["payload"]["target"]
+                  target["id"] = -1
+
+                  scene_downloadable_uris.unshift(target)
+                end
+                if tour_stop["payload"]["mp3"].present?
+                  mp3 = tour_stop["payload"]["mp3"]
+                  mp3["id"] = -2
+
+                  scene_downloadable_uris.unshift(mp3)
+                end
+                if tour_stop["payload"]["light"].present?
+                  light = tour_stop["payload"]["light"]
+                  light["id"] = -3
+
+                  scene_downloadable_uris.unshift(light)
+                end
+              end
+
+              tour_stop["payload"]["scenes"] = scenes
+
+              # converts to integer
+              if tour_stop["payload"]["time_period_in_days"].present?
+                tour_stop["payload"]["time_period_in_days"] = tour_stop["payload"]["time_period_in_days"].to_i
+              end
+            end
+
+            # set total size
+            tour_stop["payload"]["total_size"] = total_size_calculated_from_downloadable_uris
+
+            # set other defaults in payload
+            tour_stop["payload"]["progress"] = 0
+            tour_stop["payload"]["progress_size"] = 0
+            tour_stop["payload"]["size"] = 0
+            tour_stop["payload"]["type_format"] = "VRX"
+            tour_stop["payload"]["download_type"] = "downloadable"
+          end
+
+          tour_stops << tour_stop
+        end
+        @tour_params["tour_stops"] = tour_stops
       end
     end
 end

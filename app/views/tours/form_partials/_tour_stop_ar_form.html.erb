@@ -1,0 +1,151 @@
+<% payload = tour_stop.payload || {} %>
+<% list_of_tour_stop_ar_scenes = payload["scenes"].presence || [OpenStruct.new] %>
+
+<div class="row">
+  <div class="col">
+    <h5>Augmented Reality</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_location_info", "Kurzinfo zum Stopp" %>
+      <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_location_info",
+            payload["locationInfo"],
+            class: "form-control",
+            name: "tour[tour_stops[#{tour_stop_index}]][payload][location_info]"
+          )%>
+    </div>
+  </div><div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_animation_name", "Name der Animation" %>
+      <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_animation_name",
+            payload["animationName"],
+            class: "form-control",
+            name: "tour[tour_stops[#{tour_stop_index}]][payload][animation_name]"
+          )%>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_time_period_in_days", "Zeitspanne in Tagen" %>
+      <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_time_period_in_days",
+            payload["timePeriodInDays"],
+            class: "form-control",
+            name: "tour[tour_stops[#{tour_stop_index}]][payload][time_period_in_days]"
+          )%>
+    </div>
+  </div><div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_start_date", "Startdatum" %>
+      <%= date_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_start_date",
+            payload["startDate"],
+            class: "form-control",
+            name: "tour[tour_stops[#{tour_stop_index}]][payload][start_date]"
+          ) %>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<% downloadable_uris = [
+  ["target", true],
+  ["mp3", true, ["is_spatial_sound", "min_distance", "max_distance", "position", "rolloff_model"]],
+  ["light", false, ["color", "temperature", "intensity"]]
+] %>
+
+<% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
+  <% downloadable_uri_type, downloadable_uri_has_upload, downloadable_uri_type_fields = downloadable_uri %>
+
+  <div class="row">
+    <div class="col">
+      <b><%= downloadable_uri_type.upcase %></b>
+    </div>
+  </div>
+
+  <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][type]", downloadable_uri_type, { id: "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_type" } %>
+
+  <% if downloadable_uri_has_upload %>
+    <%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][size]", payload.dig(downloadable_uri_type, "size"), { id: "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_size" } %>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_title", "Bezeichnung" %>
+          <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_title",
+                payload.dig(downloadable_uri_type, "title"),
+                class: "form-control",
+                name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][title]"
+              )%>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_uri", "Url" %>
+          <%= text_field_tag(
+            "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_uri",
+                payload.dig(downloadable_uri_type, "uri"),
+                class: "form-control",
+                name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][uri]"
+              )%>
+
+          <%= render partial: "tours/form_partials/ar_file_upload" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if downloadable_uri_type_fields.present? %>
+    <div class="row">
+      <% downloadable_uri_type_fields.each do |downloadable_uri_type_field| %>
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
+            <%= text_field_tag(
+                  "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_#{downloadable_uri_type_field}",
+                  payload.dig(downloadable_uri_type, downloadable_uri_type_field.camelize(:lower)).to_s,
+                  class: "form-control",
+                  name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][#{downloadable_uri_type_field}]"
+                )%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <hr />
+<% end %>
+
+<%= hidden_field_tag "tour[tour_stops[#{tour_stop_index}]][payload][total_size]", payload["totalSize"], { id: "tour_tour_stops_#{tour_stop_index}__payload_total_size" } %>
+
+<div class="nested-tour-stop-scenes">
+  <% list_of_tour_stop_ar_scenes.each_with_index do |scene, scene_index| %>
+    <div class="nested-tour-stop-scene-form">
+      <div class="row">
+        <div class="col d-flex flex-wrap justify-content-between">
+          <b>SCENE</b>
+          <%= link_to "#", class: "removeScene btn btn-sm btn-danger" do %>
+            <i class="fa fa-trash text-white"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render partial: "tours/form_partials/tour_stop_ar_scene_form", locals: { form: form, tour_stop_index: tour_stop_index, scene: scene, scene_index: scene_index } %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "#", class: "nested-add-tour-stop-scene btn btn-sm btn-secondary" do %>
+  <i class="fas fa-plus text-white mr-2"></i>
+  AR-Szene hinzufügen
+<% end %>
