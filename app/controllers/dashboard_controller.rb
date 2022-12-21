@@ -77,7 +77,7 @@ class DashboardController < ApplicationController
       @offers = offer_results.data.generic_items
     end
 
-    if helpers.visible_in_role?("role_constuction_site")
+    if helpers.visible_in_role?("role_construction_site")
       construction_results = @smart_village.query <<~GRAPHQL
         query {
           genericItems(genericType: "ConstructionSite") {
