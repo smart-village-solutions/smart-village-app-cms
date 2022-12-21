@@ -41,6 +41,16 @@
     </div>
   </div>
 
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Termine
+      </h3>
+    </div>
+  </div>
+
   <%= render(
         partial: "shared/partials/dates_form",
         locals: {
@@ -49,8 +59,7 @@
           fields: ["date_start"],
           requireds: [],
           labels: { date_start: "Termin" },
-          values: { date_start: Time.now.to_date },
-          force_visibility: true
+          with_removal: true
       }) %>
 
   <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-dates" do %>
