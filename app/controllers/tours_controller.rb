@@ -400,12 +400,14 @@ class ToursController < ApplicationController
                   target["id"] = "-1"
 
                   scene_downloadable_uris.unshift(target)
+                  total_size_calculated_from_downloadable_uris += target["size"].to_i
                 end
                 if tour_stop["payload"]["mp3"].present?
                   mp3 = tour_stop["payload"]["mp3"]
                   mp3["id"] = "-2"
 
                   scene_downloadable_uris.unshift(mp3)
+                  total_size_calculated_from_downloadable_uris += mp3["size"].to_i
                 end
                 if tour_stop["payload"]["light"].present?
                   light = tour_stop["payload"]["light"]
