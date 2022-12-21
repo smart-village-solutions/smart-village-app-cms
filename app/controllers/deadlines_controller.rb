@@ -11,6 +11,9 @@ class DeadlinesController < ApplicationController
       query {
         genericItems(genericType: "Deadline") {
           id
+          categories {
+            name
+          }
           title
           dataProvider {
             name
