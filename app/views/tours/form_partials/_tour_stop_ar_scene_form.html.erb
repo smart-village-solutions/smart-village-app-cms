@@ -5,7 +5,7 @@
 ] %>
 
 <%# ignore target, mp3 and light from downloadable uris because they destroy the order for index %>
-<% scene_downloadable_uris = scene.dig("downloadableUris").select { |downloadable_uri| downloadable_uri["id"].to_i >= 0 } || [] %>
+<% scene_downloadable_uris = (scene.dig("downloadableUris") || []).select { |downloadable_uri| downloadable_uri["id"].to_i >= 0 } %>
 
 <% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
   <% downloadable_uri_type, downloadable_uri_has_upload, downloadable_uri_type_fields = downloadable_uri %>
