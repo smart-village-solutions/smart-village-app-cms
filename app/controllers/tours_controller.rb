@@ -392,7 +392,7 @@ class ToursController < ApplicationController
               # add target, mp3 and light to the first scene in order to have them at the correct
               # place in the object for the mobile app
               if scenes.count.positive?
-                scene = scenes.first
+                scene = scenes.last
                 scene_downloadable_uris = scene["downloadable_uris"]
 
                 if tour_stop["payload"]["target"].present?
