@@ -395,14 +395,14 @@ class ToursController < ApplicationController
                 scene = scenes.last
                 scene_downloadable_uris = scene["downloadable_uris"]
 
-                if tour_stop["payload"]["target"].present?
+                if tour_stop["payload"]["target"].present? && tour_stop["payload"]["target"]["uri"].present?
                   target = tour_stop["payload"]["target"]
                   target["id"] = "-1"
 
                   scene_downloadable_uris.unshift(target)
                   total_size_calculated_from_downloadable_uris += target["size"].to_i
                 end
-                if tour_stop["payload"]["mp3"].present?
+                if tour_stop["payload"]["mp3"].present? && tour_stop["payload"]["mp3"]["uri"].present?
                   mp3 = tour_stop["payload"]["mp3"]
                   mp3["id"] = "-2"
 
