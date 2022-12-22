@@ -15,9 +15,11 @@ $(function () {
         ...defaultNestedFormsOptions,
         remover: '.removeTexture',
         associations: 'downloadable_uris', // needed to correctly increment ids of added sections
-        startIndex: 6,
+        startIndex: 3,
         afterAddForm: (_$container, $form) => {
           initNestedTextures($form);
+
+          $form.find('input[id$="title"]').removeAttr('readonly');
 
           window.bindArFileUploadEvents();
         }
@@ -57,6 +59,8 @@ $(function () {
         afterAddForm: (_$container, $form) => {
           initNestedTextures($form);
 
+          $form.find('input[id$="title"]').removeAttr('readonly');
+
           window.bindArFileUploadEvents();
         }
       });
@@ -82,9 +86,18 @@ $(function () {
             $(form).remove();
           }
         });
+
+        // we do not want to initialize textures, so remove eventually created ones
+        $form.find('.nested-texture-form').each((index, form) => {
+          if (index > 0) {
+            $(form).remove();
+          }
+        });
       },
       afterAddForm: (_$container, $form) => {
         initNestedScenes($form);
+
+        $form.find('input[id$="title"]').removeAttr('readonly');
 
         // init html editors for name and description
         $form
