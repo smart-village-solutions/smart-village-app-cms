@@ -10,7 +10,7 @@
     "@fortawesome/fontawesome-free": "5.9.0",
     "@kanety/jquery-nested-form": "^0.3.0",
     "@rails/actioncable": "^6.1.4",
-    "@rails/activestorage": "^6.1.4",
+    "@rails/activestorage": "^6.1.7",
     "@rails/ujs": "^6.1.4",
     "@rails/webpacker": "^5.2.2",
     "axios": "^0.26.1",
