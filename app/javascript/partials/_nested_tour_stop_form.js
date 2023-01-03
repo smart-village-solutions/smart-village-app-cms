@@ -15,7 +15,7 @@ $(function () {
         ...defaultNestedFormsOptions,
         remover: '.removeTexture',
         associations: 'downloadable_uris', // needed to correctly increment ids of added sections
-        startIndex: 3,
+        startIndex: 1,
         afterAddForm: (_$container, $form) => {
           initNestedTextures($form);
 
