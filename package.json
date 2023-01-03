@@ -19,7 +19,7 @@
     "datatables.net": "^1.10.19",
     "datatables.net-fixedcolumns": "^4.1.0",
     "jquery": "^3.4.1",
-    "leaflet": "^1.7.1",
+    "leaflet": "^1.9.3",
     "leaflet-gesture-handling": "^1.2.2",
     "lodash": "^4.17.21",
     "lodash.template": "^4.5.0",
