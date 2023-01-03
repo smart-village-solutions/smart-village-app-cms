@@ -389,10 +389,16 @@ class ToursController < ApplicationController
                 scenes << scene
               end
 
-              # add target, mp3 and light to the first scene in order to have them at the correct
-              # place in the object for the mobile app
               if scenes.count.positive?
+                # add target, mp3, mp4, image and light to the first scene if there is a start date
+                # and time period in days, otherwise add them to the last scene
+                # in order to have them at the correct place in the object for the mobile app
                 scene = scenes.last
+
+                if tour_stop["payload"]["start_date"].present? && tour_stop["payload"]["time_period_in_days"].present?
+                  scene = scenes.first
+                end
+
                 scene_downloadable_uris = scene["downloadable_uris"]
 
                 if tour_stop["payload"]["target"].present? && tour_stop["payload"]["target"]["uri"].present?
@@ -409,9 +415,23 @@ class ToursController < ApplicationController
                   scene_downloadable_uris.unshift(mp3)
                   total_size_calculated_from_downloadable_uris += mp3["size"].to_i
                 end
+                if tour_stop["payload"]["mp4"].present? && tour_stop["payload"]["mp4"]["uri"].present?
+                  mp4 = tour_stop["payload"]["mp4"]
+                  mp4["id"] = "-3"
+
+                  scene_downloadable_uris.unshift(mp4)
+                  total_size_calculated_from_downloadable_uris += mp4["size"].to_i
+                end
+                if tour_stop["payload"]["image"].present? && tour_stop["payload"]["image"]["uri"].present?
+                  image = tour_stop["payload"]["image"]
+                  image["id"] = "-4"
+
+                  scene_downloadable_uris.unshift(image)
+                  total_size_calculated_from_downloadable_uris += image["size"].to_i
+                end
                 if tour_stop["payload"]["light"].present?
                   light = tour_stop["payload"]["light"]
-                  light["id"] = "-3"
+                  light["id"] = "-5"
 
                   scene_downloadable_uris.unshift(light)
                 end
