@@ -62,7 +62,9 @@
   ["mp3", true, ["is_spatial_sound", "min_distance", "max_distance", "position", "rolloff_model"]],
   ["mp4", true, ["position", "scale", "rotation", "chroma_key_filtered_video"]],
   ["image", true, ["position", "scale", "rotation"]],
-  ["light", false, ["color", "temperature", "intensity"]]
+  ["light", false, ["color", "temperature", "intensity"]],
+  ["quad", false, ["position"]],
+  ["spot", false, ["position", "direction", "inner_angle", "outer_angle", "shadow_opacity"]]
 ] %>
 
 <% downloadable_uris.each_with_index do |downloadable_uri, downloadable_uri_index| %>
@@ -115,7 +117,7 @@
             <%= label_tag "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_#{downloadable_uri_type_field}", downloadable_uri_type_field.humanize %>
             <%= text_field_tag(
                   "tour_tour_stops_#{tour_stop_index}__payload_#{downloadable_uri_type}_#{downloadable_uri_type_field}",
-                  payload.dig(downloadable_uri_type, downloadable_uri_type_field.camelize(:lower)).to_s,
+                  payload.dig(downloadable_uri_type.camelize(:lower), downloadable_uri_type_field.camelize(:lower)).to_s,
                   class: "form-control",
                   name: "tour[tour_stops[#{tour_stop_index}]][payload][#{downloadable_uri_type}][#{downloadable_uri_type_field}]"
                 )%>

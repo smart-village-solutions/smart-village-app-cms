@@ -185,11 +185,11 @@ class ToursController < ApplicationController
       }
     GRAPHQL
 
-    if results.try(:data).try(:destroy_record).try(:status_code) == 200
-      flash["notice"] = "Eintrag wurde gelöscht"
-    else
-      flash["notice"] = "Fehler: #{results.errors.inspect}"
-    end
+    flash["notice"] = if results.try(:data).try(:destroy_record).try(:status_code) == 200
+                        "Eintrag wurde gelöscht"
+                      else
+                        "Fehler: #{results.errors.inspect}"
+                      end
     redirect_to tours_path
   end
 
@@ -243,11 +243,11 @@ class ToursController < ApplicationController
       end
 
       # Convert length_km to Integer
-      if @tour_params["length_km"].present?
-        @tour_params["length_km"] = @tour_params["length_km"].to_i
-      else
-        @tour_params["length_km"] = 0
-      end
+      @tour_params["length_km"] = if @tour_params["length_km"].present?
+                                    @tour_params["length_km"].to_i
+                                  else
+                                    0
+                                  end
 
       # Convert has_many media_contents
       if @tour_params["media_contents"].present?
@@ -316,6 +316,17 @@ class ToursController < ApplicationController
                       next
                     end
 
+                    # set default values
+                    if downloadable_uri.keys.include?("color")
+                      downloadable_uri["color"] = downloadable_uri["color"].presence || "#ffffff"
+                    end
+                    if downloadable_uri.keys.include?("temperature")
+                      downloadable_uri["temperature"] = downloadable_uri["temperature"].presence || "6500"
+                    end
+                    if downloadable_uri.keys.include?("intensity")
+                      downloadable_uri["intensity"] = downloadable_uri["intensity"].presence || "1000"
+                    end
+
                     # converts to float
                     if downloadable_uri["min_distance"].present?
                       downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f
@@ -346,21 +357,17 @@ class ToursController < ApplicationController
                                                        [0, 0, 0]
                                                      end
                     end
+                    if downloadable_uri.keys.include?("direction")
+                      downloadable_uri["direction"] = if downloadable_uri["direction"].present?
+                                                        JSON.parse(downloadable_uri["direction"])
+                                                      else
+                                                        [0, 0, 0]
+                                                      end
+                    end
 
                     # converts to boolean
                     if downloadable_uri.keys.include?("is_spatial_sound")
                       downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
-                    end
-
-                    # set default values
-                    if downloadable_uri.keys.include?("color")
-                      downloadable_uri["color"] = downloadable_uri["color"].presence || "#ffffff"
-                    end
-                    if downloadable_uri.keys.include?("temperature")
-                      downloadable_uri["temperature"] = downloadable_uri["temperature"].presence || "6500"
-                    end
-                    if downloadable_uri.keys.include?("intensity")
-                      downloadable_uri["intensity"] = downloadable_uri["intensity"].presence || "1000"
                     end
 
                     # converts to integer
@@ -390,9 +397,9 @@ class ToursController < ApplicationController
               end
 
               if scenes.count.positive?
-                # add target, mp3, mp4, image and light to the first scene if there is a start date
-                # and time period in days, otherwise add them to the last scene
-                # in order to have them at the correct place in the object for the mobile app
+                # add target, mp3, mp4, image, light, quad and spot to the first scene
+                # if there is a start date and time period in days, otherwise add them to the last
+                # scene in order to have them at the correct place in the object for the mobile app
                 scene = scenes.last
 
                 if tour_stop["payload"]["start_date"].present? && tour_stop["payload"]["time_period_in_days"].present?
@@ -434,6 +441,39 @@ class ToursController < ApplicationController
                   light["id"] = "-5"
 
                   scene_downloadable_uris.unshift(light)
+                end
+                if tour_stop["payload"]["quad"].present?
+                  quad = tour_stop["payload"]["quad"]
+                  quad["id"] = "-6"
+                  quad["height"] = 1000
+                  quad["width"] = 1000
+                  quad["position"] = if quad["position"].present?
+                                       JSON.parse(quad["position"])
+                                     else
+                                       [0, 0, 0]
+                                     end
+
+                  scene_downloadable_uris.unshift(quad)
+                end
+                if tour_stop["payload"]["spot"].present?
+                  spot = tour_stop["payload"]["spot"]
+                  spot["id"] = "-7"
+                  spot["shadow_opacity"] = spot["shadow_opacity"].presence || 0.6
+                  spot["inner_angle"] = spot["inner_angle"].presence || 5
+                  spot["outer_angle"] = spot["outer_angle"].presence || 45
+                  spot["shadow_map_size"] = 2048
+                  spot["position"] = if spot["position"].present?
+                                       JSON.parse(spot["position"])
+                                     else
+                                       [0, 3, 1]
+                                     end
+                  spot["direction"] = if spot["direction"].present?
+                                        JSON.parse(spot["direction"])
+                                      else
+                                        [0, -1, -0.2]
+                                      end
+
+                  scene_downloadable_uris.unshift(spot)
                 end
               end
 
