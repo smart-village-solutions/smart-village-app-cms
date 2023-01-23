@@ -316,70 +316,7 @@ class ToursController < ApplicationController
                       next
                     end
 
-                    # set default values
-                    if downloadable_uri.keys.include?("color")
-                      downloadable_uri["color"] = downloadable_uri["color"].presence || "#ffffff"
-                    end
-                    if downloadable_uri.keys.include?("temperature")
-                      downloadable_uri["temperature"] = downloadable_uri["temperature"].presence || "6500"
-                    end
-                    if downloadable_uri.keys.include?("intensity")
-                      downloadable_uri["intensity"] = downloadable_uri["intensity"].presence || "1000"
-                    end
-
-                    # converts to float
-                    if downloadable_uri["min_distance"].present?
-                      downloadable_uri["min_distance"] = downloadable_uri["min_distance"].to_f
-                    end
-                    if downloadable_uri["max_distance"].present?
-                      downloadable_uri["max_distance"] = downloadable_uri["max_distance"].to_f
-                    end
-
-                    # converts to array or set default value
-                    if downloadable_uri.keys.include?("position")
-                      downloadable_uri["position"] = if downloadable_uri["position"].present?
-                                                       JSON.parse(downloadable_uri["position"])
-                                                     else
-                                                       [0, 0, 0]
-                                                     end
-                    end
-                    if downloadable_uri.keys.include?("scale")
-                      downloadable_uri["scale"] = if downloadable_uri["scale"].present?
-                                                    JSON.parse(downloadable_uri["scale"])
-                                                  else
-                                                    [1, 1, 1]
-                                                  end
-                    end
-                    if downloadable_uri.keys.include?("rotation")
-                      downloadable_uri["rotation"] = if downloadable_uri["rotation"].present?
-                                                       JSON.parse(downloadable_uri["rotation"])
-                                                     else
-                                                       [0, 0, 0]
-                                                     end
-                    end
-                    if downloadable_uri.keys.include?("direction")
-                      downloadable_uri["direction"] = if downloadable_uri["direction"].present?
-                                                        JSON.parse(downloadable_uri["direction"])
-                                                      else
-                                                        [0, 0, 0]
-                                                      end
-                    end
-
-                    # converts to boolean
-                    if downloadable_uri.keys.include?("is_spatial_sound")
-                      downloadable_uri["is_spatial_sound"] = downloadable_uri["is_spatial_sound"].to_s == "true"
-                    end
-
-                    # converts to integer
-                    if downloadable_uri["size"].present?
-                      downloadable_uri["size"] = downloadable_uri["size"].to_i
-                    end
-                    if downloadable_uri["temperature"].present?
-                      downloadable_uri["temperature"] = downloadable_uri["temperature"].to_i
-                    end
-                    if downloadable_uri["intensity"].present?
-                      downloadable_uri["intensity"] = downloadable_uri["intensity"].to_i
-                    end
+                    set_defaults_and_types(downloadable_uri)
 
                     # calculate total size
                     if downloadable_uri["size"].present?
@@ -409,49 +346,44 @@ class ToursController < ApplicationController
                 scene_downloadable_uris = scene["downloadable_uris"]
 
                 if tour_stop["payload"]["target"].present? && tour_stop["payload"]["target"]["uri"].present?
-                  target = tour_stop["payload"]["target"]
+                  target = set_defaults_and_types(tour_stop["payload"]["target"])
                   target["id"] = "-1"
 
                   scene_downloadable_uris.unshift(target)
                   total_size_calculated_from_downloadable_uris += target["size"].to_i
                 end
                 if tour_stop["payload"]["mp3"].present? && tour_stop["payload"]["mp3"]["uri"].present?
-                  mp3 = tour_stop["payload"]["mp3"]
+                  mp3 = set_defaults_and_types(tour_stop["payload"]["mp3"])
                   mp3["id"] = "-2"
 
                   scene_downloadable_uris.unshift(mp3)
                   total_size_calculated_from_downloadable_uris += mp3["size"].to_i
                 end
                 if tour_stop["payload"]["mp4"].present? && tour_stop["payload"]["mp4"]["uri"].present?
-                  mp4 = tour_stop["payload"]["mp4"]
+                  mp4 = set_defaults_and_types(tour_stop["payload"]["mp4"])
                   mp4["id"] = "-3"
 
                   scene_downloadable_uris.unshift(mp4)
                   total_size_calculated_from_downloadable_uris += mp4["size"].to_i
                 end
                 if tour_stop["payload"]["image"].present? && tour_stop["payload"]["image"]["uri"].present?
-                  image = tour_stop["payload"]["image"]
+                  image = set_defaults_and_types(tour_stop["payload"]["image"])
                   image["id"] = "-4"
 
                   scene_downloadable_uris.unshift(image)
                   total_size_calculated_from_downloadable_uris += image["size"].to_i
                 end
                 if tour_stop["payload"]["light"].present?
-                  light = tour_stop["payload"]["light"]
+                  light = set_defaults_and_types(tour_stop["payload"]["light"])
                   light["id"] = "-5"
 
                   scene_downloadable_uris.unshift(light)
                 end
                 if tour_stop["payload"]["quad"].present?
-                  quad = tour_stop["payload"]["quad"]
+                  quad = set_defaults_and_types(tour_stop["payload"]["quad"])
                   quad["id"] = "-6"
                   quad["height"] = 1000
                   quad["width"] = 1000
-                  quad["position"] = if quad["position"].present?
-                                       JSON.parse(quad["position"])
-                                     else
-                                       [0, 0, 0]
-                                     end
 
                   scene_downloadable_uris.unshift(quad)
                 end
@@ -500,5 +432,61 @@ class ToursController < ApplicationController
         end
         @tour_params["tour_stops"] = tour_stops
       end
+    end
+
+    def set_defaults_and_types(entry)
+      # set default values
+      entry["color"] = entry["color"].presence || "#ffffff" if entry.keys.include?("color")
+
+      if entry.keys.include?("temperature")
+        entry["temperature"] = entry["temperature"].presence || "6500"
+      end
+      entry["intensity"] = entry["intensity"].presence || "1000" if entry.keys.include?("intensity")
+
+      # converts to float
+      entry["min_distance"] = entry["min_distance"].to_f if entry["min_distance"].present?
+      entry["max_distance"] = entry["max_distance"].to_f if entry["max_distance"].present?
+
+      # converts to array or set default value
+      if entry.keys.include?("position")
+        entry["position"] = if entry["position"].present?
+                              JSON.parse(entry["position"])
+                            else
+                              [0, 0, 0]
+                            end
+      end
+      if entry.keys.include?("scale")
+        entry["scale"] = if entry["scale"].present?
+                           JSON.parse(entry["scale"])
+                         else
+                           [1, 1, 1]
+                         end
+      end
+      if entry.keys.include?("rotation")
+        entry["rotation"] = if entry["rotation"].present?
+                              JSON.parse(entry["rotation"])
+                            else
+                              [0, 0, 0]
+                            end
+      end
+      if entry.keys.include?("direction")
+        entry["direction"] = if entry["direction"].present?
+                               JSON.parse(entry["direction"])
+                             else
+                               [0, 0, 0]
+                             end
+      end
+
+      # converts to boolean
+      if entry.keys.include?("is_spatial_sound")
+        entry["is_spatial_sound"] = entry["is_spatial_sound"].to_s == "true"
+      end
+
+      # converts to integer
+      entry["size"] = entry["size"].to_i if entry["size"].present?
+      entry["temperature"] = entry["temperature"].to_i if entry["temperature"].present?
+      entry["intensity"] = entry["intensity"].to_i if entry["intensity"].present?
+
+      entry
     end
 end
