@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  def not_found_404
+    head(:not_found)
+  end
 
   def verify_current_user
     return redirect_to log_in_path if session["current_user"].blank?

@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   get "/minio/signed_url", to: "minio#signed_url"
 
+  get "*not_found", to: "application#not_found_404", status: 404
+
   root "dashboard#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
