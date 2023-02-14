@@ -42,6 +42,9 @@ gem "rollbar"
 # https://github.com/kanety/jquery-nested-form
 gem "nested_form_fields"
 
+# Rake assets precompile without DB
+gem "activerecord-nulldb-adapter"
+
 gem "unicorn"
 
 gem "nokogiri", ">= 1.13.9"
@@ -54,9 +57,10 @@ group :development, :test do
   gem "ruby-debug-ide"
 end
 
+gem "listen", ">= 3.0.5", "< 3.2"
+
 group :development do
   # Access an interactive console on exception pages or by calling "console" anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.2"
   gem "web-console", ">= 4.0.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rb-readline"

@@ -6,9 +6,8 @@ set -e
 rm -f /myapp/tmp/pids/server.pid
 rm -f /unicorn.pid
 
-npm set audit false
+# npm set audit false
 
-rake assets:precompile
 cp -r /app/public/* /assets/
 
 exec "$@"
