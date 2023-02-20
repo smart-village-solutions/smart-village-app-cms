@@ -35,8 +35,11 @@ class Importer::WasteCalendar
         next if date.blank?
 
         tour_connection_id = tour_data_line[@tour_assignment[waste_type_key]]
+        next if tour_connection_id.blank?
+
         @address_data.each do |address_data_line|
           address_connection_id = address_data_line[@address_assignment[waste_type_key]]
+          next if address_connection_id.blank?
           next if tour_connection_id != address_connection_id
 
           street = address_data_line.fetch(@address_assignment["street"], "")
