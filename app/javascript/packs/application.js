@@ -118,6 +118,25 @@ $(function () {
     ]
   });
 
+  $('.matrix-checkbox').on('change', function () {
+    var $this = $(this);
+    var addressId = $this.data('address-id');
+    var tourId = $this.data('tour-id');
+    var checked = $this.is(':checked');
+
+    $.post('/waste_calendar/create_street_tour_matrix', {
+      location_tour: { [addressId]: { [tourId]: checked } }
+    }).done(function () {
+      var $confirmation = $('<div>', { class: 'confirmation' }).text('Änderung gespeichert!');
+      $this.closest('td').append($confirmation);
+      setTimeout(function () {
+        $confirmation.fadeOut(function () {
+          $confirmation.remove();
+        });
+      }, 500);
+    });
+  });
+
   // Toggle the side navigation
   $('#sidebarToggle, #sidebarToggleTop').on('click', function () {
     $('.sidebar, #sidebarToggleTop').toggleClass('toggled');

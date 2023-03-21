@@ -13,7 +13,7 @@
     <%= render partial: "waste_calendar/new_tour_address" %>
 
     <% if @waste_locations && @waste_locations.any? %>
-      <%= form_with(url: "/waste_calendar/create_street_tour_matrix", method: :post, local: true) do |f| %>
+      <%= form_with(url: "#", method: :post, remote: true) do |f| %>
 
         <table class="table table-hover table-striped table-sm data_table_matrix nowrap">
           <thead class="thead-light">
@@ -45,16 +45,12 @@
               <% @waste_tours.each do |tour| %>
                 <td>
                   <%= hidden_field_tag "location_tour[#{location["id"]}][#{tour.id}]", false %>
-                  <%= check_box_tag "location_tour[#{location["id"]}][#{tour.id}]", true, selected_tour_ids.include?(tour.id), class: "matrix-checkbox" %>
+                  <%= check_box_tag "location_tour[#{location["id"]}][#{tour.id}]", true, selected_tour_ids.include?(tour.id), class: "matrix-checkbox", data: { address_id: location["id"], tour_id: tour.id } %>
                 </td>
               <% end %>
             </tr>
           <% end %>
         </table>
-
-        <div class="row justify-content-center pb-4">
-          <%= f.submit "Tour-Matrix speichern", class: "btn btn-primary" %>
-        </div>
       <% end %>
     <% end %>
   </div>

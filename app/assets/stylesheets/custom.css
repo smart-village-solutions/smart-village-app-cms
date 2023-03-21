@@ -222,3 +222,12 @@ h1 {
   background-color: #eaecf4;
   z-index: 2;
 }
+
+.data_table_matrix .confirmation {
+  background-color: #ffff00;
+  position: absolute;
+  z-index: 10;
+  display: block;
+  padding: 1px 5px;
+  margin-top: -25px;
+}
