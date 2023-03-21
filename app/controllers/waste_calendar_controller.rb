@@ -62,7 +62,8 @@ class WasteCalendarController < ApplicationController
         @smart_village.query query
       end
     end
-    redirect_to action: :new
+
+    render plain: "OK", status: 200
   end
 
   def create_tour_pickup_times
