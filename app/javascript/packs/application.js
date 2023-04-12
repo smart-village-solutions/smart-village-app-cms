@@ -109,7 +109,7 @@ $(function () {
     language: {
       url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
     },
-    order: [[0, 'desc']],
+    order: [[0, 'asc']],
     columnDefs: [
       {
         bSortable: false,
