@@ -266,6 +266,7 @@ class WasteCalendarController < ApplicationController
           }
         }
       GRAPHQL
+
       @waste_tours = tour_query.data.waste_tours
     end
 
@@ -289,7 +290,6 @@ class WasteCalendarController < ApplicationController
       #   return
       # end
 
-      # Write to cache if not exist
       location_query = @smart_village.query <<~GRAPHQL
         query {
           wasteAddresses(order: street_ASC) {
@@ -298,12 +298,8 @@ class WasteCalendarController < ApplicationController
             city
             zip
             wasteLocationTypes {
-              wasteType
-              id
-              listPickUpDates
               wasteTour {
                 id
-                title
                 wasteType
               }
             }
@@ -312,7 +308,6 @@ class WasteCalendarController < ApplicationController
       GRAPHQL
 
       @waste_locations = location_query.data.waste_addresses
-      @waste_locations = Array(@waste_locations).to_a.map(&:to_h)
 
       # TODO: temporarily commented, as we need memcached for this in order to be successful across multiple workers
       # Rails.cache.write("waste_locations", @waste_locations)

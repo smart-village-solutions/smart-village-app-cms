@@ -14,7 +14,6 @@
 
     <% if @waste_locations && @waste_locations.any? %>
       <%= form_with(url: "#", method: :post, remote: true) do |f| %>
-
         <table class="table table-hover table-striped table-sm data_table_matrix nowrap">
           <thead class="thead-light">
             <tr>
@@ -35,17 +34,17 @@
           <% @waste_locations.each do |location| %>
             <tr>
               <td class="sticky-column">
-                <%= link_to location["street"], edit_location_waste_calendar_index_path(location_id: location["id"]) %>
-                <em class="small">(<%= location["zip"] %> <%= location["city"] %>)</em>
-                <%= link_to remove_location_waste_calendar_index_path(id: location["id"]), class: "close", "data-confirm": "Adresse löschen?" do %>
+                <%= link_to location.street, edit_location_waste_calendar_index_path(location_id: location.id) %>
+                <em class="small">(<%= location.zip %> <%= location.city %>)</em>
+                <%= link_to remove_location_waste_calendar_index_path(id: location.id), class: "close", "data-confirm": "Adresse löschen?" do %>
                   <span aria-hidden="true">&times;</span>
                 <% end %>
               </td>
-              <% selected_tour_ids = location.fetch("wasteLocationTypes", []).map{ |a| a["wasteTour"]}.compact.map{|a| a["id"]}.compact %>
+              <% selected_tour_ids = location.waste_location_types.map{ |waste_location_type| waste_location_type.waste_tour }.compact.map { |waste_location_type| waste_location_type.id }.compact %>
               <% @waste_tours.each do |tour| %>
                 <td>
-                  <%= hidden_field_tag "location_tour[#{location["id"]}][#{tour.id}]", false %>
-                  <%= check_box_tag "location_tour[#{location["id"]}][#{tour.id}]", true, selected_tour_ids.include?(tour.id), class: "matrix-checkbox", data: { address_id: location["id"], tour_id: tour.id } %>
+                  <%= hidden_field_tag "location_tour[#{location.id}][#{tour.id}]", false %>
+                  <%= check_box_tag "location_tour[#{location.id}][#{tour.id}]", true, selected_tour_ids.include?(tour.id), class: "matrix-checkbox", data: { address_id: location.id, tour_id: tour.id } %>
                 </td>
               <% end %>
             </tr>
