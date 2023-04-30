@@ -181,7 +181,7 @@ GEM
     public_suffix (3.1.0)
     puma (3.12.6)
     racc (1.6.0)
-    rack (2.1.4)
+    rack (2.2.6.4)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -311,7 +311,7 @@ DEPENDENCIES
   nested_form_fields
   nokogiri (>= 1.13.9)
   puma (~> 3.12)
-  rack (~> 2.1.4)
+  rack (~> 2.2.6)
   rails (~> 6.1.4, >= 6.1.4.1)
   rake (= 13.0.1)
   rb-readline
