@@ -311,7 +311,7 @@ class EventsController < ApplicationController
           next if price_information.blank?
           next unless nested_values?(price_information.to_h).include?(true)
 
-          price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present?
+          price_information["amount"] = price_information["amount"].to_f if price_information["amount"].present? || price_information["description"].present?
           price_information["age_from"] = price_information["age_from"].present? ? price_information["age_from"].to_f : nil
           price_information["age_to"] = price_information["age_to"].present? ? price_information["age_to"].to_f : nil
           price_informations << price_information
