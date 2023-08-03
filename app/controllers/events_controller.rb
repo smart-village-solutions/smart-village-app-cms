@@ -214,11 +214,9 @@ class EventsController < ApplicationController
   end
 
   def update
-    if is_a_copy? 
-     copy 
-    else 
+    return copy if is_a_copy?
+    
     event_id = params[:id]
-
     query = create_or_update_mutation(true)
     # logger.warn(query)
 
@@ -254,19 +252,38 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
-def copy
-      query = create_or_update_mutation(false, true)
+  def copy
+    query = create_or_update_mutation(false, true)
+
     begin
       results = @smart_village.query query
+      new_event_id = results.data.create_event_record.id 
+
+      # Die Sichtbarkeit der Kopie wird auf unsichtbar gesetzt
+      @smart_village.query <<~GRAPHQL
+        mutation {
+          changeVisibility (
+            id: #{new_event_id},
+            recordType: "EventRecord",
+            visible: false
+          ) {
+            id
+            status
+            statusCode
+          }
+        }
+      GRAPHQL
     rescue Graphlient::Errors::GraphQLError => e
       flash[:error] = e.errors.messages["data"].to_s
       @event = new_event_record
       render :edit
       return
     end
+
     flash[:notice] = "Veranstaltung wurde kopiert"
     redirect_to "/events"
-end
+  end
+
   private
 
     def event_params
