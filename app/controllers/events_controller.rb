@@ -23,6 +23,7 @@ class EventsController < ApplicationController
             dateStart
             dateEnd
           }
+          recurring
           updatedAt
           createdAt
         }

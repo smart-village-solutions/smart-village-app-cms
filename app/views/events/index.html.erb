@@ -29,7 +29,13 @@
           <th scope="row"><%= event.id %></th>
           <td><%= link_to event.title, edit_event_path(event.id) %></td>
           <td><%= event.categories.first.try(:name) %></td>
-          <td><%= event.dates.map { |date| "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" }.join("<br />").html_safe %></td>
+          <td>
+            <%= event.dates.map { |date| "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" }.join("<br />").html_safe %>
+            <% if event.recurring %>
+              <br />
+              <span class="badge badge-secondary">wiederkehrend</span>
+            <% end %>
+          </td>
           <td><%= toLocalDateTime(event.updated_at) %></td>
           <td><%= toLocalDateTime(event.created_at) %></td>
           <% if editor? %>
