@@ -188,6 +188,10 @@ class EventsController < ApplicationController
               description
             }
           }
+          recurring
+          recurringWeekdays
+          recurringType
+          recurringInterval
         }
       }
     GRAPHQL

@@ -1,0 +1,81 @@
+<% weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"] %>
+<% recurring_types = [["Tag(e)", 0], ["Woche(n)", 1], ["Monat(e)", 2], ["Jahr(e)", 3]] %>
+
+<div class="row">
+  <div class="col-12">
+    <h5>Veranstaltungsserie</h5>
+    <p>
+      Erstellen Sie eine Veranstaltungsserie, indem Sie die gewünschten Wiederholungen festlegen.
+    <p>
+  </div>
+
+  <div class="col-12">
+    <div class="form-group">
+      <%= form.check_box(
+            :recurring,
+            { data: { toggle: "collapse", target: ".recurring-collapse" } },
+            1,
+            0
+          ) %>
+      <%= form.label :recurring, "Veranstaltung wiederholen" %>
+    </div>
+  </div>
+</div>
+
+<div class="row collapse recurring-collapse <%= record.recurring ? "show" : "" %>">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= form.label :recurring_interval, "Jede/Alle" %>
+      <%= form.number_field(
+            :recurring_interval,
+            class: "form-control",
+            value: record.recurring_interval || 1
+          ) %>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= form.label :recurring_type, "&nbsp;".html_safe, class: "d-none d-lg-block" %>
+      <%= form.select :recurring_type, recurring_types, {}, class: "form-control custom-select" %>
+    </div>
+  </div>
+
+  <div class="col-lg-12 collapse recurring-weekdays-collapse <%= record.recurring_type == 1 ? "show" : "" %>">
+    <div class="form-group">
+      <% weekdays.each_with_index do |weekday, index| %>
+        <span class="mr-3 text-nowrap">
+          <%= form.check_box(
+                :recurring_weekdays,
+                { multiple: true },
+                index,
+                nil
+              ) %>
+          <%= form.label :recurring_weekdays, weekday, for: "event_recurring_weekdays_#{index}" %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  if ($('#event_recurring').is(':checked')) {
+    $('.recurring-collapse').addClass('show');
+  } else {
+    $('.recurring-collapse').removeClass('show');
+  }
+
+  if ($('#event_recurring_type').val() == 1) {
+    $('.recurring-weekdays-collapse').addClass('show');
+  } else {
+    $('.recurring-weekdays-collapse').removeClass('show');
+  }
+
+  $('#event_recurring_type').change(function (e) {
+    if (e.target.value == 1) {
+      $('.recurring-weekdays-collapse').addClass('show');
+    } else {
+      $('.recurring-weekdays-collapse').removeClass('show');
+    }
+  });
+</script>

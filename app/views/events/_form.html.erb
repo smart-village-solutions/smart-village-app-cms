@@ -82,6 +82,10 @@
           requireds: ['date_start'],
           force_visibility: true
       }) %>
+  <%= render(
+        partial: "shared/partials/recurring_dates_form",
+        locals: { record: event, form: f }
+      ) %>
 
   <div class="row">
     <div class="col">
