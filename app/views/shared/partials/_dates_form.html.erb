@@ -19,6 +19,14 @@
   <% list_of_dates = [record.date] %>
 <% end %>
 
+<%#
+  if we have an event with recurring dates, we just want to show the first date, because
+  the others are generated and are not allowed to be edited
+%>
+<% if record.recurring? %>
+  <% list_of_dates = [record.dates.first] %>
+<% end %>
+
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
     <%= form.fields_for "dates[#{index}]", date do |fd| %>
