@@ -1,4 +1,4 @@
-FROM ruby:2.7.5
+FROM ruby:2.7.6
 
 RUN apt-get update && apt-get install -y curl apt-transport-https ca-certificates wget
 RUN wget --no-check-certificate -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
