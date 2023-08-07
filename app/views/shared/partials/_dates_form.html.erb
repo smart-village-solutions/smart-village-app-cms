@@ -23,7 +23,7 @@
   if we have an event with recurring dates, we just want to show the first date, because
   the others are generated and are not allowed to be edited
 %>
-<% if record.recurring? %>
+<% if record.try(:recurring?) %>
   <% list_of_dates = [record.dates.first] %>
 <% end %>
 
