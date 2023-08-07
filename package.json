@@ -16,7 +16,7 @@
     "axios": "^0.26.1",
     "bootstrap": "^4.6.0",
     "datatable-sorting-datetime-moment": "^1.0.1",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.13.4",
     "datatables.net-fixedcolumns": "^4.1.0",
     "jquery": "^3.4.1",
     "leaflet": "^1.7.1",
