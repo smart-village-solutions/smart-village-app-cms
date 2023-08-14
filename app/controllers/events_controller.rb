@@ -413,6 +413,6 @@ class EventsController < ApplicationController
     end
 
     def is_a_copy?
-      params[:commit] == "Kopieren"
+      params[:commit] == I18n.t("buttons.copy")
     end
 end

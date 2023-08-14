@@ -1,4 +1,7 @@
 en:
+  buttons: 
+    save: "Save"
+    copy: "Copy"
   hello: "Hello world"
   forms:
     lunch:

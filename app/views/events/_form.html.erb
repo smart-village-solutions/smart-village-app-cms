@@ -141,12 +141,12 @@
   <hr />
 
   <div class="row justify-content-center pb-4">
-    <%= f.submit "Speichern", class: "btn btn-primary btn--big" %>
+    <%= f.submit t("buttons.save"), class: "btn btn-primary btn--big" %>
   </div>
 
   <% if event.id.present? %>
-  <div class="row justify-content-center pb-4">
-    <%= f.submit "Kopieren", class: "btn btn-primary btn--big" %>
-  </div>
+    <div class="row justify-content-center pb-4">
+      <%= f.submit t("buttons.copy"), class: "btn btn-link",  id: "real-copy-button", "data-confirm" => t("buttons.confirmations.copy_event") %>
+    </div>
   <% end %>
 <% end %>
