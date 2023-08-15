@@ -12,6 +12,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
+        <th scope="col">Kategorie</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -26,6 +27,7 @@
         <tr>
           <th scope="row"><%= tour.id %></th>
           <td><%= link_to tour.name, edit_tour_path(tour.id) %></td>
+          <td><%= tour.categories.first.try(:name) %></td>
           <td data-sort="<%= DateTime.parse(tour.updated_at).to_i %>">
             <%= to_local_date_time(tour.updated_at) %>
           </td>

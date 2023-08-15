@@ -12,6 +12,9 @@ class ToursController < ApplicationController
         tours {
           id
           name
+          categories {
+            name
+          }
           visible
           dataProvider {
             name

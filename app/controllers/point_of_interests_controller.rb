@@ -12,8 +12,11 @@ class PointOfInterestsController < ApplicationController
         pointsOfInterest {
           id
           name
+          categories {
+            name
+          }
           visible
-          dataProvider{
+          dataProvider {
             name
           }
           updatedAt
