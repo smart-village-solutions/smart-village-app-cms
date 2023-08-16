@@ -7,12 +7,10 @@ require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('jquery');
 require('jquery.easing');
-require('moment');
 require('bootstrap/dist/js/bootstrap.bundle.min.js');
 require('@fortawesome/fontawesome-free/js/all.js');
 var DataTable = require('datatables.net/js/jquery.dataTables.js');
 require('datatables.net-bs4/js/dataTables.bootstrap4.js');
-require('datatable-sorting-datetime-moment');
 require('datatables.net-fixedcolumns');
 require('channels');
 require('@kanety/jquery-nested-form');
@@ -76,8 +74,6 @@ $(function () {
 
   // Init DataTables for all tables with css-class 'data_table'
   $.fn.dataTable = DataTable;
-  $.fn.dataTable.moment('DD.MM.YYYY HH:mm [Uhr]');
-  $.fn.dataTable.moment('DD.MM.YYYY');
   $.fn.dataTableSettings = DataTable.settings;
   $.fn.dataTableExt = DataTable.ext;
   DataTable.$ = $;
@@ -87,16 +83,7 @@ $(function () {
 
   $('.data_table').DataTable({
     searching: true,
-    language: {
-      url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
-    },
     order: [[0, 'desc']],
-    columnDefs: [
-      {
-        bSortable: false,
-        targets: 'nosort'
-      }
-    ]
   });
 
   $('.data_table_matrix').DataTable({
@@ -106,16 +93,7 @@ $(function () {
     fixedColumns: {
       left: 1
     },
-    language: {
-      url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
-    },
     order: [[0, 'asc']],
-    columnDefs: [
-      {
-        bSortable: false,
-        targets: 'nosort'
-      }
-    ]
   });
 
   $('.matrix-checkbox').on('change', function () {
