@@ -27,6 +27,10 @@ module ApplicationHelper
     date_time.to_datetime.in_time_zone("Berlin").strftime("%d.%m.%Y %H:%M Uhr")
   end
 
+  def to_unix_timestamp(date)
+    date.present? ? DateTime.parse(date.to_s).to_i : 0
+  end
+
   def visibility_switch(item, item_class)
     input_switch = check_box_tag(
       "visible-#{item.id}",

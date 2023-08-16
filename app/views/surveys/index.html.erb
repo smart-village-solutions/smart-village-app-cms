@@ -35,8 +35,12 @@
                   survey.comments.count :
                     (link_to survey.comments.count, survey_comments_path(survey.id)) %>
           </td>
-          <td><%= toLocalDate(survey.date.try(:date_start)) %></td>
-          <td><%= toLocalDate(survey.date.try(:date_end)) %></td>
+          <td data-sort="<%= to_unix_timestamp(survey.date.try(:date_start)) %>">
+            <%= toLocalDate(survey.date.try(:date_start)) %>
+          </td>
+          <td data-sort="<%= to_unix_timestamp(survey.date.try(:date_end)) %>">
+            <%= toLocalDate(survey.date.try(:date_end)) %>
+          </td>
           <td data-sort="<%= DateTime.parse(survey.updated_at).to_i %>">
             <%= toLocalDateTime(survey.updated_at) %>
           </td>

@@ -28,7 +28,9 @@
           <th scope="row"><%= deadline.id %></th>
           <td><%= link_to deadline.title, edit_deadline_path(deadline.id) %></td>
           <td><%= deadline.categories.first.try(:name) || "" %></td>
-          <td><%= toLocalDate(deadline.dates.try(:first).try(:date_start)) %></td>
+          <td data-sort="<%= to_unix_timestamp(deadline.dates.try(:first).try(:date_start)) %>">
+            <%= toLocalDate(deadline.dates.try(:first).try(:date_start)) %>
+          </td>
           <td data-sort="<%= DateTime.parse(deadline.updated_at).to_i %>">
             <%= toLocalDateTime(deadline.updated_at) %>
           </td>
