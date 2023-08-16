@@ -39,8 +39,12 @@
               <%= event.dates.map { |date| "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" }.join("<br />").html_safe %>
             <% end %>
           </td>
-          <td><%= toLocalDateTime(event.updated_at) %></td>
-          <td><%= toLocalDateTime(event.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(event.updated_at).to_i %>">
+            <%= toLocalDateTime(event.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(event.created_at).to_i %>">
+            <%= toLocalDateTime(event.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= event.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(event, "EventRecord") %></td>

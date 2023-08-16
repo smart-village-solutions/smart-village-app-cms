@@ -31,8 +31,12 @@
           <td><%= (job.payload || {})["employmentType"] %></td>
           <td><%= toLocalDate(job.publication_date.try(:to_date)) %></td>
           <td><%= toLocalDate(job.dates.try(:first).try(:date_end)) %></td>
-          <td><%= toLocalDateTime(job.updated_at) %></td>
-          <td><%= toLocalDateTime(job.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(job.updated_at).to_i %>">
+            <%= toLocalDateTime(job.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(job.created_at).to_i %>">
+            <%= toLocalDateTime(job.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= job.data_provider.try(:name) %></td>
           <% end %>

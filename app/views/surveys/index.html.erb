@@ -37,8 +37,12 @@
           </td>
           <td><%= toLocalDate(survey.date.try(:date_start)) %></td>
           <td><%= toLocalDate(survey.date.try(:date_end)) %></td>
-          <td><%= toLocalDateTime(survey.updated_at) %></td>
-          <td><%= toLocalDateTime(survey.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(survey.updated_at).to_i %>">
+            <%= toLocalDateTime(survey.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(survey.updated_at).to_i %>">
+            <%= toLocalDateTime(survey.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= survey.data_provider.name %></td>
             <td align="center"><%= visibility_switch(survey, "Survey") %></td>

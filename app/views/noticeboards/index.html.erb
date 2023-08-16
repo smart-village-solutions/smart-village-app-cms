@@ -44,8 +44,12 @@
           <td><%= noticeboard.generic_item_messages.count %></td>
           <td><%= toLocalDate(noticeboard.dates.try(:first).try(:date_start)) %></td>
           <td><%= toLocalDate(noticeboard.dates.try(:first).try(:date_end)) %></td>
-          <td><%= toLocalDateTime(noticeboard.updated_at) %></td>
-          <td><%= toLocalDateTime(noticeboard.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(noticeboard.updated_at).to_i %>">
+            <%= toLocalDateTime(noticeboard.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(noticeboard.created_at).to_i %>">
+            <%= toLocalDateTime(noticeboard.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= noticeboard.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(noticeboard, "Noticeboard") %></td>

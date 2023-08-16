@@ -37,8 +37,12 @@
             <td><%= news_item.title.presence || news_item.content_blocks.first.try(:title) %></td>
           <% end %>
           <td><%= news_item.categories.first.try(:name) %></td>
-          <td><%= toLocalDateTime(news_item.updated_at) %></td>
-          <td><%= toLocalDateTime(news_item.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(news_item.updated_at).to_i %>">
+            <%= toLocalDateTime(news_item.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(news_item.created_at).to_i %>">
+            <%= toLocalDateTime(news_item.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= news_item.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(news_item, "NewsItem") %></td>
