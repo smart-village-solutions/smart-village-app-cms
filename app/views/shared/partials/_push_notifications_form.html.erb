@@ -1,4 +1,4 @@
-<% fields = ["once_at", "recurring", "title", "body"] %>
+<% fields = ["once_at", "title", "body"] %>
 <% list_of_push_notifications = record.push_notifications.presence || [OpenStruct.new] %>
 
 <div class="row">
@@ -22,7 +22,7 @@
           </div>
 
           <div class="card-body">
-            <div class="row collapse recurring-collapse <%= fpn.object.recurring.blank? || fpn.object.recurring.try(:zero?) ? "show" : "" %>">
+            <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
                   <%= fpn.label :once_at, "Einmalig am/um" %>

@@ -19,6 +19,14 @@
   <% list_of_dates = [record.date] %>
 <% end %>
 
+<%#
+  if we have an event with recurring dates, we just want to show the first date, because
+  the others are generated and are not allowed to be edited
+%>
+<% if record.try(:recurring?) %>
+  <% list_of_dates = [record.dates.first] %>
+<% end %>
+
 <div id="nested-dates">
   <% list_of_dates.each_with_index do |date, index| %>
     <%= form.fields_for "dates[#{index}]", date do |fd| %>
@@ -39,7 +47,9 @@
                       :date_start,
                       required: requireds.include?("date_start"),
                       class: "form-control",
-                      value: fd.object.date_start || values[:date_start].presence
+                      value: fd.object.date_start || values[:date_start].presence,
+                      max: (Time.now + 50.years).end_of_year.to_date.to_s,
+                      pattern: "\d{4}-\d{2}-\d{2}"
                     ) %>
               </div>
             </div>
@@ -59,7 +69,9 @@
                       :date_end,
                       required: requireds.include?("date_end"),
                       class: "form-control",
-                      value: fd.object.date_end || values[:date_end].presence
+                      value: fd.object.date_end || values[:date_end].presence,
+                      max: (Time.now + 50.years).end_of_year.to_date.to_s,
+                      pattern: "\d{4}-\d{2}-\d{2}"
                     ) %>
               </div>
             </div>
@@ -83,7 +95,8 @@
                         :time_start,
                         required: requireds.include?("time_start"),
                         class: "form-control",
-                        value: fd.object.time_start || values[:time_start].presence
+                        value: fd.object.time_start || values[:time_start].presence,
+                        pattern: "[0-9]{2}:[0-9]{2}"
                       ) %>
                 </div>
               </div>
@@ -103,7 +116,8 @@
                         :time_end,
                         required: requireds.include?("time_end"),
                         class: "form-control",
-                        value: fd.object.time_end || values[:time_end].presence
+                        value: fd.object.time_end || values[:time_end].presence,
+                        pattern: "[0-9]{2}:[0-9]{2}"
                       ) %>
                 </div>
               </div>

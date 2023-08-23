@@ -23,6 +23,7 @@ class EventsController < ApplicationController
             dateStart
             dateEnd
           }
+          recurring
           updatedAt
           createdAt
         }
@@ -188,6 +189,10 @@ class EventsController < ApplicationController
               description
             }
           }
+          recurring
+          recurringWeekdays
+          recurringType
+          recurringInterval
         }
       }
     GRAPHQL
