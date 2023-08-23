@@ -1,7 +1,8 @@
 module Converter
   class Base
-    def build_mutation(name, data, update = false, return_keys = "id")
+    def build_mutation(name, data, update = false, is_copy = false, return_keys = "id")
       data = cleanup(data) unless name.downcase.include?("update") || update
+      data = copy(data) if is_copy
       data = convert_to_json(data)
       data = convert_keys_to_camelcase(data)
       data = remove_quotes_from_keys(data)
@@ -15,6 +16,12 @@ module Converter
 
     def cleanup(data)
       data.delete :id
+
+      data
+    end
+
+    def copy(data)
+      data[:title] = "#{data[:title]} (Kopie)"
 
       data
     end

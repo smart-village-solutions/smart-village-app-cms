@@ -204,7 +204,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    query = create_or_update_mutation
+    query = create_update_or_copy_mutation
     begin
       results = @smart_village.query query
     rescue Graphlient::Errors::GraphQLError => e
@@ -219,9 +219,10 @@ class EventsController < ApplicationController
   end
 
   def update
-    event_id = params[:id]
+    copy_event_and_set_invisibility and return if is_a_copy?
 
-    query = create_or_update_mutation(true)
+    event_id = params[:id]
+    query = create_update_or_copy_mutation(update: true)
     # logger.warn(query)
 
     begin
@@ -255,6 +256,34 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  def copy_event_and_set_invisibility
+    query = create_update_or_copy_mutation(is_copy: true)
+    begin
+      results = @smart_village.query query
+      @smart_village.query <<~GRAPHQL
+        mutation {
+          changeVisibility (
+            id: #{results.data.create_event_record.id},
+            recordType: "EventRecord",
+            visible: false
+          ) {
+            id
+            status
+            statusCode
+          }
+        }
+      GRAPHQL
+    rescue Graphlient::Errors::GraphQLError => e
+      flash[:error] = e.errors.messages["data"].to_s
+      @event = new_event_record
+      render :edit
+      return
+    end
+
+    flash[:notice] = "Veranstaltung wurde kopiert"
+    redirect_to events_path
+  end
+
   private
 
     def event_params
@@ -278,10 +307,10 @@ class EventsController < ApplicationController
       )
     end
 
-    def create_or_update_mutation(update = false)
+    def create_update_or_copy_mutation(update: false, is_copy: false)
       @event_params = event_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createEventRecord", @event_params, update)
+      Converter::Base.new.build_mutation("createEventRecord", @event_params, update, is_copy)
     end
 
     def convert_params_for_graphql
@@ -382,5 +411,9 @@ class EventsController < ApplicationController
           @event_params.delete :organizer
         end
       end
+    end
+
+    def is_a_copy?
+      params[:commit] == I18n.t("buttons.copy")
     end
 end

@@ -1,4 +1,9 @@
 en:
+  buttons: 
+    save: "Save"
+    copy: "Copy"
+    confirmations:
+      copy_event: "Are you sure you want to create a copy of this event?"
   hello: "Hello world"
   forms:
     lunch:

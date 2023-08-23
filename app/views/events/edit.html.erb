@@ -1,7 +1,9 @@
-<div class="text-center">
-  <h1 class="h3 mb-0 font-weight-bold">
-    Veranstaltung bearbeiten
-  </h1>
+<div class="d-flex flex-wrap align-items-center row-gap justify-content-center mb-5">
+  <h1 class="h3 mb-0 pb-0 font-weight-bold mr-3">Veranstaltung bearbeiten</h1>
+  <button id="trigger-copy-button" class="btn btn-sm btn-primary shadow-sm">
+    <i class="fas fa-plus fa-sm text-white-50"></i>
+    Kopie erstellen
+  </button>
 </div>
 
 <div class="row justify-content-center">
@@ -11,3 +13,10 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  $('#trigger-copy-button').on('click', function(e) {
+    e.preventDefault();
+    $('#real-copy-button').click();
+  });
+</script>

@@ -1,4 +1,9 @@
 de:
+  buttons: 
+    save: "Speichern"
+    copy: "Kopieren"
+    confirmations:
+      copy_event: "Sind Sie sicher, dass Sie eine Kopie dieses Events anlegen möchten?"
   hello: "Hallo Welt"
   forms:
     lunch:
