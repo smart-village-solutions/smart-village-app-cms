@@ -29,7 +29,8 @@
       <%= form.number_field(
             :recurring_interval,
             class: "form-control",
-            value: record.recurring_interval || 1
+            value: record.recurring_interval || 2,
+            min: 2
           ) %>
     </div>
   </div>
@@ -90,6 +91,13 @@
       $('.recurring-weekdays-collapse').addClass('show');
     } else {
       $('.recurring-weekdays-collapse').removeClass('show');
+    }
+
+    // do not allow a recurring pattern for "every day", as this is the default without a pattern
+    if (e.target.value == 0) {
+        $('#event_recurring_interval').prop('min', 2);
+    } else {
+      $('#event_recurring_interval').prop('min', 1);
     }
   });
 </script>
