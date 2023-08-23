@@ -253,15 +253,12 @@ class EventsController < ApplicationController
 
   def copy_event_and_set_invisibility
     query = create_update_or_copy_mutation(is_copy: true)
-
     begin
       results = @smart_village.query query
-      rescue Graphlient::Errors::GraphQLError => e
-
       @smart_village.query <<~GRAPHQL
         mutation {
           changeVisibility (
-            id: #{new_event_id},
+            id: #{results.data.create_event_record.id},
             recordType: "EventRecord",
             visible: false
           ) {
