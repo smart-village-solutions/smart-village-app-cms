@@ -214,7 +214,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    copy_event_and_set_insisibiliy and return if is_a_copy?
+    copy_event_and_set_invisibility and return if is_a_copy?
 
     event_id = params[:id]
     query = create_update_or_copy_mutation(update: true)
@@ -251,7 +251,7 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
-  def copy_event_and_set_insisibiliy
+  def copy_event_and_set_invisibility
     query = create_update_or_copy_mutation(is_copy: true)
 
     begin
