@@ -15,11 +15,8 @@
 </div>
 
 <script>
-  const triggerButton = document.getElementById('trigger-copy-button');
-  const realCopyButton = document.getElementById('real-copy-button');
-  
-  triggerButton.addEventListener('click', function(e) {
-    e.preventDefault(); 
-    realCopyButton.click(); 
+  $('#trigger-copy-button').on('click', function(e) {
+    e.preventDefault();
+    $('#real-copy-button').click();
   });
 </script>
