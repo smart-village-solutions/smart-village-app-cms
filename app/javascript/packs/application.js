@@ -83,7 +83,16 @@ $(function () {
 
   $('.data_table').DataTable({
     searching: true,
+    language: {
+      url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
+    },
     order: [[0, 'desc']],
+    columnDefs: [
+      {
+        bSortable: false,
+        targets: 'nosort'
+      }
+    ]
   });
 
   $('.data_table_matrix').DataTable({
@@ -93,7 +102,16 @@ $(function () {
     fixedColumns: {
       left: 1
     },
+    language: {
+      url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'
+    },
     order: [[0, 'asc']],
+    columnDefs: [
+      {
+        bSortable: false,
+        targets: 'nosort'
+      }
+    ]
   });
 
   $('.matrix-checkbox').on('change', function () {
