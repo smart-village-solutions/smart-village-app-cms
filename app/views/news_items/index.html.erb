@@ -38,10 +38,10 @@
           <% end %>
           <td><%= news_item.categories.first.try(:name) %></td>
           <td data-sort="<%= DateTime.parse(news_item.updated_at).to_i %>">
-            <%= toLocalDateTime(news_item.updated_at) %>
+            <%= to_local_date_time(news_item.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(news_item.created_at).to_i %>">
-            <%= toLocalDateTime(news_item.created_at) %>
+            <%= to_local_date_time(news_item.created_at) %>
           </td>
           <% if editor? %>
             <td><%= news_item.data_provider.try(:name) %></td>

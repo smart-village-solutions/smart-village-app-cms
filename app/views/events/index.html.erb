@@ -32,18 +32,18 @@
           <td>
             <% if event.recurring %>
               <% date = event.dates.first %>
-              <%= "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" %>
+              <%= "Start: #{to_local_date(date.date_start)} - Ende: #{to_local_date(date.date_end)}" %>
               <br />
               <span class="badge badge-secondary">wiederkehrend</span>
             <% else %>
-              <%= event.dates.map { |date| "Start: #{toLocalDate(date.date_start)} - Ende: #{toLocalDate(date.date_end)}" }.join("<br />").html_safe %>
+              <%= event.dates.map { |date| "Start: #{to_local_date(date.date_start)} - Ende: #{to_local_date(date.date_end)}" }.join("<br />").html_safe %>
             <% end %>
           </td>
           <td data-sort="<%= DateTime.parse(event.updated_at).to_i %>">
-            <%= toLocalDateTime(event.updated_at) %>
+            <%= to_local_date_time(event.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(event.created_at).to_i %>">
-            <%= toLocalDateTime(event.created_at) %>
+            <%= to_local_date_time(event.created_at) %>
           </td>
           <% if editor? %>
             <td><%= event.data_provider.try(:name) %></td>

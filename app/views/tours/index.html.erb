@@ -27,10 +27,10 @@
           <th scope="row"><%= tour.id %></th>
           <td><%= link_to tour.name, edit_tour_path(tour.id) %></td>
           <td data-sort="<%= DateTime.parse(tour.updated_at).to_i %>">
-            <%= toLocalDateTime(tour.updated_at) %>
+            <%= to_local_date_time(tour.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(tour.created_at).to_i %>">
-            <%= toLocalDateTime(tour.created_at) %>
+            <%= to_local_date_time(tour.created_at) %>
           </td>
           <% if editor? %>
             <td><%= tour.data_provider.try(:name) %></td>

@@ -71,8 +71,8 @@
     <tbody>
       <% @encounters.each do |encounter| %>
         <tr>
-          <td data-updated-at="<%= toLocalDateTime(encounter["updated_at"]) %>">
-            <%= toLocalDateTime(encounter["created_at"]) %>
+          <td data-updated-at="<%= to_local_date_time(encounter["updated_at"]) %>">
+            <%= to_local_date_time(encounter["created_at"]) %>
           </td>
           <td>
             <% if encounter["user_provided"]["user_uuid"] != @user["user_uuid"] %>

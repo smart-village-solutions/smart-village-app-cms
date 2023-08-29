@@ -30,16 +30,16 @@
           <td><%= link_to job.title, edit_job_path(job.id) %></td>
           <td><%= (job.payload || {})["employmentType"] %></td>
           <td data-sort="<%= to_unix_timestamp(job.publication_date.try(:to_date)) %>">
-            <%= toLocalDate(job.publication_date.try(:to_date)) %>
+            <%= to_local_date(job.publication_date.try(:to_date)) %>
           </td>
           <td data-sort="<%= to_unix_timestamp(job.dates.try(:first).try(:date_end)) %>">
-            <%= toLocalDate(job.dates.try(:first).try(:date_end)) %>
+            <%= to_local_date(job.dates.try(:first).try(:date_end)) %>
           </td>
           <td data-sort="<%= DateTime.parse(job.updated_at).to_i %>">
-            <%= toLocalDateTime(job.updated_at) %>
+            <%= to_local_date_time(job.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(job.created_at).to_i %>">
-            <%= toLocalDateTime(job.created_at) %>
+            <%= to_local_date_time(job.created_at) %>
           </td>
           <% if editor? %>
             <td><%= job.data_provider.try(:name) %></td>

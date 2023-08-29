@@ -43,16 +43,16 @@
           <td><%= noticeboard.categories.first.try(:name) || "" %></td>
           <td><%= noticeboard.generic_item_messages.count %></td>
           <td data-sort="<%= to_unix_timestamp(noticeboard.dates.try(:first).try(:date_start)) %>">
-            <%= toLocalDate(noticeboard.dates.try(:first).try(:date_start)) %>
+            <%= to_local_date(noticeboard.dates.try(:first).try(:date_start)) %>
           </td>
           <<td data-sort="<%= to_unix_timestamp(noticeboard.dates.try(:first).try(:date_end)) %>">
-            <%= toLocalDate(noticeboard.dates.try(:first).try(:date_end)) %>
+            <%= to_local_date(noticeboard.dates.try(:first).try(:date_end)) %>
           </td>
           <td data-sort="<%= DateTime.parse(noticeboard.updated_at).to_i %>">
-            <%= toLocalDateTime(noticeboard.updated_at) %>
+            <%= to_local_date_time(noticeboard.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(noticeboard.created_at).to_i %>">
-            <%= toLocalDateTime(noticeboard.created_at) %>
+            <%= to_local_date_time(noticeboard.created_at) %>
           </td>
           <% if editor? %>
             <td><%= noticeboard.data_provider.try(:name) %></td>

@@ -34,7 +34,7 @@
             <% end %>
           </td>
           <td data-sort="<%= DateTime.parse(survey_comment.created_at).to_i %>">
-            <%= toLocalDateTime(survey_comment.created_at) %>
+            <%= to_local_date_time(survey_comment.created_at) %>
           </td>
           <% if editor? %>
             <td align="center"><%= visibility_switch(survey_comment, "Survey_Comment") %></td>

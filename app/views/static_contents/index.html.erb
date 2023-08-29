@@ -36,11 +36,11 @@
                   locals: { static_content: static_content }
                 ) %>
           </td>
-          <td data-sort="<%= DateTime.parse(static_content.updated_at).to_i %>">         
-            <%= toLocalDateTime(static_content.updated_at) %>
+          <td data-sort="<%= DateTime.parse(static_content.updated_at).to_i %>">
+            <%= to_local_date_time(static_content.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(static_content.updated_at).to_i %>">
-            <%= toLocalDateTime(static_content.created_at) %>
+            <%= to_local_date_time(static_content.created_at) %>
           </td>
           <td align="right" class="text-nowrap">
             <%= link_to(

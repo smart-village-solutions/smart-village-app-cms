@@ -15,13 +15,13 @@ module ApplicationHelper
     false
   end
 
-  def toLocalDate(date)
+  def to_local_date(date)
     return "" unless date.present?
 
     date.to_date.in_time_zone("Berlin").strftime("%d.%m.%Y")
   end
 
-  def toLocalDateTime(date_time)
+  def to_local_date_time(date_time)
     return "" unless date_time.present?
 
     date_time.to_datetime.in_time_zone("Berlin").strftime("%d.%m.%Y %H:%M Uhr")

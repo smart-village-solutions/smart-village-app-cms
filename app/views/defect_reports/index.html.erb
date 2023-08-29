@@ -39,10 +39,10 @@
           </td>
           <td><%= defect_report.categories.first.try(:name) || "" %></td>
           <td data-sort="<%= DateTime.parse(defect_report.updated_at).to_i %>">
-            <%= toLocalDateTime(defect_report.updated_at) %>
+            <%= to_local_date_time(defect_report.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(defect_report.created_at).to_i %>">
-            <%= toLocalDateTime(defect_report.created_at) %>
+            <%= to_local_date_time(defect_report.created_at) %>
           </td>
           <% if editor? %>
             <td><%= defect_report.data_provider.try(:name) %></td>

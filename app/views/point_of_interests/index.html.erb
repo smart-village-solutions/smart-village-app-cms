@@ -27,10 +27,10 @@
           <th scope="row"><%= poi.id %></th>
           <td><%= link_to poi.name, edit_point_of_interest_path(poi.id) %></td>
           <td data-sort="<%= DateTime.parse(poi.updated_at).to_i %>">
-            <%= toLocalDateTime(poi.updated_at) %>
+            <%= to_local_date_time(poi.updated_at) %>
           </td>
           <td data-sort="<%= DateTime.parse(poi.created_at).to_i %>">
-            <%= toLocalDateTime(poi.created_at) %>
+            <%= to_local_date_time(poi.created_at) %>
           </td>
           <% if editor? %>
             <td><%= poi.data_provider.try(:name) %></td>
