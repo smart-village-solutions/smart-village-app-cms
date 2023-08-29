@@ -26,8 +26,12 @@
         <tr>
           <th scope="row"><%= tour.id %></th>
           <td><%= link_to tour.name, edit_tour_path(tour.id) %></td>
-          <td><%= toLocalDateTime(tour.updated_at) %></td>
-          <td><%= toLocalDateTime(tour.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(tour.updated_at).to_i %>">
+            <%= toLocalDateTime(tour.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(tour.created_at).to_i %>">
+            <%= toLocalDateTime(tour.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= tour.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(tour, "Tour") %></td>
