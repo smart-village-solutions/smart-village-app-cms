@@ -28,7 +28,9 @@ module ApplicationHelper
   end
 
   def to_unix_timestamp(date)
-    date.present? ? DateTime.parse(date.to_s).to_i : 0
+    return 0 unless date.present?
+
+    DateTime.parse(date.to_s).to_i
   end
 
   def visibility_switch(item, item_class)
