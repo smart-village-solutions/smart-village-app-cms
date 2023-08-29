@@ -27,10 +27,18 @@
         <tr>
           <th scope="row"><%= offer.id %></th>
           <td><%= link_to offer.title, edit_offer_path(offer.id) %></td>
-          <td><%= toLocalDate(offer.publication_date.try(:to_date)) %></td>
-          <td><%= toLocalDate(offer.dates.try(:first).try(:date_end)) %></td>
-          <td><%= toLocalDateTime(offer.updated_at) %></td>
-          <td><%= toLocalDateTime(offer.created_at) %></td>
+          <td data-sort="<%= to_unix_timestamp(offer.publication_date.try(:to_date)) %>">
+            <%= to_local_date(offer.publication_date.try(:to_date)) %>
+          </td>
+          <td data-sort="<%= to_unix_timestamp(offer.dates.try(:first).try(:date_end)) %>">
+            <%= to_local_date(offer.dates.try(:first).try(:date_end)) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(offer.updated_at).to_i %>">
+            <%= to_local_date_time(offer.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(offer.created_at).to_i %>">
+            <%= to_local_date_time(offer.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= offer.data_provider.try(:name) %></td>
           <% end %>

@@ -38,8 +38,12 @@
                 ) %>
           </td>
           <td><%= defect_report.categories.first.try(:name) || "" %></td>
-          <td><%= toLocalDateTime(defect_report.updated_at) %></td>
-          <td><%= toLocalDateTime(defect_report.created_at) %></td>
+          <td data-sort="<%= DateTime.parse(defect_report.updated_at).to_i %>">
+            <%= to_local_date_time(defect_report.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(defect_report.created_at).to_i %>">
+            <%= to_local_date_time(defect_report.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= defect_report.data_provider.try(:name) %></td>
             <td align="center"><%= visibility_switch(defect_report, "defect_report") %></td>

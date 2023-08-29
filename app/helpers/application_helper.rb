@@ -15,16 +15,22 @@ module ApplicationHelper
     false
   end
 
-  def toLocalDate(date)
+  def to_local_date(date)
     return "" unless date.present?
 
     date.to_date.in_time_zone("Berlin").strftime("%d.%m.%Y")
   end
 
-  def toLocalDateTime(date_time)
+  def to_local_date_time(date_time)
     return "" unless date_time.present?
 
     date_time.to_datetime.in_time_zone("Berlin").strftime("%d.%m.%Y %H:%M Uhr")
+  end
+
+  def to_unix_timestamp(date)
+    return 0 unless date.present?
+
+    DateTime.parse(date.to_s).to_i
   end
 
   def visibility_switch(item, item_class)

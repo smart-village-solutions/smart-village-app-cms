@@ -27,10 +27,18 @@
         <tr>
           <th scope="row"><%= construction.id %></th>
           <td><%= link_to construction.title, edit_construction_path(construction.id) %></td>
-          <td><%= toLocalDate(construction.dates.try(:first).try(:date_start)) %></td>
-          <td><%= toLocalDate(construction.dates.try(:first).try(:date_end)) %></td>
-          <td><%= toLocalDateTime(construction.updated_at) %></td>
-          <td><%= toLocalDateTime(construction.created_at) %></td>
+          <td data-sort="<%= to_unix_timestamp(construction.dates.try(:first).try(:date_start)) %>">
+            <%= to_local_date(construction.dates.try(:first).try(:date_start)) %>
+          </td>
+          <td data-sort="<%= to_unix_timestamp(construction.dates.try(:first).try(:date_end)) %>">
+            <%= to_local_date(construction.dates.try(:first).try(:date_end)) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(construction.updated_at).to_i %>">
+            <%= to_local_date_time(construction.updated_at) %>
+          </td>
+          <td data-sort="<%= DateTime.parse(construction.created_at).to_i %>">
+            <%= to_local_date_time(construction.created_at) %>
+          </td>
           <% if editor? %>
             <td><%= construction.data_provider.try(:name) %></td>
           <% end %>

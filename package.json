@@ -15,7 +15,6 @@
     "@rails/webpacker": "^5.2.2",
     "axios": "^0.26.1",
     "bootstrap": "^4.6.0",
-    "datatable-sorting-datetime-moment": "^1.0.1",
     "datatables.net": "^1.10.19",
     "datatables.net-fixedcolumns": "^4.1.0",
     "jquery": "^3.4.1",
@@ -23,7 +22,6 @@
     "leaflet-gesture-handling": "^1.2.2",
     "lodash": "^4.17.21",
     "lodash.template": "^4.5.0",
-    "moment": "^2.29.4",
     "popper.js": "^1.16.1",
     "startbootstrap-sb-admin-2": "4.0.6",
     "turbolinks": "^5.2.0"
@@ -44,7 +42,6 @@
     "webpack-dev-server": "^3.11.3"
   },
   "resolutions": {
-    "jquery": "3.4.1",
-    "moment": "^2.29.4"
+    "jquery": "3.4.1"
   }
 }
