@@ -310,7 +310,7 @@ class EventsController < ApplicationController
     def create_update_or_copy_mutation(update: false, is_copy: false)
       @event_params = event_params
       convert_params_for_graphql
-      Converter::Base.new.build_mutation("createEventRecord", @event_params, update, is_copy)
+      Converter::Base.new.build_mutation("createEventRecord", @event_params, update, "id", is_copy)
     end
 
     def convert_params_for_graphql

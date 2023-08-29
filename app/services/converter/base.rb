@@ -1,6 +1,6 @@
 module Converter
   class Base
-    def build_mutation(name, data, update = false, is_copy = false, return_keys = "id")
+    def build_mutation(name, data, update = false, return_keys = "id", is_copy = false)
       data = cleanup(data) unless name.downcase.include?("update") || update
       data = copy(data) if is_copy
       data = convert_to_json(data)
