@@ -25,7 +25,7 @@
 <div class="row collapse recurring-collapse <%= record.recurring ? "show" : "" %>">
   <div class="col-lg-6">
     <div class="form-group">
-      <%= form.label :recurring_interval, "Jede/Alle" %>
+      <%= form.label :recurring_interval, "Jede/Alle *" %>
       <%= form.number_field(
             :recurring_interval,
             class: "form-control",
@@ -62,19 +62,23 @@
 <script>
   if ($('#event_recurring').is(':checked')) {
     $('.recurring-collapse').addClass('show');
-      $('#event_dates_0__date_end').prop('required', true);
-      $('#event_dates_0__date_end').prev().text('Enddatum *');
+    $('#event_recurring_interval').prop('required', true);
+    $('#event_dates_0__date_end').prop('required', true);
+    $('#event_dates_0__date_end').prev().text('Enddatum *');
   } else {
     $('.recurring-collapse').removeClass('show');
-      $('#event_dates_0__date_end').prop('required', false);
-      $('#event_dates_0__date_end').prev().text('Enddatum');
+    $('#event_recurring_interval').prop('required', false);
+    $('#event_dates_0__date_end').prop('required', false);
+    $('#event_dates_0__date_end').prev().text('Enddatum');
   }
 
   $('#event_recurring').change(function (e) {
     if ($('#event_recurring').is(':checked')) {
+      $('#event_recurring_interval').prop('required', true);
       $('#event_dates_0__date_end').prop('required', true);
       $('#event_dates_0__date_end').prev().text('Enddatum *');
     } else {
+      $('#event_recurring_interval').prop('required', false);
       $('#event_dates_0__date_end').prop('required', false);
       $('#event_dates_0__date_end').prev().text('Enddatum');
     }
