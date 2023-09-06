@@ -12,6 +12,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Überschrift</th>
+        <th scope="col">Kategorie</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
         <% if editor? %>
@@ -26,6 +27,7 @@
         <tr>
           <th scope="row"><%= poi.id %></th>
           <td><%= link_to poi.name, edit_point_of_interest_path(poi.id) %></td>
+          <td><%= poi.categories.first.try(:name) %></td>
           <td data-sort="<%= DateTime.parse(poi.updated_at).to_i %>">
             <%= to_local_date_time(poi.updated_at) %>
           </td>
