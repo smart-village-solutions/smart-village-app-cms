@@ -29,6 +29,7 @@ class ToursController < ApplicationController
   end
 
   def show
+    redirect_to edit_tour_path(params[:id])
   end
 
   def new

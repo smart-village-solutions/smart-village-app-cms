@@ -28,6 +28,7 @@ class OffersController < ApplicationController
   end
 
   def show
+    redirect_to edit_offer_path(params[:id])
   end
 
   def new

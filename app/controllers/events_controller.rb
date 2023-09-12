@@ -34,6 +34,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    redirect_to edit_event_path(params[:id])
   end
 
   def new

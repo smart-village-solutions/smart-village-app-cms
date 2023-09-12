@@ -22,6 +22,10 @@ class StaticContentsController < ApplicationController
     @static_contents = results.data.static_contents
   end
 
+  def show
+    redirect_to edit_static_content_path(params[:name])
+  end
+
   def new
     @static_content = new_static_content_record
   end

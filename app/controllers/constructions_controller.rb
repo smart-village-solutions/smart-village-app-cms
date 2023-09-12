@@ -30,6 +30,7 @@ class ConstructionsController < ApplicationController
   end
 
   def show
+    redirect_to edit_construction_path(params[:id])
   end
 
   def new

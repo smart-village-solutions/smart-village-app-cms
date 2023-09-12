@@ -33,6 +33,10 @@ class SurveysController < ApplicationController
     @surveys = results.data.surveys
   end
 
+  def show
+    redirect_to edit_survey_path(params[:id])
+  end
+
   def new
     @survey = new_survey_record
   end

@@ -33,6 +33,7 @@ class NewsItemsController < ApplicationController
   end
 
   def show
+    redirect_to edit_news_item_path(params[:id])
   end
 
   def new

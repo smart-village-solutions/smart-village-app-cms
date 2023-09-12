@@ -29,6 +29,7 @@ class JobsController < ApplicationController
   end
 
   def show
+    redirect_to edit_job_path(params[:id])
   end
 
   def new

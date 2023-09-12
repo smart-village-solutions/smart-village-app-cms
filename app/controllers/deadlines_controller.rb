@@ -32,6 +32,7 @@ class DeadlinesController < ApplicationController
   end
 
   def show
+    redirect_to edit_deadline_path(params[:id])
   end
 
   def new

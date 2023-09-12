@@ -29,6 +29,7 @@ class PointOfInterestsController < ApplicationController
   end
 
   def show
+    redirect_to edit_point_of_interest_path(params[:id])
   end
 
   def new
