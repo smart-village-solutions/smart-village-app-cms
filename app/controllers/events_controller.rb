@@ -17,6 +17,7 @@ class EventsController < ApplicationController
           }
           visible
           dataProvider {
+            id
             name
           }
           dates {

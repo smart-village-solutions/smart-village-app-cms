@@ -16,6 +16,7 @@ class NewsItemsController < ApplicationController
             name
           }
           dataProvider {
+            id
             name
           }
           visible

@@ -14,6 +14,7 @@ class ConstructionsController < ApplicationController
           title
           payload
           dataProvider {
+            id
             name
           }
           dates {

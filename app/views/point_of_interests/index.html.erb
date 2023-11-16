@@ -39,7 +39,8 @@
             <td align="center"><%= visibility_switch(poi, "PointOfInterest") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
-            <%= link_to "Bearbeiten", edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
+            <% edit_label = editable_by_user?(poi) ? "Bearbeiten" : "Ansehen" %>
+            <%= link_to edit_label, edit_point_of_interest_path(poi.id), class: "btn btn-sm btn-secondary" %>
             <%= link_to point_of_interest_path(poi.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
               <i class="fas fa-trash"></i>
             <% end %>
