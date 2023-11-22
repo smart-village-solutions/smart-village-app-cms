@@ -14,7 +14,6 @@ class SurveysController < ApplicationController
           questionTitle
           visible
           dataProvider {
-            id
             name
           }
           date {

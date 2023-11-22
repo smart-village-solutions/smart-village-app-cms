@@ -13,7 +13,6 @@ class JobsController < ApplicationController
           title
           payload
           dataProvider {
-            id
             name
           }
           publicationDate
