@@ -50,8 +50,10 @@
           <td align="right" class="text-nowrap">
             <% edit_label = editable_by_user?(news_item) ? "Bearbeiten" : "Ansehen" %>
             <%= link_to edit_label, edit_news_item_path(news_item.id), class: "btn btn-sm btn-secondary" if news_item.push_notifications_sent_at.blank? %>
-            <%= link_to news_item_path(news_item.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
-              <i class="fas fa-trash"></i>
+            <% if editable_by_user?(news_item) %>
+              <%= link_to news_item_path(news_item.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+                <i class="fas fa-trash"></i>
+              <% end %>
             <% end %>
           </td>
         </tr>
