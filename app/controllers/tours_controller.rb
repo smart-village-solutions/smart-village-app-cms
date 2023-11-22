@@ -17,6 +17,7 @@ class ToursController < ApplicationController
           }
           visible
           dataProvider {
+            id
             name
           }
           updatedAt

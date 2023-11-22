@@ -50,9 +50,12 @@
             <td align="center"><%= visibility_switch(event, "EventRecord") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
-            <%= link_to "Bearbeiten", edit_event_path(event.id), class: "btn btn-sm btn-secondary" %>
-            <%= link_to event_path(event.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
-              <i class="fas fa-trash"></i>
+            <% edit_label = editable_by_user?(event) ? "Bearbeiten" : "Ansehen" %>
+            <%= link_to edit_label, edit_event_path(event.id), class: "btn btn-sm btn-secondary" %>
+            <% if editable_by_user?(event) %>
+              <%= link_to event_path(event.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+                <i class="fas fa-trash"></i>
+              <% end %>
             <% end %>
           </td>
         </tr>

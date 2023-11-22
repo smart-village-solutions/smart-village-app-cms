@@ -1,5 +1,5 @@
 class User
-  attr_accessor :name, :email, :data_provider, :applications,
+  attr_accessor :name, :email, :data_provider, :data_provider_id, :applications,
                 :authentication_token, :roles, :permission, :minio
 
   def initialize(user_data)
@@ -7,6 +7,7 @@ class User
     @password = user_data[:password]
     @authentication_token = user_data[:authentication_token]
     @data_provider = user_data[:data_provider]
+    @data_provider_id = user_data[:data_provider_id]
     @roles = user_data[:roles]
     @applications = user_data[:applications]
     @permission = user_data[:permission]
@@ -41,9 +42,12 @@ class User
     result = ApiRequestService.new(uri.to_s, nil, nil, user_credentials).post_request
     if result.code == "200" && result.body.present?
       data = JSON.parse(result.body)
+      return { error: "Account has no permissions" } if data["roles"].blank?
+
       @authentication_token = data["user"]["authentication_token"]
       @applications = data["applications"]
       @data_provider = data["data_provider"]
+      @data_provider_id = data["data_provider_id"]
       @roles = data["roles"]
       @permission = data["user"]["role"]
       @minio = data["minio"]

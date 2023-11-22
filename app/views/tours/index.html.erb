@@ -39,9 +39,12 @@
             <td align="center"><%= visibility_switch(tour, "Tour") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
-            <%= link_to "Bearbeiten", edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
-            <%= link_to tour_path(tour.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
-              <i class="fas fa-trash"></i>
+            <% edit_label = editable_by_user?(tour) ? "Bearbeiten" : "Ansehen" %>
+            <%= link_to edit_label, edit_tour_path(tour.id), class: "btn btn-sm btn-secondary" %>
+            <% if editable_by_user?(tour) %>
+              <%= link_to tour_path(tour.id), method: :delete, "data-confirm" => "Diesen Eintrag wirklich löschen?", class: "btn btn-sm btn-danger", title: "Löschen" do %>
+                <i class="fas fa-trash"></i>
+              <% end %>
             <% end %>
           </td>
         </tr>

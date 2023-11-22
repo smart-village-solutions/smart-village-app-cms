@@ -16,7 +16,8 @@ class PointOfInterestsController < ApplicationController
             name
           }
           visible
-          dataProvider {
+          dataProvider{
+            id
             name
           }
           updatedAt

@@ -15,9 +15,10 @@ class SessionController < ApplicationController
         session["current_user"]["roles"] = @current_user.roles
         session["current_user"]["permission"] = @current_user.permission
         session["current_user"]["minio"] = @current_user.minio
+        session["current_user"]["data_provider_id"] = @current_user.data_provider_id
         redirect_to root_path
       else
-        flash[:error] = "E-Mail oder Passwort ist falsch"
+        flash[:error] = "E-Mail oder Passwort ist falsch."
         redirect_to log_in_path
       end
     end
