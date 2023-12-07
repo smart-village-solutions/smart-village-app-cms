@@ -17,8 +17,10 @@
         <th scope="col">Enddatum</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
-        <% if editor? %>
+        <% if editor? || extended_user? %>
           <th>Datenquelle</th>
+        <% end %>
+        <% if editor? %>
           <th scope="col" class="nosort">Sichtbarkeit</th>
         <% end %>
         <th scope="col" class="nosort">Aktionen</th>
@@ -47,8 +49,10 @@
           <td data-sort="<%= DateTime.parse(survey.updated_at).to_i %>">
             <%= to_local_date_time(survey.created_at) %>
           </td>
-          <% if editor? %>
+          <% if editor? || extended_user? %>
             <td><%= survey.data_provider.name %></td>
+          <% end %>
+          <% if editor? %>
             <td align="center"><%= visibility_switch(survey, "Survey") %></td>
           <% end %>
           <td align="right" class="text-nowrap">

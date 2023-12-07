@@ -15,6 +15,14 @@ module ApplicationHelper
     false
   end
 
+  def extended_user?
+    return false if @current_user.blank?
+    return false if @current_user.permission.blank?
+    return true if @current_user.permission == "extended_user"
+
+    false
+  end
+
   def editable_by_user?(item)
     return false if @current_user.permission == "extended_user" && item.data_provider.id.to_i != @current_user.data_provider_id.to_i
 

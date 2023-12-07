@@ -15,8 +15,10 @@
         <th scope="col">Kategorie</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
-        <% if editor? %>
+        <% if editor? || extended_user? %>
           <th>Datenquelle</th>
+        <% end %>
+        <% if editor?  %>
           <th scope="col" class="nosort">Sichtbarkeit</th>
         <% end %>
         <th scope="col" class="nosort">Aktionen</th>
@@ -43,8 +45,10 @@
           <td data-sort="<%= DateTime.parse(news_item.created_at).to_i %>">
             <%= to_local_date_time(news_item.created_at) %>
           </td>
-          <% if editor? %>
+          <% if editor? || extended_user? %>
             <td><%= news_item.data_provider.try(:name) %></td>
+          <% end %>
+          <% if editor? %>
             <td align="center"><%= visibility_switch(news_item, "NewsItem") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
