@@ -17,7 +17,7 @@
         <th scope="col">Ablaufdatum</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
-        <% if editor? %>
+        <% if editor? || extended_user? %>
           <th>Datenquelle</th>
         <% end %>
         <th scope="col" class="nosort">Aktionen</th>
@@ -41,7 +41,7 @@
           <td data-sort="<%= DateTime.parse(job.created_at).to_i %>">
             <%= to_local_date_time(job.created_at) %>
           </td>
-          <% if editor? %>
+          <% if editor? || extended_user? %>
             <td><%= job.data_provider.try(:name) %></td>
           <% end %>
           <td align="right" class="text-nowrap">

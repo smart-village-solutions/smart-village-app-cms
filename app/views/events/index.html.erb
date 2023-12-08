@@ -16,8 +16,10 @@
         <th scope="col">Termine</th>
         <th scope="col">Änderungsdatum</th>
         <th scope="col">Erstellungsdatum</th>
-        <% if editor? %>
+        <% if editor? || extended_user? %>
           <th>Datenquelle</th>
+        <% end %>
+        <% if editor? %>
           <th scope="col" class="nosort">Sichtbarkeit</th>
         <% end %>
         <th scope="col" class="nosort">Aktionen</th>
@@ -45,8 +47,10 @@
           <td data-sort="<%= DateTime.parse(event.created_at).to_i %>">
             <%= to_local_date_time(event.created_at) %>
           </td>
-          <% if editor? %>
+          <% if editor? || extended_user? %>
             <td><%= event.data_provider.try(:name) %></td>
+          <% end %>
+          <% if editor? %>
             <td align="center"><%= visibility_switch(event, "EventRecord") %></td>
           <% end %>
           <td align="right" class="text-nowrap">
