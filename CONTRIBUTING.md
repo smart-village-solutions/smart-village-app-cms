@@ -1,28 +1,33 @@
 # Contributing
 
-We love your work. We want to make it as easy as possible for you to contribute to our project. This document describes the steps you need to take to contribute to our project.
+Thank you for your interest in contributing to our project! We value your contributions and want to make the process as smooth as possible. This document outlines the necessary steps and guidelines to help you contribute effectively.
 
-## Steps
+## Contribution Steps
 
-- Feature branches should be created from the 'master' branch, based on the target deployment.
-- Use the convention `[feat/update/fix/]SVA-...`, aligning with the corresponding Jira ticket, if existing.
-- include `SVA-[Ticket-Number]` at the bottom of the commits message description, if existing.
-- Pull Requests (PRs):
-  - Description: Provide a detailed description, preferably with supporting images
-  - Assignees: Assign yourself as the PR owner
-  - Reviewers: Add two colleagues for peer review
-  - Labels: Attach the appropriate label to categorize the PR
-- Jira, if you have access
-  - Assign the category (e.g., 'Internal Review') within Jira
-  - Select a person for review
-  - Set a due date
-  - Add a comment for additional context
+1. **Branching**:
+   - Create feature branches from the 'master' branch, considering the target deployment.
+   - Use the naming convention `[feat/update/fix/]SVA-...`, aligning with the corresponding Jira ticket, if it exists.
 
-## Commits
+2. **Commit Messages**:
+   - Include `SVA-[Ticket-Number]` at the bottom of the commit message description, if a Jira ticket exists.
 
-Please pay attention to detailed and meaningful commit messages.
+3. **Pull Requests (PRs)**:
+   - **Description**: Provide a comprehensive description, including supporting images if applicable.
+   - **Assignees**: Assign yourself to the PR.
+   - **Reviewers**: Select two colleagues for peer review.
+   - **Labels**: Attach relevant labels to categorize the PR.
 
-A good summary, thx to: https://www.freecodecamp.org/news/writing-good-commit-messages-a-practical-guide/
+4. **Jira Integration** (if you have access):
+   - Assign the appropriate category (e.g., 'Internal Review').
+   - Select a reviewer.
+   - Set a due date.
+   - Add comments for additional context and clarification.
+
+## Writing Good Commits
+
+Commit messages are a vital part of our development process. Please follow these guidelines for writing clear and concise commit messages:
+
+A good summary, thanks to: [freeCodeCamp](https://www.freecodecamp.org/news/writing-good-commit-messages-a-practical-guide/)
 
 > - Specify the type of commit:
 >   - feat: The new feature you're adding to a particular application
@@ -41,4 +46,4 @@ A good summary, thx to: https://www.freecodecamp.org/news/writing-good-commit-me
 > - Use the body to explain what changes you have made and why you made them.
 > - Do not assume the reviewer understands what the original problem was, ensure you add it.
 > - Do not think your code is self-explanatory
-> - Follow existing commit conventions, for example: https://www.conventionalcommits.org/en/v1.0.0/
+> - Follow existing commit conventions, for example: [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
