@@ -15,6 +15,7 @@ RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 
 WORKDIR /app
 
+RUN gem install bundler -v 2.5.6
 COPY Gemfile Gemfile.lock /app/
 RUN gem install bundler
 RUN bundle config set without "development test"
