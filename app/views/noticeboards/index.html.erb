@@ -47,7 +47,7 @@
           <td data-sort="<%= to_unix_timestamp(noticeboard.dates.try(:first).try(:date_start)) %>">
             <%= to_local_date(noticeboard.dates.try(:first).try(:date_start)) %>
           </td>
-          <<td data-sort="<%= to_unix_timestamp(noticeboard.dates.try(:first).try(:date_end)) %>">
+          <td data-sort="<%= to_unix_timestamp(noticeboard.dates.try(:first).try(:date_end)) %>">
             <%= to_local_date(noticeboard.dates.try(:first).try(:date_end)) %>
           </td>
           <td data-sort="<%= DateTime.parse(noticeboard.updated_at).to_i %>">
