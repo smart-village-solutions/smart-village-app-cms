@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
         categories {
           id
           name
+          tagList
         }
       }
     GRAPHQL
