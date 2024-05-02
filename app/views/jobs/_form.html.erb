@@ -24,14 +24,14 @@
     <div class="col">
       <div class="form-group">
         <label for="description">Art der Anstellung *</label>
-        <%= text_field_tag(
-              "job_payload_employment_type",
-              (@job.payload || {})["employmentType"],
-              required: true,
-              placeholder: "Vollzeit, Teilzeit, Ausbildung, ...",
-              class: "form-control",
-              name: "job[payload][employment_type]"
-            )%>
+        <% categories = @categories.select { |category| category.tag_list.split(",").include?("generic_item_job") }.map(&:name) %>
+        <%= select_tag(
+                        "job[payload][employment_type]",
+                        options_for_select(categories, (@job.payload || {})["employmentType"]),
+                        include_blank: true,
+                        class: "form-control",
+                        required: true
+                      ) %>
       </div>
     </div>
   </div>

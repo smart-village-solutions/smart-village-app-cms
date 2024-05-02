@@ -55,7 +55,7 @@
         Jede Veranstaltung kann in einer oder mehreren Kategorien abgelegt werden.
       <p>
 
-      <%= render partial: "shared/partials/categories_form", locals: { record: event, record_type: "event", form: f } %>
+      <%= render partial: "shared/partials/categories_form", locals: { record: event, record_type: "event", form: f, tag_filter: "event_record" } %>
 
       <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-category" do %>
         <i class="fas fa-plus text-white mr-2"></i>

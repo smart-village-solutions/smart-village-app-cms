@@ -59,7 +59,7 @@
         In der mobilen App wird hauptsächlich zwischen Nachrichten und Informationen unterschieden.
       </p>
 
-      <%= render partial: "shared/partials/categories_form", locals: { record: news_item, record_type: "news_item", form: f } %>
+      <%= render partial: "shared/partials/categories_form", locals: { record: news_item, record_type: "news_item", form: f, tag_filter: "news_item" } %>
 
       <%= link_to "#", class: "btn btn-sm btn-secondary", id: "nested-add-category" do %>
         <i class="fas fa-plus text-white mr-2"></i>
