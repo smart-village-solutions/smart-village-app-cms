@@ -24,12 +24,13 @@
     <div class="col">
       <div class="form-group">
         <label for="description">Art der Anstellung *</label>
-        <% @categories = @categories.select { |category| category.tag_list.split(",").include?("generic_item_job") } %>%
+        <% categories = @categories.select { |category| category.tag_list.split(",").include?("generic_item_job") }.map(&:name) %>
         <%= select_tag(
                         "job[payload][employment_type]",
-                        options_for_select(@categories.map(&:name), (@job.payload || {})["employmentType"]),
+                        options_for_select(categories, (@job.payload || {})["employmentType"]),
                         include_blank: true,
-                        class: "form-control"
+                        class: "form-control",
+                        required: true
                       ) %>
       </div>
     </div>
