@@ -2,7 +2,7 @@
 <% force_visibility ||= false %>
 <% list_of_categories = record.categories.presence || [OpenStruct.new] %>
 <% tag_filter ||= nil %>
-<% @categories = @categories.select { |category| category.tag_list.blank? || category.tag_list.split(",").include?(tag_filter) } if tag_filter.present? %>
+<% @categories = @categories.select { |category| category.tag_list.blank? || category.tag_list.split(",").map(&:strip).include?(tag_filter) } if tag_filter.present? %>
 
 <div id="nested-categories">
   <% list_of_categories.each_with_index do |category, index| %>
