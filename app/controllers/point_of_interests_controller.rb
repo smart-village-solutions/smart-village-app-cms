@@ -273,7 +273,8 @@ class PointOfInterestsController < ApplicationController
           if opening_hour[:open].present? && opening_hour[:open] == "false"
             opening_hour[:open] = false
           end
-          opening_hours << opening_hour if nested_values?(opening_hour.to_h).include?(true)
+          # exclude :open from the check, because it is always something
+          opening_hours << opening_hour if nested_values?(opening_hour.except(:open).to_h).include?(true)
         end
         @point_of_interest_params["opening_hours"] = opening_hours
       end
