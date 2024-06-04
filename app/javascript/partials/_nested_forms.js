@@ -108,6 +108,9 @@ $(function () {
       $container.children('.nested-opening-hour-form').removeClass('d-none');
     },
     afterAddForm: (_$container, $form) => {
+      // clear date and time inputs because normally just texts and textareas are cleared
+      $form.find('input[type="time"], input[type="date"], input[type="datetime-local"]').val('');
+      // adjust initial fields to have `open` checked
       $form.find('[id$="open"]').prop('checked', true);
     }
   });
