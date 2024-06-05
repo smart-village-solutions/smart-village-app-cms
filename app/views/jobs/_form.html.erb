@@ -72,11 +72,36 @@
     </div>
   </div>
 
-  <%= render partial: "shared/partials/operating_company_form", locals: { record: job, form: f, object: job.companies.try(:first) } %>
+  <%= render(
+        partial: "shared/partials/operating_company_form",
+        locals: {
+          record: job,
+          form: f,
+          object: job.companies.try(:first)
+        }
+      ) %>
 
   <hr />
 
-  <%= render partial: "shared/partials/contacts_form", locals: { record: job, form: f, sections: [] } %>
+  <%= render(
+        partial: "shared/partials/contacts_form",
+        locals: {
+          record: job,
+          form: f,
+          sections: [] ,
+          force_visibility: true
+        }
+      ) %>
+
+  <hr />
+
+  <div class="row">
+    <div class="col">
+      <h3 class="d-sm-flex align-items-center justify-content-between my-4">
+        Laufzeit
+      </h3>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-12 col-sm-6">
@@ -106,7 +131,8 @@
             date_end: (Time.now + 4.weeks).to_date
           },
           force_visibility: true
-      }) %>
+        }
+      ) %>
 
   <hr />
 

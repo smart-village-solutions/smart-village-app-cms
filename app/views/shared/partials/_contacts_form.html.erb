@@ -1,6 +1,7 @@
 <% sections ||= ["header", "button"] %>
 <% headline ||= "Ansprechpartner" %>
 <% fields = ["first_name", "last_name", "email", "phone", "fax", "web_urls"] %>
+<% force_visibility ||= false %>
 <% list_of_contacts = record.contacts.presence || [OpenStruct.new] %>
 
 <div class="row">
@@ -14,7 +15,7 @@
 <div id="nested-contacts">
   <% list_of_contacts.each_with_index do |contact, index| %>
     <%= form.fields_for "contacts[#{index}]", contact do |fc| %>
-      <div class="nested-contact-form<%= " d-none" if empty?(contact, fields) %>">
+      <div class="nested-contact-form<%= " d-none" if !force_visibility && empty?(contact, fields) %>">
         <div class="card mb-4">
           <% if sections.include?("header") %>
             <div class="d-flex flex-wrap justify-content-between card-header py-3  bg-dark text-white">
