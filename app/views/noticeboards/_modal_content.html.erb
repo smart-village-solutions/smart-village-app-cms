@@ -10,10 +10,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <% if noticeboard.media_contents.present? %>
+        <% if noticeboard.media_contents.try(:first).try(:source_url).try(:url).present? %>
           <div class="text-center">
             <%= image_tag(
-                  noticeboard.media_contents.first.try(:source_url).try(:url),
+                  noticeboard.media_contents.first.source_url.url,
                   class: "img-fluid mb-3"
                 ) %>
           </div>
