@@ -17,6 +17,11 @@ class NoticeboardsController < ApplicationController
             title
             body
           }
+          mediaContents {
+            sourceUrl {
+              url
+            }
+          }
           contacts {
             email
             firstName
