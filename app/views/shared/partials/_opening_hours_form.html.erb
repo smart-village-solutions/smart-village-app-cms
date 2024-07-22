@@ -1,4 +1,11 @@
 <% fields = ["date_from", "date_to", "time_from", "time_to", "description", "weekday", "open"] %>
+<% requireds ||= [] %>
+<% labels ||= {
+     date_from: "Startdatum",
+     date_to: "Enddatum",
+     time_from: "Startzeit",
+     time_to: "Endzeit"
+   } %>
 <% list_of_opening_hours = record.opening_hours.presence || [OpenStruct.new] %>
 
 <div class="row">
@@ -26,14 +33,42 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="date_from">Startdatum *</label>
-                  <%= foh.date_field :date_from, class: "form-control", value: foh.object.date_from %>
+                  <% if labels[:date_from] %>
+                    <%= foh.label :date_from do %>
+                      <%= labels[:date_from] %>
+                      <% if requireds.include?("date_from") %>
+                        *
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%= foh.date_field(
+                        :date_from,
+                        required: requireds.include?("date_from"),
+                        class: "form-control",
+                        value: foh.object.date_from,
+                        max: (Time.now + 50.years).end_of_year.to_date.to_s,
+                        pattern: "\d{4}-\d{2}-\d{2}"
+                      ) %>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="date_to">Enddatum</label>
-                  <%= foh.date_field :date_to, class: "form-control", value: foh.object.date_to %>
+                  <% if labels[:date_to] %>
+                    <%= foh.label :date_to do %>
+                      <%= labels[:date_to] %>
+                      <% if requireds.include?("date_to") %>
+                        *
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%= foh.date_field(
+                        :date_to,
+                        required: requireds.include?("date_to"),
+                        class: "form-control",
+                        value: foh.object.date_to,
+                        max: (Time.now + 50.years).end_of_year.to_date.to_s,
+                        pattern: "\d{4}-\d{2}-\d{2}"
+                      ) %>
                 </div>
               </div>
             </div>
@@ -41,14 +76,40 @@
             <div class="row">
               <div class="col-12 col-sm-6">
                 <div class="form-group">
-                  <label for="time_from">Startzeit *</label>
-                  <%= foh.time_field :time_from, class: "form-control", value: foh.object.time_from %>
+                  <% if labels[:time_from] %>
+                    <%= foh.label :time_from do %>
+                      <%= labels[:time_from] %>
+                      <% if requireds.include?("time_from") %>
+                        *
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%= foh.time_field(
+                        :time_from,
+                        required: requireds.include?("time_from"),
+                        class: "form-control",
+                        value: foh.object.time_from,
+                        pattern: "[0-9]{2}:[0-9]{2}"
+                      ) %>
                 </div>
               </div>
               <div class="col-12 col-sm-6">
                 <div class="form-group">
-                  <label for="time_to">Endzeit</label>
-                  <%= foh.time_field :time_to, class: "form-control", value: foh.object.time_to %>
+                  <% if labels[:time_to] %>
+                    <%= foh.label :time_to do %>
+                      <%= labels[:time_to] %>
+                      <% if requireds.include?("time_to") %>
+                        *
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%= foh.time_field(
+                        :time_to,
+                        required: requireds.include?("time_to"),
+                        class: "form-control",
+                        value: foh.object.time_to ,
+                        pattern: "[0-9]{2}:[0-9]{2}"
+                      ) %>
                 </div>
               </div>
             </div>
@@ -56,13 +117,13 @@
             <div class="row">
               <div class="col-12 col-sm-6">
                 <div class="form-group">
-                  <label for="description">Beschreibung</label>
+                  <%= foh.label :description, "Beschreibung" %>
                   <%= foh.text_field :description, class: "form-control" %>
                 </div>
               </div>
               <div class="col-12 col-sm-6">
                 <div class="form-group">
-                  <label for="weekday">Wochentag</label>
+                  <%= foh.label :weekday, "Wochentag" %>
                   <%= foh.select(
                         :weekday,
                         options_for_select(

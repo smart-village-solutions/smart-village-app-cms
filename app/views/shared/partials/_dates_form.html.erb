@@ -36,12 +36,12 @@
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <% if labels[:date_start] %>
-                  <label for="description">
+                  <%= fd.label :date_start do %>
                     <%= labels[:date_start] %>
-                    <% if requireds.include?("date_start")%>
+                    <% if requireds.include?("date_start") %>
                       *
                     <% end %>
-                  </label>
+                  <% end %>
                 <% end %>
                 <%= fd.date_field(
                       :date_start,
@@ -58,12 +58,12 @@
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <% if labels[:date_end] %>
-                  <label for="description">
+                  <%= fd.label :date_end do %>
                     <%= labels[:date_end] %>
-                    <% if requireds.include?("date_end")%>
+                    <% if requireds.include?("date_end") %>
                       *
                     <% end %>
-                  </label>
+                  <% end %>
                 <% end %>
                 <%= fd.date_field(
                       :date_end,
@@ -84,12 +84,12 @@
               <div class="col-12 col-sm-6">
                 <div class="form-group">
                   <% if labels[:time_start] %>
-                    <label for="description">
+                    <%= fd.label :time_start do %>
                       <%= labels[:time_start] %>
-                      <% if requireds.include?("time_start")%>
+                      <% if requireds.include?("time_start") %>
                         *
                       <% end %>
-                    </label>
+                    <% end %>
                   <% end %>
                   <%= fd.time_field(
                         :time_start,
@@ -105,12 +105,12 @@
               <div class="col-12 col-sm-6">
                 <div class="form-group">
                   <% if labels[:time_end] %>
-                    <label for="description">
+                    <%= fd.label :time_end do %>
                       <%= labels[:time_end] %>
-                      <% if requireds.include?("time_end")%>
+                      <% if requireds.include?("time_end") %>
                         *
                       <% end %>
-                    </label>
+                    <% end %>
                   <% end %>
                   <%= fd.time_field(
                         :time_end,
