@@ -233,11 +233,7 @@ class EventsController < ApplicationController
       flash[:error] = e.errors.messages["data"].to_s
     end
 
-    if event_params[:recurring] == "1"
-      redirect_to events_path
-    else
-      redirect_to edit_event_path(event_id)
-    end
+    redirect_to edit_event_path(event_id)
   end
 
   def destroy
