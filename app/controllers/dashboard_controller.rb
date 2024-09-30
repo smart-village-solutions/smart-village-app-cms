@@ -138,15 +138,64 @@ class DashboardController < ApplicationController
     end
 
     if helpers.visible_in_role?("role_noticeboard")
-      noticeboard_results = @smart_village.query <<~GRAPHQL
+      category_results = @smart_village.query <<~GRAPHQL
         query {
-          genericItems(genericType: "Noticeboard") {
+          categories(tagList: "generic_item_noticeboard", order: id_ASC) {
             id
+            name
+            children {
+              id
+            }
           }
         }
       GRAPHQL
 
-      @noticeboards = noticeboard_results.data.generic_items
+      categories = category_results.data.categories
+
+      if categories.present?
+        noticeboard_categories = categories.select { |category| category.children.present? }
+      end
+
+      if noticeboard_categories.present?
+        @noticeboards = []
+
+        noticeboard_categories.each do |category|
+          category_ids = category.children.map(&:id)
+
+          noticeboard_category_results = @smart_village.query <<~GRAPHQL
+            query {
+              genericItems(
+                genericType: "Noticeboard",
+                categoryIds: #{category_ids}
+              ) {
+                id
+              }
+            }
+          GRAPHQL
+
+          @noticeboards << {
+            "category_ids": category_ids,
+            "name": category.name,
+            "items": noticeboard_category_results.data.generic_items
+          }
+        end
+      else
+        noticeboard_results = @smart_village.query <<~GRAPHQL
+          query {
+            genericItems(genericType: "Noticeboard") {
+              id
+            }
+          }
+        GRAPHQL
+
+        @noticeboards = [
+          {
+            "category_ids": nil,
+            "name": "Schwarzes Brett",
+            "items": noticeboard_results.data.generic_items
+          }
+        ]
+      end
     end
 
     if helpers.visible_in_role?("role_defect_report")

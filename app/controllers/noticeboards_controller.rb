@@ -6,9 +6,15 @@ class NoticeboardsController < ApplicationController
   before_action :init_graphql_client
 
   def index
+    @noticeboard_name = noticeboard_params[:name] || "Schwarzes Brett"
+    category_ids = noticeboard_params[:category_ids]
+
     results = @smart_village.query <<~GRAPHQL
       query {
-        genericItems(genericType: "Noticeboard") {
+        genericItems(
+          genericType: "Noticeboard",
+          #{category_ids.present? ? "categoryIds: #{category_ids}" : ""}
+        ) {
           id
           categories {
             name
@@ -67,4 +73,10 @@ class NoticeboardsController < ApplicationController
                       end
     redirect_to noticeboards_path
   end
+
+  private
+
+    def noticeboard_params
+      params.permit(:name, category_ids: [])
+    end
 end
