@@ -50,6 +50,7 @@ class ApplicationController < ActionController::Base
         ) {
           id
           name
+          tagList
           children {
             id
             name
