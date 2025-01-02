@@ -54,6 +54,7 @@ class ApplicationController < ActionController::Base
           children {
             id
             name
+            tagList
           }
         }
       }
