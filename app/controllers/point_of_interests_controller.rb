@@ -43,6 +43,7 @@ class PointOfInterestsController < ApplicationController
         pointOfInterest(
           id: #{params[:id]}
         ) {
+          needsUpdate
           visible
           categories {
             id

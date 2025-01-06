@@ -19,3 +19,13 @@
  *= require leaflet-gesture-handling/dist/leaflet-gesture-handling.css
  *= require_self
  */
+
+.col-outdated-data {
+  color: #dc3545 !important; 
+}
+
+.col-outdated-data > input {
+  background-color: #dc3545 !important; 
+  color: white !important;
+  width: 100%;
+}
