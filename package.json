@@ -13,7 +13,7 @@
     "@rails/activestorage": "^6.1.4",
     "@rails/ujs": "^6.1.4",
     "@rails/webpacker": "^5.2.2",
-    "axios": "^0.26.1",
+    "axios": "^1.8.2",
     "bootstrap": "^4.6.0",
     "datatables.net": "^1.10.19",
     "datatables.net-fixedcolumns": "^4.1.0",
