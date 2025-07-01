@@ -44,7 +44,9 @@ module Converter
     end
 
     def remove_quotes_from_boolean_values(data)
+      # ensure boolean values are not wrapped in quotes for GraphQL mutations
       data.gsub!(":\"true\"", ":true")
+      data.gsub!(":\"false\"", ":false")
 
       data
     end
